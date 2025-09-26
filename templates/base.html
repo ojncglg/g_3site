@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "G3 Industries" }}</title>
+  <!-- Tailwind via CDN for fast styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-100">
+  <header class="mx-auto max-w-5xl px-4 py-6">
+    <h1 class="text-3xl font-bold tracking-tight">G3 Industries</h1>
+    <p class="text-sm text-gray-400">Revolutionizing law enforcement through innovation</p>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mx-auto max-w-5xl px-4 py-10 text-xs text-gray-500">
+    © {{ 2025 }} G3 Industries · Newark, DE
+  </footer>
+</body>
+</html>

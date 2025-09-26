@@ -1,0 +1,3 @@
+/* Custom tweaks for G3 */
+:root { --gold: #facc15; }
+a { text-underline-offset: 2px; }
