@@ -1,5 +1,14 @@
-venv/
+# Python
 __pycache__/
 *.pyc
-.env
-.DS_Store
+
+# Virtual env
+venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# Data / local state
+data/leads.json
