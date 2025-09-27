@@ -1,44 +1,448 @@
-{% extends "base.html" %} {% block content %}
-<section class="grid gap-6">
-  <div class="rounded-2xl bg-gray-900 p-6 shadow">
-    <h2 class="text-2xl font-semibold">Law-Enforcement Scheduling Software</h2>
-    <p class="mt-2 text-gray-300">
-      Cut admin time, reduce errors, and empower supervisors with real-time
-      scheduling and vacation workflows.
-    </p>
-    <div class="mt-6 flex gap-3">
-      <a
-        href="#demo"
-        class="rounded-xl bg-indigo-600 px-4 py-2 font-medium hover:bg-indigo-500"
-        >Book a demo</a
-      >
-      <a
-        href="#features"
-        class="rounded-xl border border-gray-700 px-4 py-2 font-medium hover:border-gray-600"
-        >See features</a
-      >
+{% extends "base.html" %} {% block title %}G3 Industries — Operational clarity,
+by design.{% endblock %} {% block meta %}
+<meta
+  name="description"
+  content="Operational clarity for law enforcement leadership—staffing, vacation approvals, and visibility, by design."
+/>
+<meta
+  property="og:title"
+  content="G3 Industries — Operational clarity, by design."
+/>
+<meta
+  property="og:description"
+  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips."
+/>
+<meta property="og:type" content="website" />
+{% endblock %} {% block extra_head %}
+<style>
+  :root {
+    --g3-blue: #1e40af; /* blue-800 */
+    --g3-cyan: #00e5ff;
+    --g3-gold: #cfa44c;
+    --g3-gold-light: #f3ca67;
+    --g3-bg: #0b0f1a;
+  }
+  /* subtle code-rain / flag vibe using layered gradients (very light, respectful) */
+  .hero-bg {
+    background: radial-gradient(
+        1200px 600px at 80% -10%,
+        rgba(207, 164, 76, 0.28),
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+  }
+  .flag-stripe {
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0 12px,
+      rgba(255, 255, 255, 0) 12px 24px
+    );
+  }
+  .card-border {
+    border: 1px solid rgba(0, 229, 255, 0.15);
+  }
+  .chip {
+    border: 1px solid rgba(0, 229, 255, 0.15);
+  }
+  .heading-glow {
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+</style>
+{% endblock %} {% block content %}
+<!-- Hero -->
+<section class="hero-bg flag-stripe relative">
+  <div class="max-w-6xl mx-auto px-4 pt-20 pb-16 md:pt-28 md:pb-24">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        Operational clarity, by design.
+      </h1>
+      <p class="mt-4 text-lg md:text-xl text-slate-300">
+        A modern suite for staffing, extra-duty, and tips—purpose-built for
+        police leadership. Fewer surprises, faster approvals, and agency-wide
+        accountability.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <a
+          href="#demo"
+          class="inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold bg-[color:var(--g3-gold)] text-slate-900 hover:bg-[color:var(--g3-gold-light)] shadow-[0_0_12px_rgba(0,229,255,0.25)] transition"
+        >
+          Request a demo
+        </a>
+        <a
+          href="#screens"
+          class="inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold border border-white/20 hover:border-white/40 transition"
+        >
+          See screenshots
+        </a>
+      </div>
+
+      <!-- Trust chips -->
+      <div class="mt-8 flex flex-wrap gap-2 text-xs text-slate-400">
+        <span class="chip px-2 py-1 rounded">Role-based access</span>
+        <span class="chip px-2 py-1 rounded">Audit-ready</span>
+        <span class="chip px-2 py-1 rounded">Policy-aligned workflows</span>
+        <span class="chip px-2 py-1 rounded">Fast deployment</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <div id="features" class="rounded-2xl bg-gray-900 p-6 shadow">
-    <h3 class="text-xl font-semibold">Core Features</h3>
-    <ul class="mt-3 list-disc pl-5 text-gray-300">
-      <li>Time-off requests with supervisor approval</li>
-      <li>Squad calendars & staffing visibility</li>
-      <li>Audit logs & reporting</li>
-      <li>Extra-duty jobs module (optional)</li>
-    </ul>
-  </div>
-
-  <div id="demo" class="rounded-2xl bg-gray-900 p-6 shadow">
-    <h3 class="text-xl font-semibold">Book a Demo</h3>
-    <p class="mt-2 text-gray-300">
-      Email
-      <a class="underline" href="mailto:info@g3industries.com"
-        >info@g3industries.com</a
-      >
-      or add a Calendly link here.
+<!-- Product cards -->
+<section id="products" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">What’s inside</h2>
+    <p class="mt-2 text-slate-300">
+      Purpose-built modules that solve command-level problems.
     </p>
+
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Vacation Book -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+      >
+        <h3 class="font-semibold text-lg">Vacation Book</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Requests, approvals, staffing visibility, and policy guardrails—all in
+          one place.
+        </p>
+        <a
+          href="#screens"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >View screenshots</a
+        >
+      </article>
+
+      <!-- Extra-Duty -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+      >
+        <h3 class="font-semibold text-lg">Extra-Duty</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Public requests → supervisor review → fair assignment logic → clean
+          audit trail.
+        </p>
+        <a
+          href="#screens"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >View screenshots</a
+        >
+      </article>
+
+      <!-- Anonymous Tips -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+      >
+        <h3 class="font-semibold text-lg">Anonymous Tips</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Secure intake, supervisor triage, and follow-through—closing the loop
+          for your community.
+        </p>
+        <a
+          href="#screens"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >View screenshots</a
+        >
+      </article>
+    </div>
   </div>
 </section>
+
+<!-- How it works -->
+<section
+  id="how-it-works"
+  class="py-16 md:py-20 bg-slate-900/40 border-y border-white/5"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
+    <div class="mt-8 grid md:grid-cols-4 gap-6">
+      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          1 · Configure
+        </div>
+        <p class="mt-1 text-sm text-slate-300">
+          We align squads, policies, and roles to your agency’s structure.
+        </p>
+      </div>
+      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          2 · Launch
+        </div>
+        <p class="mt-1 text-sm text-slate-300">
+          Rapid rollout with command buy-in and clear SOPs.
+        </p>
+      </div>
+      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          3 · Operate
+        </div>
+        <p class="mt-1 text-sm text-slate-300">
+          Supervisors approve, officers request, leadership sees staffing in
+          real time.
+        </p>
+      </div>
+      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          4 · Audit
+        </div>
+        <p class="mt-1 text-sm text-slate-300">
+          Exportable logs and accountability for every decision.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security & trust -->
+<section id="security" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Security &amp; trust</h2>
+    <ul
+      class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-slate-300"
+    >
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        Role-based access with least-privilege defaults
+      </li>
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        Audit trails for approvals and changes
+      </li>
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        HTTPS everywhere and secure deployment practices
+      </li>
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        Configurable retention and export for records requests
+      </li>
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        Accessible UI (high-contrast, keyboard-friendly)
+      </li>
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+        Fast, reliable performance for command staff
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- About / Mission / Founder -->
+<section
+  id="about"
+  class="py-16 md:py-20 bg-slate-900/40 border-t border-white/5"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Our mission</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">
+      G3 Industries builds practical, modern tools that help law enforcement
+      leaders run stronger, safer agencies. We focus on clarity, accountability,
+      and speed—so supervisors can lead, officers can serve, and communities
+      benefit.
+    </p>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <div
+        class="md:col-span-2 rounded-lg border border-white/10 bg-slate-950 p-5"
+      >
+        <h3 class="font-semibold">Founder</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Add your short bio here (rank, experience, mission). Keep it
+          command-level and outcome-driven.
+        </p>
+      </div>
+      <div class="rounded-lg border border-white/10 bg-slate-950 p-5">
+        <h3 class="font-semibold">Contact</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Prefer email?
+          <a
+            class="text-[color:var(--g3-gold)] hover:underline"
+            href="mailto:grigori.lopezgarcia@gmail.com"
+            >grigori.lopezgarcia@gmail.com</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo anchor (form) -->
+<section id="demo" class="py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Request a demo</h2>
+    <p class="mt-2 text-slate-300">
+      Tell us a bit about your agency and we’ll reach out to schedule.
+    </p>
+
+    <form
+      id="demo-form"
+      class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
+      novalidate
+    >
+      <!-- Required -->
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="name"
+          >Full name<span class="text-red-400"> *</span></label
+        >
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="e.g., Chief Jane Doe"
+        />
+      </div>
+
+      <!-- Required -->
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="agency"
+          >Agency<span class="text-red-400"> *</span></label
+        >
+        <input
+          id="agency"
+          name="agency"
+          type="text"
+          required
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="e.g., City Police Department"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="role"
+          >Role/Rank</label
+        >
+        <input
+          id="role"
+          name="role"
+          type="text"
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="e.g., Deputy Chief"
+        />
+      </div>
+
+      <!-- Required -->
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="email"
+          >Email<span class="text-red-400"> *</span></label
+        >
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="name@agency.gov"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="phone"
+          >Phone</label
+        >
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="(555) 555-5555"
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="notes"
+          >Notes</label
+        >
+        <textarea
+          id="notes"
+          name="notes"
+          rows="4"
+          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Anything we should know before we meet?"
+        ></textarea>
+      </div>
+
+      <!-- Honeypot (hidden for humans) -->
+      <div class="hidden" aria-hidden="true">
+        <label for="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="md:col-span-2 flex items-center gap-3 mt-2">
+        <button
+          id="demo-submit"
+          type="submit"
+          class="rounded-md px-5 py-3 font-semibold bg-[color:var(--g3-gold)] text-slate-900 hover:bg-[color:var(--g3-gold-light)] shadow-[0_0_12px_rgba(0,229,255,0.25)] transition"
+        >
+          Submit request
+        </button>
+        <a
+          href="mailto:grigori.lopezgarcia@gmail.com"
+          class="text-sm text-[color:var(--g3-gold)] hover:underline"
+          >or email us directly</a
+        >
+      </div>
+
+      <div id="demo-status" class="md:col-span-2 text-sm mt-2"></div>
+    </form>
+  </div>
+</section>
+<script>
+  (function () {
+    const form = document.getElementById("demo-form");
+    const submitBtn = document.getElementById("demo-submit");
+    const statusEl = document.getElementById("demo-status");
+
+    function setStatus(msg, ok = true) {
+      statusEl.textContent = msg;
+      statusEl.className =
+        "md:col-span-2 text-sm mt-2 " +
+        (ok ? "text-emerald-400" : "text-red-400");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusEl.textContent = "";
+
+      // Simple client-side validation to match server rules
+      const required = ["name", "agency", "email"];
+      for (const id of required) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          el.focus();
+          setStatus(`Please provide your ${id}.`, false);
+          return;
+        }
+      }
+
+      submitBtn.disabled = true;
+      const prev = submitBtn.textContent;
+      submitBtn.textContent = "Sending…";
+
+      try {
+        const formData = new FormData(form);
+        const resp = await fetch("/demo", { method: "POST", body: formData });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok || data.ok === false) {
+          throw new Error("Please check required fields and try again.");
+        }
+        setStatus(
+          "Thanks! We received your request and will reach out shortly.",
+          true
+        );
+        form.reset();
+      } catch (err) {
+        setStatus(
+          err.message || "Something went wrong. Please try again.",
+          false
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = prev;
+      }
+    });
+  })();
+</script>
 {% endblock %}
