@@ -1,0 +1,142 @@
+<!-- About page for G3 Industries. Sections: Hero, Mission, Founder, Values. Uses global styles from static/style.css (btn-gold, card-border, section-decor). -->
+{% extends "base.html" %} {% block title %}About — G3 Industries{% endblock %}
+{% block meta %}
+<meta
+  name="description"
+  content="Our mission: innovating law enforcement through technology. Learn about G3 Industries and our founder’s 13 years of broad law enforcement experience in Delaware and education in Digital Media from Harvard Extension."
+/>
+{% endblock %} {% block extra_head %}
+<style>
+  /* Page-specific minor tweaks only (most styles are global) */
+</style>
+{% endblock %} {% block content %}
+<!-- === Hero === -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-3xl md:text-4xl font-bold">About G3 Industries</h1>
+    <p class="mt-2 text-slate-300 max-w-3xl">
+      We build practical, pro‑law‑enforcement software that strengthens
+      leadership, streamlines operations, and empowers officers in the field.
+    </p>
+  </div>
+</section>
+
+<!-- === Mission === -->
+<section
+  class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5 section-decor"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold">Our mission</h2>
+    <p class="mt-2 text-slate-300 max-w-3xl">
+      Innovating law enforcement through technology—turning policy and command
+      priorities into clear, accountable workflows that work for supervisors and
+      officers alike.
+    </p>
+    <div class="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
+      <span class="chip">Command efficiency</span>
+      <span class="chip">Operational clarity</span>
+      <span class="chip">Accountability</span>
+      <span class="chip">Officer‑first design</span>
+    </div>
+  </div>
+</section>
+
+<!-- === Founder === -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 items-start">
+    <div class="md:col-span-1">
+      <div
+        class="rounded-lg overflow-hidden border border-white/10 bg-slate-900/50"
+        style="
+          aspect-ratio: 1/1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <span class="text-xs text-slate-500"
+          >Founder photo placeholder — add
+          <code>static/img/founder.jpg</code></span
+        >
+      </div>
+    </div>
+    <div class="md:col-span-2">
+      <h3 class="text-xl font-semibold">Founder</h3>
+      <p class="mt-2 text-slate-300">
+        A law enforcement professional from Delaware with 13 years of broad
+        experience and a degree in Digital Media from Harvard Extension founded
+        G3 Industries to bridge the gap between policing and modern technology.
+        Our focus is delivering tools that leadership trusts and officers
+        actually like using.
+      </p>
+      <ul class="mt-4 list-disc list-inside text-sm text-slate-300 space-y-1">
+        <li>13 years of broad law enforcement experience (Delaware)</li>
+        <li>Digital Media, Harvard Extension School</li>
+        <li>Command efficiency with rank‑and‑file in mind</li>
+        <li>Built‑in accountability: approvals, audit logs, exports</li>
+      </ul>
+      <!-- Personal Note -->
+      <div
+        class="mt-6 p-4 rounded-lg border border-white/10 bg-slate-900/40 border-l-4 border-yellow-400"
+      >
+        <p class="italic text-slate-300">
+          “After more than a decade in law enforcement, I’ve seen how agencies
+          adopt major technological advancements but still struggle with simple
+          day-to-day processes. Too often, our core administrative systems get
+          left behind, forcing officers and supervisors to work with outdated
+          tools. My mission with G3 Industries is to close that gap — to take
+          the everyday processes that keep departments running and advance them
+          with technology that is clear, accountable, and built for law
+          enforcement. We don’t chase trends; we modernize what matters.”
+        </p>
+      </div>
+      <div class="mt-5 flex gap-3">
+        <a
+          href="/#demo"
+          class="inline-block rounded-md px-4 py-2 font-semibold btn-gold"
+          >Request a demo</a
+        >
+        <a
+          href="mailto:grigori.lopezgarcia@gmail.com"
+          class="inline-block rounded-md px-4 py-2 font-semibold border border-white/20 hover:border-white/40"
+          >Email us</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === Values === -->
+<section
+  class="py-8 md:py-12 bg-slate-900/30 border-y border-white/5 section-decor"
+>
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
+    <article
+      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+    >
+      <h4 class="font-semibold">Accountability</h4>
+      <p class="mt-2 text-sm text-slate-300">
+        Immutable audit trails and exportable records so leaders have confidence
+        in every decision.
+      </p>
+    </article>
+    <article
+      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+    >
+      <h4 class="font-semibold">Operational clarity</h4>
+      <p class="mt-2 text-sm text-slate-300">
+        Staffing visibility and streamlined approvals reduce surprises and save
+        time.
+      </p>
+    </article>
+    <article
+      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+    >
+      <h4 class="font-semibold">Officer‑first design</h4>
+      <p class="mt-2 text-sm text-slate-300">
+        Fast, mobile‑friendly workflows that respect how cops actually work.
+      </p>
+    </article>
+  </div>
+</section>
+{% endblock %}

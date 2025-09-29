@@ -1,0 +1,20 @@
+
+
+# robots.txt for G3 Industries
+# Controls how search engines index and crawl your site
+
+User-agent: *
+Allow: /
+
+# Block sensitive paths (if any are added later)
+Disallow: /admin/
+Disallow: /static/
+
+# Explicitly allow your key public pages
+Allow: /$
+Allow: /products
+Allow: /security
+Allow: /about
+
+# Point to the sitemap for better indexing
+Sitemap: https://g3industries.io/sitemap.xml

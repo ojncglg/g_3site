@@ -1,0 +1,231 @@
+{% extends "base.html" %} {% block title %}Security — G3 Industries{% endblock
+%} {% block meta %}
+<meta
+  name="description"
+  content="Security at G3 Industries: hosting & network, authentication & RBAC, auditing & retention, data handling, and responsible disclosure."
+/>
+{% endblock %} {% block extra_head %} {% endblock %} {% block content %}
+<!-- Hero -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-3xl md:text-4xl font-bold">Security</h1>
+    <p class="mt-2 text-slate-300 max-w-3xl">
+      We build for law enforcement, so security and accountability are
+      first‑order features. Below is a practical overview of our posture. If you
+      have specific requirements, we’ll meet them.
+    </p>
+  </div>
+</section>
+
+<!-- Overview cards -->
+<section class="pb-4 md:pb-8 section-decor">
+  <div class="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-3">
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h2 class="font-semibold">Hosting & Network</h2>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >HTTPS & HSTS</span
+          >
+          — encryption enforced
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Reverse proxy</span
+          >
+          — trusted headers only
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Secret management</span
+          >
+          — no secrets in code
+        </li>
+      </ul>
+    </article>
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h2 class="font-semibold">Authentication & RBAC</h2>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Least privilege</span
+          >
+          — role-based access
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Separated duties</span
+          >
+          — supervisor/command
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Scoped feeds</span
+          >
+          — calendars respect roles
+        </li>
+      </ul>
+    </article>
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h2 class="font-semibold">Auditing & Retention</h2>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Immutable logs</span
+          >
+          — who / what / when
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Exportable</span
+          >
+          — records & reviews
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Policy retention</span
+          >
+          — configurable
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- Details -->
+<section
+  class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5 section-decor"
+>
+  <div class="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-2">
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-950 p-6 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h3 class="text-lg font-semibold">Application security</h3>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium">CSP</span> —
+          strict defaults
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Security headers</span
+          >
+          — X-Frame-Options, Referrer-Policy, nosniff
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Validation</span
+          >
+          — server-side on all inputs
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium">Anti-spam</span>
+          — honeypot on public forms
+        </li>
+      </ul>
+    </article>
+
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-950 p-6 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h3 class="text-lg font-semibold">Data handling</h3>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Minimization</span
+          >
+          — collect only what’s needed
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Scoped access</span
+          >
+          — by role and unit
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Secure exports</span
+          >
+          — audits & records
+        </li>
+      </ul>
+    </article>
+
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-950 p-6 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h3 class="text-lg font-semibold">Availability</h3>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium">Uptime</span> —
+          health checks & monitoring
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Stateless deploys</span
+          >
+          — containerized
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Zero-downtime</span
+          >
+          — config updates when possible
+        </li>
+      </ul>
+    </article>
+
+    <article
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-950 p-6 flex flex-col hover:bg-slate-900/60 transition"
+    >
+      <h3 class="text-lg font-semibold">Compliance posture</h3>
+      <ul class="mt-2 text-sm text-slate-300 space-y-2">
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Policy alignment</span
+          >
+          — with agency standards
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Configurable retention</span
+          >
+          — to local policy
+        </li>
+        <li>
+          <span class="text-[color:var(--g3-gold)] font-medium"
+            >Attestations</span
+          >
+          — available upon request
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="py-12 md:py-16 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="rounded-lg border border-white/10 bg-slate-900/40 p-6">
+      <h3 class="text-lg font-semibold">Security questions or requirements?</h3>
+      <p class="mt-2 text-sm text-slate-300">
+        We work directly with agency leadership and IT to meet specific
+        standards. Contact us to discuss your requirements or to request
+        documentation.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href="/#demo" class="btn btn-primary">Request a call</a>
+        <a href="mailto:grigori.lopezgarcia@gmail.com" class="btn btn-outline"
+          >Email security</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

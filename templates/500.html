@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}500 — Internal Server Error{%
+endblock %} {% block content %}
+<!-- Matrix effect background -->
+<canvas id="matrix"></canvas>
+<script src="{{ url_for('static', filename='matrix.js') }}"></script>
+
+<section class="relative z-10 text-center py-24">
+  <h1 class="text-6xl font-bold text-[color:var(--g3-gold)]">500</h1>
+  <p class="mt-4 text-lg text-slate-300">
+    Something went wrong on our side. Please try again later.
+  </p>
+  <a href="/" class="btn-gold mt-6 inline-block">Back to Home</a>
+</section>
+{% endblock %}

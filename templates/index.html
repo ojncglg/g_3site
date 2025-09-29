@@ -1,3 +1,4 @@
+<!-- Home / Landing page for G3 Industries. Sections: Hero, Products, Screens (step‑by‑step), How it works, Security, About, Demo form, and Zoom Modal.  Accessibility: high-contrast, keyboard-friendly, ARIA on modal and form status. -->
 {% extends "base.html" %} {% block title %}G3 Industries — Operational clarity,
 by design.{% endblock %} {% block meta %}
 <meta
@@ -13,16 +14,28 @@ by design.{% endblock %} {% block meta %}
   content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips."
 />
 <meta property="og:type" content="website" />
+<link rel="canonical" href="{{ request.url }}" />
+<meta property="og:url" content="{{ request.url }}" />
+<meta
+  property="og:image"
+  content="{{ url_for('static', filename='img/g3-logo.png', _external=True) }}"
+/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  name="twitter:title"
+  content="G3 Industries — Operational clarity, by design."
+/>
+<meta
+  name="twitter:description"
+  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips."
+/>
+<meta
+  name="twitter:image"
+  content="{{ url_for('static', filename='img/g3-logo.png', _external=True) }}"
+/>
 {% endblock %} {% block extra_head %}
 <style>
-  :root {
-    --g3-blue: #1e40af; /* blue-800 */
-    --g3-cyan: #00e5ff;
-    --g3-gold: #cfa44c;
-    --g3-gold-light: #f3ca67;
-    --g3-bg: #0b0f1a;
-  }
-  /* subtle code-rain / flag vibe using layered gradients (very light, respectful) */
+  /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {
     background: radial-gradient(
         1200px 600px at 80% -10%,
@@ -31,53 +44,131 @@ by design.{% endblock %} {% block meta %}
       ),
       linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
   }
-  .flag-stripe {
-    background: repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.03) 0 12px,
-      rgba(255, 255, 255, 0) 12px 24px
-    );
-  }
-  .card-border {
-    border: 1px solid rgba(0, 229, 255, 0.15);
-  }
-  .chip {
-    border: 1px solid rgba(0, 229, 255, 0.15);
-  }
+  /* Cyan glow to echo brand accent on key headings */
   .heading-glow {
     text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
   }
+  /* Tiny line icons for bullet lists */
+  .li-icon {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+  }
 </style>
 {% endblock %} {% block content %}
-<!-- Hero -->
-<section class="hero-bg flag-stripe relative">
+<!-- Inline SVG sprite: tiny line icons used in bullet lists -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  style="position: absolute; width: 0; height: 0; overflow: hidden"
+  aria-hidden="true"
+>
+  <symbol id="i-check-circle" viewBox="0 0 20 20">
+    <circle
+      cx="10"
+      cy="10"
+      r="8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+    <path
+      d="M6 10l2.5 2.5L14 7"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </symbol>
+  <symbol id="i-calendar" viewBox="0 0 20 20">
+    <rect
+      x="3"
+      y="5"
+      width="14"
+      height="12"
+      rx="2"
+      ry="2"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+    <path
+      d="M3 8h14M6 3v4M14 3v4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 20 20">
+    <circle
+      cx="10"
+      cy="10"
+      r="8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+    <path
+      d="M10 6v4l3 2"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </symbol>
+  <symbol id="i-file" viewBox="0 0 20 20">
+    <path
+      d="M6 3h5l3 3v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M11 3v3h3"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+  </symbol>
+  <symbol id="i-bell" viewBox="0 0 20 20">
+    <path
+      d="M10 17a2 2 0 0 0 2-2H8a2 2 0 0 0 2 2z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+    />
+    <path
+      d="M4 13h12c-1.5-1.5-2-3.5-2-5a4 4 0 1 0-8 0c0 1.5-.5 3.5-2 5z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linejoin="round"
+    />
+  </symbol>
+</svg>
+<!-- === Hero (value proposition + primary CTAs) === -->
+<section class="hero-bg relative">
   <div class="max-w-6xl mx-auto px-4 pt-20 pb-16 md:pt-28 md:pb-24">
     <div class="max-w-3xl">
       <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
         Operational clarity, by design.
       </h1>
-      <p class="mt-4 text-lg md:text-xl text-slate-300">
+      <p class="mt-4 max-w-2xl text-lg md:text-xl text-slate-300">
         A modern suite for staffing, extra-duty, and tips—purpose-built for
         police leadership. Fewer surprises, faster approvals, and agency-wide
         accountability.
       </p>
 
       <div class="mt-8 flex flex-col sm:flex-row gap-3">
-        <a
-          href="#demo"
-          class="inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold bg-[color:var(--g3-gold)] text-slate-900 hover:bg-[color:var(--g3-gold-light)] shadow-[0_0_12px_rgba(0,229,255,0.25)] transition"
-        >
-          Request a demo
-        </a>
-        <a
-          href="#screens"
-          class="inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold border border-white/20 hover:border-white/40 transition"
-        >
-          See screenshots
-        </a>
+        <a href="#demo" class="btn btn-lg btn-primary"> Request a demo </a>
+        <a href="#screens" class="btn btn-lg btn-outline"> See screenshots </a>
       </div>
 
-      <!-- Trust chips -->
+      <!-- Trust chips: quick credibility signals; uses shared .chip styles -->
       <div class="mt-8 flex flex-wrap gap-2 text-xs text-slate-400">
         <span class="chip px-2 py-1 rounded">Role-based access</span>
         <span class="chip px-2 py-1 rounded">Audit-ready</span>
@@ -88,18 +179,18 @@ by design.{% endblock %} {% block meta %}
   </div>
 </section>
 
-<!-- Product cards -->
-<section id="products" class="py-16 md:py-20">
+<!-- === Products (module overview cards) === -->
+<section id="products" class="py-16 md:py-20 section-decor">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">What’s inside</h2>
     <p class="mt-2 text-slate-300">
       Purpose-built modules that solve command-level problems.
     </p>
-
+    <!-- Cards: scannable module overview; link back to screenshots -->
     <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Vacation Book -->
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
       >
         <h3 class="font-semibold text-lg">Vacation Book</h3>
         <p class="mt-2 text-sm text-slate-300">
@@ -108,14 +199,14 @@ by design.{% endblock %} {% block meta %}
         </p>
         <a
           href="#screens"
-          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
           >View screenshots</a
         >
       </article>
 
       <!-- Extra-Duty -->
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
       >
         <h3 class="font-semibold text-lg">Extra-Duty</h3>
         <p class="mt-2 text-sm text-slate-300">
@@ -124,14 +215,14 @@ by design.{% endblock %} {% block meta %}
         </p>
         <a
           href="#screens"
-          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
           >View screenshots</a
         >
       </article>
 
       <!-- Anonymous Tips -->
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
       >
         <h3 class="font-semibold text-lg">Anonymous Tips</h3>
         <p class="mt-2 text-sm text-slate-300">
@@ -140,7 +231,37 @@ by design.{% endblock %} {% block meta %}
         </p>
         <a
           href="#screens"
-          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >View screenshots</a
+        >
+      </article>
+      <!-- Tow Logs -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      >
+        <h3 class="font-semibold text-lg">Tow Logs</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Secure tow entry with required fields, chain‑of‑custody style audit,
+          and exportable records.
+        </p>
+        <a
+          href="#screens"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >View screenshots</a
+        >
+      </article>
+      <!-- Vacation Bidding -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      >
+        <h3 class="font-semibold text-lg">Vacation Bidding</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Seniority or lottery workflows with policy windows and caps—placed
+          automatically on the calendar.
+        </p>
+        <a
+          href="#screens"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
           >View screenshots</a
         >
       </article>
@@ -148,13 +269,134 @@ by design.{% endblock %} {% block meta %}
   </div>
 </section>
 
-<!-- How it works -->
+<!-- === Screens (step‑by‑step walkthrough) === -->
 <section
-  id="how-it-works"
-  class="py-16 md:py-20 bg-slate-900/40 border-y border-white/5"
+  id="screens"
+  class="py-16 md:py-20 bg-slate-900/30 border-y border-white/5 section-decor"
 >
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
+    <h2 class="text-2xl md:text-3xl font-bold">See how it works</h2>
+    <p class="mt-2 text-slate-300">
+      A quick walkthrough—from request to audit—so command can see outcomes
+      fast.
+    </p>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <!-- Step 1: Request -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          1 · Request
+        </div>
+        <h3 class="mt-1 font-semibold">Officer submits a time‑off request</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Simple, policy-aware form—no paper, fewer back‑and‑forths.
+        </p>
+        <button
+          type="button"
+          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+          style="aspect-ratio: 16/10"
+          data-title="Officer submits a time‑off request"
+          data-caption="Simple, policy‑aware form—no paper, fewer back‑and‑forths."
+          aria-label="Open larger preview: time-off request form"
+        >
+          <span class="text-xs text-slate-500"
+            >Placeholder image — Request screen (click to enlarge)</span
+          >
+        </button>
+      </article>
+
+      <!-- Step 2: Review -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          2 · Review
+        </div>
+        <h3 class="mt-1 font-semibold">Supervisor reviews and approves</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Queue shows impact on staffing so decisions are faster and cleaner.
+        </p>
+        <button
+          type="button"
+          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+          style="aspect-ratio: 16/10"
+          data-title="Supervisor reviews and approves"
+          data-caption="Queue shows impact on staffing so decisions are faster and cleaner."
+          aria-label="Open larger preview: supervisor review queue"
+        >
+          <span class="text-xs text-slate-500"
+            >Placeholder image — Supervisor queue (click to enlarge)</span
+          >
+        </button>
+      </article>
+
+      <!-- Step 3: Staffing View -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          3 · Staffing
+        </div>
+        <h3 class="mt-1 font-semibold">
+          Calendar updates with real‑time coverage
+        </h3>
+        <p class="mt-2 text-sm text-slate-300">
+          See coverage by squad, shift, and unit—before surprises happen.
+        </p>
+        <button
+          type="button"
+          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+          style="aspect-ratio: 16/10"
+          data-title="Calendar updates with real‑time coverage"
+          data-caption="See coverage by squad, shift, and unit—before surprises happen."
+          aria-label="Open larger preview: staffing calendar"
+        >
+          <span class="text-xs text-slate-500"
+            >Placeholder image — Staffing calendar (click to enlarge)</span
+          >
+        </button>
+      </article>
+
+      <!-- Step 4: Audit -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+          4 · Audit
+        </div>
+        <h3 class="mt-1 font-semibold">
+          Exportable audit trail for accountability
+        </h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Every approval and change is logged for clean records and reviews.
+        </p>
+        <button
+          type="button"
+          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+          style="aspect-ratio: 16/10"
+          data-title="Exportable audit trail for accountability"
+          data-caption="Every approval and change is logged for clean records and reviews."
+          aria-label="Open larger preview: audit log and export"
+        >
+          <span class="text-xs text-slate-500"
+            >Placeholder image — Audit log / export (click to enlarge)</span
+          >
+        </button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- === How it works (implementation steps) === -->
+<section
+  id="how-it-works"
+  class="py-16 md:py-20 bg-slate-900/40 border-y border-white/5 section-decor"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Easy to implement</h2>
+    <p class="mt-2 text-slate-300">From kickoff to go‑live in weeks.</p>
     <div class="mt-8 grid md:grid-cols-4 gap-6">
       <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
@@ -193,39 +435,64 @@ by design.{% endblock %} {% block meta %}
   </div>
 </section>
 
-<!-- Security & trust -->
-<section id="security" class="py-16 md:py-20">
+<!-- === Security & trust (high‑level assurances) === -->
+<section id="security" class="py-16 md:py-20 section-decor">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Security &amp; trust</h2>
+    <!-- Security highlights: concise, executive-read bullets -->
     <ul
       class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-slate-300"
     >
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        Role-based access with least-privilege defaults
+        <span class="text-[color:var(--g3-gold)] font-medium"
+          >Least privilege</span
+        >
+        — Role‑based access with scoped permissions
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        Audit trails for approvals and changes
+        <span class="text-[color:var(--g3-gold)] font-medium"
+          >Audit trails</span
+        >
+        — Approvals and changes are logged
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        HTTPS everywhere and secure deployment practices
+        <span class="text-[color:var(--g3-gold)] font-medium"
+          >HTTPS everywhere</span
+        >
+        — Secure deployment practices
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        Configurable retention and export for records requests
+        <span class="text-[color:var(--g3-gold)] font-medium"
+          >Retention & export</span
+        >
+        — Configurable for records requests
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        Accessible UI (high-contrast, keyboard-friendly)
+        <span class="text-[color:var(--g3-gold)] font-medium"
+          >Accessible UI</span
+        >
+        — High contrast, keyboard‑friendly
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
-        Fast, reliable performance for command staff
+        <span class="text-[color:var(--g3-gold)] font-medium">Performance</span>
+        — Fast and reliable for command staff
       </li>
     </ul>
+    <div class="mt-4">
+      <a
+        href="/security"
+        class="inline-flex items-center gap-1 text-sm text-[color:var(--g3-gold)] hover:underline"
+      >
+        Learn more about security <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- About / Mission / Founder -->
+<!-- === About / Mission / Founder (credibility) === -->
 <section
   id="about"
-  class="py-16 md:py-20 bg-slate-900/40 border-t border-white/5"
+  class="py-16 md:py-20 bg-slate-900/40 border-t border-white/5 section-decor"
 >
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Our mission</h2>
@@ -236,33 +503,107 @@ by design.{% endblock %} {% block meta %}
       benefit.
     </p>
 
+    <!-- Mission mapped to features (Option C) -->
     <div class="mt-8 grid md:grid-cols-3 gap-6">
-      <div
-        class="md:col-span-2 rounded-lg border border-white/10 bg-slate-950 p-5"
+      <!-- Pillar: Accountability → Feature: Audit logs & exports -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
       >
-        <h3 class="font-semibold">Founder</h3>
+        <h3 class="font-semibold">Accountability</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Add your short bio here (rank, experience, mission). Keep it
-          command-level and outcome-driven.
+          Every decision traceable. Leaders get confidence, officers get
+          clarity.
         </p>
-      </div>
-      <div class="rounded-lg border border-white/10 bg-slate-950 p-5">
-        <h3 class="font-semibold">Contact</h3>
+        <ul class="mt-3 text-sm text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-check-circle" />
+            </svg>
+            <span>Immutable audit logs (who/what/when)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-check-circle" />
+            </svg>
+            <span>Export for records and reviews</span>
+          </li>
+        </ul>
+        <a
+          href="/products#features"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >See features</a
+        >
+      </article>
+
+      <!-- Pillar: Operational clarity → Feature: Coverage calendar & real-time updates -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
+      >
+        <h3 class="font-semibold">Operational clarity</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Prefer email?
-          <a
-            class="text-[color:var(--g3-gold)] hover:underline"
-            href="mailto:grigori.lopezgarcia@gmail.com"
-            >grigori.lopezgarcia@gmail.com</a
-          >
+          Fewer surprises; staffing visibility for supervisors and command.
         </p>
-      </div>
+        <ul class="mt-3 text-sm text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-calendar" />
+            </svg>
+            <span>Coverage calendar by squad/shift/unit</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-clock" />
+            </svg>
+            <span>Real-time changes reflected instantly</span>
+          </li>
+        </ul>
+        <a
+          href="/products#real-time"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >See real‑time</a
+        >
+      </article>
+
+      <!-- Pillar: Officer‑first design → Feature: Requests & notifications -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
+      >
+        <h3 class="font-semibold">Officer‑first design</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Fast, mobile‑friendly workflows that respect how cops actually work.
+        </p>
+        <ul class="mt-3 text-sm text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-file" />
+            </svg>
+            <span>Simple sick/vacation requests with policy checks</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-bell" />
+            </svg>
+            <span>SMS notifications for approvals & changes</span>
+          </li>
+        </ul>
+        <a
+          href="/products#notifications"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >See notifications</a
+        >
+      </article>
+    </div>
+
+    <!-- Secondary CTAs for deeper dive -->
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/products" class="btn btn-outline">Explore products</a>
+      <a href="/#demo" class="btn btn-primary">Request a demo</a>
     </div>
   </div>
 </section>
 
-<!-- Demo anchor (form) -->
-<section id="demo" class="py-16 md:py-20">
+<!-- === Demo (request form with basic client validation) === -->
+<section id="demo" class="py-16 md:py-20 section-decor">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Request a demo</h2>
     <p class="mt-2 text-slate-300">
@@ -371,24 +712,74 @@ by design.{% endblock %} {% block meta %}
       </div>
 
       <div class="md:col-span-2 flex items-center gap-3 mt-2">
-        <button
-          id="demo-submit"
-          type="submit"
-          class="rounded-md px-5 py-3 font-semibold bg-[color:var(--g3-gold)] text-slate-900 hover:bg-[color:var(--g3-gold-light)] shadow-[0_0_12px_rgba(0,229,255,0.25)] transition"
-        >
+        <button id="demo-submit" type="submit" class="btn btn-primary btn-lg">
           Submit request
         </button>
-        <a
-          href="mailto:grigori.lopezgarcia@gmail.com"
-          class="text-sm text-[color:var(--g3-gold)] hover:underline"
+        <a href="mailto:grigori.lopezgarcia@gmail.com" class="btn btn-outline"
           >or email us directly</a
         >
       </div>
-
-      <div id="demo-status" class="md:col-span-2 text-sm mt-2"></div>
+      <div
+        id="demo-status"
+        class="md:col-span-2 text-sm mt-2"
+        role="status"
+        aria-live="polite"
+      ></div>
     </form>
   </div>
 </section>
+<!-- Accessible zoom modal: opened by Screens buttons. ESC and overlay click close. Role=dialog with labelled title/caption. -->
+<div
+  id="zoom-modal"
+  class="fixed inset-0 z-40 hidden"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="zoom-title"
+  aria-describedby="zoom-caption"
+  tabindex="-1"
+>
+  <div
+    class="absolute inset-0 bg-black/70"
+    data-close="true"
+    aria-hidden="true"
+  ></div>
+  <div class="relative z-10 max-w-5xl mx-auto mt-16 md:mt-24 px-4">
+    <div class="rounded-lg bg-slate-950 border border-white/10 shadow-xl">
+      <div
+        class="flex items-center justify-between px-4 py-3 border-b border-white/10"
+      >
+        <h3 id="zoom-title" class="text-lg font-semibold"></h3>
+        <button
+          type="button"
+          class="px-2 py-1 border border-white/20 rounded hover:border-white/40"
+          aria-label="Close"
+          data-close="true"
+        >
+          ✕
+        </button>
+      </div>
+      <div class="p-4">
+        <div
+          class="w-full rounded-md bg-slate-900 border border-white/10"
+          style="
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <span class="text-xs text-slate-500"
+            >Placeholder — enlarged preview</span
+          >
+        </div>
+        <p id="zoom-caption" class="mt-3 text-sm text-slate-300"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Form handling: client-side validation, honeypot anti-spam, fetch POST to /demo, and accessible status updates. -->
+<!-- Script: Demo form submit handler (validation + async POST) -->
 <script>
   (function () {
     const form = document.getElementById("demo-form");
@@ -406,6 +797,7 @@ by design.{% endblock %} {% block meta %}
       e.preventDefault();
       statusEl.textContent = "";
 
+      // Required fields must be present before POST
       // Simple client-side validation to match server rules
       const required = ["name", "agency", "email"];
       for (const id of required) {
@@ -423,6 +815,7 @@ by design.{% endblock %} {% block meta %}
 
       try {
         const formData = new FormData(form);
+        // POST to Flask route; server performs final validation
         const resp = await fetch("/demo", { method: "POST", body: formData });
         const data = await resp.json().catch(() => ({}));
         if (!resp.ok || data.ok === false) {
@@ -443,6 +836,91 @@ by design.{% endblock %} {% block meta %}
         submitBtn.textContent = prev;
       }
     });
+  })();
+</script>
+<!-- Script: Zoom modal open/close handlers (no external libs) -->
+<script>
+  (function () {
+    const modal = document.getElementById("zoom-modal");
+    const titleEl = document.getElementById("zoom-title");
+    const capEl = document.getElementById("zoom-caption");
+
+    // Keep track of last focused element to restore focus on close
+    let lastActive = null;
+
+    // Selector for focusable controls inside the modal
+    const FOCUSABLE =
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+    const getFocusables = () =>
+      Array.from(modal.querySelectorAll(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null
+      );
+
+    function openModal(title, caption) {
+      lastActive = document.activeElement;
+      titleEl.textContent = title || "";
+      capEl.textContent = caption || "";
+      modal.classList.remove("hidden");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+
+      // Move focus into the dialog (prefer the close button, else the modal)
+      requestAnimationFrame(() => {
+        const closeBtn = modal.querySelector("[data-close]");
+        if (closeBtn) closeBtn.focus();
+        else modal.focus();
+      });
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      // Restore focus to the trigger element when closing
+      if (lastActive && typeof lastActive.focus === "function") {
+        lastActive.focus();
+      }
+    }
+
+    // Click handling: close on backdrop or close button
+    modal.addEventListener("click", (e) => {
+      if (e.target.closest("[data-close]")) closeModal();
+      if (e.target === modal) closeModal();
+    });
+
+    // Allow closing with ESC for keyboard users
+    document.addEventListener("keydown", (e) => {
+      if (!modal || modal.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeModal();
+    });
+
+    // Focus trap inside the modal (TAB cycles within)
+    modal.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const items = getFocusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    // Bind click handlers to each placeholder to open modal with title/caption
+    document
+      .querySelectorAll('#screens button[style*="aspect-ratio"]')
+      .forEach((btn) => {
+        btn.addEventListener("click", () => {
+          openModal(
+            btn.getAttribute("data-title"),
+            btn.getAttribute("data-caption")
+          );
+        });
+      });
   })();
 </script>
 {% endblock %}

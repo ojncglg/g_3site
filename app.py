@@ -1,8 +1,48 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, abort, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
 import os, json
 from datetime import datetime
 from typing import List, Dict, Any
+
 app = Flask(__name__)
+
+# Trust proxy headers (needed for HTTPS enforcement on Render)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1, x_prefix=1)
+
+# Enforce HTTPS for all requests except in debug mode
+@app.before_request
+def enforce_https():
+    xf_proto = request.headers.get("X-Forwarded-Proto", "")
+    url = request.url
+    if (request.method in ("GET", "HEAD")
+        and not app.debug
+        and xf_proto != "https"
+        and url.startswith("http://")):
+        secure_url = "https://" + url[len("http://"):]
+        return redirect(secure_url, code=301)
+
+# Set secure headers for all responses
+@app.after_request
+def set_security_headers(resp):
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault("Permissions-Policy", "camera=(), geolocation=(), microphone=()")
+    csp = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "img-src 'self' data:; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "connect-src 'self'; "
+        "base-uri 'self'; "
+        "form-action 'self' mailto:; "
+        "frame-ancestors 'none'"
+    )
+    if not resp.headers.get("Content-Security-Policy"):
+        resp.headers["Content-Security-Policy"] = csp
+    return resp
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -33,6 +73,21 @@ def health():
 @app.route("/")
 def home():
     return render_template("index.html", title="G3 Industries")
+
+@app.route("/products")
+def products():
+    return render_template("products.html", title="Products — G3 Industries")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html", title="About — G3 Industries")
+
+
+# New /security route
+@app.route("/security")
+def security():
+    return render_template("security.html", title="Security — G3 Industries")
 
 
 @app.route("/demo", methods=["POST"])
@@ -78,6 +133,37 @@ def demo():
 
     append_lead(lead)
     return jsonify({"ok": True, "message": "Lead received"}), 200
+@app.errorhandler(404)
+def page_not_found(e):
+        # Render a custom 404 page with Matrix effect
+    return render_template("404.html", title="404 — Page not found"), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+        # Render a custom 500 page with Matrix effect
+    return render_template("500.html", title="500 — Internal server error"), 500
+
+# Testing error pages
+@app.route("/force500")
+def force500():
+    # Force an Internal Server Error via HTTP abort so our errorhandler(500) runs
+    abort(500)
+
+# Directly preview the 500 page (useful when DEBUG is on)
+@app.route("/_preview/500")
+def preview_500():
+    # Directly render the 500 template so you can preview it while DEBUG is on
+    return render_template("500.html", title="500 — Internal server error"), 500
+
+
+# Serve robots.txt and sitemap.xml from the project root
+@app.route('/robots.txt')
+def robots_txt():
+    return send_from_directory(BASE_DIR, 'robots.txt', mimetype='text/plain')
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    return send_from_directory(BASE_DIR, 'sitemap.xml', mimetype='application/xml')
 
 if __name__ == "__main__":
     app.run(debug=True)

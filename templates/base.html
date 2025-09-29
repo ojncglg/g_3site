@@ -14,6 +14,47 @@
       content="Revolutionizing law enforcement through innovation"
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="G3 Industries" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='img/social-card.png') }}"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="G3 Industries" />
+    <meta
+      name="twitter:description"
+      content="Revolutionizing law enforcement through innovation"
+    />
+    <meta
+      name="twitter:image"
+      content="{{ url_for('static', filename='img/social-card.png') }}"
+    />
+    <!-- SEO: keywords, author, robots -->
+    <meta
+      name="keywords"
+      content="law enforcement software, police scheduling, vacation book, extra duty, tow logs, roster management, police technology, public safety software, command staff tools"
+    />
+    <meta name="author" content="G3 Industries" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "G3 Industries",
+        "url": "{{ request.url_root }}",
+        "logo": "{{ url_for('static', filename='img/g3-logo.png', _external=True) }}",
+        "description": "Revolutionizing law enforcement through innovation. Purpose-built software for police executives: Vacation Book, Extra-Duty, Tow Logs, Vacation Bidding, Roster Management."
+      }
+    </script>
+    <meta property="og:title" content="G3 Industries" />
+    <meta
+      property="og:description"
+      content="Revolutionizing law enforcement through innovation"
+    />
+    <meta property="og:type" content="website" />
     <meta name="theme-color" content="#1E40AF" />
     <link
       rel="icon"
@@ -47,14 +88,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
+      href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
     />
     {% block meta %}{% endblock %} {% block extra_head %}{% endblock %}
   </head>
   <body class="min-h-screen bg-gray-950 text-gray-100 font-sans">
     <header class="bg-gray-900">
       <nav
-        class="mx-auto max-w-5xl px-4 py-6 flex items-center justify-between"
+        class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between"
       >
         <div class="flex items-center space-x-4">
           <a href="/" class="flex items-center space-x-3 group">
@@ -72,42 +113,143 @@
               </div>
             </div>
           </a>
-          <ul class="hidden md:flex space-x-8 text-gray-300">
-            <li><a href="#products" class="hover:text-white">Products</a></li>
+          <!-- Mobile menu button (visible on small screens) -->
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden inline-flex items-center justify-center rounded-md border border-white/20 px-3 py-2 text-sm font-semibold hover:border-white/40 hover:bg-white/5 focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+            type="button"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <!-- Hamburger icon -->
+            <svg
+              id="icon-hamburger"
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+            <!-- Close icon (hidden by default) -->
+            <svg
+              id="icon-close"
+              class="h-5 w-5 hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <ul class="hidden md:flex gap-6 md:gap-8 text-gray-300 ml-auto">
+          <li><a href="/products" class="hover:text-white">Products</a></li>
+          <li>
+            <a href="/#screens" class="hover:text-white">How it works</a>
+          </li>
+          <li><a href="/security" class="hover:text-white">Security</a></li>
+          <li><a href="/about" class="hover:text-white">About</a></li>
+        </ul>
+      </nav>
+      <!-- Mobile menu panel -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden border-t border-white/10 bg-gray-900"
+      >
+        <div class="mx-auto max-w-6xl px-4 py-4">
+          <ul class="flex flex-col gap-3 text-gray-200">
             <li>
-              <a href="#how-it-works" class="hover:text-white">How it works</a>
+              <a
+                href="/products"
+                class="block rounded px-3 py-2 hover:bg-white/5"
+                >Products</a
+              >
             </li>
-            <li><a href="#security" class="hover:text-white">Security</a></li>
-            <li><a href="#about" class="hover:text-white">About</a></li>
+            <li>
+              <a
+                href="/#screens"
+                class="block rounded px-3 py-2 hover:bg-white/5"
+                >How it works</a
+              >
+            </li>
+            <li>
+              <a
+                href="/security"
+                class="block rounded px-3 py-2 hover:bg-white/5"
+                >Security</a
+              >
+            </li>
+            <li>
+              <a href="/about" class="block rounded px-3 py-2 hover:bg-white/5"
+                >About</a
+              >
+            </li>
           </ul>
         </div>
-        <a
-          href="mailto:demo@g3industries.com"
-          class="inline-block bg-brand-yellow text-gray-900 font-semibold px-4 py-2 rounded-md hover:bg-yellow-400 transition"
-        >
-          Request a demo
-        </a>
-      </nav>
+      </div>
     </header>
 
-    <main class="mx-auto max-w-5xl px-4 py-8">
+    <main class="mx-auto max-w-6xl px-4 py-8">
       {% block content %}{% endblock %}
     </main>
 
     <footer class="w-full bg-gray-900 text-gray-500 text-xs">
       <div
-        class="mx-auto max-w-5xl px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+        class="mx-auto max-w-6xl px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
       >
         <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
-        <nav class="space-x-6">
-          <a href="#products" class="hover:text-gray-300">Products</a>
-          <a href="#how-it-works" class="hover:text-gray-300">How it works</a>
-          <a href="#security" class="hover:text-gray-300">Security</a>
-          <a href="#about" class="hover:text-gray-300">About</a>
+        <nav class="flex gap-6 md:gap-8">
+          <a href="/products" class="hover:text-gray-300">Products</a>
+          <a href="/#screens" class="hover:text-gray-300">How it works</a>
+          <a href="/security" class="hover:text-gray-300">Security</a>
+          <a href="/about" class="hover:text-gray-300">About</a>
         </nav>
       </div>
     </footer>
 
+    <script>
+      (function () {
+        const btn = document.getElementById("mobileMenuBtn");
+        const menu = document.getElementById("mobile-menu");
+        const iconHamb = document.getElementById("icon-hamburger");
+        const iconClose = document.getElementById("icon-close");
+        if (!btn || !menu) return;
+
+        function toggle(open) {
+          const isOpen = open ?? menu.classList.contains("hidden");
+          if (isOpen) {
+            menu.classList.remove("hidden");
+            btn.setAttribute("aria-expanded", "true");
+            iconHamb.classList.add("hidden");
+            iconClose.classList.remove("hidden");
+          } else {
+            menu.classList.add("hidden");
+            btn.setAttribute("aria-expanded", "false");
+            iconHamb.classList.remove("hidden");
+            iconClose.classList.add("hidden");
+          }
+        }
+
+        btn.addEventListener("click", () => toggle());
+        // Close menu after selecting a link
+        menu.addEventListener("click", (e) => {
+          if (e.target.matches("a")) toggle(false);
+        });
+      })();
+    </script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>
