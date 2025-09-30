@@ -1,9 +1,8 @@
 <!-- Home / Landing page for G3 Industries. Sections: Hero, Products, Screens (step‑by‑step), How it works, Security, About, Demo form, and Zoom Modal.  Accessibility: high-contrast, keyboard-friendly, ARIA on modal and form status. -->
-{% extends "base.html" %} {% block title %}G3 Industries — Operational clarity,
-by design.{% endblock %} {% block meta %}
+{% extends "base.html" %} {% block title %}G3 Industries — Operational clarity, by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
 <meta
   name="description"
-  content="Operational clarity for law enforcement leadership—staffing, vacation approvals, and visibility, by design."
+  content="Operational clarity for law enforcement leadership—staffing, vacation approvals, and visibility, by design. Created by Grigori Lopez Garcia."
 />
 <meta
   property="og:title"
@@ -11,7 +10,7 @@ by design.{% endblock %} {% block meta %}
 />
 <meta
   property="og:description"
-  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips."
+  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips. Founded by Grigori Lopez Garcia."
 />
 <meta property="og:type" content="website" />
 <link rel="canonical" href="{{ request.url }}" />
@@ -27,7 +26,7 @@ by design.{% endblock %} {% block meta %}
 />
 <meta
   name="twitter:description"
-  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips."
+  content="Purpose-built software for police executives: Vacation Book, Extra-Duty, and Anonymous Tips. Founded by Grigori Lopez Garcia."
 />
 <meta
   name="twitter:image"
@@ -192,10 +191,10 @@ by design.{% endblock %} {% block meta %}
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
       >
-        <h3 class="font-semibold text-lg">Vacation Book</h3>
+        <h3 class="font-semibold text-lg">Scheduling &amp; Calendar</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Requests, approvals, staffing visibility, and policy guardrails—all in
-          one place.
+          Sick/vacation/comp requests with supervisor approvals, staffing
+          impact, and policy guardrails—kept in one calendar.
         </p>
         <a
           href="#screens"
@@ -263,6 +262,22 @@ by design.{% endblock %} {% block meta %}
           href="#screens"
           class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
           >View screenshots</a
+        >
+      </article>
+      <!-- Staffing Predictor (AI) -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      >
+        <h3 class="font-semibold text-lg">Staffing Predictor (AI)</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Generative AI forecasts staffing risk using signals like weekday,
+          time, leave patterns, weather, and events—so command can proactively
+          cover low‑staff windows.
+        </p>
+        <a
+          href="/products#how-ai"
+          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >Learn more</a
         >
       </article>
     </div>

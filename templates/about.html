@@ -1,9 +1,8 @@
-<!-- About page for G3 Industries. Sections: Hero, Mission, Founder, Values. Uses global styles from static/style.css (btn-gold, card-border, section-decor). -->
-{% extends "base.html" %} {% block title %}About — G3 Industries{% endblock %}
-{% block meta %}
+{% extends "base.html" %} {% block title %}About — G3 Industries | Grigori
+LopezGarcia{% endblock %} {% block meta %}
 <meta
   name="description"
-  content="Our mission: innovating law enforcement through technology. Learn about G3 Industries and our founder’s 13 years of broad law enforcement experience in Delaware and education in Digital Media from Harvard Extension."
+  content="Our mission: innovating law enforcement through technology. Learn about G3 Industries and founder Grigori LopezGarcia (13 years in Delaware law enforcement, Harvard Extension). Law enforcement technology, police staffing software, and AI-driven accountability tools."
 />
 {% endblock %} {% block extra_head %}
 <style>
@@ -13,24 +12,32 @@
 <!-- === Hero === -->
 <section class="py-12 md:py-16">
   <div class="max-w-6xl mx-auto px-4">
-    <h1 class="text-3xl md:text-4xl font-bold">About G3 Industries</h1>
+    <h1 class="text-3xl md:text-4xl font-bold">
+      Smarter tools for 21st-century policing
+    </h1>
     <p class="mt-2 text-slate-300 max-w-3xl">
-      We build practical, pro‑law‑enforcement software that strengthens
-      leadership, streamlines operations, and empowers officers in the field.
+      At G3 Industries, we build law enforcement technology that transforms
+      everyday policing challenges into clear, accountable software — built for
+      supervisors, trusted by leadership, and designed for officers in the
+      field.
     </p>
   </div>
 </section>
 
 <!-- === Mission === -->
-<section
-  class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5 section-decor"
->
+<section class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl font-bold">Our mission</h2>
+    <p class="text-sm text-slate-400">
+      Founded by Grigori LopezGarcia — 13 years of law enforcement experience
+      and Harvard Extension education
+    </p>
     <p class="mt-2 text-slate-300 max-w-3xl">
       Innovating law enforcement through technology—turning policy and command
       priorities into clear, accountable workflows that work for supervisors and
-      officers alike.
+      officers alike. Our platform brings together police staffing software,
+      extra‑duty management, and AI‑driven accountability tools that align with
+      policy and deliver command efficiency.
     </p>
     <div class="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
       <span class="chip">Command efficiency</span>
@@ -46,7 +53,7 @@
   <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 items-start">
     <div class="md:col-span-1">
       <div
-        class="rounded-lg overflow-hidden border border-white/10 bg-slate-900/50"
+        class="rounded-lg overflow-hidden border border-white/10 card-border bg-slate-900/50 hover:bg-slate-900/60 transition"
         style="
           aspect-ratio: 1/1;
           display: flex;
@@ -91,14 +98,8 @@
         </p>
       </div>
       <div class="mt-5 flex gap-3">
-        <a
-          href="/#demo"
-          class="inline-block rounded-md px-4 py-2 font-semibold btn-gold"
-          >Request a demo</a
-        >
-        <a
-          href="mailto:grigori.lopezgarcia@gmail.com"
-          class="inline-block rounded-md px-4 py-2 font-semibold border border-white/20 hover:border-white/40"
+        <a href="/#demo" class="btn btn-primary">Request a demo</a>
+        <a href="mailto:grigori.lopezgarcia@gmail.com" class="btn btn-outline"
           >Email us</a
         >
       </div>
@@ -107,12 +108,10 @@
 </section>
 
 <!-- === Values === -->
-<section
-  class="py-8 md:py-12 bg-slate-900/30 border-y border-white/5 section-decor"
->
+<section class="py-8 md:py-12 bg-slate-900/30 border-y border-white/5">
   <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
     <article
-      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
     >
       <h4 class="font-semibold">Accountability</h4>
       <p class="mt-2 text-sm text-slate-300">
@@ -121,7 +120,7 @@
       </p>
     </article>
     <article
-      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
     >
       <h4 class="font-semibold">Operational clarity</h4>
       <p class="mt-2 text-sm text-slate-300">
@@ -130,13 +129,33 @@
       </p>
     </article>
     <article
-      class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
     >
       <h4 class="font-semibold">Officer‑first design</h4>
       <p class="mt-2 text-sm text-slate-300">
         Fast, mobile‑friendly workflows that respect how cops actually work.
       </p>
     </article>
+  </div>
+</section>
+
+<!-- === CTA Footer === -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Partner with us to modernize your agency
+    </h2>
+    <p class="mt-2 text-slate-300 max-w-2xl mx-auto">
+      Clear, accountable workflows built for supervisors and officers. Pilot a
+      module or roll out the full suite—either way, you’ll see faster approvals,
+      clearer staffing, and stronger records.
+    </p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+      <a href="/#demo" class="btn btn-primary">Request a demo</a>
+      <a href="mailto:grigori.lopezgarcia@gmail.com" class="btn btn-outline"
+        >Email us</a
+      >
+    </div>
   </div>
 </section>
 {% endblock %}
