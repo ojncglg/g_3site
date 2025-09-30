@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Performance: preconnect/dns-prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com" />
     <title>{% block title %}G3 Industries{% endblock %}</title>
     <link rel="canonical" href="{{ request.base_url }}" />
     <meta
@@ -77,9 +84,17 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      rel="stylesheet"
+      rel="preload"
       href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
+      />
+    </noscript>
     {% block meta %}{% endblock %} {% block social %}
     <!-- Open Graph (defaults) -->
     <meta property="og:title" content="G3 Industries" />
@@ -108,9 +123,16 @@
     {% endblock %} {% block extra_head %}{% endblock %}
   </head>
   <body class="min-h-screen bg-gray-950 text-gray-100 font-sans">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-gray-900 focus:text-white focus:px-3 focus:py-2 focus:rounded"
+      >Skip to content</a
+    >
     <header class="bg-gray-900">
       <nav
         class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between"
+        role="navigation"
+        aria-label="Primary"
       >
         <div class="flex items-center space-x-4">
           <a href="/" class="flex items-center space-x-3 group">
@@ -217,7 +239,7 @@
       </div>
     </header>
 
-    <main class="mx-auto max-w-6xl px-4 py-8">
+    <main id="main" class="mx-auto max-w-6xl px-4 py-8" tabindex="-1">
       {# Flash alerts (success/error) #} {% with messages =
       get_flashed_messages(with_categories=True) %} {% if messages %}
       <div class="mb-6 space-y-2" role="region" aria-label="Notices">
@@ -269,7 +291,7 @@
         class="mx-auto max-w-6xl px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
       >
         <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
-        <nav class="flex gap-6 md:gap-8">
+        <nav class="flex gap-6 md:gap-8" role="navigation" aria-label="Footer">
           <a href="/products" class="hover:text-gray-300">Products</a>
           <a href="/#screens" class="hover:text-gray-300">How it works</a>
           <a href="/security" class="hover:text-gray-300">Security</a>

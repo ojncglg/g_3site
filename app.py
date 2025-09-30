@@ -42,11 +42,14 @@ def set_security_headers(resp):
     resp.headers.setdefault("Permissions-Policy", "camera=(), geolocation=(), microphone=()")
     csp = (
         "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; "
+        # Allow Tailwind CDN and Google Tag (gtag.js)
+        "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com; "
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-        "img-src 'self' data:; "
+        # Allow GA beacons and images
+        "img-src 'self' data: https://www.google-analytics.com; "
         "font-src 'self' https://fonts.gstatic.com; "
-        "connect-src 'self'; "
+        # Allow analytics network calls
+        "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; "
         "base-uri 'self'; "
         "form-action 'self' mailto:; "
         "frame-ancestors 'none'"
