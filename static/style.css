@@ -180,3 +180,76 @@ img[loading="lazy"] { view-timeline-name: --img; }
   border-color: rgba(0,229,255,.35);
   background-color: rgba(2,6,23,.75);
 }
+.reveal {
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition: opacity .45s ease, transform .45s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variants */
+.reveal-up { transform: translateY(16px); }
+.reveal-zoom { transform: scale(0.975); }
+.reveal-fade { transform: none; }
+
+/* Subtle hover polish (apply to any element as a utility) */
+.hover-animate {
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.hover-animate:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,229,255,.10);
+  filter: brightness(1.02);
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hover-animate, .hover-animate:hover { transition: none; transform: none; box-shadow: none; filter: none; }
+}
+
+
+/* --- Micro-animations polish: delays, link underline, hover variants --- */
+
+/* Stagger helpers for reveal-on-scroll */
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+
+/* Underline animation for links (subtle) */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline::after {
+  content: "";
+  position: absolute; left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after { transform: scaleX(1); }
+
+/* Softer hover utility for cards/buttons where we want even subtler motion */
+.hover-animate-soft { transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+.hover-animate-soft:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 8px 24px rgba(0,229,255,.08); filter: brightness(1.01); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-delay-1, .reveal-delay-2, .reveal-delay-3, .reveal-delay-4 { transition-delay: 0ms; }
+  .link-underline::after { transition: none; }
+  .hover-animate-soft, .hover-animate-soft:hover { transition: none; transform: none; box-shadow: none; filter: none; }
+}
+
+/* Avoid hover effects on touch devices */
+@media (hover: none) {
+  .hover-animate:hover,
+  .hover-animate-soft:hover { transform: none; box-shadow: none; filter: none; }
+}
