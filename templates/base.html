@@ -4,31 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}G3 Industries{% endblock %}</title>
+    <link rel="canonical" href="{{ request.base_url }}" />
     <meta
       name="description"
       content="Revolutionizing law enforcement through innovation"
-    />
-    <meta property="og:title" content="G3 Industries" />
-    <meta
-      property="og:description"
-      content="Revolutionizing law enforcement through innovation"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="G3 Industries" />
-    <meta
-      property="og:image"
-      content="{{ url_for('static', filename='img/social-card.png') }}"
-    />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="G3 Industries" />
-    <meta
-      name="twitter:description"
-      content="Revolutionizing law enforcement through innovation"
-    />
-    <meta
-      name="twitter:image"
-      content="{{ url_for('static', filename='img/social-card.png') }}"
     />
     <!-- SEO: keywords, author, robots -->
     <meta
@@ -43,18 +22,29 @@
       {
         "@context": "https://schema.org",
         "@type": "Organization",
+        "@id": "{{ request.url_root }}#org",
         "name": "G3 Industries",
         "url": "{{ request.url_root }}",
         "logo": "{{ url_for('static', filename='img/g3-logo.png', _external=True) }}",
-        "description": "Revolutionizing law enforcement through innovation. Purpose-built software for police executives: Vacation Book, Extra-Duty, Tow Logs, Vacation Bidding, Roster Management."
+        "description": "Revolutionizing law enforcement through innovation. Purpose-built software for police executives: Vacation Book, Extra-Duty, Tow Logs, Vacation Bidding, Roster Management.",
+        "founder": {
+          "@type": "Person",
+          "name": "Grigori LopezGarcia",
+          "url": "{{ url_for('about', _external=True) }}"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/grigori-lopezgarcia",
+          "https://github.com/ojncglg"
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "email": "grigori.lopezgarcia@gmail.com"
+          }
+        ]
       }
     </script>
-    <meta property="og:title" content="G3 Industries" />
-    <meta
-      property="og:description"
-      content="Revolutionizing law enforcement through innovation"
-    />
-    <meta property="og:type" content="website" />
     <meta name="theme-color" content="#1E40AF" />
     <link
       rel="icon"
@@ -90,7 +80,32 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
     />
-    {% block meta %}{% endblock %} {% block extra_head %}{% endblock %}
+    {% block meta %}{% endblock %} {% block social %}
+    <!-- Open Graph (defaults) -->
+    <meta property="og:title" content="G3 Industries" />
+    <meta
+      property="og:description"
+      content="Revolutionizing law enforcement through innovation"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.base_url }}" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='img/social-card.png') }}"
+    />
+
+    <!-- Twitter (defaults) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="G3 Industries" />
+    <meta
+      name="twitter:description"
+      content="Revolutionizing law enforcement through innovation"
+    />
+    <meta
+      name="twitter:image"
+      content="{{ url_for('static', filename='img/social-card.png') }}"
+    />
+    {% endblock %} {% block extra_head %}{% endblock %}
   </head>
   <body class="min-h-screen bg-gray-950 text-gray-100 font-sans">
     <header class="bg-gray-900">
@@ -203,7 +218,50 @@
     </header>
 
     <main class="mx-auto max-w-6xl px-4 py-8">
-      {% block content %}{% endblock %}
+      {# Flash alerts (success/error) #} {% with messages =
+      get_flashed_messages(with_categories=True) %} {% if messages %}
+      <div class="mb-6 space-y-2" role="region" aria-label="Notices">
+        {% for category, message in messages %} {% set is_success = (category ==
+        'success') %}
+        <div
+          class="rounded-md border px-4 py-3 text-sm flex items-start gap-3"
+          role="alert"
+          {%
+          if
+          is_success
+          %}
+          class="rounded-md border border-green-500/30 bg-green-500/10 text-green-200 px-4 py-3 text-sm"
+          {%
+          else
+          %}
+          class="rounded-md border border-red-500/30 bg-red-500/10 text-red-200 px-4 py-3 text-sm"
+          {%
+          endif
+          %}
+        >
+          <svg
+            class="h-4 w-4 mt-0.5 shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            {% if is_success %}
+            <polyline points="20 6 9 17 4 12" />
+            {% else %}
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+            {% endif %}
+          </svg>
+          <div>{{ message }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
     </main>
 
     <footer class="w-full bg-gray-900 text-gray-500 text-xs">

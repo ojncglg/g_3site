@@ -1,5 +1,6 @@
 <!-- Home / Landing page for G3 Industries. Sections: Hero, Products, Screens (step‑by‑step), How it works, Security, About, Demo form, and Zoom Modal.  Accessibility: high-contrast, keyboard-friendly, ARIA on modal and form status. -->
-{% extends "base.html" %} {% block title %}G3 Industries — Operational clarity, by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
+{% extends "base.html" %} {% block title %}G3 Industries — Operational clarity,
+by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
 <meta
   name="description"
   content="Operational clarity for law enforcement leadership—staffing, vacation approvals, and visibility, by design. Created by Grigori Lopez Garcia."
@@ -629,6 +630,8 @@
       id="demo-form"
       class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
       novalidate
+      method="POST"
+      action="/demo"
     >
       <!-- Required -->
       <div>
@@ -726,11 +729,13 @@
         />
       </div>
 
+      <input type="hidden" name="form_start" id="form_start" />
+
       <div class="md:col-span-2 flex items-center gap-3 mt-2">
         <button id="demo-submit" type="submit" class="btn btn-primary btn-lg">
           Submit request
         </button>
-        <a href="mailto:grigori.lopezgarcia@gmail.com" class="btn btn-outline"
+        <a href="mailto:{{ contact_email }}" class="btn btn-outline"
           >or email us directly</a
         >
       </div>
@@ -800,6 +805,8 @@
     const form = document.getElementById("demo-form");
     const submitBtn = document.getElementById("demo-submit");
     const statusEl = document.getElementById("demo-status");
+    const startEl = document.getElementById("form_start");
+    if (startEl) startEl.value = Date.now();
 
     function setStatus(msg, ok = true) {
       statusEl.textContent = msg;

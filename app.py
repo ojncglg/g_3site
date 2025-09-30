@@ -1,10 +1,21 @@
-from flask import Flask, render_template, request, jsonify, redirect, abort, send_from_directory
+from flask import Flask, render_template, request, jsonify, redirect, abort, send_from_directory, url_for, flash
 from werkzeug.middleware.proxy_fix import ProxyFix
 import os, json
 from datetime import datetime
 from typing import List, Dict, Any
 
 app = Flask(__name__)
+
+# Secret key for session/flash (override in Render env)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-change-me")
+
+# Centralized contact email (override in Render env)
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "grigori.lopezgarcia@gmail.com")
+
+# Make contact_email available in all templates
+@app.context_processor
+def inject_contact_email():
+    return {"contact_email": CONTACT_EMAIL}
 
 # Trust proxy headers (needed for HTTPS enforcement on Render)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1, x_prefix=1)
@@ -100,12 +111,30 @@ def demo():
     phone = request.form.get("phone", "").strip()
     notes = request.form.get("notes", "").strip()
 
-    # Honeypot (hidden field). Bots will often fill this; humans won't.
-    honeypot = request.form.get("website", "").strip()  # 'website' is a common honeypot name
+    # Anti-spam: honeypot & time-to-submit
+    honeypot = request.form.get("website", "").strip()  # hidden field; humans leave empty
+    form_start = request.form.get("form_start", "").strip()  # epoch ms set by JS on load
 
-    # If honeypot is filled, silently accept but do nothing.
-    if honeypot:
-        return jsonify({"ok": True, "message": "Thanks"}), 200
+    # Compute time-to-submit (ms)
+    min_delay_ms = 3000  # require ~3s on page before submit
+    elapsed_ok = True
+    try:
+        if form_start:
+            started = int(form_start)
+            now_ms = int(datetime.utcnow().timestamp() * 1000)
+            elapsed_ok = (now_ms - started) >= min_delay_ms
+    except ValueError:
+        # If malformed, treat as suspicious but do not block legitimate users
+        elapsed_ok = True
+
+    # If honeypot filled or submitted too fast, pretend success (no side effects)
+    is_bot = bool(honeypot) or not elapsed_ok
+    if is_bot:
+        wants_json = request.headers.get("X-Requested-With") == "XMLHttpRequest" or "application/json" in request.headers.get("Accept", "")
+        if wants_json:
+            return jsonify({"ok": True, "message": "Thanks"}), 200
+        flash("Thanks — we’ll be in touch.", "success")
+        return redirect(url_for("home") + "#demo")
 
     # Minimal validation
     errors = []
@@ -117,7 +146,11 @@ def demo():
         errors.append("email")
 
     if errors:
-        return jsonify({"ok": False, "errors": errors}), 400
+        wants_json = request.headers.get("X-Requested-With") == "XMLHttpRequest" or "application/json" in request.headers.get("Accept", "")
+        if wants_json:
+            return jsonify({"ok": False, "errors": errors}), 400
+        flash("Please fill the required fields: " + ", ".join(errors), "error")
+        return redirect(url_for("home") + "#demo")
 
     lead = {
         "timestamp": datetime.utcnow().isoformat() + "Z",
@@ -129,10 +162,16 @@ def demo():
         "notes": notes,
         "source_ip": request.remote_addr,
         "user_agent": request.headers.get("User-Agent", ""),
+        "elapsed_ms": (int(datetime.utcnow().timestamp() * 1000) - int(form_start)) if form_start.isdigit() else None,
     }
 
     append_lead(lead)
-    return jsonify({"ok": True, "message": "Lead received"}), 200
+
+    wants_json = request.headers.get("X-Requested-With") == "XMLHttpRequest" or "application/json" in request.headers.get("Accept", "")
+    if wants_json:
+        return jsonify({"ok": True, "message": "Lead received"}), 200
+    flash("Thanks — we received your request and will get back to you.", "success")
+    return redirect(url_for("home") + "#demo")
 @app.errorhandler(404)
 def page_not_found(e):
         # Render a custom 404 page with Matrix effect
