@@ -37,7 +37,8 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {
-    background: radial-gradient(
+    background:
+      radial-gradient(
         1200px 600px at 80% -10%,
         rgba(207, 164, 76, 0.28),
         transparent 60%
@@ -165,15 +166,14 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
 
       <div class="mt-8 flex flex-col sm:flex-row gap-3">
         <a href="#demo" class="btn btn-lg btn-primary"> Request a demo </a>
-        <a href="#screens" class="btn btn-lg btn-outline"> See screenshots </a>
       </div>
 
       <!-- Trust chips: quick credibility signals; uses shared .chip styles -->
       <div class="mt-8 flex flex-wrap gap-2 text-xs text-slate-400">
-        <span class="chip px-2 py-1 rounded">Role-based access</span>
-        <span class="chip px-2 py-1 rounded">Audit-ready</span>
-        <span class="chip px-2 py-1 rounded">Policy-aligned workflows</span>
-        <span class="chip px-2 py-1 rounded">Fast deployment</span>
+        <span class="chip px-2 py-1 rounded">Built for Police by Police</span>
+        <span class="chip px-2 py-1 rounded"> Accountability</span>
+        <span class="chip px-2 py-1 rounded">Operational Clarity</span>
+        <span class="chip px-2 py-1 rounded">Officer‑first design</span>
       </div>
     </div>
   </div>
@@ -197,11 +197,16 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
           Sick/vacation/comp requests with supervisor approvals, staffing
           impact, and policy guardrails—kept in one calendar.
         </p>
-        <a
-          href="#screens"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >View screenshots</a
-        >
+      </article>
+      <!-- Vacation Bidding -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      >
+        <h3 class="font-semibold text-lg">Vacation Bidding</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Seniority or lottery workflows with policy windows and caps—placed
+          automatically on the calendar.
+        </p>
       </article>
 
       <!-- Extra-Duty -->
@@ -213,11 +218,6 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
           Public requests → supervisor review → fair assignment logic → clean
           audit trail.
         </p>
-        <a
-          href="#screens"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >View screenshots</a
-        >
       </article>
 
       <!-- Anonymous Tips -->
@@ -229,11 +229,6 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
           Secure intake, supervisor triage, and follow-through—closing the loop
           for your community.
         </p>
-        <a
-          href="#screens"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >View screenshots</a
-        >
       </article>
       <!-- Tow Logs -->
       <article
@@ -244,27 +239,8 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
           Secure tow entry with required fields, chain‑of‑custody style audit,
           and exportable records.
         </p>
-        <a
-          href="#screens"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >View screenshots</a
-        >
       </article>
-      <!-- Vacation Bidding -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
-      >
-        <h3 class="font-semibold text-lg">Vacation Bidding</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Seniority or lottery workflows with policy windows and caps—placed
-          automatically on the calendar.
-        </p>
-        <a
-          href="#screens"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >View screenshots</a
-        >
-      </article>
+
       <!-- Staffing Predictor (AI) -->
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
@@ -513,14 +489,44 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Our mission</h2>
     <p class="mt-3 max-w-3xl text-slate-300">
-      G3 Industries builds practical, modern tools that help law enforcement
-      leaders run stronger, safer agencies. We focus on clarity, accountability,
-      and speed—so supervisors can lead, officers can serve, and communities
-      benefit.
+      Innovating law enforcement through technology—turning policy and command
+      priorities into clear, accountable workflows that work for supervisors and
+      officers alike. Our platform brings together police staffing software,
+      extra‑duty management, and AI‑driven accountability tools that align with
+      policy and deliver command efficiency.
     </p>
 
     <!-- Mission mapped to features (Option C) -->
-    <div class="mt-8 grid md:grid-cols-3 gap-6">
+    <div class="mt-8 grid md:grid-cols-4 gap-6">
+      <!-- Pillar: Built by police → Feature: Policy-aligned workflows -->
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
+      >
+        <h3 class="font-semibold">Built by police, for police</h3>
+        <p class="mt-2 text-sm text-slate-300">
+          Designed from the inside—aligned to real policy, staffing, and shift
+          realities.
+        </p>
+        <ul class="mt-3 text-sm text-slate-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-check-circle" />
+            </svg>
+            <span>Built to match real police world policing</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
+              <use href="#i-check-circle" />
+            </svg>
+            <span>Configurable to your agency’s policies and rules</span>
+          </li>
+        </ul>
+        <a
+          href="/products"
+          class="mt-3 inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
+          >Explore products</a
+        >
+      </article>
       <!-- Pillar: Accountability → Feature: Audit logs & exports -->
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
@@ -586,7 +592,7 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
       >
         <h3 class="font-semibold">Officer‑first design</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Fast, mobile‑friendly workflows that respect how cops actually work.
+          Fast, mobile‑friendly workflows with an easy to use User-Interface.
         </p>
         <ul class="mt-3 text-sm text-slate-300 space-y-2">
           <li class="flex items-start gap-2">
@@ -735,8 +741,10 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
         <button id="demo-submit" type="submit" class="btn btn-primary btn-lg">
           Submit request
         </button>
-        <a href="mailto:{{ contact_email }}" class="btn btn-outline"
-          >or email us directly</a
+        <a
+          href="mailto:grigori.lopezgarcia@g3industries.io"
+          class="btn btn-outline"
+          >Email us</a
         >
       </div>
       <div
@@ -845,13 +853,13 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
         }
         setStatus(
           "Thanks! We received your request and will reach out shortly.",
-          true
+          true,
         );
         form.reset();
       } catch (err) {
         setStatus(
           err.message || "Something went wrong. Please try again.",
-          false
+          false,
         );
       } finally {
         submitBtn.disabled = false;
@@ -875,7 +883,7 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
       'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
     const getFocusables = () =>
       Array.from(modal.querySelectorAll(FOCUSABLE)).filter(
-        (el) => el.offsetParent !== null
+        (el) => el.offsetParent !== null,
       );
 
     function openModal(title, caption) {
@@ -939,7 +947,7 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
         btn.addEventListener("click", () => {
           openModal(
             btn.getAttribute("data-title"),
-            btn.getAttribute("data-caption")
+            btn.getAttribute("data-caption"),
           );
         });
       });

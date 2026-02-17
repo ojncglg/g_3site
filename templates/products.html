@@ -216,6 +216,12 @@ LopezGarcia{% endblock %} {% block meta %}
       <a href="#how-scheduling" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Scheduling works</a
       >
+      <a href="#how-bidding" class="block px-3 py-2 rounded hover:bg-white/5"
+        >How Vacation Bidding works</a
+      >
+      <a href="#how-ai" class="block px-3 py-2 rounded hover:bg-white/5"
+        >How Staffing Predictor works</a
+      >
       <a href="#how-payjobs" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Extra Duty works</a
       >
@@ -224,12 +230,6 @@ LopezGarcia{% endblock %} {% block meta %}
       >
       <a href="#how-tow" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Tow Logs works</a
-      >
-      <a href="#how-bidding" class="block px-3 py-2 rounded hover:bg-white/5"
-        >How Vacation Bidding works</a
-      >
-      <a href="#how-ai" class="block px-3 py-2 rounded hover:bg-white/5"
-        >How Staffing Predictor works</a
       >
       <a href="#partners" class="block px-3 py-2 rounded hover:bg-white/5"
         >Partners</a
@@ -702,9 +702,232 @@ LopezGarcia{% endblock %} {% block meta %}
       </div>
     </section>
 
-    <!-- === How it works: Payjobs (Extra‑Duty) === -->
-    <!-- === How it works: Anonymous Tips === -->
-    <!-- === How it works: Tow Logs === -->
+    </section>
+
+    <!-- Section divider: separates Scheduling from Bidding/AI -->
+    <div class="max-w-6xl mx-auto px-4">
+      <div
+        class="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+      ></div>
+    </div>
+
+    <!-- === How it works: Vacation Bidding === -->
+    <section
+      id="how-bidding"
+      class="py-16 md:py-20 bg-slate-900/30 border-y border-white/5"
+    >
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold">
+          How Vacation Bidding works
+        </h2>
+        <p class="mt-2 text-slate-300">
+          Your policy → configured windows → fair resolution → calendar & audit.
+        </p>
+
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <!-- 1 · Configure policy -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              1 · Configure
+            </div>
+            <h3 class="mt-1 font-semibold">Policy & parameters</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              You provide the logic—seniority or lottery, windows, caps,
+              blackout dates, unit rules. We implement it in the Vacation Book.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Policy setup</span
+              >
+            </div>
+          </article>
+
+          <!-- 2 · Window & order -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              2 · Window
+            </div>
+            <h3 class="mt-1 font-semibold">Open bidding rounds</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Bidding windows and officer order follow your policy (e.g.,
+              seniority by unit/squad). System enforces caps automatically.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Bidding window</span
+              >
+            </div>
+          </article>
+
+          <!-- 3 · Requests & resolution -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              3 · Requests
+            </div>
+            <h3 class="mt-1 font-semibold">User-by-user selection</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Officers pick dates in their turn; conflicts are resolved per
+              policy and conflicting slots are closed to others in real time.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Officer pick</span
+              >
+            </div>
+          </article>
+
+          <!-- 4 · Calendar & audit -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              4 · Calendar
+            </div>
+            <h3 class="mt-1 font-semibold">Place & lock</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Approved bids place automatically on the calendar; conflicting
+              requests are closed out. Full audit trail supports reviews and
+              records.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Calendar placement</span
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- === How it works: Staffing Predictor (AI) === -->
+    <section id="how-ai" class="py-16 md:py-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold">
+          How Staffing Predictor works
+        </h2>
+        <p class="mt-2 text-slate-300">
+          Generative AI highlights upcoming low‑staff windows so command can act
+          early — powered by historical leave, weekday/time patterns, weather,
+          and local events.
+        </p>
+
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <!-- 1 · Inputs -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              1 · Inputs
+            </div>
+            <h3 class="mt-1 font-semibold">Signals ingested</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Historical leave, squad/shift rosters, weekday/time seasonality,
+              weather, and scheduled events feed the model. Data is scoped to
+              your agency.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500">Placeholder — Signals</span>
+            </div>
+          </article>
+
+          <!-- 2 · Forecast -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              2 · Forecast
+            </div>
+            <h3 class="mt-1 font-semibold">Risk scoring</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              The model produces a daily/shift risk score and confidence range
+              for under‑staffing. View by unit, squad, or shift.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Risk chart</span
+              >
+            </div>
+          </article>
+
+          <!-- 3 · Review & What‑if -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              3 · Review
+            </div>
+            <h3 class="mt-1 font-semibold">What‑if adjustments</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Supervisors adjust assumptions (OT, training days, event overlays)
+              to see impact. Suggested coverage prompts appear for high‑risk
+              windows.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — What‑if controls</span
+              >
+            </div>
+          </article>
+
+          <!-- 4 · Action & Monitoring -->
+          <article
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+          >
+            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
+              4 · Action
+            </div>
+            <h3 class="mt-1 font-semibold">Proactive coverage</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Request additional officers or shift swaps ahead of time. Changes
+              reflect on the schedule; outcomes feed back to improve future
+              predictions.
+            </p>
+            <div
+              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/10"
+            >
+              <span class="text-xs text-slate-500"
+                >Placeholder — Actions & feedback</span
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section divider: separates Bidding/AI from Extra Duty -->
+    <div class="max-w-6xl mx-auto px-4">
+      <div
+        class="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+      ></div>
+    </div>
 
     <!-- === How it works: Payjobs (Extra‑Duty) === -->
     <section
@@ -988,223 +1211,6 @@ LopezGarcia{% endblock %} {% block meta %}
       </div>
     </section>
 
-    <!-- Section divider: separates Tow Logs from Vacation Bidding -->
-    <div class="max-w-6xl mx-auto px-4">
-      <div
-        class="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
-      ></div>
-    </div>
-
-    <!-- === How it works: Vacation Bidding === -->
-    <section
-      id="how-bidding"
-      class="py-16 md:py-20 bg-slate-900/30 border-y border-white/5"
-    >
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold">
-          How Vacation Bidding works
-        </h2>
-        <p class="mt-2 text-slate-300">
-          Your policy → configured windows → fair resolution → calendar & audit.
-        </p>
-
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-          <!-- 1 · Configure policy -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Configure
-            </div>
-            <h3 class="mt-1 font-semibold">Policy & parameters</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              You provide the logic—seniority or lottery, windows, caps,
-              blackout dates, unit rules. We implement it in the Vacation Book.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Policy setup</span
-              >
-            </div>
-          </article>
-
-          <!-- 2 · Window & order -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Window
-            </div>
-            <h3 class="mt-1 font-semibold">Open bidding rounds</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Bidding windows and officer order follow your policy (e.g.,
-              seniority by unit/squad). System enforces caps automatically.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Bidding window</span
-              >
-            </div>
-          </article>
-
-          <!-- 3 · Requests & resolution -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Requests
-            </div>
-            <h3 class="mt-1 font-semibold">User-by-user selection</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Officers pick dates in their turn; conflicts are resolved per
-              policy and conflicting slots are closed to others in real time.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Officer pick</span
-              >
-            </div>
-          </article>
-
-          <!-- 4 · Calendar & audit -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Calendar
-            </div>
-            <h3 class="mt-1 font-semibold">Place & lock</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Approved bids place automatically on the calendar; conflicting
-              requests are closed out. Full audit trail supports reviews and
-              records.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Calendar placement</span
-              >
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- === How it works: Staffing Predictor (AI) === -->
-    <section id="how-ai" class="py-16 md:py-20">
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-2xl md:text-3xl font-bold">
-          How Staffing Predictor works
-        </h2>
-        <p class="mt-2 text-slate-300">
-          Generative AI highlights upcoming low‑staff windows so command can act
-          early — powered by historical leave, weekday/time patterns, weather,
-          and local events.
-        </p>
-
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-          <!-- 1 · Inputs -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Inputs
-            </div>
-            <h3 class="mt-1 font-semibold">Signals ingested</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Historical leave, squad/shift rosters, weekday/time seasonality,
-              weather, and scheduled events feed the model. Data is scoped to
-              your agency.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500">Placeholder — Signals</span>
-            </div>
-          </article>
-
-          <!-- 2 · Forecast -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Forecast
-            </div>
-            <h3 class="mt-1 font-semibold">Risk scoring</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              The model produces a daily/shift risk score and confidence range
-              for under‑staffing. View by unit, squad, or shift.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Risk chart</span
-              >
-            </div>
-          </article>
-
-          <!-- 3 · Review & What‑if -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Review
-            </div>
-            <h3 class="mt-1 font-semibold">What‑if adjustments</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Supervisors adjust assumptions (OT, training days, event overlays)
-              to see impact. Suggested coverage prompts appear for high‑risk
-              windows.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — What‑if controls</span
-              >
-            </div>
-          </article>
-
-          <!-- 4 · Action & Monitoring -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Action
-            </div>
-            <h3 class="mt-1 font-semibold">Proactive coverage</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Request additional officers or shift swaps ahead of time. Changes
-              reflect on the schedule; outcomes feed back to improve future
-              predictions.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <span class="text-xs text-slate-500"
-                >Placeholder — Actions & feedback</span
-              >
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <!-- === CTA: Development partners === -->
     <section id="partners" class="py-16 md:py-20">
