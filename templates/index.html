@@ -189,61 +189,73 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
     <!-- Cards: scannable module overview; link back to screenshots -->
     <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <!-- Vacation Book -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-scheduling"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Scheduling & Calendar — view details"
       >
         <h3 class="font-semibold text-lg">Scheduling &amp; Calendar</h3>
         <p class="mt-2 text-sm text-slate-300">
           Sick/vacation/comp requests with supervisor approvals, staffing
           impact, and policy guardrails—kept in one calendar.
         </p>
-      </article>
+      </a>
       <!-- Vacation Bidding -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-bidding"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Vacation Bidding — view details"
       >
         <h3 class="font-semibold text-lg">Vacation Bidding</h3>
         <p class="mt-2 text-sm text-slate-300">
           Seniority or lottery workflows with policy windows and caps—placed
           automatically on the calendar.
         </p>
-      </article>
+      </a>
 
       <!-- Extra-Duty -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-payjobs"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Extra-Duty — view details"
       >
         <h3 class="font-semibold text-lg">Extra-Duty</h3>
         <p class="mt-2 text-sm text-slate-300">
           Public requests → supervisor review → fair assignment logic → clean
           audit trail.
         </p>
-      </article>
+      </a>
 
       <!-- Anonymous Tips -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-tips"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Anonymous Tips — view details"
       >
         <h3 class="font-semibold text-lg">Anonymous Tips</h3>
         <p class="mt-2 text-sm text-slate-300">
           Secure intake, supervisor triage, and follow-through—closing the loop
           for your community.
         </p>
-      </article>
+      </a>
       <!-- Tow Logs -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-tow"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Tow Logs — view details"
       >
         <h3 class="font-semibold text-lg">Tow Logs</h3>
         <p class="mt-2 text-sm text-slate-300">
           Secure tow entry with required fields, chain‑of‑custody style audit,
           and exportable records.
         </p>
-      </article>
+      </a>
 
       <!-- Staffing Predictor (AI) -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition"
+      <a
+        href="/products#how-ai"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        aria-label="Staffing Predictor (AI) — view details"
       >
         <h3 class="font-semibold text-lg">Staffing Predictor (AI)</h3>
         <p class="mt-2 text-sm text-slate-300">
@@ -251,178 +263,85 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
           time, leave patterns, weather, and events—so command can proactively
           cover low‑staff windows.
         </p>
-        <a
-          href="/products#how-ai"
-          class="mt-auto inline-block text-sm text-[color:var(--g3-gold)] hover:underline"
-          >Learn more</a
-        >
-      </article>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- === Screens (step‑by‑step walkthrough) === -->
+<!-- === How it works (simple implementation story) === -->
 <section
-  id="screens"
+  id="how"
   class="defer py-16 md:py-20 bg-slate-900/30 border-y border-white/5 section-decor"
 >
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">See how it works</h2>
+    <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
     <p class="mt-2 text-slate-300">
-      A quick walkthrough—from request to audit—so command can see outcomes
-      fast.
+      From kickoff to go-live in weeks—clear steps, clear ownership, and fast
+      outcomes.
     </p>
 
-    <div class="mt-8 grid md:grid-cols-2 gap-6">
-      <!-- Step 1: Request -->
+    <div class="mt-8 grid md:grid-cols-4 gap-6">
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          1 · Request
+          1 · Kickoff
         </div>
-        <h3 class="mt-1 font-semibold">Officer submits a time‑off request</h3>
+        <h3 class="mt-1 font-semibold">We map your policy and approvals</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Simple, policy-aware form—no paper, fewer back‑and‑forths.
+          We confirm ranks, squads, approval paths, and the rules that drive
+          your workflows.
         </p>
-        <button
-          type="button"
-          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
-          style="aspect-ratio: 16/10"
-          data-title="Officer submits a time‑off request"
-          data-caption="Simple, policy‑aware form—no paper, fewer back‑and‑forths."
-          aria-label="Open larger preview: time-off request form"
-        >
-          <span class="text-xs text-slate-500"
-            >Placeholder image — Request screen (click to enlarge)</span
-          >
-        </button>
       </article>
 
-      <!-- Step 2: Review -->
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          2 · Review
+          2 · Configure
         </div>
-        <h3 class="mt-1 font-semibold">Supervisor reviews and approves</h3>
+        <h3 class="mt-1 font-semibold">We tailor modules to your agency</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Queue shows impact on staffing so decisions are faster and cleaner.
-        </p>
-        <button
-          type="button"
-          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
-          style="aspect-ratio: 16/10"
-          data-title="Supervisor reviews and approves"
-          data-caption="Queue shows impact on staffing so decisions are faster and cleaner."
-          aria-label="Open larger preview: supervisor review queue"
-        >
-          <span class="text-xs text-slate-500"
-            >Placeholder image — Supervisor queue (click to enlarge)</span
+          <a
+            href="/products#how-scheduling"
+            class="text-[color:var(--g3-gold)] hover:underline"
+            >Configurable</a
           >
-        </button>
+          scheduling, extra-duty, tips, tow logs, and bidding can run
+          standalone—or together as one ecosystem.
+        </p>
       </article>
 
-      <!-- Step 3: Staffing View -->
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          3 · Staffing
+          3 · Pilot
         </div>
-        <h3 class="mt-1 font-semibold">
-          Calendar updates with real‑time coverage
-        </h3>
+        <h3 class="mt-1 font-semibold">Start small, prove value fast</h3>
         <p class="mt-2 text-sm text-slate-300">
-          See coverage by squad, shift, and unit—before surprises happen.
+          Launch with one squad or one workflow, measure outcomes, and adjust
+          with command feedback.
         </p>
-        <button
-          type="button"
-          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
-          style="aspect-ratio: 16/10"
-          data-title="Calendar updates with real‑time coverage"
-          data-caption="See coverage by squad, shift, and unit—before surprises happen."
-          aria-label="Open larger preview: staffing calendar"
-        >
-          <span class="text-xs text-slate-500"
-            >Placeholder image — Staffing calendar (click to enlarge)</span
-          >
-        </button>
       </article>
 
-      <!-- Step 4: Audit -->
       <article
         class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          4 · Audit
+          4 · Go‑live
         </div>
-        <h3 class="mt-1 font-semibold">
-          Exportable audit trail for accountability
-        </h3>
+        <h3 class="mt-1 font-semibold">Roll out with training and support</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Every approval and change is logged for clean records and reviews.
+          We onboard supervisors and officers, then keep improving as policies
+          and staffing needs evolve.
         </p>
-        <button
-          type="button"
-          class="mt-4 w-full rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
-          style="aspect-ratio: 16/10"
-          data-title="Exportable audit trail for accountability"
-          data-caption="Every approval and change is logged for clean records and reviews."
-          aria-label="Open larger preview: audit log and export"
-        >
-          <span class="text-xs text-slate-500"
-            >Placeholder image — Audit log / export (click to enlarge)</span
-          >
-        </button>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- === How it works (implementation steps) === -->
-<section
-  id="how-it-works"
-  class="defer py-16 md:py-20 bg-slate-900/40 border-y border-white/5 section-decor"
->
-  <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">Easy to implement</h2>
-    <p class="mt-2 text-slate-300">From kickoff to go‑live in weeks.</p>
-    <div class="mt-8 grid md:grid-cols-4 gap-6">
-      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
-        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          1 · Configure
-        </div>
-        <p class="mt-1 text-sm text-slate-300">
-          We align squads, policies, and roles to your agency’s structure.
-        </p>
-      </div>
-      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
-        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          2 · Launch
-        </div>
-        <p class="mt-1 text-sm text-slate-300">
-          Rapid rollout with command buy-in and clear SOPs.
-        </p>
-      </div>
-      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
-        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          3 · Operate
-        </div>
-        <p class="mt-1 text-sm text-slate-300">
-          Supervisors approve, officers request, leadership sees staffing in
-          real time.
-        </p>
-      </div>
-      <div class="p-5 rounded-lg border border-white/10 bg-slate-950">
-        <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-          4 · Audit
-        </div>
-        <p class="mt-1 text-sm text-slate-300">
-          Exportable logs and accountability for every decision.
-        </p>
-      </div>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/products" class="btn btn-outline">Explore products</a>
+      <a href="#demo" class="btn btn-primary">Request a demo</a>
     </div>
   </div>
 </section>
@@ -445,7 +364,7 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
         <span class="text-[color:var(--g3-gold)] font-medium"
           >Audit trails</span
         >
-        — Approvals and changes are logged
+        — Approvals and changes are logged, configurable for records requests
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
@@ -455,15 +374,16 @@ by design. | Grigori Lopez Garcia{% endblock %} {% block meta %}
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
-          >Retention & export</span
+          >Sync capabilities</span
         >
-        — Configurable for records requests
+        — Take your schedule and sync it with your existing calendars (e.g.,
+        Outlook, Google)
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
-          >Accessible UI</span
+          >Mobile‑friendly</span
         >
-        — High contrast, keyboard‑friendly
+        — Easy to use, from rookies to veterans
       </li>
       <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
         <span class="text-[color:var(--g3-gold)] font-medium">Performance</span>

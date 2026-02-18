@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -84,17 +84,9 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      rel="preload"
-      href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}?v=1.0.2"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css', v='1.0.1') }}"
-      />
-    </noscript>
     {% block meta %}{% endblock %} {% block social %}
     <!-- Open Graph (defaults) -->
     <meta property="og:title" content="G3 Industries" />
@@ -194,10 +186,10 @@
         </div>
         <ul class="hidden md:flex gap-6 md:gap-8 text-gray-300 ml-auto">
           <li><a href="/products" class="hover:text-white">Products</a></li>
-          <li>
-            <a href="/#screens" class="hover:text-white">How it works</a>
-          </li>
           <li><a href="/security" class="hover:text-white">Security</a></li>
+          <li>
+            <a href="/grants" class="hover:text-white">Grant Assistance</a>
+          </li>
           <li><a href="/about" class="hover:text-white">About</a></li>
         </ul>
       </nav>
@@ -217,16 +209,14 @@
             </li>
             <li>
               <a
-                href="/#screens"
-                class="block rounded px-3 py-2 hover:bg-white/5"
-                >How it works</a
-              >
-            </li>
-            <li>
-              <a
                 href="/security"
                 class="block rounded px-3 py-2 hover:bg-white/5"
                 >Security</a
+              >
+            </li>
+            <li>
+              <a href="/grants" class="block rounded px-3 py-2 hover:bg-white/5"
+                >Grant Assistance</a
               >
             </li>
             <li>
@@ -293,8 +283,8 @@
         <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
         <nav class="flex gap-6 md:gap-8" role="navigation" aria-label="Footer">
           <a href="/products" class="hover:text-gray-300">Products</a>
-          <a href="/#screens" class="hover:text-gray-300">How it works</a>
           <a href="/security" class="hover:text-gray-300">Security</a>
+          <a href="/grants" class="hover:text-gray-300">Grant Assistance</a>
           <a href="/about" class="hover:text-gray-300">About</a>
         </nav>
       </div>
@@ -360,7 +350,7 @@
               }
             });
           },
-          { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
         );
 
         nodes.forEach(function (el) {

@@ -98,10 +98,16 @@ def about():
     return render_template("about.html", title="About — G3 Industries")
 
 
+
 # New /security route
 @app.route("/security")
 def security():
     return render_template("security.html", title="Security — G3 Industries")
+
+# New /grants route (Grant Assistance)
+@app.route("/grants")
+def grants():
+    return render_template("grants.html", title="Grant Assistance — G3 Industries")
 
 
 @app.route("/demo", methods=["POST"])

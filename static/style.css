@@ -89,26 +89,26 @@ a {
   padding: 0.75rem 1.25rem;
 }
 
-.btn-primary {
+.btn-primary, .btn--primary {
   background: linear-gradient(90deg, var(--g3-gold), var(--g3-gold-light));
   color: var(--g3-slate-deep);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-.btn-primary:hover {
+.btn-primary:hover, .btn--primary:hover {
   filter: brightness(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
 }
-.btn-primary:active {
+.btn-primary:active, .btn--primary:active {
   transform: translateY(0);
 }
 
-.btn-outline {
+.btn-outline, .btn--secondary {
   border: 2px solid var(--g3-gold);
   color: var(--g3-gold);
   background: transparent;
 }
-.btn-outline:hover {
+.btn-outline:hover, .btn--secondary:hover {
   background: rgba(250, 204, 21, 0.1);
 }
 
