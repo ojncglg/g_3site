@@ -61,10 +61,11 @@ LopezGarcia{% endblock %} {% block meta %}
           justify-content: center;
         "
       >
-        <span class="text-xs text-slate-500"
-          >Founder photo placeholder — add
-          <code>static/img/founder.jpg</code></span
-        >
+        <img
+          src="{{ url_for('static', filename='img/grigori.jpg') }}"
+          alt="Grigori LopezGarcia"
+          class="w-full h-full object-cover"
+        />
       </div>
     </div>
     <div class="md:col-span-2">
