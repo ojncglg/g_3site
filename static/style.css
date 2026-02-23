@@ -1,31 +1,52 @@
-/* Custom tweaks for G3 */
+/*
+  G3 Industries — site stylesheet
+  Cleaned: organized sections + de-duplicated button styles.
+  Notes:
+  - Keep existing class names working (aliases).
+  - Prefer `.btn` + `.btn--primary|secondary|danger` going forward.
+*/
 a {
   text-underline-offset: 2px;
 }
 
 :root {
   /* Brand palette */
-  --gold: #facc15;           /* legacy token */
-  --g3-gold: #facc15;        /* primary gold */
-  --g3-gold-light: #fff59d;  /* light gold for gradients */
-  --g3-cyan: #00e5ff;        /* accent edge glow */
-  --g3-slate-deep: #0f172a;  /* deep slate bg */
+  --gold: #facc15;
+  --g3-gold: #facc15;
+  --g3-gold-light: #fff59d;
+  --g3-cyan: #00e5ff;
+  --g3-slate-deep: #0f172a;
 }
 
+/* --- Performance helpers (CLS & rendering) --- */
+
+/* Ensure images never overflow and keep natural aspect ratio */
+img { max-width: 100%; height: auto; }
+
+/* Defer rendering of below-the-fold sections to speed up first paint */
+@supports (content-visibility: auto) {
+  .defer { content-visibility: auto; contain-intrinsic-size: 1000px 800px; }
+}
+
+/* Quick aspect ratio helpers to prevent layout shift before images load */
+.aspect-16x9 { aspect-ratio: 16 / 9; }
+.aspect-4x3  { aspect-ratio: 4 / 3; }
+.aspect-1x1  { aspect-ratio: 1 / 1; }
+
+/* Lazy-loaded images can reveal once in view without layout jump */
+img[loading="lazy"] { view-timeline-name: --img; }
 
 /* --- Shared UI components (site-wide) --- */
 
-/* Buttons: executive gold gradient */
+/* Primary button alias (legacy) */
 .btn-gold {
-  background: linear-gradient(90deg, var(--g3-gold), var(--g3-gold-light));
-  color: var(--g3-slate-deep);
-  border: 1px solid rgba(255,255,255,.2);
-  box-shadow: 0 0 12px rgba(0,229,255,.25);
-  transition: filter .15s ease, box-shadow .15s ease, transform .15s ease;
+  /* Keep for backwards compatibility. Prefer `.btn btn--primary`. */
 }
-.btn-gold:hover { filter: brightness(1.05); box-shadow: 0 0 16px rgba(0,229,255,.35); transform: translateY(-1px); }
+.btn-gold { background: linear-gradient(90deg, var(--g3-gold), var(--g3-gold-light)); color: var(--g3-slate-deep); }
+.btn-gold { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
+.btn-gold:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transform: translateY(-1px); }
 .btn-gold:active { transform: translateY(0); }
-@media (prefers-reduced-motion: reduce){ .btn-gold { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .btn-gold { transition: none; } }
 
 /* Chips / tags */
 .chip {
@@ -72,6 +93,8 @@ a {
 }
 
 /* --- Button system (site-wide) --- */
+
+/* Base button class */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -131,24 +154,6 @@ a {
   opacity: 0.6;
   pointer-events: none;
 }
-
-/* --- Performance helpers (CLS & rendering) --- */
-
-/* Ensure images never overflow and keep natural aspect ratio */
-img { max-width: 100%; height: auto; }
-
-/* Defer rendering of below-the-fold sections to speed up first paint */
-@supports (content-visibility: auto) {
-  .defer { content-visibility: auto; contain-intrinsic-size: 1000px 800px; }
-}
-
-/* Quick aspect ratio helpers to prevent layout shift before images load */
-.aspect-16x9 { aspect-ratio: 16 / 9; }
-.aspect-4x3  { aspect-ratio: 4 / 3; }
-.aspect-1x1  { aspect-ratio: 1 / 1; }
-
-/* Lazy-loaded images can reveal once in view without layout jump */
-img[loading="lazy"] { view-timeline-name: --img; }
 
 /* --- Trust badges / security icons --- */
 .badge {
@@ -212,7 +217,6 @@ img[loading="lazy"] { view-timeline-name: --img; }
   .hover-animate, .hover-animate:hover { transition: none; transform: none; box-shadow: none; filter: none; }
 }
 
-
 /* --- Micro-animations polish: delays, link underline, hover variants --- */
 
 /* Stagger helpers for reveal-on-scroll */
@@ -237,6 +241,36 @@ img[loading="lazy"] { view-timeline-name: --img; }
 }
 .link-underline:hover::after,
 .link-underline:focus-visible::after { transform: scaleX(1); }
+
+/* --- Navbar link hover (apply by adding class="nav-link" to header links) --- */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--g3-gold), transparent);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transform-origin: center;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after { transition: none; }
+}
 
 /* Softer hover utility for cards/buttons where we want even subtler motion */
 .hover-animate-soft { transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
