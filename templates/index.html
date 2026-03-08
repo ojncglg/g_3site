@@ -840,9 +840,9 @@ meta %}
       }
     });
 
-    // Bind click handlers to each placeholder to open modal with title/caption
+    // Bind click handlers to any screenshot trigger using data attributes.
     document
-      .querySelectorAll('#screens button[style*="aspect-ratio"]')
+      .querySelectorAll('button[data-title][data-caption]')
       .forEach((btn) => {
         btn.addEventListener("click", () => {
           openModal(

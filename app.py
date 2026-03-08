@@ -25,6 +25,13 @@ app = Flask(__name__)
 # In production, this should always come from an environment variable.
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-change-me")
 
+# Fail fast if production boots without a real session secret.
+RUNNING_PRODUCTION = os.environ.get("RENDER", "").lower() == "true" or os.environ.get(
+    "FLASK_ENV", ""
+).lower() == "production"
+if RUNNING_PRODUCTION and app.config["SECRET_KEY"] == "dev-change-me":
+    raise RuntimeError("SECRET_KEY must be set in production.")
+
 # Shared support/contact email exposed to templates via context_processor.
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "grigori.lopezgarcia@g3industries.io")
 DEMO_TO_EMAIL = os.environ.get("DEMO_TO_EMAIL", CONTACT_EMAIL)
