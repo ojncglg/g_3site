@@ -1,51 +1,89 @@
-// Matrix rain effect for error pages
+// Matrix rain effect used by the branded 404/500 pages.
+(function () {
+  const canvas = document.getElementById("matrix");
+  if (!canvas) return;
 
-// Grab the canvas
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
 
-// Set canvas full size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+  // Characters used in the rain stream.
+  const glyphs = "G3INDUSTRIES".split("");
+  const fontSize = 16;
+  const frameIntervalMs = 1000 / 30; // ~30 FPS keeps the effect smooth but cheaper.
 
-// Letters to use
-let letters = "G3INDUSTRIES";
-letters = letters.split("");
+  let drops = [];
+  let columns = 0;
+  let rafId = null;
+  let lastFrameTs = 0;
 
-// Font size and columns
-const fontSize = 16;
-const columns = Math.floor(canvas.width / fontSize);
+  function resizeCanvas() {
+    // Keep the canvas synced with viewport size.
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.font = `${fontSize}px monospace`;
+    columns = Math.max(1, Math.floor(canvas.width / fontSize));
 
-// Drops - one per column
-const drops = new Array(columns).fill(1);
+    // Seed each column at a random vertical offset for a less uniform start.
+    const maxRows = Math.max(1, Math.floor(canvas.height / fontSize));
+    drops = Array.from({ length: columns }, () => Math.floor(Math.random() * maxRows));
+  }
 
-// Draw function
-function draw() {
-  // Black background with slight opacity for trail effect
-  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  function drawFrame() {
+    // Slight alpha leaves trails behind moving characters.
+    ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#22c55e";
 
-  // Draw characters
-  for (let i = 0; i < drops.length; i++) {
-    const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillStyle = "#0f0"; // green
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    for (let index = 0; index < drops.length; index += 1) {
+      const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+      const x = index * fontSize;
+      const y = drops[index] * fontSize;
+      ctx.fillText(glyph, x, y);
 
-    // Move drop down
-    drops[i]++;
-
-    // Reset drop randomly after passing screen bottom
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
-      drops[i] = 0;
+      // Reset each column occasionally once it goes beyond the viewport.
+      if (y > canvas.height && Math.random() > 0.975) {
+        drops[index] = 0;
+      } else {
+        drops[index] += 1;
+      }
     }
   }
-}
 
-// Loop
-setInterval(draw, 33);
+  function loop(timestamp) {
+    if (timestamp - lastFrameTs >= frameIntervalMs) {
+      drawFrame();
+      lastFrameTs = timestamp;
+    }
+    rafId = window.requestAnimationFrame(loop);
+  }
 
-// Handle resize
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+  function start() {
+    if (rafId !== null) return;
+    rafId = window.requestAnimationFrame(loop);
+  }
+
+  function stop() {
+    if (rafId === null) return;
+    window.cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  resizeCanvas();
+
+  // Honor user preference for reduced motion with a single static render.
+  const prefersReducedMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) {
+    drawFrame();
+  } else {
+    start();
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  document.addEventListener("visibilitychange", () => {
+    if (prefersReducedMotion) return;
+    if (document.hidden) stop();
+    else start();
+  });
+})();

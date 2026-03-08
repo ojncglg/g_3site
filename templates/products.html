@@ -61,30 +61,6 @@ LopezGarcia{% endblock %} {% block meta %}
     color: #fff;
     background: rgba(2, 6, 23, 0.6);
   }
-  /* Mini‑nav active underline indicator */
-  .mini-nav-wrap {
-    position: relative;
-  }
-  .mini-nav-indicator {
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 215, 0, 0.95),
-      rgba(255, 245, 157, 0.95)
-    );
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.35);
-    transition: left 0.25s ease, width 0.25s ease, opacity 0.25s ease;
-    opacity: 0.7;
-    pointer-events: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .mini-nav-indicator {
-      transition: none;
-    }
-  }
 </style>
 {% endblock %} {% block content %}
 <!-- Inline SVG sprite: tiny line icons used in bullet lists (Products) -->
@@ -1289,27 +1265,18 @@ LopezGarcia{% endblock %} {% block meta %}
     });
   })();
 </script>
-<!-- Script: Mini‑nav section highlighting + active underline indicator -->
+<!-- Script: Mini‑nav section highlighting -->
 <script>
   (function () {
-    // Collect all in‑page nav links
+    // Collect all in-page links and index them by hash (for fast lookups).
     const nav = document.querySelector(".mini-nav");
     if (!nav) return;
     const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+    if (!links.length) return;
+
     const byHash = Object.fromEntries(
       links.map((a) => [a.getAttribute("href"), a])
     );
-    const wrap = nav.parentElement; // the .mini-nav-wrap div
-    const indicator = document.getElementById("miniNavIndicator");
-    function updateIndicator(link) {
-      if (!indicator || !wrap || !link) return;
-      const rect = link.getBoundingClientRect();
-      const wrect = wrap.getBoundingClientRect();
-      const left = rect.left - wrect.left + wrap.scrollLeft;
-      indicator.style.left = left + "px";
-      indicator.style.width = rect.width + "px";
-      indicator.style.opacity = "1";
-    }
 
     const targets = links
       .map((a) => a.getAttribute("href"))
@@ -1330,49 +1297,39 @@ LopezGarcia{% endblock %} {% block meta %}
       links.forEach((a) =>
         a.classList.toggle("active", a.getAttribute("href") === hash)
       );
-      updateIndicator(byHash[hash]);
     };
 
-    // Observe section visibility to set active link
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Pick the entry nearest to top that is intersecting
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top) -
-              Math.abs(b.boundingClientRect.top)
-          );
-        if (visible[0]) {
-          const id = "#" + visible[0].target.id;
-          if (byHash[id]) setActive(id);
+    // Use IntersectionObserver when available for smooth active-state updates.
+    if ("IntersectionObserver" in window && targets.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // Pick the visible section closest to the top of the viewport.
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort(
+              (a, b) =>
+                Math.abs(a.boundingClientRect.top) -
+                Math.abs(b.boundingClientRect.top)
+            );
+          if (visible[0]) {
+            const id = "#" + visible[0].target.id;
+            if (byHash[id]) setActive(id);
+          }
+        },
+        {
+          root: null,
+          rootMargin: "-20% 0px -70% 0px",
+          threshold: [0, 0.25, 0.6],
         }
-      },
-      { root: null, rootMargin: "-20% 0px -70% 0px", threshold: [0, 0.25, 0.6] }
-    );
-
-    targets.forEach((el) => observer.observe(el));
-
-    // Keep indicator positioned on resize/scroll
-    window.addEventListener("resize", () => {
-      if (activeHash && byHash[activeHash]) updateIndicator(byHash[activeHash]);
-    });
-    wrap.addEventListener(
-      "scroll",
-      () => {
-        if (activeHash && byHash[activeHash])
-          updateIndicator(byHash[activeHash]);
-      },
-      { passive: true }
-    );
+      );
+      targets.forEach((el) => observer.observe(el));
+    }
 
     // Initialize based on current hash or first item
     if (location.hash && byHash[location.hash]) setActive(location.hash);
     else if (links[0]) setActive(links[0].getAttribute("href"));
-    if (activeHash && byHash[activeHash]) updateIndicator(byHash[activeHash]);
 
-    // Smooth scroll and update indicator on click
+    // Smooth scroll and sync active class on click.
     nav.addEventListener("click", (e) => {
       const a = e.target.closest('a[href^="#"]');
       if (!a) return;
@@ -1381,7 +1338,7 @@ LopezGarcia{% endblock %} {% block meta %}
       e.preventDefault();
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", a.getAttribute("href"));
-      updateIndicator(a);
+      setActive(a.getAttribute("href"));
     });
   })();
 </script>

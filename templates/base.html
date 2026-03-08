@@ -269,22 +269,10 @@
       get_flashed_messages(with_categories=True) %} {% if messages %}
       <div class="mb-6 space-y-2" role="region" aria-label="Notices">
         {% for category, message in messages %} {% set is_success = (category ==
-        'success') %}
+        'success') %} {% set alert_classes = "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-green-500/30 bg-green-500/10 text-green-200" if is_success else "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-red-500/30 bg-red-500/10 text-red-200" %}
         <div
-          class="rounded-md border px-4 py-3 text-sm flex items-start gap-3"
+          class="{{ alert_classes }}"
           role="alert"
-          {%
-          if
-          is_success
-          %}
-          class="rounded-md border border-green-500/30 bg-green-500/10 text-green-200 px-4 py-3 text-sm"
-          {%
-          else
-          %}
-          class="rounded-md border border-red-500/30 bg-red-500/10 text-red-200 px-4 py-3 text-sm"
-          {%
-          endif
-          %}
         >
           <svg
             class="h-4 w-4 mt-0.5 shrink-0"
@@ -327,24 +315,29 @@
 
     <script>
       (function () {
+        // Mobile nav toggler for smaller breakpoints.
         const btn = document.getElementById("mobileMenuBtn");
         const menu = document.getElementById("mobile-menu");
         const iconHamb = document.getElementById("icon-hamburger");
         const iconClose = document.getElementById("icon-close");
         if (!btn || !menu) return;
 
-        function toggle(open) {
-          const isOpen = open ?? menu.classList.contains("hidden");
-          if (isOpen) {
+        // If no explicit state is passed, toggle based on current visibility.
+        function toggle(forceOpen) {
+          const shouldOpen =
+            typeof forceOpen === "boolean"
+              ? forceOpen
+              : menu.classList.contains("hidden");
+          if (shouldOpen) {
             menu.classList.remove("hidden");
             btn.setAttribute("aria-expanded", "true");
-            iconHamb.classList.add("hidden");
-            iconClose.classList.remove("hidden");
+            if (iconHamb) iconHamb.classList.add("hidden");
+            if (iconClose) iconClose.classList.remove("hidden");
           } else {
             menu.classList.add("hidden");
             btn.setAttribute("aria-expanded", "false");
-            iconHamb.classList.remove("hidden");
-            iconClose.classList.add("hidden");
+            if (iconHamb) iconHamb.classList.remove("hidden");
+            if (iconClose) iconClose.classList.add("hidden");
           }
         }
 
@@ -356,7 +349,9 @@
       })();
     </script>
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
+      // Keep footer copyright year in sync automatically.
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
     </script>
     <script>
       (function () {

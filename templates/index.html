@@ -687,10 +687,14 @@ meta %}
 <!-- Script: Demo form submit handler (validation + async POST) -->
 <script>
   (function () {
+    // Cache form controls once; stop early if this section is not present.
     const form = document.getElementById("demo-form");
     const submitBtn = document.getElementById("demo-submit");
     const statusEl = document.getElementById("demo-status");
     const startEl = document.getElementById("form_start");
+    if (!form || !submitBtn || !statusEl) return;
+
+    // Hidden timestamp is used server-side to detect suspiciously fast submits.
     if (startEl) startEl.value = Date.now();
 
     function setStatus(msg, ok = true) {
@@ -722,10 +726,27 @@ meta %}
 
       try {
         const formData = new FormData(form);
-        // POST to Flask route; server performs final validation
-        const resp = await fetch("/demo", { method: "POST", body: formData });
-        const data = await resp.json().catch(() => ({}));
-        if (!resp.ok || data.ok === false) {
+        // Request JSON explicitly so fetch clients do not receive redirect HTML.
+        const resp = await fetch("/demo", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            Accept: "application/json",
+          },
+        });
+        const contentType = resp.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+          ? await resp.json()
+          : {};
+
+        if (!resp.ok || data.ok !== true) {
+          if (Array.isArray(data.errors) && data.errors.length) {
+            throw new Error(`Please provide: ${data.errors.join(", ")}.`);
+          }
+          if (typeof data.error === "string" && data.error.trim()) {
+            throw new Error(data.error);
+          }
           throw new Error("Please check required fields and try again.");
         }
         setStatus(
@@ -733,6 +754,7 @@ meta %}
           true,
         );
         form.reset();
+        if (startEl) startEl.value = Date.now();
       } catch (err) {
         setStatus(
           err.message || "Something went wrong. Please try again.",
@@ -751,6 +773,7 @@ meta %}
     const modal = document.getElementById("zoom-modal");
     const titleEl = document.getElementById("zoom-title");
     const capEl = document.getElementById("zoom-caption");
+    if (!modal || !titleEl || !capEl) return;
 
     // Keep track of last focused element to restore focus on close
     let lastActive = null;
