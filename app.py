@@ -192,6 +192,9 @@ def send_demo_email_resend(subject: str, body_text: str, lead: Dict[str, Any]) -
         headers={
             "Authorization": f"Bearer {RESEND_API_KEY}",
             "Content-Type": "application/json",
+            # Resend requires a User-Agent for direct HTTP requests.
+            "User-Agent": "g3-industries-site/1.0",
+            "Accept": "application/json",
         },
     )
     try:
