@@ -65,6 +65,7 @@ DEMO_FROM_EMAIL = os.environ.get("DEMO_FROM_EMAIL", DEMO_TO_EMAIL)
 # Analytics settings (GA4 recommended for this site).
 ANALYTICS_PROVIDER = os.environ.get("ANALYTICS_PROVIDER", "").strip().lower()
 GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+CLARITY_PROJECT_ID = os.environ.get("CLARITY_PROJECT_ID", "").strip()
 
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
@@ -131,11 +132,11 @@ RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 # Centralized CSP applied to responses unless explicitly overridden.
 DEFAULT_CSP = (
     "default-src 'self'; "
-    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com; "
+    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; "
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-    "img-src 'self' data: https://www.google-analytics.com; "
+    "img-src 'self' data: https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms; "
     "font-src 'self' https://fonts.gstatic.com; "
-    "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; "
+    "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; "
     "base-uri 'self'; "
     "form-action 'self' mailto:; "
     "frame-ancestors 'none'"
@@ -445,6 +446,7 @@ def inject_contact_email():
         "contact_email": CONTACT_EMAIL,
         "analytics_provider": ANALYTICS_PROVIDER,
         "ga_measurement_id": GA_MEASUREMENT_ID,
+        "clarity_project_id": CLARITY_PROJECT_ID,
     }
 
 
