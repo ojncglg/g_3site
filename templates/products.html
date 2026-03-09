@@ -1,11 +1,14 @@
 <!-- Products page for G3 Industries. Sections: Hero, Mini‑nav, Core Flow, Features, How to Buy, How it works (Payjobs/Tips/Tow), Partners, Back‑to‑Top, Scripts. UI aligns with global styles in static/style.css. -->
-{% extends "base.html" %} {% block title %}Products — G3 Industries | Grigori
-LopezGarcia{% endblock %} {% block meta %}
+{% extends "base.html" %}
+{% block title %}Products — G3 Industries | Grigori
+LopezGarcia{% endblock %}
+{% block meta %}
 <meta
   name="description"
   content="Vacation Book and pro-law-enforcement modules: time-off scheduling, extra-duty payjobs, tow logs, vacation bidding, roster management, SMS notifications, and real-time calendar sync. Built by Grigori LopezGarcia."
 />
-{% endblock %} {% block extra_head %}
+{% endblock %}
+{% block extra_head %}
 <style>
   /* Tiny line icons for bullet lists (Products page only) */
   .li-icon {
@@ -62,7 +65,8 @@ LopezGarcia{% endblock %} {% block meta %}
     background: rgba(2, 6, 23, 0.6);
   }
 </style>
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <!-- Inline SVG sprite: tiny line icons used in bullet lists (Products) -->
 <svg
   xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,8 @@
 <!doctype html>
+<!--
+  Base template used by all pages.
+  Includes shared head metadata, primary navigation, flash alerts, footer, and site-wide JS helpers.
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -87,7 +91,11 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}?v=1.0.2"
     />
-    {% block meta %}{% endblock %} {% block social %}
+    {# Page-level SEO/metadata overrides from child templates. #}
+    {% block meta %}
+    {% endblock %}
+    {# Default social cards; child templates can override. #}
+    {% block social %}
     <!-- Open Graph (defaults) -->
     <meta property="og:title" content="G3 Industries" />
     <meta
@@ -112,7 +120,10 @@
       name="twitter:image"
       content="{{ url_for('static', filename='img/social-card.png') }}"
     />
-    {% endblock %} {% block extra_head %}{% endblock %}
+    {% endblock %}
+    {# Page-specific styles/scripts inserted by child templates. #}
+    {% block extra_head %}
+    {% endblock %}
   </head>
   <body class="min-h-screen bg-gray-950 text-gray-100 font-sans">
     <a
@@ -265,11 +276,13 @@
     </header>
 
     <main id="main" class="mx-auto max-w-6xl px-4 py-8" tabindex="-1">
-      {# Flash alerts (success/error) #} {% with messages =
-      get_flashed_messages(with_categories=True) %} {% if messages %}
+      {# Flash alerts (success/error) rendered from server-side message queue. #}
+      {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
       <div class="mb-6 space-y-2" role="region" aria-label="Notices">
-        {% for category, message in messages %} {% set is_success = (category ==
-        'success') %} {% set alert_classes = "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-green-500/30 bg-green-500/10 text-green-200" if is_success else "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-red-500/30 bg-red-500/10 text-red-200" %}
+        {% for category, message in messages %}
+        {% set is_success = (category == "success") %}
+        {% set alert_classes = "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-green-500/30 bg-green-500/10 text-green-200" if is_success else "rounded-md border px-4 py-3 text-sm flex items-start gap-3 border-red-500/30 bg-red-500/10 text-red-200" %}
         <div
           class="{{ alert_classes }}"
           role="alert"
@@ -296,7 +309,10 @@
         </div>
         {% endfor %}
       </div>
-      {% endif %} {% endwith %} {% block content %}{% endblock %}
+      {% endif %}
+      {% endwith %}
+      {% block content %}
+      {% endblock %}
     </main>
 
     <footer class="w-full bg-gray-900 text-gray-500 text-xs">

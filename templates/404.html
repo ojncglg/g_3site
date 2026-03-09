@@ -1,9 +1,12 @@
-{% extends "base.html" %} {% block title %}404 — Page Not Found{% endblock %} {%
-block content %}
+<!-- Custom 404 page with branded matrix background and recovery CTA. -->
+{% extends "base.html" %}
+{% block title %}404 — Page Not Found{% endblock %}
+{% block content %}
 <!-- Matrix effect background -->
 <canvas id="matrix"></canvas>
 <script src="{{ url_for('static', filename='matrix.js') }}"></script>
 
+<!-- Foreground content remains above canvas via z-index utility. -->
 <section class="relative z-10 text-center py-24">
   <h1 class="text-6xl font-bold text-[color:var(--g3-gold)]">404</h1>
   <p class="mt-4 text-lg text-slate-300">Sorry, we couldn’t find that page.</p>

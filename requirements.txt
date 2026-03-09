@@ -1,11 +1,16 @@
-click==8.1.8
+# Core web app and production server.
 Flask==2.2.5
 gunicorn==23.0.0
-importlib-metadata==6.7.0
+
+# Flask runtime dependencies pinned for reproducible builds.
+click==8.1.8
 itsdangerous==2.1.2
 jinja2==3.1.6
 MarkupSafe==2.1.5
+Werkzeug==2.2.3
+
+# Compatibility/packaging helpers required by pinned versions above.
+importlib-metadata==6.7.0
 packaging==24.0
 typing-extensions==4.7.1
-Werkzeug==2.2.3
 zipp==3.15.0

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage / primary conversion entry point. -->
   <url>
     <loc>https://g3industries.io/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Product catalog and module details page. -->
   <url>
     <loc>https://g3industries.io/products</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <!-- Security posture overview page. -->
   <url>
     <loc>https://g3industries.io/security</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Company/founder information page. -->
   <url>
     <loc>https://g3industries.io/about</loc>
     <changefreq>monthly</changefreq>

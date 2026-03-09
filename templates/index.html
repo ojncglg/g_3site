@@ -1,7 +1,8 @@
 <!-- Home / Landing page for G3 Industries. Sections: Hero, Products, Screens (step‑by‑step), How it works, Security, About, Demo form, and Zoom Modal.  Accessibility: high-contrast, keyboard-friendly, ARIA on modal and form status. -->
-{% extends "base.html" %} {% block title %}G3 Industries | Police Scheduling
-Software & Accountability Platform — Grigori LopezGarcia{% endblock %} {% block
-meta %}
+{% extends "base.html" %}
+{% block title %}G3 Industries | Police Scheduling
+Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
+{% block meta %}
 <meta
   property="og:title"
   content="G3 Industries | Police Scheduling Software & Accountability Platform"
@@ -18,7 +19,8 @@ meta %}
   name="twitter:description"
   content="Purpose-built for command staff: scheduling & calendar, vacation bidding, extra duty, anonymous tips, tow logs, and audit-ready accountability."
 />
-{% endblock %} {% block extra_head %}
+{% endblock %}
+{% block extra_head %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {
@@ -37,7 +39,8 @@ meta %}
     display: inline-block;
   }
 </style>
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <!-- Inline SVG sprite: tiny line icons used in bullet lists -->
 <svg
   xmlns="http://www.w3.org/2000/svg"
