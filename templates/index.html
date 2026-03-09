@@ -148,7 +148,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </p>
 
       <div class="mt-8 flex flex-col sm:flex-row gap-3">
-        <a href="#demo" class="btn btn-lg btn-primary"> Request a demo </a>
+        <a
+          href="#demo"
+          class="btn btn-lg btn-primary"
+          data-track-event="cta_click"
+          data-track-label="request_demo"
+          data-track-location="home_hero"
+        >
+          Request a demo
+        </a>
       </div>
 
       <!-- Trust chips: quick credibility signals; uses shared .chip styles -->
@@ -499,7 +507,14 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     <!-- Secondary CTAs for deeper dive -->
     <div class="mt-6 flex flex-wrap gap-3">
       <a href="/products" class="btn btn-outline">Explore products</a>
-      <a href="/#demo" class="btn btn-primary">Request a demo</a>
+      <a
+        href="/#demo"
+        class="btn btn-primary"
+        data-track-event="cta_click"
+        data-track-label="request_demo"
+        data-track-location="home_about_cta"
+        >Request a demo</a
+      >
     </div>
   </div>
 </section>
@@ -624,6 +639,9 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         <a
           href="mailto:grigori.lopezgarcia@g3industries.io"
           class="btn btn-outline"
+          data-track-event="cta_click"
+          data-track-label="email_us"
+          data-track-location="demo_section"
           >Email us</a
         >
       </div>
@@ -710,6 +728,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       statusEl.textContent = "";
+      if (typeof window.g3Track === "function") {
+        window.g3Track("demo_form_submit_attempt", {
+          page_path: window.location.pathname,
+        });
+      }
 
       // Required fields must be present before POST
       // Simple client-side validation to match server rules
@@ -719,6 +742,12 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         if (!el.value.trim()) {
           el.focus();
           setStatus(`Please provide your ${id}.`, false);
+          if (typeof window.g3Track === "function") {
+            window.g3Track("demo_form_validation_error", {
+              field_name: id,
+              page_path: window.location.pathname,
+            });
+          }
           return;
         }
       }
@@ -756,6 +785,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           "Thanks! We received your request and will reach out shortly.",
           true,
         );
+        if (typeof window.g3Track === "function") {
+          window.g3Track("demo_form_submit_success", {
+            page_path: window.location.pathname,
+          });
+        }
         form.reset();
         if (startEl) startEl.value = Date.now();
       } catch (err) {
@@ -763,6 +797,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           err.message || "Something went wrong. Please try again.",
           false,
         );
+        if (typeof window.g3Track === "function") {
+          window.g3Track("demo_form_submit_error", {
+            page_path: window.location.pathname,
+          });
+        }
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = prev;

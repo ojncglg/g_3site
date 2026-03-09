@@ -91,6 +91,27 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}?v=1.0.2"
     />
+    {% if analytics_provider == "ga4" and ga_measurement_id %}
+    <!-- GA4 analytics tag (loads only when configured via environment). -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id={{ ga_measurement_id }}"
+    ></script>
+    <script>
+      // Shared analytics helper used by page-level scripts.
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "{{ ga_measurement_id }}");
+
+      window.g3Track = function (eventName, params) {
+        if (typeof window.gtag !== "function") return;
+        window.gtag("event", eventName, params || {});
+      };
+    </script>
+    {% endif %}
     {# Page-level SEO/metadata overrides from child templates. #}
     {% block meta %}
     {% endblock %}
@@ -218,9 +239,12 @@
 
           <!-- Persistent header CTA -->
           <a
-            href="mailto:grigori.lopezgarcia@g3industries.io?subject=Request%20a%20demo%20%E2%80%94%20G3%20Industries"
+            href="/#demo"
             class="inline-flex items-center justify-center rounded-md bg-[color:var(--g3-gold)] text-black px-4 py-2 text-sm font-semibold shadow hover:brightness-110 focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
-            aria-label="Request a demo via email"
+            aria-label="Go to the request a demo form"
+            data-track-event="cta_click"
+            data-track-label="request_demo"
+            data-track-location="header_desktop"
           >
             Request a demo
           </a>
@@ -240,9 +264,12 @@
             </li>
             <li>
               <a
-                href="mailto:grigori.lopezgarcia@g3industries.io?subject=Request%20a%20demo%20%E2%80%94%20G3%20Industries"
+                href="/#demo"
                 class="block rounded-md bg-[color:var(--g3-gold)] text-black px-3 py-2 font-semibold shadow hover:brightness-110"
-                aria-label="Request a demo via email"
+                aria-label="Go to the request a demo form"
+                data-track-event="cta_click"
+                data-track-label="request_demo"
+                data-track-location="header_mobile"
                 >Request a demo</a
               >
             </li>
@@ -329,6 +356,29 @@
       </div>
     </footer>
 
+    <script>
+      (function () {
+        // Track only links/buttons marked with data-track-* attributes.
+        document.addEventListener("click", (event) => {
+          const target = event.target.closest("[data-track-event]");
+          if (!target || typeof window.g3Track !== "function") return;
+
+          const eventName = target.getAttribute("data-track-event");
+          if (!eventName) return;
+
+          const label = target.getAttribute("data-track-label") || "";
+          const location = target.getAttribute("data-track-location") || "";
+          const href = target.getAttribute("href") || "";
+
+          window.g3Track(eventName, {
+            ui_label: label,
+            ui_location: location,
+            link_url: href,
+            page_path: window.location.pathname,
+          });
+        });
+      })();
+    </script>
     <script>
       (function () {
         // Mobile nav toggler for smaller breakpoints.

@@ -62,6 +62,10 @@ CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL", "grigori.lopezgarcia@g3industrie
 DEMO_TO_EMAIL = os.environ.get("DEMO_TO_EMAIL", CONTACT_EMAIL)
 DEMO_FROM_EMAIL = os.environ.get("DEMO_FROM_EMAIL", DEMO_TO_EMAIL)
 
+# Analytics settings (GA4 recommended for this site).
+ANALYTICS_PROVIDER = os.environ.get("ANALYTICS_PROVIDER", "").strip().lower()
+GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
@@ -436,8 +440,12 @@ def send_demo_email_smtp(subject: str, body_text: str, lead: Dict[str, Any]) -> 
 
 @app.context_processor
 def inject_contact_email():
-    """Expose contact_email in every template render."""
-    return {"contact_email": CONTACT_EMAIL}
+    """Expose common template values (contact + analytics settings)."""
+    return {
+        "contact_email": CONTACT_EMAIL,
+        "analytics_provider": ANALYTICS_PROVIDER,
+        "ga_measurement_id": GA_MEASUREMENT_ID,
+    }
 
 
 @app.before_request
