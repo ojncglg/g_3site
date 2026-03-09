@@ -1,0 +1,134 @@
+<!-- Internal leads dashboard (basic-auth protected) for attribution and volume monitoring. -->
+{% extends "base.html" %}
+{% block title %}Leads Dashboard — G3 Industries{% endblock %}
+{% block meta %}
+<meta name="robots" content="noindex,nofollow,noarchive" />
+{% endblock %}
+{% block content %}
+<section class="py-6 md:py-10">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-bold">Leads Dashboard</h1>
+      <p class="text-sm text-slate-400 mt-1">
+        Internal reporting for demo requests and attribution.
+      </p>
+    </div>
+    <a href="/admin/leads.csv" class="btn btn-outline">Download CSV</a>
+  </div>
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <div class="text-xs uppercase tracking-wide text-slate-400">Total leads</div>
+      <div class="mt-2 text-3xl font-semibold">{{ dashboard.total_leads }}</div>
+    </article>
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <div class="text-xs uppercase tracking-wide text-slate-400">Last 30 days</div>
+      <div class="mt-2 text-3xl font-semibold">
+        {{ dashboard.leads_last_30_days }}
+      </div>
+    </article>
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <div class="text-xs uppercase tracking-wide text-slate-400">Top source</div>
+      <div class="mt-2 text-base font-semibold">
+        {% if dashboard.top_sources %}
+        {{ dashboard.top_sources[0][0] }} ({{ dashboard.top_sources[0][1] }})
+        {% else %}
+        (none yet)
+        {% endif %}
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="py-2 md:py-4">
+  <div class="grid gap-4 lg:grid-cols-3">
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <h2 class="font-semibold">Top Sources</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        {% if dashboard.top_sources %}
+        {% for source, count in dashboard.top_sources %}
+        <li class="flex items-center justify-between gap-3">
+          <span class="text-slate-300">{{ source }}</span>
+          <span class="text-slate-100 font-medium">{{ count }}</span>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li class="text-slate-400">No source data yet.</li>
+        {% endif %}
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <h2 class="font-semibold">Top Campaigns</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        {% if dashboard.top_campaigns %}
+        {% for campaign, count in dashboard.top_campaigns %}
+        <li class="flex items-center justify-between gap-3">
+          <span class="text-slate-300">{{ campaign }}</span>
+          <span class="text-slate-100 font-medium">{{ count }}</span>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li class="text-slate-400">No campaign data yet.</li>
+        {% endif %}
+      </ul>
+    </article>
+
+    <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
+      <h2 class="font-semibold">Leads by Day (14)</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        {% if dashboard.leads_by_day %}
+        {% for day, count in dashboard.leads_by_day %}
+        <li class="flex items-center justify-between gap-3">
+          <span class="text-slate-300">{{ day }}</span>
+          <span class="text-slate-100 font-medium">{{ count }}</span>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li class="text-slate-400">No dated lead records yet.</li>
+        {% endif %}
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="py-6 md:py-8">
+  <h2 class="text-xl font-semibold">Recent Leads</h2>
+  <div class="mt-3 overflow-x-auto rounded-lg border border-white/10">
+    <table class="min-w-full text-sm">
+      <thead class="bg-slate-900/70 text-slate-300">
+        <tr>
+          <th class="text-left px-3 py-2 font-semibold">Timestamp (UTC)</th>
+          <th class="text-left px-3 py-2 font-semibold">Name</th>
+          <th class="text-left px-3 py-2 font-semibold">Agency</th>
+          <th class="text-left px-3 py-2 font-semibold">Email</th>
+          <th class="text-left px-3 py-2 font-semibold">Source</th>
+          <th class="text-left px-3 py-2 font-semibold">Campaign</th>
+          <th class="text-left px-3 py-2 font-semibold">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if dashboard.recent_leads %}
+        {% for lead in dashboard.recent_leads %}
+        <tr class="border-t border-white/5 align-top">
+          <td class="px-3 py-2 text-slate-300 whitespace-nowrap">
+            {{ lead.timestamp_label }}
+          </td>
+          <td class="px-3 py-2 text-slate-100">{{ lead.name or "(unknown)" }}</td>
+          <td class="px-3 py-2 text-slate-300">{{ lead.agency or "(unknown)" }}</td>
+          <td class="px-3 py-2 text-slate-300">{{ lead.email or "(unknown)" }}</td>
+          <td class="px-3 py-2 text-slate-300">{{ lead.utm_source }}</td>
+          <td class="px-3 py-2 text-slate-300">{{ lead.utm_campaign }}</td>
+          <td class="px-3 py-2 text-slate-400">{{ lead.notes_preview or "(none)" }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td class="px-3 py-4 text-slate-400" colspan="7">No leads available yet.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

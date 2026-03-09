@@ -12,13 +12,17 @@ understand operational behavior quickly.
 """
 
 # Standard library imports used for persistence, validation, and delivery.
+import csv
 import hashlib
+import hmac
+import io
 import json
 import os
 import re
 import smtplib
 import ssl
-from datetime import datetime, timezone
+from collections import Counter
+from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
 from typing import Any, Dict, List
 from urllib import error as urllib_error
@@ -28,6 +32,7 @@ from urllib import request as urllib_request
 # Flask objects used by routes/middleware.
 from flask import (
     Flask,
+    Response,
     abort,
     flash,
     jsonify,
@@ -75,6 +80,10 @@ TURNSTILE_VERIFY_URL = os.environ.get(
     "TURNSTILE_VERIFY_URL",
     "https://challenges.cloudflare.com/turnstile/v0/siteverify",
 ).strip()
+
+# Basic-auth credentials for the internal leads dashboard.
+ADMIN_DASHBOARD_USERNAME = os.environ.get("ADMIN_DASHBOARD_USERNAME", "admin").strip()
+ADMIN_DASHBOARD_PASSWORD = os.environ.get("ADMIN_DASHBOARD_PASSWORD", "").strip()
 
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
@@ -210,6 +219,149 @@ def append_lead(lead: Dict[str, Any]) -> None:
     data.append(lead)
     with open(LEADS_FILE, "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
+
+
+def load_leads() -> List[Dict[str, Any]]:
+    """Load all leads from disk safely."""
+    ensure_data_store()
+    try:
+        with open(LEADS_FILE, "r", encoding="utf-8") as file:
+            loaded = json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return []
+    if not isinstance(loaded, list):
+        return []
+    return [row for row in loaded if isinstance(row, dict)]
+
+
+def parse_lead_timestamp(value: str) -> datetime | None:
+    """Parse stored lead timestamps as UTC datetimes."""
+    if not value:
+        return None
+    try:
+        normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+        parsed = datetime.fromisoformat(normalized)
+        if parsed.tzinfo is None:
+            return parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def safe_lead_bucket(value: str, fallback: str = "(direct/unknown)") -> str:
+    """Normalize attribution labels for grouped reporting."""
+    normalized = normalize_text(value).lower()
+    return normalized or fallback
+
+
+def preview_text(value: str, limit: int = 90) -> str:
+    """Create a short preview snippet for table views."""
+    value = normalize_text(value, allow_newlines=True)
+    if len(value) <= limit:
+        return value
+    return value[: limit - 1].rstrip() + "…"
+
+
+def build_lead_dashboard_data(leads: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Build aggregate report data for the admin leads dashboard."""
+    now_utc = utc_now()
+    cutoff_30d = now_utc - timedelta(days=30)
+    parsed_rows = []
+    source_counts: Counter[str] = Counter()
+    campaign_counts: Counter[str] = Counter()
+    day_counts: Counter[str] = Counter()
+    leads_last_30_days = 0
+
+    for lead in leads:
+        timestamp_raw = normalize_text(lead.get("timestamp", ""))
+        timestamp_dt = parse_lead_timestamp(timestamp_raw)
+        timestamp_label = (
+            timestamp_dt.strftime("%Y-%m-%d %H:%M:%S UTC")
+            if timestamp_dt
+            else (timestamp_raw or "(unknown)")
+        )
+
+        source = safe_lead_bucket(lead.get("utm_source", ""))
+        campaign = safe_lead_bucket(lead.get("utm_campaign", ""), "(none)")
+
+        source_counts[source] += 1
+        campaign_counts[campaign] += 1
+        if timestamp_dt:
+            day_counts[timestamp_dt.strftime("%Y-%m-%d")] += 1
+            if timestamp_dt >= cutoff_30d:
+                leads_last_30_days += 1
+
+        parsed_rows.append(
+            {
+                "timestamp_raw": timestamp_raw,
+                "timestamp_dt": timestamp_dt,
+                "timestamp_label": timestamp_label,
+                "name": normalize_text(lead.get("name", "")),
+                "agency": normalize_text(lead.get("agency", "")),
+                "role": normalize_text(lead.get("role", "")),
+                "email": normalize_text(lead.get("email", "")),
+                "phone": normalize_text(lead.get("phone", "")),
+                "utm_source": source,
+                "utm_medium": safe_lead_bucket(lead.get("utm_medium", ""), "(none)"),
+                "utm_campaign": campaign,
+                "landing_page": normalize_text(lead.get("landing_page", "")),
+                "referrer": normalize_text(lead.get("referrer", "")),
+                "notes_preview": preview_text(lead.get("notes", "")),
+            }
+        )
+
+    parsed_rows.sort(
+        key=lambda row: (
+            row["timestamp_dt"] is not None,
+            row["timestamp_dt"] or datetime.min.replace(tzinfo=timezone.utc),
+        ),
+        reverse=True,
+    )
+
+    recent_day_counts = sorted(day_counts.items(), reverse=True)[:14]
+    recent_day_counts.reverse()
+
+    return {
+        "total_leads": len(parsed_rows),
+        "leads_last_30_days": leads_last_30_days,
+        "top_sources": source_counts.most_common(8),
+        "top_campaigns": campaign_counts.most_common(8),
+        "leads_by_day": recent_day_counts,
+        "recent_leads": parsed_rows[:200],
+    }
+
+
+def admin_dashboard_enabled() -> bool:
+    """Return whether the internal dashboard is enabled."""
+    return bool(ADMIN_DASHBOARD_PASSWORD)
+
+
+def admin_unauthorized_response() -> Response:
+    """Return a standard basic-auth challenge response."""
+    return Response(
+        "Authentication required.",
+        status=401,
+        headers={"WWW-Authenticate": 'Basic realm="G3 Admin Leads", charset="UTF-8"'},
+    )
+
+
+def require_admin_auth() -> Response | None:
+    """Enforce basic auth for internal dashboard routes."""
+    if not admin_dashboard_enabled():
+        abort(404)
+
+    auth = request.authorization
+    if not auth or (auth.type or "").lower() != "basic":
+        return admin_unauthorized_response()
+
+    provided_user = auth.username or ""
+    provided_password = auth.password or ""
+    username_ok = hmac.compare_digest(provided_user, ADMIN_DASHBOARD_USERNAME)
+    password_ok = hmac.compare_digest(provided_password, ADMIN_DASHBOARD_PASSWORD)
+    if not (username_ok and password_ok):
+        return admin_unauthorized_response()
+
+    return None
 
 
 def normalize_text(value: str, *, allow_newlines: bool = False) -> str:
@@ -601,6 +753,75 @@ def security():
 def grants():
     """Grant assistance page."""
     return render_template("grants.html", title="Grant Assistance — G3 Industries")
+
+
+@app.route("/admin/leads")
+def admin_leads():
+    """Internal dashboard showing lead volume and attribution breakdowns."""
+    auth_error = require_admin_auth()
+    if auth_error:
+        return auth_error
+
+    leads = load_leads()
+    dashboard_data = build_lead_dashboard_data(leads)
+    return render_template(
+        "admin_leads.html",
+        title="Leads Dashboard — G3 Industries",
+        dashboard=dashboard_data,
+    )
+
+
+@app.route("/admin/leads.csv")
+def admin_leads_csv():
+    """Export leads as CSV for offline analysis."""
+    auth_error = require_admin_auth()
+    if auth_error:
+        return auth_error
+
+    leads = load_leads()
+    dashboard_data = build_lead_dashboard_data(leads)
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(
+        [
+            "timestamp_utc",
+            "name",
+            "agency",
+            "role",
+            "email",
+            "phone",
+            "utm_source",
+            "utm_medium",
+            "utm_campaign",
+            "landing_page",
+            "referrer",
+        ]
+    )
+    for lead in dashboard_data["recent_leads"]:
+        writer.writerow(
+            [
+                lead.get("timestamp_label", ""),
+                lead.get("name", ""),
+                lead.get("agency", ""),
+                lead.get("role", ""),
+                lead.get("email", ""),
+                lead.get("phone", ""),
+                lead.get("utm_source", ""),
+                lead.get("utm_medium", ""),
+                lead.get("utm_campaign", ""),
+                lead.get("landing_page", ""),
+                lead.get("referrer", ""),
+            ]
+        )
+
+    return Response(
+        output.getvalue(),
+        mimetype="text/csv",
+        headers={
+            "Content-Disposition": 'attachment; filename="g3-leads-export.csv"',
+            "Cache-Control": "no-store",
+        },
+    )
 
 
 @app.route("/demo", methods=["POST"])
