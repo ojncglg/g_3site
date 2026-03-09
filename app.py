@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from email.message import EmailMessage
 from typing import Any, Dict, List
 from urllib import error as urllib_error
+from urllib import parse as urllib_parse
 from urllib import request as urllib_request
 
 # Flask objects used by routes/middleware.
@@ -67,6 +68,14 @@ ANALYTICS_PROVIDER = os.environ.get("ANALYTICS_PROVIDER", "").strip().lower()
 GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "").strip()
 CLARITY_PROJECT_ID = os.environ.get("CLARITY_PROJECT_ID", "").strip()
 
+# Cloudflare Turnstile settings (optional anti-bot challenge).
+TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "").strip()
+TURNSTILE_SECRET_KEY = os.environ.get("TURNSTILE_SECRET_KEY", "").strip()
+TURNSTILE_VERIFY_URL = os.environ.get(
+    "TURNSTILE_VERIFY_URL",
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+).strip()
+
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
@@ -101,6 +110,13 @@ FIELD_MAX_LENGTHS = {
     "email": 254,
     "phone": 40,
     "notes": 2000,
+    "utm_source": 120,
+    "utm_medium": 120,
+    "utm_campaign": 160,
+    "utm_term": 160,
+    "utm_content": 160,
+    "landing_page": 2048,
+    "referrer": 2048,
 }
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PHONE_RE = re.compile(r"^[0-9+().\-\s]{7,40}$")
@@ -132,11 +148,12 @@ RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 # Centralized CSP applied to responses unless explicitly overridden.
 DEFAULT_CSP = (
     "default-src 'self'; "
-    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; "
+    "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://challenges.cloudflare.com; "
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-    "img-src 'self' data: https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms; "
+    "img-src 'self' data: https://www.google-analytics.com https://www.clarity.ms https://*.clarity.ms https://challenges.cloudflare.com; "
     "font-src 'self' https://fonts.gstatic.com; "
-    "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms; "
+    "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://challenges.cloudflare.com; "
+    "frame-src 'self' https://challenges.cloudflare.com; "
     "base-uri 'self'; "
     "form-action 'self' mailto:; "
     "frame-ancestors 'none'"
@@ -201,6 +218,11 @@ def normalize_text(value: str, *, allow_newlines: bool = False) -> str:
     if allow_newlines:
         return value.replace("\r\n", "\n").replace("\r", "\n")
     return " ".join(value.split())
+
+
+def clip_text(value: str, max_length: int) -> str:
+    """Clip untrusted text to a safe max length."""
+    return value[:max_length] if len(value) > max_length else value
 
 
 def get_client_ip() -> str:
@@ -309,6 +331,52 @@ def check_and_record_rate_limit(client_ip: str, email: str) -> tuple[bool, str]:
     return True, ""
 
 
+def verify_turnstile_token(token: str, client_ip: str) -> tuple[bool, str]:
+    """
+    Verify Cloudflare Turnstile token when anti-bot mode is enabled.
+    Returns (ok, error_message).
+    """
+    # If Turnstile is not configured, skip verification.
+    if not TURNSTILE_SITE_KEY or not TURNSTILE_SECRET_KEY:
+        return True, ""
+
+    if not token:
+        return False, "Please complete the verification challenge."
+
+    payload = {
+        "secret": TURNSTILE_SECRET_KEY,
+        "response": token,
+    }
+    if client_ip and client_ip != "unknown":
+        payload["remoteip"] = client_ip
+
+    data = urllib_parse.urlencode(payload).encode("utf-8")
+    req = urllib_request.Request(
+        TURNSTILE_VERIFY_URL,
+        data=data,
+        method="POST",
+        headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "g3-industries-site/1.0",
+            "Accept": "application/json",
+        },
+    )
+    try:
+        with urllib_request.urlopen(req, timeout=SMTP_TIMEOUT_SECONDS) as response:
+            body = response.read().decode("utf-8", errors="replace")
+        parsed = json.loads(body) if body else {}
+    except Exception as exc:  # pylint: disable=broad-except
+        app.logger.warning("Turnstile verification request failed: %s", exc)
+        return False, "Verification failed. Please try again."
+
+    if parsed.get("success") is True:
+        return True, ""
+
+    error_codes = parsed.get("error-codes", [])
+    app.logger.warning("Turnstile verification rejected: %s", error_codes)
+    return False, "Verification failed. Please retry and submit again."
+
+
 def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
     """
     Send a demo request email through the configured provider.
@@ -332,6 +400,15 @@ def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
         f"Source IP: {lead.get('source_ip', '')}",
         f"User Agent: {lead.get('user_agent', '')}",
         f"Elapsed MS: {lead.get('elapsed_ms', '')}",
+        "",
+        "Attribution:",
+        f"UTM Source: {lead.get('utm_source', '') or '(none)'}",
+        f"UTM Medium: {lead.get('utm_medium', '') or '(none)'}",
+        f"UTM Campaign: {lead.get('utm_campaign', '') or '(none)'}",
+        f"UTM Term: {lead.get('utm_term', '') or '(none)'}",
+        f"UTM Content: {lead.get('utm_content', '') or '(none)'}",
+        f"Landing Page: {lead.get('landing_page', '') or '(unknown)'}",
+        f"Referrer: {lead.get('referrer', '') or '(none)'}",
     ]
     body_text = "\n".join(body_lines)
 
@@ -447,6 +524,7 @@ def inject_contact_email():
         "analytics_provider": ANALYTICS_PROVIDER,
         "ga_measurement_id": GA_MEASUREMENT_ID,
         "clarity_project_id": CLARITY_PROJECT_ID,
+        "turnstile_site_key": TURNSTILE_SITE_KEY,
     }
 
 
@@ -542,8 +620,17 @@ def demo():
     email = normalize_text(request.form.get("email", "")).lower()
     phone = normalize_text(request.form.get("phone", ""))
     notes = normalize_text(request.form.get("notes", ""), allow_newlines=True)
+    utm_source = normalize_text(request.form.get("utm_source", ""))
+    utm_medium = normalize_text(request.form.get("utm_medium", ""))
+    utm_campaign = normalize_text(request.form.get("utm_campaign", ""))
+    utm_term = normalize_text(request.form.get("utm_term", ""))
+    utm_content = normalize_text(request.form.get("utm_content", ""))
+    landing_page = normalize_text(request.form.get("landing_page", ""))
+    referrer = normalize_text(request.form.get("referrer", ""))
+    turnstile_token = normalize_text(request.form.get("cf-turnstile-response", ""))
     honeypot = normalize_text(request.form.get("website", ""))
     form_start = normalize_text(request.form.get("form_start", ""))
+    client_ip = get_client_ip()
 
     # Time-based anti-spam check: require ~3 seconds before submit.
     min_delay_ms = 3000
@@ -563,6 +650,18 @@ def demo():
             return jsonify({"ok": True, "message": "Thanks"}), 200
         flash("Thanks — we’ll be in touch.", "success")
         return redirect_to_demo_anchor()
+
+    # Trim optional attribution metadata to fixed safe limits.
+    utm_source = clip_text(utm_source, FIELD_MAX_LENGTHS["utm_source"])
+    utm_medium = clip_text(utm_medium, FIELD_MAX_LENGTHS["utm_medium"])
+    utm_campaign = clip_text(utm_campaign, FIELD_MAX_LENGTHS["utm_campaign"])
+    utm_term = clip_text(utm_term, FIELD_MAX_LENGTHS["utm_term"])
+    utm_content = clip_text(utm_content, FIELD_MAX_LENGTHS["utm_content"])
+    landing_page = clip_text(landing_page, FIELD_MAX_LENGTHS["landing_page"])
+    referrer = clip_text(
+        referrer or normalize_text(request.referrer or ""),
+        FIELD_MAX_LENGTHS["referrer"],
+    )
 
     # Required fields must be present for a valid demo request.
     required_values = {"name": name, "agency": agency, "email": email}
@@ -592,8 +691,15 @@ def demo():
         )
         return redirect_to_demo_anchor()
 
+    # Verify Turnstile challenge before rate-limit/storage/email work.
+    turnstile_ok, turnstile_error = verify_turnstile_token(turnstile_token, client_ip)
+    if not turnstile_ok:
+        if wants_json_response():
+            return jsonify({"ok": False, "error": turnstile_error}), 400
+        flash(turnstile_error, "error")
+        return redirect_to_demo_anchor()
+
     # Apply server-side rate limits before persisting or sending email.
-    client_ip = get_client_ip()
     allowed, rate_message = check_and_record_rate_limit(client_ip, email)
     if not allowed:
         if wants_json_response():
@@ -612,9 +718,16 @@ def demo():
         "phone": phone,
         "notes": notes,
         "source_ip": client_ip,
-        "user_agent": request.headers.get("User-Agent", ""),
+        "user_agent": clip_text(request.headers.get("User-Agent", ""), 512),
         "elapsed_ms": elapsed_ms,
         "suspicious_too_fast": not elapsed_ok,
+        "utm_source": utm_source,
+        "utm_medium": utm_medium,
+        "utm_campaign": utm_campaign,
+        "utm_term": utm_term,
+        "utm_content": utm_content,
+        "landing_page": landing_page,
+        "referrer": referrer,
     }
     append_lead(lead)
 

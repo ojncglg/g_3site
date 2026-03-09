@@ -39,6 +39,14 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     display: inline-block;
   }
 </style>
+{% if turnstile_site_key %}
+<!-- Cloudflare Turnstile challenge script (loaded only when key is configured). -->
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
+{% endif %}
 {% endblock %}
 {% block content %}
 <!-- Inline SVG sprite: tiny line icons used in bullet lists -->
@@ -631,6 +639,27 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </div>
 
       <input type="hidden" name="form_start" id="form_start" />
+      <input type="hidden" name="utm_source" id="utm_source" />
+      <input type="hidden" name="utm_medium" id="utm_medium" />
+      <input type="hidden" name="utm_campaign" id="utm_campaign" />
+      <input type="hidden" name="utm_term" id="utm_term" />
+      <input type="hidden" name="utm_content" id="utm_content" />
+      <input type="hidden" name="landing_page" id="landing_page" />
+      <input type="hidden" name="referrer" id="referrer" />
+
+      {% if turnstile_site_key %}
+      <!-- Human verification challenge to reduce bot abuse. -->
+      <div class="md:col-span-2 mt-2">
+        <div
+          class="cf-turnstile"
+          data-sitekey="{{ turnstile_site_key }}"
+          data-theme="dark"
+        ></div>
+        <p class="mt-2 text-xs text-slate-400">
+          This form is protected by Cloudflare Turnstile.
+        </p>
+      </div>
+      {% endif %}
 
       <div class="md:col-span-2 flex items-center gap-3 mt-2">
         <button id="demo-submit" type="submit" class="btn btn-primary btn-lg">
@@ -713,10 +742,85 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     const submitBtn = document.getElementById("demo-submit");
     const statusEl = document.getElementById("demo-status");
     const startEl = document.getElementById("form_start");
+    const utmSourceEl = document.getElementById("utm_source");
+    const utmMediumEl = document.getElementById("utm_medium");
+    const utmCampaignEl = document.getElementById("utm_campaign");
+    const utmTermEl = document.getElementById("utm_term");
+    const utmContentEl = document.getElementById("utm_content");
+    const landingPageEl = document.getElementById("landing_page");
+    const referrerEl = document.getElementById("referrer");
+    const turnstileEnabled = "{{ '1' if turnstile_site_key else '0' }}" === "1";
     if (!form || !submitBtn || !statusEl) return;
 
     // Hidden timestamp is used server-side to detect suspiciously fast submits.
     if (startEl) startEl.value = Date.now();
+
+    function getSessionAttribution() {
+      try {
+        return JSON.parse(sessionStorage.getItem("g3_attribution") || "{}");
+      } catch (_err) {
+        return {};
+      }
+    }
+
+    function saveSessionAttribution(payload) {
+      try {
+        sessionStorage.setItem("g3_attribution", JSON.stringify(payload));
+      } catch (_err) {
+        // Ignore storage write errors and continue.
+      }
+    }
+
+    function buildAttributionPayload() {
+      const params = new URLSearchParams(window.location.search);
+      const stored = getSessionAttribution();
+      const payload = {
+        utm_source: stored.utm_source || "",
+        utm_medium: stored.utm_medium || "",
+        utm_campaign: stored.utm_campaign || "",
+        utm_term: stored.utm_term || "",
+        utm_content: stored.utm_content || "",
+        landing_page:
+          stored.landing_page || `${window.location.pathname}${window.location.search}`,
+        referrer: stored.referrer || document.referrer || "",
+      };
+
+      const keys = [
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+      ];
+      keys.forEach((key) => {
+        const value = params.get(key);
+        if (value) payload[key] = value;
+      });
+
+      if (!payload.landing_page) {
+        payload.landing_page = `${window.location.pathname}${window.location.search}`;
+      }
+      if (!payload.referrer) {
+        payload.referrer = document.referrer || "";
+      }
+
+      saveSessionAttribution(payload);
+      return payload;
+    }
+
+    function hydrateAttributionFields() {
+      const payload = buildAttributionPayload();
+      if (utmSourceEl) utmSourceEl.value = payload.utm_source || "";
+      if (utmMediumEl) utmMediumEl.value = payload.utm_medium || "";
+      if (utmCampaignEl) utmCampaignEl.value = payload.utm_campaign || "";
+      if (utmTermEl) utmTermEl.value = payload.utm_term || "";
+      if (utmContentEl) utmContentEl.value = payload.utm_content || "";
+      if (landingPageEl) landingPageEl.value = payload.landing_page || "";
+      if (referrerEl) referrerEl.value = payload.referrer || "";
+    }
+
+    // Fill hidden attribution fields on load and again right before submit.
+    hydrateAttributionFields();
 
     function setStatus(msg, ok = true) {
       statusEl.textContent = msg;
@@ -748,6 +852,18 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
               page_path: window.location.pathname,
             });
           }
+          return;
+        }
+      }
+
+      // Keep attribution fields fresh in case URL/referrer context changed.
+      hydrateAttributionFields();
+
+      // Require challenge completion only when Turnstile is enabled on this page.
+      if (turnstileEnabled) {
+        const tokenEl = form.querySelector('[name="cf-turnstile-response"]');
+        if (!tokenEl || !tokenEl.value.trim()) {
+          setStatus("Please complete the verification challenge.", false);
           return;
         }
       }
@@ -805,6 +921,13 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = prev;
+        if (
+          turnstileEnabled &&
+          window.turnstile &&
+          typeof window.turnstile.reset === "function"
+        ) {
+          window.turnstile.reset();
+        }
       }
     });
   })();
