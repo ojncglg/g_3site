@@ -144,7 +144,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
   </symbol>
 </svg>
 <!-- === Hero (value proposition + primary CTAs) === -->
-<section class="hero-bg relative">
+<section class="hero-bg relative reveal">
   <div class="max-w-6xl mx-auto px-4 pt-20 pb-16 md:pt-28 md:pb-24">
     <div class="max-w-3xl">
       <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
@@ -179,7 +179,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Products (module overview cards) === -->
-<section id="products" class="defer py-16 md:py-20 section-decor">
+<section id="products" class="defer py-16 md:py-20 section-decor reveal">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">What’s inside</h2>
     <p class="mt-2 text-slate-300">
@@ -271,7 +271,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <!-- === How it works (simple implementation story) === -->
 <section
   id="how"
-  class="defer py-16 md:py-20 bg-slate-900/30 border-y border-white/5 section-decor"
+  class="defer py-16 md:py-20 bg-slate-900/30 border-y border-white/5 section-decor reveal"
 >
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
@@ -343,7 +343,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Security & trust (high‑level assurances) === -->
-<section id="security" class="defer py-16 md:py-20 section-decor">
+<section id="security" class="defer py-16 md:py-20 section-decor reveal">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Security &amp; trust</h2>
     <!-- Security highlights: concise, executive-read bullets -->
@@ -400,7 +400,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <!-- === About / Mission / Founder (credibility) === -->
 <section
   id="about"
-  class="defer py-16 md:py-20 bg-slate-900/40 border-t border-white/5 section-decor"
+  class="defer py-16 md:py-20 bg-slate-900/40 border-t border-white/5 section-decor reveal"
 >
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Our mission</h2>
@@ -528,7 +528,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Demo (request form with basic client validation) === -->
-<section id="demo" class="defer py-16 md:py-20 section-decor">
+<section id="demo" class="defer py-16 md:py-20 section-decor reveal">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Request a demo</h2>
     <p class="mt-2 text-slate-300">
@@ -537,7 +537,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 
     <form
       id="demo-form"
-      class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
+      class="form-shell mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
       novalidate
       method="POST"
       action="/demo"
@@ -552,9 +552,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           name="name"
           type="text"
           required
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="e.g., Chief Jane Doe"
         />
+        <p id="name-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <!-- Required -->
@@ -567,9 +569,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           name="agency"
           type="text"
           required
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="160"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="e.g., City Police Department"
         />
+        <p id="agency-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <div>
@@ -580,9 +584,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           id="role"
           name="role"
           type="text"
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="e.g., Deputy Chief"
         />
+        <p id="role-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <!-- Required -->
@@ -595,9 +601,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           name="email"
           type="email"
           required
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="254"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="name@agency.gov"
         />
+        <p id="email-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <div>
@@ -608,9 +616,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           id="phone"
           name="phone"
           type="tel"
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="40"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="(555) 555-5555"
         />
+        <p id="phone-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <div class="md:col-span-2">
@@ -621,9 +631,11 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           id="notes"
           name="notes"
           rows="4"
-          class="w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          maxlength="2000"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
           placeholder="Anything we should know before we meet?"
         ></textarea>
+        <p id="notes-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <!-- Honeypot (hidden for humans) -->
@@ -676,7 +688,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </div>
       <div
         id="demo-status"
-        class="md:col-span-2 text-sm mt-2"
+        class="md:col-span-2 text-sm mt-2 form-status hidden"
         role="status"
         aria-live="polite"
       ></div>
@@ -822,38 +834,124 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     // Fill hidden attribution fields on load and again right before submit.
     hydrateAttributionFields();
 
+    const fieldIds = ["name", "agency", "role", "email", "phone", "notes"];
+    const fieldLabels = {
+      name: "full name",
+      agency: "agency",
+      role: "role/rank",
+      email: "email",
+      phone: "phone",
+      notes: "notes",
+    };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9+().\-\s]{7,40}$/;
+
+    function getFieldEl(id) {
+      return document.getElementById(id);
+    }
+
+    function getErrorEl(id) {
+      return document.getElementById(`${id}-error`);
+    }
+
+    function clearFieldError(id) {
+      const field = getFieldEl(id);
+      const errorEl = getErrorEl(id);
+      if (field) field.classList.remove("is-invalid");
+      if (errorEl) {
+        errorEl.textContent = "";
+        errorEl.classList.add("hidden");
+      }
+    }
+
+    function clearAllFieldErrors() {
+      fieldIds.forEach((id) => clearFieldError(id));
+    }
+
+    function setFieldError(id, message) {
+      const field = getFieldEl(id);
+      const errorEl = getErrorEl(id);
+      if (field) field.classList.add("is-invalid");
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+    }
+
+    function resetStatus() {
+      statusEl.textContent = "";
+      statusEl.className = "md:col-span-2 text-sm mt-2 form-status hidden";
+    }
+
     function setStatus(msg, ok = true) {
       statusEl.textContent = msg;
       statusEl.className =
-        "md:col-span-2 text-sm mt-2 " +
-        (ok ? "text-emerald-400" : "text-red-400");
+        "md:col-span-2 text-sm mt-2 form-status " +
+        (ok ? "form-status-success" : "form-status-error");
     }
+
+    function validateFields() {
+      clearAllFieldErrors();
+      let firstInvalid = null;
+
+      function failField(id, message) {
+        setFieldError(id, message);
+        if (!firstInvalid) firstInvalid = id;
+      }
+
+      // Required fields must be present before POST
+      const required = ["name", "agency", "email"];
+      for (const id of required) {
+        const el = getFieldEl(id);
+        if (!el || !el.value.trim()) {
+          failField(id, `Please provide your ${fieldLabels[id] || id}.`);
+        }
+      }
+
+      const emailEl = getFieldEl("email");
+      if (emailEl && emailEl.value.trim() && !emailRegex.test(emailEl.value.trim())) {
+        failField("email", "Please enter a valid email address.");
+      }
+
+      const phoneEl = getFieldEl("phone");
+      if (phoneEl && phoneEl.value.trim() && !phoneRegex.test(phoneEl.value.trim())) {
+        failField("phone", "Please enter a valid phone number.");
+      }
+
+      if (firstInvalid) {
+        const firstField = getFieldEl(firstInvalid);
+        if (firstField) firstField.focus();
+      }
+
+      return { valid: !firstInvalid, firstInvalid };
+    }
+
+    fieldIds.forEach((id) => {
+      const el = getFieldEl(id);
+      if (!el) return;
+      el.addEventListener("input", () => clearFieldError(id));
+    });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      statusEl.textContent = "";
+      resetStatus();
+
       if (typeof window.g3Track === "function") {
         window.g3Track("demo_form_submit_attempt", {
           page_path: window.location.pathname,
         });
       }
 
-      // Required fields must be present before POST
-      // Simple client-side validation to match server rules
-      const required = ["name", "agency", "email"];
-      for (const id of required) {
-        const el = document.getElementById(id);
-        if (!el.value.trim()) {
-          el.focus();
-          setStatus(`Please provide your ${id}.`, false);
-          if (typeof window.g3Track === "function") {
-            window.g3Track("demo_form_validation_error", {
-              field_name: id,
-              page_path: window.location.pathname,
-            });
-          }
-          return;
+      const validation = validateFields();
+      if (!validation.valid) {
+        setStatus("Please review the highlighted fields and try again.", false);
+        if (typeof window.g3Track === "function") {
+          window.g3Track("demo_form_validation_error", {
+            field_name: validation.firstInvalid || "unknown",
+            page_path: window.location.pathname,
+          });
         }
+        return;
       }
 
       // Keep attribution fields fresh in case URL/referrer context changed.
@@ -890,7 +988,22 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 
         if (!resp.ok || data.ok !== true) {
           if (Array.isArray(data.errors) && data.errors.length) {
-            throw new Error(`Please provide: ${data.errors.join(", ")}.`);
+            clearAllFieldErrors();
+            data.errors.forEach((fieldName) => {
+              setFieldError(
+                fieldName,
+                `Please review your ${fieldLabels[fieldName] || fieldName}.`,
+              );
+            });
+            const firstFieldName = data.errors.find((fieldName) =>
+              Boolean(getFieldEl(fieldName)),
+            );
+            if (firstFieldName) {
+              const firstField = getFieldEl(firstFieldName);
+              if (firstField) firstField.focus();
+            }
+            setStatus("Please review the highlighted fields and try again.", false);
+            return;
           }
           if (typeof data.error === "string" && data.error.trim()) {
             throw new Error(data.error);
@@ -907,6 +1020,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           });
         }
         form.reset();
+        clearAllFieldErrors();
         if (startEl) startEl.value = Date.now();
       } catch (err) {
         setStatus(

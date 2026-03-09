@@ -169,9 +169,15 @@
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-gray-900 focus:text-white focus:px-3 focus:py-2 focus:rounded"
       >Skip to content</a
     >
+    {% set current_path = request.path or "/" %}
+    {% set nav_home = current_path == "/" %}
+    {% set nav_products = current_path.startswith("/products") %}
+    {% set nav_security = current_path.startswith("/security") %}
+    {% set nav_grants = current_path.startswith("/grants") %}
+    {% set nav_about = current_path.startswith("/about") %}
     <header class="bg-gray-900 sticky top-0 z-50 border-b border-white/10">
       <nav
-        class="mx-auto max-w-6xl px-4 py-6 flex items-center justify-between"
+        class="mx-auto max-w-6xl px-4 py-4 md:py-5 flex items-center justify-between"
         role="navigation"
         aria-label="Primary"
       >
@@ -236,28 +242,51 @@
         <div class="hidden md:flex items-center gap-6 md:gap-8 ml-auto">
           <ul class="flex gap-6 md:gap-8 text-gray-300">
             <li>
-              <a href="/" class="nav-link hover:text-white">Home</a>
+              <a
+                href="/"
+                class="nav-link {% if nav_home %}is-active{% endif %}"
+                {% if nav_home %}aria-current="page"{% endif %}
+                >Home</a
+              >
             </li>
             <li>
-              <a href="/products" class="nav-link hover:text-white">Products</a>
+              <a
+                href="/products"
+                class="nav-link {% if nav_products %}is-active{% endif %}"
+                {% if nav_products %}aria-current="page"{% endif %}
+                >Products</a
+              >
             </li>
             <li>
-              <a href="/security" class="nav-link hover:text-white">Security</a>
+              <a
+                href="/security"
+                class="nav-link {% if nav_security %}is-active{% endif %}"
+                {% if nav_security %}aria-current="page"{% endif %}
+                >Security</a
+              >
             </li>
             <li>
-              <a href="/grants" class="nav-link hover:text-white"
+              <a
+                href="/grants"
+                class="nav-link {% if nav_grants %}is-active{% endif %}"
+                {% if nav_grants %}aria-current="page"{% endif %}
                 >Grant Assistance</a
               >
             </li>
             <li>
-              <a href="/about" class="nav-link hover:text-white">About</a>
+              <a
+                href="/about"
+                class="nav-link {% if nav_about %}is-active{% endif %}"
+                {% if nav_about %}aria-current="page"{% endif %}
+                >About</a
+              >
             </li>
           </ul>
 
           <!-- Persistent header CTA -->
           <a
             href="/#demo"
-            class="inline-flex items-center justify-center rounded-md bg-[color:var(--g3-gold)] text-black px-4 py-2 text-sm font-semibold shadow hover:brightness-110 focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+            class="btn btn-primary btn-sm"
             aria-label="Go to the request a demo form"
             data-track-event="cta_click"
             data-track-label="request_demo"
@@ -267,50 +296,64 @@
           </a>
         </div>
       </nav>
+      <div
+        id="mobile-menu-backdrop"
+        class="mobile-menu-backdrop hidden md:hidden"
+        data-close-menu="true"
+      ></div>
       <!-- Mobile menu panel -->
       <div
         id="mobile-menu"
-        class="md:hidden hidden border-t border-white/10 bg-gray-900"
+        class="mobile-menu-panel md:hidden hidden border-t border-white/10 bg-gray-900/98"
       >
         <div class="mx-auto max-w-6xl px-4 py-4">
-          <ul class="flex flex-col gap-3 text-gray-200">
+          <a
+            href="/#demo"
+            class="btn btn-primary w-full justify-center"
+            aria-label="Go to the request a demo form"
+            data-track-event="cta_click"
+            data-track-label="request_demo"
+            data-track-location="header_mobile"
+            >Request a demo</a
+          >
+          <ul class="flex flex-col gap-1 text-gray-200 mt-3">
             <li>
-              <a href="/" class="block rounded px-3 py-2 hover:bg-white/5"
+              <a
+                href="/"
+                class="mobile-nav-link {% if nav_home %}is-active{% endif %}"
+                {% if nav_home %}aria-current="page"{% endif %}
                 >Home</a
               >
             </li>
             <li>
               <a
-                href="/#demo"
-                class="block rounded-md bg-[color:var(--g3-gold)] text-black px-3 py-2 font-semibold shadow hover:brightness-110"
-                aria-label="Go to the request a demo form"
-                data-track-event="cta_click"
-                data-track-label="request_demo"
-                data-track-location="header_mobile"
-                >Request a demo</a
-              >
-            </li>
-            <li>
-              <a
                 href="/products"
-                class="block rounded px-3 py-2 hover:bg-white/5"
+                class="mobile-nav-link {% if nav_products %}is-active{% endif %}"
+                {% if nav_products %}aria-current="page"{% endif %}
                 >Products</a
               >
             </li>
             <li>
               <a
                 href="/security"
-                class="block rounded px-3 py-2 hover:bg-white/5"
+                class="mobile-nav-link {% if nav_security %}is-active{% endif %}"
+                {% if nav_security %}aria-current="page"{% endif %}
                 >Security</a
               >
             </li>
             <li>
-              <a href="/grants" class="block rounded px-3 py-2 hover:bg-white/5"
+              <a
+                href="/grants"
+                class="mobile-nav-link {% if nav_grants %}is-active{% endif %}"
+                {% if nav_grants %}aria-current="page"{% endif %}
                 >Grant Assistance</a
               >
             </li>
             <li>
-              <a href="/about" class="block rounded px-3 py-2 hover:bg-white/5"
+              <a
+                href="/about"
+                class="mobile-nav-link {% if nav_about %}is-active{% endif %}"
+                {% if nav_about %}aria-current="page"{% endif %}
                 >About</a
               >
             </li>
@@ -318,8 +361,22 @@
         </div>
       </div>
     </header>
+    {% if not current_path.startswith("/admin") %}
+    <div class="site-trust-strip">
+      <div
+        class="mx-auto max-w-6xl px-4 py-2 flex flex-wrap items-center gap-2 md:gap-3"
+      >
+        <span class="site-trust-item">Built by <strong>law enforcement</strong></span>
+        <span class="site-trust-item">Secure by design</span>
+        <span class="site-trust-item">Audit-ready workflows</span>
+        <span class="site-trust-item hidden md:inline-flex"
+          >Delaware-based product team</span
+        >
+      </div>
+    </div>
+    {% endif %}
 
-    <main id="main" class="mx-auto max-w-6xl px-4 py-8" tabindex="-1">
+    <main id="main" class="page-content mx-auto max-w-6xl px-4" tabindex="-1">
       {# Flash alerts (success/error) rendered from server-side message queue. #}
       {% with messages = get_flashed_messages(with_categories=True) %}
       {% if messages %}
@@ -359,17 +416,29 @@
       {% endblock %}
     </main>
 
-    <footer class="w-full bg-gray-900 text-gray-500 text-xs">
+    <footer class="w-full bg-gray-900 text-gray-500 text-xs border-t border-white/10">
       <div
-        class="mx-auto max-w-6xl px-4 py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+        class="mx-auto max-w-6xl px-4 py-8 grid gap-6 md:grid-cols-[1fr_auto_auto] items-center"
       >
-        <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
-        <nav class="flex gap-6 md:gap-8" role="navigation" aria-label="Footer">
-          <a href="/products" class="hover:text-gray-300">Products</a>
-          <a href="/security" class="hover:text-gray-300">Security</a>
-          <a href="/grants" class="hover:text-gray-300">Grant Assistance</a>
-          <a href="/about" class="hover:text-gray-300">About</a>
+        <div>
+          <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
+          <div class="mt-1 text-[11px] text-slate-400">
+            Revolutionizing law enforcement through innovation
+          </div>
+        </div>
+        <nav
+          class="flex flex-wrap gap-4 md:gap-6 text-[12px]"
+          role="navigation"
+          aria-label="Footer"
+        >
+          <a href="/" class="footer-link">Home</a>
+          <a href="/products" class="footer-link">Products</a>
+          <a href="/security" class="footer-link">Security</a>
+          <a href="/grants" class="footer-link">Grant Assistance</a>
+          <a href="/about" class="footer-link">About</a>
+          <a href="mailto:{{ contact_email }}" class="footer-link">Contact</a>
         </nav>
+        <a href="/#demo" class="btn btn-primary btn-sm w-fit">Request a demo</a>
       </div>
     </footer>
 
@@ -401,6 +470,7 @@
         // Mobile nav toggler for smaller breakpoints.
         const btn = document.getElementById("mobileMenuBtn");
         const menu = document.getElementById("mobile-menu");
+        const backdrop = document.getElementById("mobile-menu-backdrop");
         const iconHamb = document.getElementById("icon-hamburger");
         const iconClose = document.getElementById("icon-close");
         if (!btn || !menu) return;
@@ -413,11 +483,15 @@
               : menu.classList.contains("hidden");
           if (shouldOpen) {
             menu.classList.remove("hidden");
+            if (backdrop) backdrop.classList.remove("hidden");
+            document.body.classList.add("menu-open");
             btn.setAttribute("aria-expanded", "true");
             if (iconHamb) iconHamb.classList.add("hidden");
             if (iconClose) iconClose.classList.remove("hidden");
           } else {
             menu.classList.add("hidden");
+            if (backdrop) backdrop.classList.add("hidden");
+            document.body.classList.remove("menu-open");
             btn.setAttribute("aria-expanded", "false");
             if (iconHamb) iconHamb.classList.remove("hidden");
             if (iconClose) iconClose.classList.add("hidden");
@@ -425,9 +499,18 @@
         }
 
         btn.addEventListener("click", () => toggle());
+        if (backdrop) {
+          backdrop.addEventListener("click", () => toggle(false));
+        }
         // Close menu after selecting a link
         menu.addEventListener("click", (e) => {
-          if (e.target.matches("a")) toggle(false);
+          if (e.target.closest("a")) toggle(false);
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") toggle(false);
+        });
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) toggle(false);
         });
       })();
     </script>
