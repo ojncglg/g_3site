@@ -5,6 +5,8 @@ import ssl
 from datetime import datetime, timezone
 from email.message import EmailMessage
 from typing import Any, Dict, List
+from urllib import error as urllib_error
+from urllib import request as urllib_request
 
 from flask import (
     Flask,
@@ -54,6 +56,14 @@ REQUIRE_EMAIL_DELIVERY = os.environ.get("REQUIRE_EMAIL_DELIVERY", "1").strip() i
     "true",
     "True",
 )
+# Email transport selection:
+# - "auto": prefer Resend when configured; otherwise use SMTP.
+# - "resend": only use Resend API.
+# - "smtp": only use SMTP.
+EMAIL_PROVIDER = os.environ.get("EMAIL_PROVIDER", "auto").strip().lower()
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "").strip()
+RESEND_FROM_EMAIL = os.environ.get("RESEND_FROM_EMAIL", DEMO_FROM_EMAIL).strip()
+RESEND_API_URL = os.environ.get("RESEND_API_URL", "https://api.resend.com/emails").strip()
 
 # Build absolute paths once so file access is predictable from any working dir.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -128,17 +138,6 @@ def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
     Send a demo request email through SMTP.
     Returns (ok, error_message).
     """
-    if not SMTP_HOST:
-        message = "SMTP is not configured (missing SMTP_HOST)."
-        if app.debug and not REQUIRE_EMAIL_DELIVERY:
-            # Allow local development without a configured mail server.
-            app.logger.warning(message)
-            return True, ""
-        return False, message
-
-    if not SMTP_PASSWORD:
-        return False, "SMTP password is missing (set SMTP_PASSWORD)."
-
     subject = f"New Demo Request — {lead.get('agency', 'Unknown Agency')}"
     body_lines = [
         "A new demo request was submitted on g3industries.io.",
@@ -158,13 +157,74 @@ def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
         f"User Agent: {lead.get('user_agent', '')}",
         f"Elapsed MS: {lead.get('elapsed_ms', '')}",
     ]
+    body_text = "\n".join(body_lines)
+
+    # Route by configured provider. "auto" prefers API delivery when available.
+    if EMAIL_PROVIDER in ("auto", "resend") and RESEND_API_KEY:
+        ok, message = send_demo_email_resend(subject, body_text, lead)
+        if ok:
+            return True, ""
+        if EMAIL_PROVIDER == "resend":
+            return False, message
+
+    if EMAIL_PROVIDER == "resend" and not RESEND_API_KEY:
+        return False, "RESEND_API_KEY is missing while EMAIL_PROVIDER=resend."
+
+    # Fall back to SMTP when provider is smtp/auto and Resend is unavailable or failed.
+    return send_demo_email_smtp(subject, body_text, lead)
+
+
+def send_demo_email_resend(subject: str, body_text: str, lead: Dict[str, Any]) -> tuple[bool, str]:
+    """Send demo request email through the Resend API."""
+    payload = {
+        "from": RESEND_FROM_EMAIL,
+        "to": [DEMO_TO_EMAIL],
+        "subject": subject,
+        "text": body_text,
+        # Keep threaded replies pointed to the requestor.
+        "reply_to": lead.get("email", DEMO_TO_EMAIL),
+    }
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib_request.Request(
+        RESEND_API_URL,
+        data=data,
+        method="POST",
+        headers={
+            "Authorization": f"Bearer {RESEND_API_KEY}",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urllib_request.urlopen(req, timeout=SMTP_TIMEOUT_SECONDS) as response:
+            if 200 <= response.status < 300:
+                return True, ""
+            return False, f"Resend API returned status {response.status}."
+    except urllib_error.HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")
+        return False, f"Resend API HTTP {exc.code}: {body}"
+    except Exception as exc:  # pylint: disable=broad-except
+        return False, f"Resend API error: {exc}"
+
+
+def send_demo_email_smtp(subject: str, body_text: str, lead: Dict[str, Any]) -> tuple[bool, str]:
+    """Send demo request email through SMTP."""
+    if not SMTP_HOST:
+        message = "SMTP is not configured (missing SMTP_HOST)."
+        if app.debug and not REQUIRE_EMAIL_DELIVERY:
+            # Allow local development without a configured mail server.
+            app.logger.warning(message)
+            return True, ""
+        return False, message
+
+    if not SMTP_PASSWORD:
+        return False, "SMTP password is missing (set SMTP_PASSWORD)."
 
     message = EmailMessage()
     message["Subject"] = subject
     message["From"] = DEMO_FROM_EMAIL
     message["To"] = DEMO_TO_EMAIL
     message["Reply-To"] = lead.get("email", DEMO_TO_EMAIL)
-    message.set_content("\n".join(body_lines))
+    message.set_content(body_text)
 
     try:
         if SMTP_USE_SSL:
