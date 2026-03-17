@@ -791,105 +791,53 @@ LopezGarcia{% endblock %}
           command efficiency.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-          <!-- 1 · Request -->
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Request
-            </div>
-            <h3 class="mt-1 font-semibold">Officer submits</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Sick / vacation / comp requests include required notes and
-              automatic policy checks (caps, blackout dates, unit limits).
-            </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
             >
-              <img
-                src="{{ url_for('static', filename='img/products/submits.png') }}"
-                alt="Scheduling — Request form"
-                class="w-full h-full object-cover rounded-md"
-              />
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Request</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Review</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Calendar</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Audit</span
+              >
             </div>
-          </article>
-
-          <!-- 2 · Review -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Review
-            </div>
-            <h3 class="mt-1 font-semibold">Supervisor approval</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Queue shows staffing impact by squad/shift/unit before approving;
-              conflicts and policy violations are flagged.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              One clean workflow for your video: officer request comes in,
+              supervisor review confirms policy and coverage, approved leave
+              lands on the calendar, and every action is captured for audit.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <img
-                src="{{ url_for('static', filename='img/products/review.png') }}"
-                alt="Scheduling — Approval queue"
-                class="w-full h-full object-cover rounded-md"
-              />
-            </div>
-          </article>
-
-          <!-- 3 · Calendar -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Calendar
-            </div>
-            <h3 class="mt-1 font-semibold">Coverage view</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Approved leave lands on the schedule automatically; filters for
-              unit, squad, shift, and assignment keep command visibility clear.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <img
-                src="{{ url_for('static', filename='img/products/coverage.png') }}"
-                alt="Scheduling — Calendar coverage view"
-                class="w-full h-full object-cover rounded-md"
-              />
-            </div>
-          </article>
-
-          <!-- 4 · Audit -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Audit
-            </div>
-            <h3 class="mt-1 font-semibold">Accountability</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Every change is logged (who/what/when). Export clean reports for
-              records requests, reviews, and policy audits.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Audit report</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Scheduling walkthrough: Request → Review → Calendar →
+                  Audit</span
+                >
+              </div>
             </div>
           </article>
         </div>
       </div>
-    </section>
-
     </section>
 
     <!-- Section divider: separates Scheduling from Bidding/AI -->
@@ -920,97 +868,49 @@ LopezGarcia{% endblock %}
           Your policy → configured windows → fair resolution → calendar & audit.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-          <!-- 1 · Configure policy -->
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Configure
+            <div
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
+            >
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Configure</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Window</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Requests</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Calendar</span
+              >
             </div>
-            <h3 class="mt-1 font-semibold">Policy & parameters</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              You provide the logic—seniority or lottery, windows, caps,
-              blackout dates, unit rules. We implement it in the Vacation Book.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              Policy is configured once, bidding windows open in the right
+              order, officers submit selections by turn, and approved dates are
+              placed on the calendar with full auditability.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Policy setup</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 2 · Window & order -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Window
-            </div>
-            <h3 class="mt-1 font-semibold">Open bidding rounds</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Bidding windows and officer order follow your policy (e.g.,
-              seniority by unit/squad). System enforces caps automatically.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Bidding window</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 3 · Requests & resolution -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Requests
-            </div>
-            <h3 class="mt-1 font-semibold">User-by-user selection</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Officers pick dates in their turn; conflicts are resolved per
-              policy and conflicting slots are closed to others in real time.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Officer pick</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 4 · Calendar & audit -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Calendar
-            </div>
-            <h3 class="mt-1 font-semibold">Place & lock</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Approved bids place automatically on the calendar; conflicting
-              requests are closed out. Full audit trail supports reviews and
-              records.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Calendar placement</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Vacation Bidding walkthrough: Configure → Window → Requests
+                  → Calendar</span
+                >
+              </div>
             </div>
           </article>
         </div>
@@ -1037,99 +937,49 @@ LopezGarcia{% endblock %}
           and local events.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-          <!-- 1 · Inputs -->
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Inputs
+            <div
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
+            >
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Inputs</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Forecast</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Review</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Action</span
+              >
             </div>
-            <h3 class="mt-1 font-semibold">Signals ingested</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Historical leave, squad/shift rosters, weekday/time seasonality,
-              weather, and scheduled events feed the model. Data is scoped to
-              your agency.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              Agency-specific signals feed the model, low-staff risks are
+              forecasted, command runs what-if scenarios, and proactive actions
+              are sent back into scheduling.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Signals</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 2 · Forecast -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Forecast
-            </div>
-            <h3 class="mt-1 font-semibold">Risk scoring</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              The model produces a daily/shift risk score and confidence range
-              for under‑staffing. View by unit, squad, or shift.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Risk chart</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 3 · Review & What‑if -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Review
-            </div>
-            <h3 class="mt-1 font-semibold">What‑if adjustments</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Supervisors adjust assumptions (OT, training days, event overlays)
-              to see impact. Suggested coverage prompts appear for high‑risk
-              windows.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">What‑if controls</span>
-            </div>
-            </div>
-          </article>
-
-          <!-- 4 · Action & Monitoring -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Action
-            </div>
-            <h3 class="mt-1 font-semibold">Proactive coverage</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Request additional officers or shift swaps ahead of time. Changes
-              reflect on the schedule; outcomes feed back to improve future
-              predictions.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Actions & feedback</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Staffing Predictor walkthrough: Inputs → Forecast → Review
+                  → Action</span
+                >
+              </div>
             </div>
           </article>
         </div>
@@ -1162,88 +1012,49 @@ LopezGarcia{% endblock %}
           From public intake to assignment to audit—transparent and fair.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Intake
+            <div
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
+            >
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Intake</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Vetting</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Assignment</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Audit/Billing</span
+              >
             </div>
-            <h3 class="mt-1 font-semibold">Request received</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Job details captured with required fields and contact info.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              Requests are captured, supervisors vet for policy and conflicts,
+              assignments are made fairly, and audit plus billing exports close
+              the loop.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Public intake form</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Vetting
-            </div>
-            <h3 class="mt-1 font-semibold">Supervisor review</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Policy checks, conflicts, and approval with assignment slots.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Supervisor queue</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Assignment
-            </div>
-            <h3 class="mt-1 font-semibold">Fair assignment</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Transparent logic with notifications to selected officers.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Assignment screen</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Audit/Billing
-            </div>
-            <h3 class="mt-1 font-semibold">Audit & export</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Time, approvals, and payments tracked; export for billing.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Audit & export</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Extra Duty walkthrough: Intake → Vetting → Assignment →
+                  Audit/Billing</span
+                >
+              </div>
             </div>
           </article>
         </div>
@@ -1268,89 +1079,48 @@ LopezGarcia{% endblock %}
           Secure intake, supervisor triage, and follow‑through—closing the loop.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Intake
+            <div
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
+            >
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Intake</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Triage</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Actions</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Accountability</span
+              >
             </div>
-            <h3 class="mt-1 font-semibold">Tip received</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Anonymous or contact‑provided; attachments allowed.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              Tips are submitted securely, supervisors triage and assign follow
+              up, teams execute actions, and closure remains fully auditable.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Tip intake</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Triage
-            </div>
-            <h3 class="mt-1 font-semibold">Supervisor triage</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Categorize, assign, and set follow‑up tasks with due dates.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Triage</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Actions
-            </div>
-            <h3 class="mt-1 font-semibold">Follow‑through</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Tasks tracked; status updates keep leadership in the loop.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Tasking</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Accountability
-            </div>
-            <h3 class="mt-1 font-semibold">Audit & closure</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Every action logged; exportable report for records and community
-              updates.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Audit report</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Anonymous Tips walkthrough: Intake → Triage → Actions →
+                  Accountability</span
+                >
+              </div>
             </div>
           </article>
         </div>
@@ -1383,88 +1153,48 @@ LopezGarcia{% endblock %}
           Chain‑of‑custody style logging with search and export.
         </p>
 
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <div class="mt-8">
           <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
           >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              1 · Entry
+            <div
+              class="flex flex-wrap items-center gap-2 text-xs md:text-sm font-semibold"
+            >
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >1 · Entry</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >2 · Custody</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >3 · Search</span
+              >
+              <span class="text-slate-500">→</span>
+              <span
+                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
+                >4 · Export</span
+              >
             </div>
-            <h3 class="mt-1 font-semibold">Tow created</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Required fields ensure complete, consistent records.
+            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
+              Tow records are entered consistently, custody events are logged,
+              teams can quickly search and verify status, and clean exports are
+              generated for records and audits.
             </p>
             <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
+              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
+              style="aspect-ratio: 16/9"
             >
               <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Tow entry</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              2 · Custody
-            </div>
-            <h3 class="mt-1 font-semibold">Chain of custody</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Movements and access logged; who/what/when captured.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Custody log</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              3 · Search
-            </div>
-            <h3 class="mt-1 font-semibold">Find & verify</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Search by plate, case, location; filter and verify status.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Search</span>
-            </div>
-            </div>
-          </article>
-
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
-          >
-            <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
-              4 · Export
-            </div>
-            <h3 class="mt-1 font-semibold">Records ready</h3>
-            <p class="mt-2 text-sm text-slate-300">
-              Clean export for records requests and audits.
-            </p>
-            <div
-              class="mt-4 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/10"
-            >
-              <div class="coming-soon-box">
-              <span class="coming-soon-tag">Coming soon</span>
-              <span class="coming-soon-label">Export</span>
-            </div>
+                <span class="coming-soon-tag">Video Placeholder</span>
+                <span class="coming-soon-label"
+                  >Tow Logs walkthrough: Entry → Custody → Search → Export</span
+                >
+              </div>
             </div>
           </article>
         </div>
