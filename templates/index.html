@@ -24,6 +24,9 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     background:
       radial-gradient(
         1200px 600px at 80% -10%,
@@ -32,11 +35,205 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       ),
       linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
   }
+
+  .hero-bg > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Subtle technical motion: soft grid pulse behind hero content. */
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10%;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+      radial-gradient(
+        130% 120% at 50% 0%,
+        rgba(34, 211, 238, 0.16),
+        transparent 72%
+      );
+    background-size:
+      56px 56px,
+      56px 56px,
+      100% 100%;
+    opacity: 0.16;
+    animation: grid-pulse 14s ease-in-out infinite;
+  }
+
+  /* Subtle scanline sweep for a command-console feel. */
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: -120% 0 0 0;
+    height: 260%;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(56, 189, 248, 0.07) 0 2px,
+      rgba(15, 23, 42, 0) 2px 12px
+    );
+    opacity: 0.1;
+    animation: scanline-drift 18s linear infinite;
+  }
+
+  .scanline-accent {
+    position: relative;
+    padding-bottom: 0.45rem;
+  }
+
+  .scanline-accent::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: min(240px, 46%);
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0.85),
+      rgba(250, 204, 21, 0.78),
+      rgba(34, 211, 238, 0)
+    );
+    animation: accent-pulse 5.5s ease-in-out infinite;
+  }
+
+  .console-depth {
+    position: relative;
+    border: 1px solid rgba(56, 189, 248, 0.24);
+    border-radius: 0.95rem;
+    background: linear-gradient(
+      150deg,
+      rgba(15, 23, 42, 0.86),
+      rgba(2, 6, 23, 0.8)
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(148, 163, 184, 0.22),
+      0 14px 34px rgba(2, 6, 23, 0.42);
+  }
+
+  .console-depth > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .console-depth::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0),
+      rgba(34, 211, 238, 0.1),
+      rgba(34, 211, 238, 0)
+    );
+    transform: translateX(-120%);
+    animation: console-sweep 11s ease-in-out infinite;
+  }
+
+  .pilot-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7dd3fc;
+    font-weight: 700;
+  }
+
+  .pilot-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .pilot-list .li-icon {
+    margin-top: 0.12rem;
+    color: var(--g3-gold);
+  }
+
   /* Tiny line icons for bullet lists */
   .li-icon {
     width: 1rem;
     height: 1rem;
     display: inline-block;
+  }
+
+  .module-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .module-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    flex: 0 0 2.2rem;
+    display: block;
+    object-fit: contain;
+  }
+
+  @keyframes grid-pulse {
+    0%,
+    100% {
+      opacity: 0.11;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.2;
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes scanline-drift {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(34%);
+    }
+  }
+
+  @keyframes console-sweep {
+    0%,
+    78%,
+    100% {
+      transform: translateX(-120%);
+      opacity: 0;
+    }
+    84% {
+      opacity: 0.85;
+    }
+    95% {
+      transform: translateX(120%);
+      opacity: 0.3;
+    }
+  }
+
+  @keyframes accent-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg::before,
+    .hero-bg::after,
+    .console-depth::after,
+    .scanline-accent::after {
+      animation: none;
+    }
   }
 </style>
 {% if turnstile_site_key %}
@@ -147,8 +344,8 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <section class="hero-bg relative reveal">
   <div class="max-w-6xl mx-auto px-4 pt-20 pb-16 md:pt-28 md:pb-24">
     <div class="max-w-3xl">
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
-        The scheduling and accountability platform built for policing
+      <h1 class="scanline-accent text-4xl md:text-5xl font-extrabold leading-tight">
+        The workforce platform built for policing
       </h1>
       <p class="mt-4 max-w-2xl text-lg md:text-xl text-slate-300">
         Built from firsthand law enforcement experience to match real policy,
@@ -165,15 +362,17 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         >
           Request a demo
         </a>
+        <a
+          href="#pilot"
+          class="btn btn-lg btn-outline"
+          data-track-event="cta_click"
+          data-track-label="start_pilot"
+          data-track-location="home_hero"
+        >
+          Start pilot program
+        </a>
       </div>
 
-      <!-- Trust chips: quick credibility signals; uses shared .chip styles -->
-      <div class="mt-8 flex flex-wrap gap-2 text-xs text-slate-400">
-        <span class="chip px-2 py-1 rounded">Built by law enforcement</span>
-        <span class="chip px-2 py-1 rounded">Configurable to policy</span>
-        <span class="chip px-2 py-1 rounded">Audit‑ready accountability</span>
-        <span class="chip px-2 py-1 rounded">Command‑level visibility</span>
-      </div>
     </div>
   </div>
 </section>
@@ -194,7 +393,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Scheduling & Calendar — view details"
       >
-        <h3 class="font-semibold text-lg">Scheduling &amp; Calendar</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Book Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Scheduling &amp; Calendar</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Sick/vacation/comp requests with supervisor approvals, staffing
           impact, and policy guardrails—kept in one calendar.
@@ -206,7 +413,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Vacation Bidding — view details"
       >
-        <h3 class="font-semibold text-lg">Vacation Bidding</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Plane Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Vacation Bidding</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Seniority or lottery workflows with policy windows and caps—placed
           automatically on the calendar.
@@ -219,7 +434,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Extra-Duty — view details"
       >
-        <h3 class="font-semibold text-lg">Extra-Duty</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Dollar Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Extra-Duty</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Public requests → supervisor review → fair assignment logic → clean
           audit trail.
@@ -232,7 +455,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Anonymous Tips — view details"
       >
-        <h3 class="font-semibold text-lg">Anonymous Tips</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Person Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Anonymous Tips</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Secure intake, supervisor triage, and follow-through—closing the loop
           for your community.
@@ -244,7 +475,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Tow Logs — view details"
       >
-        <h3 class="font-semibold text-lg">Tow Logs</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Car Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Tow Logs</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Secure tow entry with required fields, chain‑of‑custody style audit,
           and exportable records.
@@ -257,7 +496,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Staffing Predictor (AI) — view details"
       >
-        <h3 class="font-semibold text-lg">Staffing Predictor (AI)</h3>
+        <h3 class="module-title font-semibold text-lg">
+          <img
+            src="{{ url_for('static', filename='img/module-icons/Ai Color-01.png') }}"
+            alt=""
+            class="module-icon"
+            aria-hidden="true"
+          />
+          <span>Staffing Predictor (AI)</span>
+        </h3>
         <p class="mt-2 text-sm text-slate-300">
           Generative AI forecasts staffing risk using signals like weekday,
           time, leave patterns, weather, and events—so command can proactively
@@ -337,7 +584,6 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 
     <div class="mt-6 flex flex-wrap gap-3">
       <a href="/products" class="btn btn-outline">Explore products</a>
-      <a href="#demo" class="btn btn-primary">Request a demo</a>
     </div>
   </div>
 </section>
@@ -397,132 +643,81 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
   </div>
 </section>
 
-<!-- === About / Mission / Founder (credibility) === -->
-<section
-  id="about"
-  class="defer py-16 md:py-20 bg-slate-900/40 border-t border-white/5 section-decor reveal"
->
+<!-- === Mission === -->
+<section class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5">
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">Our mission</h2>
-    <p class="mt-3 max-w-3xl text-slate-300">
+    <h2 class="text-2xl font-bold">Our mission</h2>
+    <p class="text-sm text-slate-400">
+      Founded by Grigori LopezGarcia — 14 years of law enforcement experience
+      and Harvard Extension education
+    </p>
+    <p class="mt-2 text-slate-300 max-w-3xl">
       Innovating law enforcement through technology—turning policy and command
       priorities into clear, accountable workflows that work for supervisors and
       officers alike. Our platform brings together police staffing software,
       extra‑duty management, and AI‑driven accountability tools that align with
       policy and deliver command efficiency.
     </p>
-
-    <!-- Mission mapped to features (Option C) -->
-    <div class="mt-8 grid md:grid-cols-4 gap-6">
-      <!-- Pillar: Built by police → Feature: Policy-aligned workflows -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
-      >
-        <h3 class="font-semibold">Built by police, for police</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Designed from the inside, aligned to real policy, staffing, and shift
-          realities.
-        </p>
-        <ul class="mt-3 text-sm text-slate-300 space-y-2">
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-check-circle" />
-            </svg>
-            <span>Built to match real world policing</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-check-circle" />
-            </svg>
-            <span>Configurable to your agency’s policies and rules</span>
-          </li>
-        </ul>
-      </article>
-      <!-- Pillar: Accountability → Feature: Audit logs & exports -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
-      >
-        <h3 class="font-semibold">Accountability</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Every decision traceable. Leaders get confidence, officers get
-          clarity.
-        </p>
-        <ul class="mt-3 text-sm text-slate-300 space-y-2">
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-check-circle" />
-            </svg>
-            <span>Immutable audit logs (who/what/when)</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-check-circle" />
-            </svg>
-            <span>Export for records and reviews</span>
-          </li>
-        </ul>
-      </article>
-
-      <!-- Pillar: Operational clarity → Feature: Coverage calendar & real-time updates -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
-      >
-        <h3 class="font-semibold">Operational clarity</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Fewer surprises; staffing visibility for supervisors and command.
-        </p>
-        <ul class="mt-3 text-sm text-slate-300 space-y-2">
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-calendar" />
-            </svg>
-            <span>Coverage calendar by squad/shift/unit</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-clock" />
-            </svg>
-            <span>Real-time changes reflected instantly</span>
-          </li>
-        </ul>
-      </article>
-
-      <!-- Pillar: Officer‑first design → Feature: Requests & notifications -->
-      <article
-        class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
-      >
-        <h3 class="font-semibold">Officer‑first design</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Fast, mobile‑friendly workflows with an easy to use User-Interface.
-        </p>
-        <ul class="mt-3 text-sm text-slate-300 space-y-2">
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-file" />
-            </svg>
-            <span>Simple sick/vacation requests with policy checks</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <svg class="li-icon text-[color:var(--g3-gold)]" aria-hidden="true">
-              <use href="#i-bell" />
-            </svg>
-            <span>Simple, easy‑to‑use workflows for all ranks</span>
-          </li>
-        </ul>
-      </article>
+    <div class="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
+      <span class="chip">Built by Police for Police</span>
+      <span class="chip">Accountability</span>
+      <span class="chip">Operational Clarity</span>
+      <span class="chip">Officer‑first design</span>
     </div>
+  </div>
+</section>
 
-    <!-- Secondary CTAs for deeper dive -->
-    <div class="mt-6 flex flex-wrap gap-3">
-      <a href="/products" class="btn btn-outline">Explore products</a>
-      <a
-        href="/#demo"
-        class="btn btn-primary"
-        data-track-event="cta_click"
-        data-track-label="request_demo"
-        data-track-location="home_about_cta"
-        >Request a demo</a
-      >
+<!-- === Pilot Program (low-risk procurement path) === -->
+<section id="pilot" class="defer py-14 md:py-16 section-decor reveal">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="console-depth p-6 md:p-8">
+      <div class="grid lg:grid-cols-[1.3fr_0.7fr] gap-7 items-start">
+        <div>
+          <p class="pilot-kicker">Low-risk rollout option</p>
+          <h2 class="scanline-accent mt-2 text-2xl md:text-3xl font-bold">
+            Start with a Pilot Program
+          </h2>
+          <p class="mt-3 max-w-2xl text-slate-300">
+            Run one squad or one workflow first, with clear success criteria,
+            command check-ins, and no disruptive agency-wide cutover.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#demo"
+              class="btn btn-primary btn-lg"
+              data-track-event="cta_click"
+              data-track-label="start_pilot"
+              data-track-location="pilot_section"
+            >
+              Start pilot program
+            </a>
+            <a href="#how" class="btn btn-outline">See rollout steps</a>
+          </div>
+        </div>
+        <aside class="rounded-lg border border-white/10 bg-slate-950/60 p-5">
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-300">
+            Pilot includes
+          </h3>
+          <ul class="pilot-list mt-4 space-y-3">
+            <li>
+              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <span>One unit or workflow start to reduce operational risk.</span>
+            </li>
+            <li>
+              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <span>Joint success metrics defined with your command team.</span>
+            </li>
+            <li>
+              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <span>Supervisor feedback loop before broader rollout.</span>
+            </li>
+            <li>
+              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <span>Structured go/no-go review with full transparency.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -530,14 +725,17 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <!-- === Demo (request form with basic client validation) === -->
 <section id="demo" class="defer py-16 md:py-20 section-decor reveal">
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">Request a demo</h2>
+    <h2 class="scanline-accent text-2xl md:text-3xl font-bold">
+      Request a demo or pilot kickoff
+    </h2>
     <p class="mt-2 text-slate-300">
-      Tell us a bit about your agency and we’ll reach out to schedule.
+      Tell us a bit about your agency and we’ll recommend the fastest path:
+      a low-risk pilot or full deployment plan.
     </p>
 
     <form
       id="demo-form"
-      class="form-shell mt-8 grid grid-cols-1 md:grid-cols-2 gap-4"
+      class="form-shell console-depth mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 p-5 md:p-6"
       novalidate
       method="POST"
       action="/demo"

@@ -169,12 +169,6 @@
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-gray-900 focus:text-white focus:px-3 focus:py-2 focus:rounded"
       >Skip to content</a
     >
-    {% set current_path = request.path or "/" %}
-    {% set nav_home = current_path == "/" %}
-    {% set nav_products = current_path.startswith("/products") %}
-    {% set nav_security = current_path.startswith("/security") %}
-    {% set nav_grants = current_path.startswith("/grants") %}
-    {% set nav_about = current_path.startswith("/about") %}
     <header class="bg-gray-900 sticky top-0 z-50 border-b border-white/10">
       <nav
         class="mx-auto max-w-6xl px-4 py-4 md:py-5 flex items-center justify-between"
@@ -242,44 +236,19 @@
         <div class="hidden md:flex items-center gap-6 md:gap-8 ml-auto">
           <ul class="flex gap-6 md:gap-8 text-gray-300">
             <li>
-              <a
-                href="/"
-                class="nav-link {% if nav_home %}is-active{% endif %}"
-                {% if nav_home %}aria-current="page"{% endif %}
-                >Home</a
-              >
+              <a href="/" class="nav-link">Home</a>
             </li>
             <li>
-              <a
-                href="/products"
-                class="nav-link {% if nav_products %}is-active{% endif %}"
-                {% if nav_products %}aria-current="page"{% endif %}
-                >Products</a
-              >
+              <a href="/products" class="nav-link">Products</a>
             </li>
             <li>
-              <a
-                href="/security"
-                class="nav-link {% if nav_security %}is-active{% endif %}"
-                {% if nav_security %}aria-current="page"{% endif %}
-                >Security</a
-              >
+              <a href="/security" class="nav-link">Security</a>
             </li>
             <li>
-              <a
-                href="/grants"
-                class="nav-link {% if nav_grants %}is-active{% endif %}"
-                {% if nav_grants %}aria-current="page"{% endif %}
-                >Grant Assistance</a
-              >
+              <a href="/grants" class="nav-link">Grant Assistance</a>
             </li>
             <li>
-              <a
-                href="/about"
-                class="nav-link {% if nav_about %}is-active{% endif %}"
-                {% if nav_about %}aria-current="page"{% endif %}
-                >About</a
-              >
+              <a href="/about" class="nav-link">About</a>
             </li>
           </ul>
 
@@ -318,64 +287,24 @@
           >
           <ul class="flex flex-col gap-1 text-gray-200 mt-3">
             <li>
-              <a
-                href="/"
-                class="mobile-nav-link {% if nav_home %}is-active{% endif %}"
-                {% if nav_home %}aria-current="page"{% endif %}
-                >Home</a
-              >
+              <a href="/" class="mobile-nav-link">Home</a>
             </li>
             <li>
-              <a
-                href="/products"
-                class="mobile-nav-link {% if nav_products %}is-active{% endif %}"
-                {% if nav_products %}aria-current="page"{% endif %}
-                >Products</a
-              >
+              <a href="/products" class="mobile-nav-link">Products</a>
             </li>
             <li>
-              <a
-                href="/security"
-                class="mobile-nav-link {% if nav_security %}is-active{% endif %}"
-                {% if nav_security %}aria-current="page"{% endif %}
-                >Security</a
-              >
+              <a href="/security" class="mobile-nav-link">Security</a>
             </li>
             <li>
-              <a
-                href="/grants"
-                class="mobile-nav-link {% if nav_grants %}is-active{% endif %}"
-                {% if nav_grants %}aria-current="page"{% endif %}
-                >Grant Assistance</a
-              >
+              <a href="/grants" class="mobile-nav-link">Grant Assistance</a>
             </li>
             <li>
-              <a
-                href="/about"
-                class="mobile-nav-link {% if nav_about %}is-active{% endif %}"
-                {% if nav_about %}aria-current="page"{% endif %}
-                >About</a
-              >
+              <a href="/about" class="mobile-nav-link">About</a>
             </li>
           </ul>
         </div>
       </div>
     </header>
-    {% if not current_path.startswith("/admin") %}
-    <div class="site-trust-strip">
-      <div
-        class="mx-auto max-w-6xl px-4 py-2 flex flex-wrap items-center gap-2 md:gap-3"
-      >
-        <span class="site-trust-item">Built by <strong>law enforcement</strong></span>
-        <span class="site-trust-item">Secure by design</span>
-        <span class="site-trust-item">Audit-ready workflows</span>
-        <span class="site-trust-item hidden md:inline-flex"
-          >Delaware-based product team</span
-        >
-      </div>
-    </div>
-    {% endif %}
-
     <main id="main" class="page-content mx-auto max-w-6xl px-4" tabindex="-1">
       {# Flash alerts (success/error) rendered from server-side message queue. #}
       {% with messages = get_flashed_messages(with_categories=True) %}
