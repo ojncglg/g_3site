@@ -28,6 +28,7 @@ from typing import Any, Dict, List
 from urllib import error as urllib_error
 from urllib import parse as urllib_parse
 from urllib import request as urllib_request
+from xml.sax.saxutils import escape as xml_escape
 
 # Flask objects used by routes/middleware.
 from flask import (
@@ -154,6 +155,79 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 LEADS_FILE = os.path.join(DATA_DIR, "leads.json")
 RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 
+# Seed blog content lives in code for now so publishing is simple.
+# Each post appears at /blog/<slug>.
+BLOG_POSTS: List[Dict[str, Any]] = [
+    {
+        "slug": "how-much-time-are-administrative-tasks-worth",
+        "title": "How Much Time Are Administrative Tasks Worth?",
+        "description": (
+            "As a chief or decision-maker, ask what repetitive administrative work is costing "
+            "your agency in command-level time each month."
+        ),
+        "published_at": "2026-03-18",
+        "published_label": "March 18, 2026",
+        "updated_at": "2026-03-18",
+        "read_time": "5 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Command Staff", "Administrative Workflows", "Police Operations"],
+        "summary": (
+            "As a chief or decision-maker, ask yourself how much time your squad commanders "
+            "spend on repetitive administrative tasks and what that is costing your department."
+        ),
+        "sections": [
+            {
+                "heading": "How much time are administrative tasks worth?",
+                "paragraphs": [
+                    "As a chief or a decision-maker, ask yourself: how much time are my squad commanders spending on repetitive administrative tasks, and how much is that costing the department?",
+                    "Say you run an agency with 100 officers and your squad commander is in charge of about 15 officers. That commander has to reconcile text messages, emails, and paper vacation slips into one document and upload it.",
+                    "Then they still have to update old HR software and code vacation time, plus activity sheets, into a system built for general government work, not police work.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Run the math on command-level time",
+                "paragraphs": [
+                    "How long does that take? Three to four hours every week? Let us be conservative and call it two hours every week.",
+                    "That is around eight hours every month for one squad commander, and this is usually one of your highest-paid officers.",
+                    "Now consider four squads for 24/7 coverage. You are spending around 32 hours every month from high-income earners on repetitive administrative tasks. Is that worth it?",
+                ],
+                "bullets": [
+                    "2 hours/week x 4 weeks = 8 hours/month per squad commander",
+                    "8 hours x 4 squads = 32 command-level hours/month",
+                ],
+            },
+            {
+                "heading": "Change is hard, but time is still your most expensive resource",
+                "paragraphs": [
+                    "I will be the first one to admit that cops do not like change. Sometimes we can be very stubborn when it comes to adopting new technology.",
+                    "But what if there was a solution that automated this process?",
+                    "That would free up squad commanders, provide command staff clear visibility on deployment across your beats, and let officers focus on serving the community instead of admin tasks.",
+                    "This is why we created our platform.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "If this sounds familiar",
+                "paragraphs": [
+                    "If you have a similar problem, send us an email and we can provide a demo of our software to see if we are the right fit.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Want to see if this fits your agency?",
+        "cta_body": (
+            "If this challenge sounds familiar, we can walk you through a quick demo and map "
+            "where your command team can recover time first."
+        ),
+    }
+]
+BLOG_POSTS_BY_SLUG: Dict[str, Dict[str, Any]] = {post["slug"]: post for post in BLOG_POSTS}
+BLOG_SLUG_REDIRECTS: Dict[str, str] = {
+    "5-police-workflows-that-waste-time": "how-much-time-are-administrative-tasks-worth"
+}
+
 # Centralized CSP applied to responses unless explicitly overridden.
 DEFAULT_CSP = (
     "default-src 'self'; "
@@ -260,6 +334,11 @@ def preview_text(value: str, limit: int = 90) -> str:
     if len(value) <= limit:
         return value
     return value[: limit - 1].rstrip() + "…"
+
+
+def published_blog_posts() -> List[Dict[str, Any]]:
+    """Return blog posts sorted by publish date (newest first)."""
+    return sorted(BLOG_POSTS, key=lambda post: post.get("published_at", ""), reverse=True)
 
 
 def build_lead_dashboard_data(leads: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -755,6 +834,32 @@ def grants():
     return render_template("grants.html", title="Grant Assistance — G3 Industries")
 
 
+@app.route("/blog")
+def blog():
+    """Blog index page."""
+    return render_template(
+        "blog.html",
+        title="Blog — G3 Industries",
+        posts=published_blog_posts(),
+    )
+
+
+@app.route("/blog/<slug>")
+def blog_post(slug: str):
+    """Individual blog article page."""
+    post = BLOG_POSTS_BY_SLUG.get(slug)
+    if not post:
+        redirect_slug = BLOG_SLUG_REDIRECTS.get(slug)
+        if redirect_slug:
+            return redirect(url_for("blog_post", slug=redirect_slug), code=301)
+        abort(404)
+    return render_template(
+        "blog_post.html",
+        title=f"{post['title']} — G3 Industries",
+        post=post,
+    )
+
+
 @app.route("/admin/leads")
 def admin_leads():
     """Internal dashboard showing lead volume and attribution breakdowns."""
@@ -1012,8 +1117,43 @@ def robots_txt():
 
 @app.route("/sitemap.xml")
 def sitemap_xml():
-    """Serve sitemap.xml from project root."""
-    return send_from_directory(BASE_DIR, "sitemap.xml", mimetype="application/xml")
+    """Render XML sitemap including blog routes."""
+    base_url = request.url_root.rstrip("/")
+    entries: List[Dict[str, str]] = [
+        {"loc": f"{base_url}/", "changefreq": "weekly", "priority": "1.0"},
+        {"loc": f"{base_url}/products", "changefreq": "weekly", "priority": "0.9"},
+        {"loc": f"{base_url}/security", "changefreq": "monthly", "priority": "0.8"},
+        {"loc": f"{base_url}/grants", "changefreq": "monthly", "priority": "0.7"},
+        {"loc": f"{base_url}/about", "changefreq": "monthly", "priority": "0.7"},
+        {"loc": f"{base_url}/blog", "changefreq": "weekly", "priority": "0.8"},
+    ]
+
+    for post in published_blog_posts():
+        post_slug = post.get("slug", "").strip()
+        if not post_slug:
+            continue
+        post_entry = {
+            "loc": f"{base_url}/blog/{post_slug}",
+            "changefreq": "monthly",
+            "priority": "0.7",
+        }
+        lastmod = (post.get("updated_at") or post.get("published_at") or "").strip()
+        if lastmod:
+            post_entry["lastmod"] = lastmod
+        entries.append(post_entry)
+
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>']
+    lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    for entry in entries:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{xml_escape(entry['loc'])}</loc>")
+        if entry.get("lastmod"):
+            lines.append(f"    <lastmod>{xml_escape(entry['lastmod'])}</lastmod>")
+        lines.append(f"    <changefreq>{xml_escape(entry['changefreq'])}</changefreq>")
+        lines.append(f"    <priority>{xml_escape(entry['priority'])}</priority>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+    return Response("\n".join(lines), mimetype="application/xml")
 
 
 if __name__ == "__main__":

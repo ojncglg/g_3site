@@ -11,13 +11,29 @@ LopezGarcia{% endblock %}
 {% block extra_head %}
 <style>
   /* Page-specific minor tweaks only (most styles are global) */
+  @media (max-width: 640px) {
+    .about-hero-title {
+      font-size: 1.9rem;
+      line-height: 1.12;
+    }
+
+    .about-founder-list {
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .about-quote {
+      font-size: 0.94rem;
+      line-height: 1.68;
+    }
+  }
 </style>
 {% endblock %}
 {% block content %}
 <!-- === Hero === -->
-<section class="py-12 md:py-16">
-  <div class="max-w-6xl mx-auto px-4">
-    <h1 class="text-3xl md:text-4xl font-bold">
+<section class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <h1 class="about-hero-title text-3xl md:text-4xl font-bold">
       Smarter tools for 21st-century policing
     </h1>
     <p class="mt-2 text-slate-300 max-w-3xl">
@@ -30,8 +46,8 @@ LopezGarcia{% endblock %}
 </section>
 
 <!-- === Mission === -->
-<section class="py-8 md:py-12 bg-slate-900/40 border-y border-white/5">
-  <div class="max-w-6xl mx-auto px-4">
+<section class="py-8 md:py-10 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <h2 class="text-2xl font-bold">Our mission</h2>
     <p class="text-sm text-slate-400">
       Founded by Grigori LopezGarcia — 14 years of law enforcement experience
@@ -44,9 +60,9 @@ LopezGarcia{% endblock %}
       extra‑duty management, and AI‑driven accountability tools that align with
       policy and deliver command efficiency.
     </p>
-    <div class="mt-8 grid md:grid-cols-4 gap-6">
+    <div class="mt-6 md:mt-7 grid md:grid-cols-4 gap-4 md:gap-5">
       <article
-        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5 flex flex-col hover:bg-slate-900/60 transition"
       >
         <h4 class="font-semibold">Built by Police for Police</h4>
         <p class="mt-2 text-sm text-slate-300">
@@ -56,7 +72,7 @@ LopezGarcia{% endblock %}
       </article>
 
       <article
-        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5 flex flex-col hover:bg-slate-900/60 transition"
       >
         <h4 class="font-semibold">Accountability</h4>
         <p class="mt-2 text-sm text-slate-300">
@@ -65,7 +81,7 @@ LopezGarcia{% endblock %}
         </p>
       </article>
       <article
-        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5 flex flex-col hover:bg-slate-900/60 transition"
       >
         <h4 class="font-semibold">Operational clarity</h4>
         <p class="mt-2 text-sm text-slate-300">
@@ -74,7 +90,7 @@ LopezGarcia{% endblock %}
         </p>
       </article>
       <article
-        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex flex-col hover:bg-slate-900/60 transition"
+        class="h-full rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5 flex flex-col hover:bg-slate-900/60 transition"
       >
         <h4 class="font-semibold">Officer‑first design</h4>
         <p class="mt-2 text-sm text-slate-300">
@@ -86,8 +102,8 @@ LopezGarcia{% endblock %}
 </section>
 
 <!-- === Founder === -->
-<section class="py-12 md:py-16">
-  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8 items-start">
+<section class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 grid md:grid-cols-3 gap-6 md:gap-7 items-start">
     <div class="md:col-span-1">
       <div
         class="rounded-lg overflow-hidden border border-white/10 card-border bg-slate-900/50 hover:bg-slate-900/60 transition"
@@ -114,7 +130,7 @@ LopezGarcia{% endblock %}
         Our focus is delivering tools that leadership trusts and officers
         actually like using.
       </p>
-      <ul class="mt-4 list-disc list-inside text-sm text-slate-300 space-y-1">
+      <ul class="about-founder-list mt-4 list-disc list-inside text-sm text-slate-300 space-y-1">
         <li>14 years of broad law enforcement experience (Delaware)</li>
         <li>Digital Media, Harvard Extension School</li>
         <li>Command efficiency with rank‑and‑file in mind</li>
@@ -122,9 +138,9 @@ LopezGarcia{% endblock %}
       </ul>
       <!-- Personal Note -->
       <div
-        class="mt-6 p-4 rounded-lg border border-white/10 bg-slate-900/40 border-l-4 border-yellow-400"
+        class="mt-5 md:mt-6 p-3 sm:p-4 rounded-lg border border-white/10 bg-slate-900/40 border-l-4 border-yellow-400"
       >
-        <p class="italic text-slate-300">
+        <p class="about-quote italic text-slate-300">
           “After more than a decade in law enforcement, I’ve seen how agencies
           adopt major technological advancements but still struggle with simple
           day-to-day processes. Too often, our core administrative systems get
@@ -139,14 +155,13 @@ LopezGarcia{% endblock %}
           We don’t chase trends; we modernize what matters.”
         </p>
       </div>
-      <div class="mt-5 flex gap-3"></div>
     </div>
   </div>
 </section>
 
 <!-- === CTA Footer === -->
-<section class="py-12 md:py-16">
-  <div class="max-w-6xl mx-auto px-4 text-center">
+<section class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 text-center">
     <h2 class="text-2xl md:text-3xl font-bold">
       Partner with us to modernize your agency
     </h2>
@@ -155,11 +170,11 @@ LopezGarcia{% endblock %}
       module or roll out the full suite—either way, you’ll see faster approvals,
       clearer staffing, and stronger records.
     </p>
-    <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-      <a href="/#demo" class="btn btn-primary">Request a demo</a>
+    <div class="mt-5 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3">
+      <a href="/#demo" class="btn btn-primary w-full sm:w-auto justify-center">Request a demo</a>
       <a
         href="mailto:grigori.lopezgarcia@g3industries.io"
-        class="btn btn-outline"
+        class="btn btn-outline w-full sm:w-auto justify-center"
         >Email us</a
       >
     </div>

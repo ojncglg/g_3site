@@ -18,6 +18,25 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Grants page for agency funding support. -->
+  <url>
+    <loc>https://g3industries.io/grants</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Blog index. -->
+  <url>
+    <loc>https://g3industries.io/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Blog article: administrative task time-cost breakdown. -->
+  <url>
+    <loc>https://g3industries.io/blog/how-much-time-are-administrative-tasks-worth</loc>
+    <lastmod>2026-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- Company/founder information page. -->
   <url>
     <loc>https://g3industries.io/about</loc>

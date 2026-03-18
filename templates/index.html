@@ -180,6 +180,15 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     object-fit: contain;
   }
 
+  .page-content {
+    padding-top: clamp(0.85rem, 1.8vw, 1.5rem);
+    padding-bottom: clamp(1.75rem, 3vw, 2.75rem);
+  }
+
+  .page-content > section + section {
+    margin-top: clamp(0.85rem, 1.6vw, 1.2rem);
+  }
+
   @keyframes grid-pulse {
     0%,
     100% {
@@ -233,6 +242,23 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     .console-depth::after,
     .scanline-accent::after {
       animation: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .module-icon {
+      width: 1.95rem;
+      height: 1.95rem;
+      flex-basis: 1.95rem;
+    }
+
+    .scanline-accent::after {
+      width: min(170px, 62%);
+    }
+
+    .pilot-list li {
+      font-size: 0.84rem;
+      line-height: 1.4;
     }
   }
 </style>
@@ -342,21 +368,21 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </svg>
 <!-- === Hero (value proposition + primary CTAs) === -->
 <section class="hero-bg relative reveal">
-  <div class="max-w-6xl mx-auto px-4 pt-20 pb-16 md:pt-28 md:pb-24">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 pt-16 pb-12 md:pt-24 md:pb-20">
     <div class="max-w-3xl">
-      <h1 class="scanline-accent text-4xl md:text-5xl font-extrabold leading-tight">
+      <h1 class="scanline-accent text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
         The workforce platform built for policing
       </h1>
-      <p class="mt-4 max-w-2xl text-lg md:text-xl text-slate-300">
+      <p class="mt-4 max-w-2xl text-base sm:text-lg md:text-xl text-slate-300">
         Unifying scheduling, vacation bidding, extra duty, anonymous tips, tow
         logs, and staffing forecasting in one secure, audit-ready platform built
         for policing.
       </p>
 
-      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+      <div class="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
         <a
           href="#demo"
-          class="btn btn-lg btn-primary"
+          class="btn btn-lg btn-primary w-full sm:w-auto"
           data-track-event="cta_click"
           data-track-label="request_demo"
           data-track-location="home_hero"
@@ -365,7 +391,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
         </a>
         <a
           href="#pilot"
-          class="btn btn-lg btn-outline"
+          class="btn btn-lg btn-outline w-full sm:w-auto"
           data-track-event="cta_click"
           data-track-label="start_pilot"
           data-track-location="home_hero"
@@ -379,19 +405,19 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Products (module overview cards) === -->
-<section id="products" class="defer py-16 md:py-20 section-decor reveal">
-  <div class="max-w-6xl mx-auto px-4">
+<section id="products" class="defer py-12 md:py-16 section-decor reveal">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <h2 class="text-2xl md:text-3xl font-bold">What’s inside</h2>
     <p class="mt-2 text-slate-300">
       Replace paper schedules with one secure system that reduces confusion and
       keeps staffing clear.
     </p>
     <!-- Cards: scannable module overview; link back to screenshots -->
-    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="mt-6 md:mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
       <!-- Vacation Book -->
       <a
         href="/products#how-scheduling"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Scheduling & Calendar — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -411,7 +437,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       <!-- Vacation Bidding -->
       <a
         href="/products#how-bidding"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Vacation Bidding — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -432,7 +458,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       <!-- Extra-Duty -->
       <a
         href="/products#how-payjobs"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Extra-Duty — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -453,7 +479,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       <!-- Anonymous Tips -->
       <a
         href="/products#how-tips"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Anonymous Tips — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -473,7 +499,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       <!-- Tow Logs -->
       <a
         href="/products#how-tow"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Tow Logs — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -494,7 +520,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       <!-- Staffing Predictor (AI) -->
       <a
         href="/products#how-ai"
-        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 sm:p-5 h-full flex flex-col hover:bg-slate-900/60 transition hover:no-underline focus:outline-none focus:ring-2 focus:ring-[color:var(--g3-gold)]"
         aria-label="Staffing Predictor (AI) — view details"
       >
         <h3 class="module-title font-semibold text-lg">
@@ -519,18 +545,18 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 <!-- === How it works (simple implementation story) === -->
 <section
   id="how"
-  class="defer py-16 md:py-20 bg-slate-900/30 border-y border-white/5 section-decor reveal"
+  class="defer py-12 md:py-16 bg-slate-900/30 border-y border-white/5 section-decor reveal"
 >
-  <div class="max-w-6xl mx-auto px-4">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <h2 class="text-2xl md:text-3xl font-bold">How it works</h2>
     <p class="mt-2 text-slate-300">
       From kickoff to go-live in weeks—clear steps, clear ownership, and fast
       outcomes.
     </p>
 
-    <div class="mt-8 grid md:grid-cols-4 gap-6">
+    <div class="mt-6 md:mt-7 grid md:grid-cols-4 gap-4 md:gap-5">
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
           1 · Kickoff
@@ -543,7 +569,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </article>
 
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
           2 · Configure
@@ -557,7 +583,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </article>
 
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
           3 · Pilot
@@ -570,7 +596,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </article>
 
       <article
-        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-4 sm:p-5"
       >
         <div class="text-sm font-semibold text-[color:var(--g3-gold)]">
           4 · Go‑live
@@ -583,52 +609,52 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </article>
     </div>
 
-    <div class="mt-6 flex flex-wrap gap-3">
+    <div class="mt-5 md:mt-6 flex flex-wrap gap-3">
       <a href="/products" class="btn btn-outline">Explore products</a>
     </div>
   </div>
 </section>
 
 <!-- === Security & trust (high‑level assurances) === -->
-<section id="security" class="defer py-16 md:py-20 section-decor reveal">
-  <div class="max-w-6xl mx-auto px-4">
+<section id="security" class="defer py-12 md:py-16 section-decor reveal">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <h2 class="text-2xl md:text-3xl font-bold">Security &amp; trust</h2>
     <!-- Security highlights: concise, executive-read bullets -->
     <ul
-      class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-slate-300"
+      class="mt-3 md:mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-sm text-slate-300"
     >
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
           >Least privilege</span
         >
         — Role‑based access with scoped permissions
       </li>
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
           >Audit trails</span
         >
         — Approvals and changes are logged, configurable for records requests
       </li>
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
           >HTTPS everywhere</span
         >
         — Secure deployment practices
       </li>
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
           >Sync capabilities</span
         >
         — Take your schedule and sync it with your existing calendars (e.g.,
         Outlook, Google)
       </li>
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium"
           >Mobile‑friendly</span
         >
         — Easy to use, from rookies to veterans
       </li>
-      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-4">
+      <li class="rounded-lg bg-slate-900/40 border border-white/10 p-3 sm:p-4">
         <span class="text-[color:var(--g3-gold)] font-medium">Performance</span>
         — Fast and reliable for command staff
       </li>
@@ -645,10 +671,10 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Pilot Program (low-risk procurement path) === -->
-<section id="pilot" class="defer py-14 md:py-16 section-decor reveal">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="console-depth p-6 md:p-8">
-      <div class="grid lg:grid-cols-[1.3fr_0.7fr] gap-7 items-start">
+<section id="pilot" class="defer py-12 md:py-14 section-decor reveal">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <div class="console-depth p-5 sm:p-6 md:p-7">
+      <div class="grid lg:grid-cols-[1.3fr_0.7fr] gap-5 md:gap-6 items-start">
         <div>
           <p class="pilot-kicker">Low-risk rollout option</p>
           <h2 class="scanline-accent mt-2 text-2xl md:text-3xl font-bold">
@@ -658,24 +684,24 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
             Run one squad or one workflow first, with clear success criteria,
             command check-ins, and no disruptive agency-wide cutover.
           </p>
-          <div class="mt-6 flex flex-wrap gap-3">
+          <div class="mt-5 md:mt-6 flex flex-col sm:flex-row gap-3">
             <a
               href="#demo"
-              class="btn btn-primary btn-lg"
+              class="btn btn-primary btn-lg w-full sm:w-auto"
               data-track-event="cta_click"
               data-track-label="start_pilot"
               data-track-location="pilot_section"
             >
               Start pilot program
             </a>
-            <a href="#how" class="btn btn-outline">See rollout steps</a>
+            <a href="#how" class="btn btn-outline w-full sm:w-auto">See rollout steps</a>
           </div>
         </div>
-        <aside class="rounded-lg border border-white/10 bg-slate-950/60 p-5">
+        <aside class="rounded-lg border border-white/10 bg-slate-950/60 p-4 sm:p-5">
           <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-300">
             Pilot includes
           </h3>
-          <ul class="pilot-list mt-4 space-y-3">
+          <ul class="pilot-list mt-3 md:mt-4 space-y-2.5 sm:space-y-3">
             <li>
               <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
               <span>One unit or workflow start to reduce operational risk.</span>
@@ -700,8 +726,8 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 </section>
 
 <!-- === Demo (request form with basic client validation) === -->
-<section id="demo" class="defer py-16 md:py-20 section-decor reveal">
-  <div class="max-w-6xl mx-auto px-4">
+<section id="demo" class="defer py-12 md:py-16 section-decor reveal">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <h2 class="scanline-accent text-2xl md:text-3xl font-bold">
       Request a demo or pilot kickoff
     </h2>
@@ -712,7 +738,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
 
     <form
       id="demo-form"
-      class="form-shell console-depth mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 p-5 md:p-6"
+      class="form-shell console-depth mt-6 md:mt-7 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-5 md:p-6"
       novalidate
       method="POST"
       action="/demo"
@@ -848,13 +874,13 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
       </div>
       {% endif %}
 
-      <div class="md:col-span-2 flex items-center gap-3 mt-2">
-        <button id="demo-submit" type="submit" class="btn btn-primary btn-lg">
+      <div class="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3 mt-2">
+        <button id="demo-submit" type="submit" class="btn btn-primary btn-lg w-full sm:w-auto">
           Submit request
         </button>
         <a
           href="mailto:grigori.lopezgarcia@g3industries.io"
-          class="btn btn-outline"
+          class="btn btn-outline w-full sm:w-auto justify-center"
           data-track-event="cta_click"
           data-track-label="email_us"
           data-track-location="demo_section"
@@ -886,7 +912,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
     data-close="true"
     aria-hidden="true"
   ></div>
-  <div class="relative z-10 max-w-5xl mx-auto mt-16 md:mt-24 px-4">
+  <div class="relative z-10 max-w-5xl mx-auto mt-10 sm:mt-14 md:mt-20 px-2 sm:px-3 md:px-4">
     <div class="rounded-lg bg-slate-950 border border-white/10 shadow-xl">
       <div
         class="flex items-center justify-between px-4 py-3 border-b border-white/10"
@@ -901,7 +927,7 @@ Software & Accountability Platform — Grigori LopezGarcia{% endblock %}
           ✕
         </button>
       </div>
-      <div class="p-4">
+      <div class="p-3 sm:p-4">
         <div
           class="w-full rounded-md bg-slate-900 border border-white/10"
           style="

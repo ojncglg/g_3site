@@ -14,6 +14,9 @@ Disallow: /static/
 Allow: /$
 Allow: /products
 Allow: /security
+Allow: /grants
+Allow: /blog
+Allow: /blog/
 Allow: /about
 
 # Point to the sitemap for better indexing

@@ -248,6 +248,9 @@
               <a href="/grants" class="nav-link">Grant Assistance</a>
             </li>
             <li>
+              <a href="/blog" class="nav-link">Blog</a>
+            </li>
+            <li>
               <a href="/about" class="nav-link">About</a>
             </li>
           </ul>
@@ -297,6 +300,9 @@
             </li>
             <li>
               <a href="/grants" class="mobile-nav-link">Grant Assistance</a>
+            </li>
+            <li>
+              <a href="/blog" class="mobile-nav-link">Blog</a>
             </li>
             <li>
               <a href="/about" class="mobile-nav-link">About</a>
@@ -364,6 +370,7 @@
           <a href="/products" class="footer-link">Products</a>
           <a href="/security" class="footer-link">Security</a>
           <a href="/grants" class="footer-link">Grant Assistance</a>
+          <a href="/blog" class="footer-link">Blog</a>
           <a href="/about" class="footer-link">About</a>
           <a href="mailto:{{ contact_email }}" class="footer-link">Contact</a>
         </nav>
@@ -371,6 +378,27 @@
       </div>
     </footer>
 
+    <script>
+      (function () {
+        // Highlight active desktop/mobile nav links by pathname.
+        const path = (window.location.pathname || "/").replace(/\/+$/, "") || "/";
+        const links = document.querySelectorAll(
+          "header .nav-link, header .mobile-nav-link"
+        );
+        links.forEach((link) => {
+          const href = (link.getAttribute("href") || "").trim();
+          if (!href.startsWith("/")) return;
+          const targetPath = href.replace(/\/+$/, "") || "/";
+          const isBlogTarget = targetPath === "/blog";
+          const isActive = isBlogTarget
+            ? path === "/blog" || path.startsWith("/blog/")
+            : path === targetPath;
+          if (!isActive) return;
+          link.classList.add("is-active");
+          link.setAttribute("aria-current", "page");
+        });
+      })();
+    </script>
     <script>
       (function () {
         // Track only links/buttons marked with data-track-* attributes.
