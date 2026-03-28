@@ -1,14 +1,11 @@
 <!-- About page: mission, founder background, values, and final CTA. -->
-{% extends "base.html" %}
-{% block title %}About — G3 Industries | Grigori
-LopezGarcia{% endblock %}
-{% block meta %}
+{% extends "base.html" %} {% block title %}About — G3 Industries | Grigori
+LopezGarcia{% endblock %} {% block meta %}
 <meta
   name="description"
   content="Our mission: innovating law enforcement through technology. Learn about G3 Industries and founder Grigori LopezGarcia (14 years in Delaware law enforcement, Harvard Extension). Law enforcement technology, police staffing software, and AI-driven accountability tools."
 />
-{% endblock %}
-{% block extra_head %}
+{% endblock %} {% block extra_head %}
 <style>
   /* Page-specific minor tweaks only (most styles are global) */
   @media (max-width: 640px) {
@@ -28,8 +25,7 @@ LopezGarcia{% endblock %}
     }
   }
 </style>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <!-- === Hero === -->
 <section class="py-10 md:py-12">
   <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
@@ -76,8 +72,8 @@ LopezGarcia{% endblock %}
       >
         <h4 class="font-semibold">Accountability</h4>
         <p class="mt-2 text-sm text-slate-300">
-          Immutable audit trails and exportable records so leaders have confidence
-          in every decision.
+          Immutable audit trails and exportable records so leaders have
+          confidence in every decision.
         </p>
       </article>
       <article
@@ -85,8 +81,8 @@ LopezGarcia{% endblock %}
       >
         <h4 class="font-semibold">Operational clarity</h4>
         <p class="mt-2 text-sm text-slate-300">
-          Staffing visibility and streamlined approvals reduce surprises and save
-          time.
+          Staffing visibility and streamlined approvals reduce surprises and
+          save time.
         </p>
       </article>
       <article
@@ -94,7 +90,8 @@ LopezGarcia{% endblock %}
       >
         <h4 class="font-semibold">Officer‑first design</h4>
         <p class="mt-2 text-sm text-slate-300">
-          Fast, mobile‑friendly workflows that respect how cops actually work.
+          Fast, mobile-friendly workflows with an easy-to-use interface.
+          Simplified workflows for all ranks.
         </p>
       </article>
     </div>
@@ -103,7 +100,9 @@ LopezGarcia{% endblock %}
 
 <!-- === Founder === -->
 <section class="py-10 md:py-12">
-  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 grid md:grid-cols-3 gap-6 md:gap-7 items-start">
+  <div
+    class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 grid md:grid-cols-3 gap-6 md:gap-7 items-start"
+  >
     <div class="md:col-span-1">
       <div
         class="rounded-lg overflow-hidden border border-white/10 card-border bg-slate-900/50 hover:bg-slate-900/60 transition"
@@ -130,7 +129,9 @@ LopezGarcia{% endblock %}
         Our focus is delivering tools that leadership trusts and officers
         actually like using.
       </p>
-      <ul class="about-founder-list mt-4 list-disc list-inside text-sm text-slate-300 space-y-1">
+      <ul
+        class="about-founder-list mt-4 list-disc list-inside text-sm text-slate-300 space-y-1"
+      >
         <li>14 years of broad law enforcement experience (Delaware)</li>
         <li>Digital Media, Harvard Extension School</li>
         <li>Command efficiency with rank‑and‑file in mind</li>
@@ -170,8 +171,12 @@ LopezGarcia{% endblock %}
       module or roll out the full suite—either way, you’ll see faster approvals,
       clearer staffing, and stronger records.
     </p>
-    <div class="mt-5 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3">
-      <a href="/#demo" class="btn btn-primary w-full sm:w-auto justify-center">Request a demo</a>
+    <div
+      class="mt-5 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3"
+    >
+      <a href="/#demo" class="btn btn-primary w-full sm:w-auto justify-center"
+        >Request a demo</a
+      >
       <a
         href="mailto:grigori.lopezgarcia@g3industries.io"
         class="btn btn-outline w-full sm:w-auto justify-center"
