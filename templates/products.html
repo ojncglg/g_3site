@@ -123,6 +123,45 @@ LopezGarcia{% endblock %}
     color: #fff;
     background: rgba(2, 6, 23, 0.6);
   }
+  .overview-video-shell {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    border: 1px dashed rgba(148, 163, 184, 0.45);
+    background: linear-gradient(
+      145deg,
+      rgba(2, 6, 23, 0.92),
+      rgba(15, 23, 42, 0.82)
+    );
+    overflow: hidden;
+  }
+  .overview-video-shell iframe,
+  .overview-video-shell video {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    object-fit: cover;
+  }
+  .overview-video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    text-align: center;
+    padding: 1rem;
+  }
+  .overview-video-placeholder-title {
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+  .overview-video-placeholder-copy {
+    font-size: 0.875rem;
+    color: #94a3b8;
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -367,7 +406,7 @@ LopezGarcia{% endblock %}
       >
       <a href="#how-bidding" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Vacation Bidding works</a
-      >
+      
       <a href="#how-ai" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Staffing Predictor works</a
       >
@@ -471,6 +510,38 @@ LopezGarcia{% endblock %}
               <a href="/#demo" class="btn btn-primary">Request a demo</a>
               <a href="#features" class="btn btn-outline">Browse features</a>
             </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-6 rounded-lg border border-white/10 card-border bg-slate-900/40 p-4 md:p-5"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="font-semibold">Vacation Book Suite Showcase</h3>
+            <span class="text-xs uppercase tracking-wide text-slate-400"
+              >Reserved space</span
+            >
+          </div>
+          <div
+            class="overview-video-shell mt-3"
+            role="img"
+            aria-label="Placeholder area for product overview video"
+          >
+            <div class="overview-video-placeholder">
+              <p class="overview-video-placeholder-title">Video space ready</p>
+              <p class="overview-video-placeholder-copy">
+                Add an iframe embed or local MP4 here when media is finalized.
+              </p>
+            </div>
+            <!-- Example embed:
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID"
+              title="Vacation Book overview video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            -->
           </div>
         </div>
 
@@ -810,7 +881,7 @@ LopezGarcia{% endblock %}
               <span class="text-slate-500">→</span>
               <span
                 class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
-                >3 · Calendar</span
+                >3 · Implement</span
               >
               <span class="text-slate-500">→</span>
               <span
