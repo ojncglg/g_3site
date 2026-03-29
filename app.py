@@ -159,6 +159,76 @@ RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 # Each post appears at /blog/<slug>.
 BLOG_POSTS: List[Dict[str, Any]] = [
     {
+        "slug": "why-change-is-so-hard-in-policing",
+        "title": "Why Change Is So Hard in Policing",
+        "description": (
+            "Law enforcement is built on reliability and mission-first execution, but that "
+            "same culture can make administrative modernization difficult."
+        ),
+        "published_at": "2026-03-29",
+        "published_label": "March 29, 2026",
+        "updated_at": "2026-03-29",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Police Operations", "Change Management", "Administrative Systems"],
+        "summary": (
+            "Policing consistently gets the mission done, but legacy administrative systems "
+            "can hold agencies back from operating at their full potential."
+        ),
+        "sections": [
+            {
+                "heading": "A Culture Built on Reliability",
+                "paragraphs": [
+                    "If you have spent any time in law enforcement, you have probably heard the phrase: 'we have always done it this way.' It is more than a saying - it reflects a culture built on consistency, reliability, and mission-first execution. In policing, the job has to get done regardless of the tools available, and officers have always found a way to make it work.",
+                    "That mindset is one of the profession's greatest strengths. It keeps operations moving under any condition. But it also creates resistance to change. When a process works, even if it is inefficient, it becomes the standard. Over time, that standard becomes difficult to challenge.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Technology Pushback Is Nothing New",
+                "paragraphs": [
+                    "Historically, nearly every major advancement in police technology has faced pushback. In-car computers, dash cameras, body-worn cameras, tasers, and modern police software systems were all met with skepticism when first introduced. Concerns ranged from trust in the technology to disruption of established workflows. Yet over time, these tools proved their value by improving officer safety, increasing accountability, and streamlining operations. Today, they are no longer optional - they are expected.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The Hidden Cost of Stability",
+                "paragraphs": [
+                    "The challenge is not just the technology itself, but the environment it enters. Law enforcement agencies often prioritize stability over innovation, which is understandable given the high-stakes nature of the work. However, when stability turns into rigidity, progress slows. The 'make it work' mentality ensures continuity, but it can also keep outdated administrative systems in place long after better solutions exist.",
+                    "This is where the real cost appears. Manual processes, paper-based workflows, and disconnected systems still exist in many departments. These inefficiencies do not just create inconvenience - they consume valuable time, reduce visibility, and pull officers and command staff away from higher-priority responsibilities. In modern policing, administrative inefficiency directly impacts operational performance.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The Administrative Gap",
+                "paragraphs": [
+                    "From my experience, some of the biggest opportunities for improvement are not in the field, but behind the scenes. While operational technology in law enforcement continues to advance, administrative technology often lags behind. Scheduling, reporting, approvals, and data management are still frequently handled through outdated or fragmented systems. When these systems are misaligned, agencies are forced to operate at a high level while compensating for avoidable inefficiencies.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "What Effective Change Looks Like",
+                "paragraphs": [
+                    "This is the gap many agencies are now beginning to address. The goal is not to introduce change for the sake of change, but to implement systems that align with real-world police workflows and reduce unnecessary friction. The most effective law enforcement software does not force agencies to adapt to it - it adapts to how agencies already operate while improving efficiency and visibility.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The Real Question for Agencies",
+                "paragraphs": [
+                    "Policing will always accomplish the mission. That has never been the question. The real question is whether agencies are willing to improve how that mission is carried out. Change in law enforcement is difficult, but when implemented correctly, it strengthens operations, supports officers, and enhances the overall effectiveness of the department.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Modernize without disrupting operations",
+        "cta_body": (
+            "If your team is balancing mission-critical work with outdated admin processes, "
+            "we can map practical improvements that fit how your agency already operates."
+        ),
+    },
+    {
         "slug": "how-much-time-are-administrative-tasks-worth",
         "title": "How Much Time Are Administrative Tasks Worth?",
         "description": (
