@@ -1,5 +1,68 @@
 <!-- Grant assistance page: funding path, partner highlight, and grant CTA flow. -->
 {% extends "base.html" %}
+{% block title %}Police Technology Grant Assistance for Agencies | G3 Industries{% endblock %}
+{% block meta %}
+<meta
+  name="description"
+  content="Grant assistance for law enforcement agencies adopting police technology. Plan funding strategy, align proposals, and deploy the right G3 modules."
+/>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can grant funds cover police software and training?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In many programs, yes. Depending on the grant, funds can support software, implementation, training, and modernization initiatives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you guarantee grant awards?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We do not guarantee awards. We help agencies build strong, compliance-aligned proposals with clear operational value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we apply for one module first?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Agencies can start by funding one module and expand later as additional needs and opportunities arise."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does the grant partner handle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The partner helps identify suitable programs, shape proposal strategy, and support grant documentation and submission readiness."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does the process usually take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Timing depends on the program window and agency readiness. Most teams move faster when scope and narrative are defined early."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we still move forward if a grant is not awarded?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Agencies can phase rollout by starting with a priority module and adding capabilities over time."
+        }
+      }
+    ]
+  }
+</script>
+{% endblock %}
 {% block content %}
 <!-- ===================================================== -->
 <!-- Grant Assistance Page                                 -->
@@ -16,6 +79,11 @@
       We help agencies pursue grant funding to adopt the G3 ecosystem. Start
       with the module you need or deploy the full platform for maximum command
       efficiency.
+    </p>
+    <p class="mt-3 text-sm text-cyan-100/90 max-w-3xl">
+      <strong>Short answer:</strong> we help you match real operational needs to
+      viable grant paths so your agency can modernize faster and with less
+      budget pressure.
     </p>
 
     <!-- Primary CTAs -->
@@ -185,6 +253,69 @@
         <a href="/products" class="btn btn--secondary">Explore products</a>
         <a href="/#demo" class="btn btn--primary">Request a demo</a>
       </div>
+    </div>
+  </section>
+
+  <section class="mt-10 rounded-2xl border border-white/10 bg-slate-900/40 p-6 md:p-7">
+    <h2 class="text-2xl font-semibold">Frequently asked questions</h2>
+    <p class="mt-2 muted max-w-3xl">
+      Straight answers to the most common grant planning and funding questions.
+    </p>
+    <div class="mt-6 grid gap-3">
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can grant funds cover police software and training?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          In many programs, yes. Depending on the grant, funds can support
+          software, implementation, training, and modernization initiatives.
+        </p>
+      </details>
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Do you guarantee grant awards?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          No. We do not guarantee awards. We help you present a strong,
+          compliance-aligned proposal with clear operational impact.
+        </p>
+      </details>
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can we apply for one module first?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          Yes. Many agencies start with one module, prove impact, and then
+          expand as funding allows.
+        </p>
+      </details>
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          What does the grant partner handle?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          They help identify fit programs, shape the narrative, and support
+          proposal documentation and submission readiness.
+        </p>
+      </details>
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          How long does the process usually take?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          It depends on program windows and agency readiness, but clear scope
+          and planning typically shorten the timeline.
+        </p>
+      </details>
+      <details class="rounded-xl border border-white/10 bg-slate-950/35 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can we still move forward if a grant is not awarded?
+        </summary>
+        <p class="mt-2 text-sm muted">
+          Yes. We can phase deployment by prioritizing one workflow first and
+          scaling from there.
+        </p>
+      </details>
     </div>
   </section>
 </section>

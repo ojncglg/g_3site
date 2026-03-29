@@ -1,12 +1,84 @@
 <!-- Products page for G3 Industries. Sections: Hero, Mini‑nav, Core Flow, Features, How to Buy, How it works (Payjobs/Tips/Tow), Partners, Back‑to‑Top, Scripts. UI aligns with global styles in static/style.css. -->
 {% extends "base.html" %}
-{% block title %}Products — G3 Industries | Grigori
-LopezGarcia{% endblock %}
+{% block title %}Police Scheduling, Extra Duty, Tow Logs & Staffing Software | G3 Industries{% endblock %}
 {% block meta %}
 <meta
   name="description"
-  content="Vacation Book and pro-law-enforcement modules: time-off scheduling, extra-duty payjobs, tow logs, vacation bidding, roster management, SMS notifications, and real-time calendar sync. Built by Grigori LopezGarcia."
+  content="Police software modules for scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting. Built for command visibility and audit-ready operations."
 />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Vacation Book Suite Showcase",
+    "description": "Overview of the Vacation Book suite covering scheduling, approvals, staffing visibility, and command accountability workflows.",
+    "thumbnailUrl": "{{ url_for('static', filename='img/thumbnail/suiteshowcase.png', _external=True) }}",
+    "uploadDate": "2026-03-28",
+    "contentUrl": "{{ url_for('static', filename='videos/showcase.mp4', _external=True) }}",
+    "embedUrl": "{{ request.base_url }}#overview",
+    "publisher": {
+      "@type": "Organization",
+      "@id": "{{ request.url_root }}#org",
+      "name": "G3 Industries"
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does Vacation Book replace?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vacation Book replaces paper requests, text threads, and disconnected calendars with one policy-aligned workflow for requests, approvals, and command visibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we start with one module and expand later?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Agencies can deploy a single module first, then add more modules when needed without rebuilding the workflow from scratch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the system match our policy and rank structure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Workflows are configured around your policy guardrails, approval chains, and operational structure so adoption feels natural to supervisors and command staff."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast can an agency deploy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deployment timelines depend on scope, but most agencies start with a focused module rollout and then expand once teams are comfortable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do command staff get audit-ready reporting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The platform keeps a unified audit trail across actions and supports exports so command staff can review decisions and maintain accountability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much training do officers need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Training is kept practical and role-specific. Most users focus on the workflows tied to their rank and responsibilities."
+        }
+      }
+    ]
+  }
+</script>
 {% endblock %}
 {% block extra_head %}
 <style>
@@ -358,6 +430,11 @@ LopezGarcia{% endblock %}
       Real-Time Staffing Intelligence for Modern Policing. From Leave Requests to Staffing Readiness. All in one system.
   
     </p>
+    <p class="mt-3 text-sm text-cyan-100/90 max-w-3xl">
+      <strong>Short answer:</strong> This gives your agency one place to manage
+      requests, approvals, and staffing visibility without relying on paper,
+      texts, or disconnected systems.
+    </p>
 
     <div class="mt-6 flex flex-wrap gap-2 text-xs text-slate-300">
       <span class="chip px-2 py-1 rounded">Policy‑aligned approvals</span>
@@ -382,6 +459,7 @@ LopezGarcia{% endblock %}
       <a href="#features" class="block px-3 py-2 rounded hover:bg-white/5"
         >What you get</a
       >
+      <a href="#faq" class="block px-3 py-2 rounded hover:bg-white/5">FAQ</a>
       <a href="#how-scheduling" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Scheduling works</a
       >
@@ -512,6 +590,10 @@ LopezGarcia{% endblock %}
               aria-label="Vacation Book suite showcase video"
             >
               <source
+                src="{{ url_for('static', filename='videos/showcase.webm') }}"
+                type="video/webm"
+              />
+              <source
                 src="{{ url_for('static', filename='videos/showcase.mp4') }}"
                 type="video/mp4"
               />
@@ -523,6 +605,32 @@ LopezGarcia{% endblock %}
               >.
             </video>
           </div>
+          <section
+            class="mt-4 rounded-md border border-white/10 bg-slate-950/60 p-4"
+            aria-labelledby="video-transcript-title"
+          >
+            <h4 id="video-transcript-title" class="text-sm font-semibold">
+              Video transcript (summary)
+            </h4>
+            <p class="mt-2 text-sm text-slate-300">
+              In this overview, we show how an officer submits a time-off request
+              and how supervisors review staffing impact before approval.
+            </p>
+            <p class="mt-2 text-sm text-slate-300">
+              The walkthrough highlights one shared roster and one policy engine
+              across scheduling, vacation bidding, extra duty, tow logs, and
+              staffing forecasting.
+            </p>
+            <p class="mt-2 text-sm text-slate-300">
+              Every action is tracked in a unified audit trail so command staff
+              can review decisions, confirm compliance, and export records when
+              needed.
+            </p>
+            <p class="mt-2 text-sm text-slate-300">
+              The core message is simple: start with one workflow, expand module
+              by module, and keep operational visibility clear across the agency.
+            </p>
+          </section>
         </div>
 
         <p class="mt-5 text-slate-300 max-w-3xl">
@@ -1248,6 +1356,75 @@ LopezGarcia{% endblock %}
               </div>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="py-12 md:py-14">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold">
+          Frequently asked questions
+        </h2>
+        <p class="mt-2 text-slate-300 max-w-3xl">
+          Direct answers to the most common product and deployment questions we
+          hear from leadership teams.
+        </p>
+        <div class="mt-6 grid gap-3">
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              What does Vacation Book replace?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              It replaces paper requests, text threads, and disconnected
+              calendars with one policy-aligned workflow for requests,
+              approvals, and command visibility.
+            </p>
+          </details>
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              Can we start with one module and expand later?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              Yes. Many agencies start with one module first, then add others as
+              rollout confidence grows.
+            </p>
+          </details>
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              Will the system match our policy and rank structure?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              Yes. Approval flows and guardrails are built to align with your
+              agency’s policy and chain of command.
+            </p>
+          </details>
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              How fast can an agency deploy?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              Timelines vary by scope, but most deployments start with a focused
+              use case and scale from there.
+            </p>
+          </details>
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              Do command staff get audit-ready reporting?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              Yes. Actions are logged in one audit trail and records can be
+              exported for policy reviews and operational reporting.
+            </p>
+          </details>
+          <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+            <summary class="cursor-pointer font-semibold">
+              How much training do officers need?
+            </summary>
+            <p class="mt-2 text-sm text-slate-300">
+              Training is role-specific and practical, so users focus only on
+              the workflows that matter to their assignment.
+            </p>
+          </details>
         </div>
       </div>
     </section>

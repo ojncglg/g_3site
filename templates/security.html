@@ -1,12 +1,67 @@
 <!-- Security page: posture summary, controls overview, and security contact CTA. -->
 {% extends "base.html" %}
-{% block title %}Security — G3 Industries | Grigori
-LopezGarcia{% endblock %}
+{% block title %}Police Software Security Posture & Data Controls | G3 Industries{% endblock %}
 {% block meta %}
 <meta
   name="description"
-  content="Security at G3 Industries: hosting & network, authentication & RBAC, auditing & retention, data handling, and responsible disclosure. Built by Grigori LopezGarcia."
+  content="Security controls for police software: encrypted traffic, role-based access, audit logging, data handling safeguards, and agency-aligned compliance support."
 />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is data encrypted in transit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Traffic is protected with HTTPS and HSTS so data in transit remains encrypted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can access be restricted by role?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Role-based access controls and least-privilege principles are used to scope access by role and responsibilities."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you keep audit logs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The platform maintains immutable logs to track who did what and when for accountability and review."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can records be exported for audits and reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Records and logs can be exported to support audits, compliance checks, and internal reviews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can security settings align to local agency requirements?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Retention and operational settings are configured to align with each agency's policy and IT requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do we report a security concern?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the security contact channel on this page and include details of the issue. The team coordinates directly with agency stakeholders to address it."
+        }
+      }
+    ]
+  }
+</script>
 {% endblock %}
 {% block extra_head %}
 {# Reserved for page-specific assets if needed later. #}
@@ -20,6 +75,11 @@ LopezGarcia{% endblock %}
       We build for law enforcement, so security and accountability are
       first‑order features. Below is a practical overview of our posture. If you
       have specific requirements, we’ll meet them.
+    </p>
+    <p class="mt-3 text-sm text-cyan-100/90 max-w-3xl">
+      <strong>Short answer:</strong> your data and workflows are protected with
+      encryption, role-based controls, audit trails, and policies aligned to
+      agency requirements.
     </p>
   </div>
 </section>
@@ -292,6 +352,71 @@ LopezGarcia{% endblock %}
         </li>
       </ul>
     </article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="defer py-10 md:py-12 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Frequently asked questions</h2>
+    <p class="mt-2 text-slate-300 max-w-3xl">
+      Clear answers to common security and compliance questions from command and
+      IT teams.
+    </p>
+    <div class="mt-6 grid gap-3">
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Is data encrypted in transit?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. HTTPS and HSTS are enforced so traffic is encrypted end to end.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can access be restricted by role?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Role-based access and least-privilege controls scope access by
+          role and responsibility.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Do you keep audit logs?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Immutable logs track who did what and when across key workflows.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can records be exported for audits and reviews?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Exportable records support policy reviews, audits, and command
+          accountability.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          Can security settings align to local agency requirements?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Settings are configured around agency-specific policy and IT
+          constraints.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">
+          How do we report a security concern?
+        </summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Contact us directly through the security channel below and include as
+          much detail as possible so we can respond quickly.
+        </p>
+      </details>
+    </div>
   </div>
 </section>
 
