@@ -73,6 +73,11 @@ DEMO_FROM_EMAIL = os.environ.get("DEMO_FROM_EMAIL", DEMO_TO_EMAIL)
 ANALYTICS_PROVIDER = os.environ.get("ANALYTICS_PROVIDER", "").strip().lower()
 GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "").strip()
 CLARITY_PROJECT_ID = os.environ.get("CLARITY_PROJECT_ID", "").strip()
+SITE_PUBLISHED_LABEL = os.environ.get("SITE_PUBLISHED_LABEL", "March 2026").strip()
+SITE_LAST_UPDATED_LABEL = os.environ.get(
+    "SITE_LAST_UPDATED_LABEL", "March 29, 2026"
+).strip()
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "").strip()
 
 # Cloudflare Turnstile settings (optional anti-bot challenge).
 TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "").strip()
@@ -168,6 +173,7 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         "published_at": "2026-03-29",
         "published_label": "March 29, 2026",
         "updated_at": "2026-03-29",
+        "updated_label": "March 29, 2026",
         "read_time": "4 min read",
         "author_name": "Grigori LopezGarcia",
         "author_role": "Founder, G3 Industries",
@@ -262,6 +268,527 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         ),
     },
     {
+        "slug": "5-signs-your-police-scheduling-process-is-breaking-at-scale",
+        "title": "5 Signs Your Police Scheduling Process Is Breaking at Scale",
+        "description": (
+            "A practical checklist for command staff to spot when police scheduling and "
+            "approval workflows are no longer keeping up with operational demand."
+        ),
+        "published_at": "2026-03-28",
+        "published_label": "March 28, 2026",
+        "updated_at": "2026-03-28",
+        "updated_label": "March 28, 2026",
+        "read_time": "5 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Scheduling", "Command Staff", "Police Operations"],
+        "summary": (
+            "If approvals lag, staffing visibility drops, and officers rely on side-channel "
+            "messages, your scheduling process is likely under strain."
+        ),
+        "quick_answer": (
+            "When your schedule depends on texts, spreadsheets, and manual reconciliation, "
+            "you lose visibility fast as staffing volume grows."
+        ),
+        "key_takeaways": [
+            "Delayed approvals create avoidable staffing risk before each shift starts.",
+            "Disconnected tools increase duplicate work for supervisors and command staff.",
+            "Side-channel coordination hides decision history and weakens accountability.",
+            "One policy-aligned scheduling workflow restores visibility at scale.",
+        ],
+        "qa": [
+            {
+                "question": "What is the first warning sign?",
+                "answer": (
+                    "Approval turnaround times start drifting from same-shift decisions into "
+                    "multi-day delays."
+                ),
+            },
+            {
+                "question": "Why does side-channel communication hurt scheduling quality?",
+                "answer": (
+                    "Because key decisions move into texts and emails that are hard to verify, "
+                    "search, or audit later."
+                ),
+            },
+            {
+                "question": "What should command teams track immediately?",
+                "answer": (
+                    "Track approval cycle time, low-staff incident frequency, and how often "
+                    "supervisors manually reconcile the same request data."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "What breaking at scale looks like",
+                "paragraphs": [
+                    "Most scheduling processes work fine when volume is light. Problems appear when requests, shift moves, and policy constraints increase at the same time.",
+                    "If supervisors are chasing the same information across paper, text messages, and spreadsheets, your process is already absorbing hidden operational cost.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The 5 warning signs",
+                "paragraphs": [
+                    "Watch for these patterns: approvals lagging into the next day, frequent last-minute staffing surprises, duplicate data entry by supervisors, unresolved schedule disputes, and missing audit context during reviews.",
+                ],
+                "bullets": [
+                    "Approvals shift from same-shift to multi-day response",
+                    "Coverage risk is discovered late instead of early",
+                    "Supervisors re-enter the same request in multiple places",
+                    "Disputes increase because decision history is fragmented",
+                    "Audit prep requires manual reconstruction of events",
+                ],
+            },
+            {
+                "heading": "How to stabilize before it gets worse",
+                "paragraphs": [
+                    "Standardize one request and approval path, enforce policy checks in that workflow, and keep one source of truth for command visibility.",
+                    "You do not need to replace everything at once. Start with the scheduling bottleneck that costs your team the most time each week.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Want a fast scheduling health check?",
+        "cta_body": (
+            "We can map your current scheduling workflow and identify where command-level "
+            "time and visibility are being lost first."
+        ),
+    },
+    {
+        "slug": "why-vacation-approval-delays-hurt-staffing-readiness",
+        "title": "Why Vacation Approval Delays Hurt Staffing Readiness",
+        "description": (
+            "How approval lag in vacation requests creates preventable staffing blind spots "
+            "for supervisors and command staff."
+        ),
+        "published_at": "2026-03-27",
+        "published_label": "March 27, 2026",
+        "updated_at": "2026-03-27",
+        "updated_label": "March 27, 2026",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Vacation Workflow", "Staffing Readiness", "Supervisors"],
+        "summary": (
+            "When approval decisions are delayed, readiness decisions are delayed. That gap "
+            "creates avoidable pressure on supervisors before each shift."
+        ),
+        "quick_answer": (
+            "Vacation approval lag is not just admin delay; it is staffing risk delay."
+        ),
+        "key_takeaways": [
+            "Approval speed directly affects confidence in staffing decisions.",
+            "Policy checks should happen during approval, not after the fact.",
+            "Visibility gaps force supervisors into reactive coverage moves.",
+            "A single workflow reduces handoff friction between ranks.",
+        ],
+        "qa": [
+            {
+                "question": "Why is delayed approval a command problem?",
+                "answer": (
+                    "Because command needs timely staffing truth to assign resources and avoid "
+                    "last-minute shortfalls."
+                ),
+            },
+            {
+                "question": "Where do delays usually happen?",
+                "answer": (
+                    "In handoffs between request intake, supervisor review, and policy validation "
+                    "when those steps happen in different tools."
+                ),
+            },
+            {
+                "question": "What is the fastest practical fix?",
+                "answer": (
+                    "Use one approval queue with visible staffing impact and policy guardrails so "
+                    "decisions are made once and shared instantly."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Approval lag becomes readiness lag",
+                "paragraphs": [
+                    "Every pending vacation request represents uncertainty in your staffing plan. When approvals sit, that uncertainty rolls into shift-level decisions.",
+                    "Supervisors then make coverage decisions with partial information, which increases rework and escalations.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Common delay points",
+                "paragraphs": [
+                    "Requests often move through text, email, and paper before landing in the scheduling system. Each handoff adds delay and risk.",
+                ],
+                "bullets": [
+                    "No single queue for pending approvals",
+                    "Policy checks happen after a decision, not during it",
+                    "Staffing impact is not visible until late",
+                ],
+            },
+            {
+                "heading": "What better looks like",
+                "paragraphs": [
+                    "A supervisor should see request details, policy guardrails, and staffing impact in one place, then approve or deny once.",
+                    "That single action should update command visibility immediately so readiness decisions stay current.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Need to tighten approval turnaround?",
+        "cta_body": (
+            "We can help your agency reduce approval friction while preserving policy control "
+            "and command visibility."
+        ),
+    },
+    {
+        "slug": "fixing-extra-duty-assignment-friction-before-it-becomes-overtime",
+        "title": "Fixing Extra-Duty Assignment Friction Before It Becomes Overtime",
+        "description": (
+            "A practical look at where extra-duty workflows break down and how agencies can "
+            "reduce assignment delays, disputes, and overtime spillover."
+        ),
+        "published_at": "2026-03-26",
+        "published_label": "March 26, 2026",
+        "updated_at": "2026-03-26",
+        "updated_label": "March 26, 2026",
+        "read_time": "5 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Extra Duty", "Assignment Fairness", "Operations"],
+        "summary": (
+            "When intake, vetting, and assignment logic are fragmented, extra-duty requests "
+            "slow down and workload pressure shifts back into normal staffing."
+        ),
+        "quick_answer": (
+            "Extra-duty friction becomes overtime pressure when assignment decisions are slow, "
+            "unclear, or inconsistent."
+        ),
+        "key_takeaways": [
+            "Assignment speed and assignment trust are both operational requirements.",
+            "Manual coordination increases dispute frequency and review overhead.",
+            "Clear assignment rules reduce escalation load on supervisors.",
+            "Audit-ready records protect both officers and leadership decisions.",
+        ],
+        "qa": [
+            {
+                "question": "What usually creates assignment disputes?",
+                "answer": (
+                    "Inconsistent application of assignment rules and poor visibility into how "
+                    "decisions were made."
+                ),
+            },
+            {
+                "question": "How does this affect normal staffing?",
+                "answer": (
+                    "When extra-duty coverage is unresolved late, supervisors compensate by "
+                    "reallocating attention and time from core operations."
+                ),
+            },
+            {
+                "question": "What should be standardized first?",
+                "answer": (
+                    "Standardize intake requirements, eligibility checks, and assignment logic "
+                    "in one process."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Where extra-duty workflows lose time",
+                "paragraphs": [
+                    "Extra-duty coordination often starts outside the system, then gets pushed into manual review later.",
+                    "That delay creates friction for supervisors and uncertainty for officers waiting on assignment outcomes.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "What command should watch",
+                "paragraphs": [
+                    "If the same request is being touched repeatedly by different people, your workflow is absorbing avoidable cost.",
+                ],
+                "bullets": [
+                    "Late assignment confirmation",
+                    "Frequent exception handling",
+                    "Disputes with incomplete decision history",
+                ],
+            },
+            {
+                "heading": "How to reduce friction without adding complexity",
+                "paragraphs": [
+                    "Capture requests in one intake path, apply clear eligibility rules, and keep assignment outcomes visible to all relevant roles.",
+                    "When rules are transparent and consistently applied, assignment confidence improves quickly.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Want cleaner extra-duty operations?",
+        "cta_body": (
+            "We can help you standardize assignment flow so supervisors spend less time "
+            "managing exceptions and more time supporting operations."
+        ),
+    },
+    {
+        "slug": "tow-logs-and-audit-risk-what-command-staff-should-standardize-first",
+        "title": "Tow Logs and Audit Risk: What Command Staff Should Standardize First",
+        "description": (
+            "Tow logging is often treated as simple data entry, but inconsistent records can "
+            "create major audit and accountability risk."
+        ),
+        "published_at": "2026-03-25",
+        "published_label": "March 25, 2026",
+        "updated_at": "2026-03-25",
+        "updated_label": "March 25, 2026",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Tow Logs", "Audit Readiness", "Accountability"],
+        "summary": (
+            "Tow workflows need consistent entry standards and clear custody history. Without "
+            "that, command teams lose confidence in record quality."
+        ),
+        "quick_answer": (
+            "Tow log inconsistency is an audit risk multiplier, especially when history has to "
+            "be reconstructed after the fact."
+        ),
+        "key_takeaways": [
+            "Required fields and custody events need consistent enforcement.",
+            "Searchability is as important as initial record capture.",
+            "Export quality determines how fast audits can be completed.",
+            "Standardized tow logging reduces review friction across units.",
+        ],
+        "qa": [
+            {
+                "question": "Why do tow logs fail audits?",
+                "answer": (
+                    "Records are often incomplete, inconsistent, or disconnected from custody "
+                    "history timelines."
+                ),
+            },
+            {
+                "question": "What does command need from tow data?",
+                "answer": (
+                    "Reliable search, clean exports, and confidence that each record follows "
+                    "policy from entry to closure."
+                ),
+            },
+            {
+                "question": "What should be standardized first?",
+                "answer": (
+                    "Start with mandatory entry fields, custody event tracking, and one export "
+                    "format that supports reviews."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Tow logs are accountability records",
+                "paragraphs": [
+                    "Tow entries are not just administrative paperwork. They are operational records that may be reviewed long after the event.",
+                    "If fields are inconsistent, leadership spends audit time reconstructing basic context instead of validating decisions.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Where quality usually breaks",
+                "paragraphs": [
+                    "Most breakdowns happen at handoff points: entry, custody updates, and export formatting for review.",
+                ],
+                "bullets": [
+                    "Missing required fields",
+                    "Unclear custody status timeline",
+                    "Inconsistent export output by unit",
+                ],
+            },
+            {
+                "heading": "Command-first standardization",
+                "paragraphs": [
+                    "Build one tow logging path with required validation and searchable history, then keep export output consistent for audits and records requests.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Need cleaner tow-log accountability?",
+        "cta_body": (
+            "We can help standardize tow records so your team can review and export with "
+            "confidence instead of manual cleanup."
+        ),
+    },
+    {
+        "slug": "anonymous-tips-intake-how-to-improve-follow-through-without-slowing-investigations",
+        "title": "Anonymous Tips Intake: How to Improve Follow-Through Without Slowing Investigations",
+        "description": (
+            "How agencies can tighten anonymous tips intake, triage, and follow-through while "
+            "keeping response workflows practical for supervisors."
+        ),
+        "published_at": "2026-03-24",
+        "published_label": "March 24, 2026",
+        "updated_at": "2026-03-24",
+        "updated_label": "March 24, 2026",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Anonymous Tips", "Triage", "Workflow Design"],
+        "summary": (
+            "Tip intake quality matters. If routing and follow-through are inconsistent, useful "
+            "information gets buried or delayed."
+        ),
+        "quick_answer": (
+            "Anonymous tip workflows work best when intake fields, triage rules, and follow-up "
+            "ownership are clear from the start."
+        ),
+        "key_takeaways": [
+            "Intake quality determines triage quality.",
+            "Tip routing should be structured, not ad hoc.",
+            "Ownership and status tracking prevent tip drift.",
+            "Supervisors need visibility without extra admin burden.",
+        ],
+        "qa": [
+            {
+                "question": "What is the most common intake failure?",
+                "answer": (
+                    "Insufficient structure during intake, which forces supervisors to spend "
+                    "time clarifying basic context before action."
+                ),
+            },
+            {
+                "question": "How do agencies avoid losing tips in process?",
+                "answer": (
+                    "Assign ownership, track status transitions, and keep a visible queue for "
+                    "pending and closed items."
+                ),
+            },
+            {
+                "question": "Can this be improved without adding bureaucracy?",
+                "answer": (
+                    "Yes. Standardized intake and lightweight triage rules improve consistency "
+                    "without slowing response."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Good intake prevents downstream friction",
+                "paragraphs": [
+                    "When intake is inconsistent, triage becomes guesswork. That slows response and makes status tracking harder than it needs to be.",
+                    "A better intake model captures the right context early so supervisors can route quickly.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Triage needs clear ownership",
+                "paragraphs": [
+                    "Without ownership, tips can sit in queue and lose urgency. Ownership does not need to be complex, but it must be explicit.",
+                ],
+                "bullets": [
+                    "Clear assignment by role",
+                    "Status checkpoints from intake to closure",
+                    "Supervisor visibility on pending backlog",
+                ],
+            },
+            {
+                "heading": "Keep it practical for the field",
+                "paragraphs": [
+                    "The goal is not paperwork. The goal is faster, clearer follow-through with less ambiguity for everyone involved.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Want tighter tip follow-through?",
+        "cta_body": (
+            "We can help your team standardize intake and triage so supervisors keep visibility "
+            "without adding unnecessary process."
+        ),
+    },
+    {
+        "slug": "policy-guardrails-vs-workarounds-where-agencies-lose-visibility",
+        "title": "Policy Guardrails vs Workarounds: Where Agencies Lose Visibility",
+        "description": (
+            "Why policy-compliant workflows matter for command visibility and how workaround "
+            "culture creates blind spots in daily operations."
+        ),
+        "published_at": "2026-03-23",
+        "published_label": "March 23, 2026",
+        "updated_at": "2026-03-23",
+        "updated_label": "March 23, 2026",
+        "read_time": "5 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Policy Compliance", "Visibility", "Command Staff"],
+        "summary": (
+            "Workarounds can keep operations moving in the short term, but over time they "
+            "reduce visibility and make policy enforcement harder."
+        ),
+        "quick_answer": (
+            "If your workflow depends on exceptions and side channels, command loses clear "
+            "visibility into how decisions are actually made."
+        ),
+        "key_takeaways": [
+            "Workarounds are signals that policy and workflow are misaligned.",
+            "Command visibility drops when decisions leave the core system.",
+            "Guardrails should support operations, not block them.",
+            "Operational trust improves when policy logic is transparent in workflow.",
+        ],
+        "qa": [
+            {
+                "question": "Why do workarounds become normal?",
+                "answer": (
+                    "Because teams prioritize mission continuity and adopt whatever path resolves "
+                    "the immediate bottleneck."
+                ),
+            },
+            {
+                "question": "What is the risk to leadership?",
+                "answer": (
+                    "Leadership loses reliable, system-level visibility and has to reconstruct "
+                    "decision context during reviews."
+                ),
+            },
+            {
+                "question": "What is a healthier approach?",
+                "answer": (
+                    "Align policy guardrails directly with day-to-day workflows so compliance and "
+                    "operations reinforce each other."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Why workaround culture persists",
+                "paragraphs": [
+                    "In policing, teams solve problems quickly. When tools do not align with real work, informal paths emerge to keep the mission moving.",
+                    "The problem is not intent. The problem is that those paths are harder to track, review, and improve.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Where visibility breaks first",
+                "paragraphs": [
+                    "Visibility usually breaks at points where policy decisions and operational actions are recorded in different places.",
+                ],
+                "bullets": [
+                    "Approval decisions outside the system",
+                    "Exceptions tracked manually by supervisors",
+                    "Inconsistent records across units and shifts",
+                ],
+            },
+            {
+                "heading": "Build guardrails people will actually use",
+                "paragraphs": [
+                    "The best guardrails are embedded in the workflow officers and supervisors already use.",
+                    "When policy logic is clear inside the process, adoption improves and command visibility stays intact.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Need stronger visibility without more friction?",
+        "cta_body": (
+            "We can help map where workarounds are hiding and rebuild those steps into "
+            "policy-aligned workflows your team can use every day."
+        ),
+    },
+    {
         "slug": "how-much-time-are-administrative-tasks-worth",
         "title": "How Much Time Are Administrative Tasks Worth?",
         "description": (
@@ -271,6 +798,7 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         "published_at": "2026-03-18",
         "published_label": "March 18, 2026",
         "updated_at": "2026-03-18",
+        "updated_label": "March 18, 2026",
         "read_time": "5 min read",
         "author_name": "Grigori LopezGarcia",
         "author_role": "Founder, G3 Industries",
@@ -892,6 +1420,8 @@ def inject_contact_email():
         "ga_measurement_id": GA_MEASUREMENT_ID,
         "clarity_project_id": CLARITY_PROJECT_ID,
         "turnstile_site_key": TURNSTILE_SITE_KEY,
+        "site_published_label": SITE_PUBLISHED_LABEL,
+        "site_last_updated_label": SITE_LAST_UPDATED_LABEL,
     }
 
 
@@ -938,6 +1468,14 @@ def request_too_large(_error):
 def health():
     """Lightweight health endpoint for deploy checks."""
     return "ok", 200
+
+
+@app.route("/indexnow-key.txt")
+def indexnow_key_txt():
+    """Expose IndexNow verification key when configured."""
+    if not INDEXNOW_KEY:
+        abort(404)
+    return Response(INDEXNOW_KEY, mimetype="text/plain")
 
 
 @app.route("/")
