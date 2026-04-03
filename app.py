@@ -1490,6 +1490,12 @@ def products():
     return render_template("products.html", title="Products — G3 Industries")
 
 
+@app.route("/impact")
+def impact():
+    """Impact Program page."""
+    return render_template("impact.html", title="IMPACT Program — G3 Industries")
+
+
 @app.route("/about")
 def about():
     """Company/about page."""
@@ -1796,6 +1802,7 @@ def sitemap_xml():
     entries: List[Dict[str, str]] = [
         {"loc": f"{base_url}/", "changefreq": "weekly", "priority": "1.0"},
         {"loc": f"{base_url}/products", "changefreq": "weekly", "priority": "0.9"},
+        {"loc": f"{base_url}/impact", "changefreq": "monthly", "priority": "0.7"},
         {"loc": f"{base_url}/security", "changefreq": "monthly", "priority": "0.8"},
         {"loc": f"{base_url}/grants", "changefreq": "monthly", "priority": "0.7"},
         {"loc": f"{base_url}/about", "changefreq": "monthly", "priority": "0.7"},

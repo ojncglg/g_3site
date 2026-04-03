@@ -1,0 +1,1157 @@
+<!-- IMPACT Program page: design-partner program for workflow innovation. -->
+{% extends "base.html" %}
+{% block title %}G3 IMPACT Program | Innovation Partner Program for Public
+Safety Agencies{% endblock %}
+{% block meta %}
+<meta
+  name="description"
+  content="G3 IMPACT is G3 Industries’ innovation partner program for agencies with real administrative and workflow problems. Help shape practical public safety software solutions built around real operational needs."
+/>
+{% endblock %}
+{% block social %}
+<meta property="og:title" content="G3 IMPACT Program | G3 Industries" />
+<meta
+  property="og:description"
+  content="Turn agency problems into real solutions with G3 IMPACT — G3 Industries’ innovation partner program for public safety agencies."
+/>
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.base_url }}" />
+<meta
+  property="og:image"
+  content="{{ url_for('static', filename='img/social-card.png') }}"
+/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="G3 IMPACT Program | G3 Industries" />
+<meta
+  name="twitter:description"
+  content="Turn agency problems into real solutions with G3 IMPACT — G3 Industries’ innovation partner program for public safety agencies."
+/>
+<meta
+  name="twitter:image"
+  content="{{ url_for('static', filename='img/social-card.png') }}"
+/>
+{% endblock %}
+{% block extra_head %}
+<style>
+  .impact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .impact-list li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+  .impact-list li + li {
+    margin-top: 0.55rem;
+  }
+  .impact-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62rem;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 9999px;
+    background: var(--g3-gold);
+  }
+
+  .impact-mini-nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.2rem 0.05rem 0.35rem;
+    scrollbar-width: thin;
+  }
+  .impact-mini-nav a {
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.48);
+    color: #dbe5f3;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .impact-mini-nav a:hover,
+  .impact-mini-nav a:focus-visible {
+    color: #fff;
+    border-color: rgba(250, 204, 21, 0.45);
+    background: rgba(250, 204, 21, 0.14);
+  }
+
+  .impact-step-num {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #0f172a;
+    background: var(--g3-gold);
+    flex: 0 0 auto;
+    margin-top: 0.1rem;
+  }
+
+  .impact-faq-item {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .impact-faq-item:first-child {
+    border-top: 0;
+  }
+  .impact-faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 700;
+    color: #f8fafc;
+    padding: 1rem 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.8rem;
+  }
+  .impact-faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+  .impact-faq-item > summary::after {
+    content: "+";
+    color: var(--g3-gold);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    flex: 0 0 auto;
+    margin-top: 0.2rem;
+  }
+  .impact-faq-item[open] > summary::after {
+    content: "−";
+  }
+  .impact-faq-answer {
+    margin: -0.2rem 0 1rem;
+    color: #cbd5e1;
+    padding-right: 1.2rem;
+  }
+
+</style>
+{% if turnstile_site_key %}
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
+{% endif %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does submitting an idea guarantee acceptance into the program?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All submissions are reviewed, but only selected opportunities will be invited into the G3 IMPACT Program."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the problem have to be unique to our agency?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The problem can be agency-specific or common across many agencies. What matters most is whether it is meaningful, operationally relevant, and a strong fit for the platform."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does G3 keep ownership of the module?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Modules developed through G3 IMPACT are built inside the G3 platform, and G3 Industries retains ownership of the resulting product and software rights."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will our agency have input into the solution?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Selected agencies collaborate with G3 during the design and development process to help ensure the module reflects real-world workflow needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this custom software development for any agency that asks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. G3 IMPACT is a selective design-partner program. Opportunities are evaluated based on fit, operational value, platform alignment, and broader applicability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who should submit an idea?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Officers, supervisors, administrators, command staff, and others who understand an agency workflow problem are welcome to submit ideas, subject to their agency’s internal policies and approval process where applicable."
+        }
+      }
+    ]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How G3 IMPACT works",
+    "description": "A structured process for agencies to submit administrative workflow problems and collaborate on practical software solutions.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Identify the problem",
+        "text": "Tell G3 about an administrative or workflow issue, who it affects, and why it matters."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Submit your idea",
+        "text": "Share the current process, pain points, and operational impact."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "G3 reviews the opportunity",
+        "text": "G3 evaluates fit, workflow value, and broader applicability."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Agency selection",
+        "text": "If there is strong alignment, the agency may be invited as a design partner."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Collaborative development",
+        "text": "G3 and the agency collaborate to design and build the module in the platform."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Early access and refinement",
+        "text": "Partner agencies provide practical feedback as functionality is refined."
+      }
+    ]
+  }
+</script>
+{% endblock %}
+{% block content %}
+<section class="py-10 md:py-14">
+  <div class="max-w-6xl mx-auto px-4">
+    <p
+      class="text-xs uppercase tracking-[0.2em] text-[color:var(--g3-gold)] font-semibold"
+    >
+      IMPACT Program
+    </p>
+    <h1 class="mt-2 text-3xl md:text-5xl font-extrabold tracking-tight max-w-4xl">
+      Turn agency problems into real solutions with G3 IMPACT.
+    </h1>
+    <p class="mt-4 text-slate-300 max-w-4xl">
+      The G3 IMPACT Program gives qualifying agencies the opportunity to help
+      shape new modules and workflow solutions built around real administrative
+      challenges in public safety.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      <strong>Reality:</strong> Every agency has internal processes that waste
+      time, create manual work, and slow operations.
+    </p>
+    <p class="mt-2 text-slate-300 max-w-4xl">
+      <strong>Purpose:</strong> G3 IMPACT exists to identify those problems and
+      build practical solutions around them.
+    </p>
+    <p class="mt-2 text-slate-300 max-w-4xl">
+      <strong>Invitation:</strong> If your agency has an administrative issue
+      that has gone unsolved for years, creates constant friction, or drains
+      valuable time from officers and supervisors, we want to hear about it.
+    </p>
+    <p class="mt-3 text-sm text-cyan-100/90 max-w-4xl">
+      <strong>Short answer:</strong> G3 IMPACT is a selective design-partner
+      program where agencies help shape practical software for real operational
+      problems in law enforcement.
+    </p>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="#impact-intake"
+        class="btn btn-primary"
+        data-track-event="cta_click"
+        data-track-label="apply_for_impact"
+        data-track-location="impact_hero"
+        >Apply for G3 IMPACT</a
+      >
+      <a
+        href="#impact-intake"
+        class="btn btn-outline"
+        data-track-event="cta_click"
+        data-track-label="submit_agency_problem"
+        data-track-location="impact_hero"
+        >Submit Your Agency Problem</a
+      >
+    </div>
+
+    <nav class="impact-mini-nav" aria-label="IMPACT page sections">
+      <a href="#what-is-impact">What It Is</a>
+      <a href="#who-should-apply">Who Should Apply</a>
+      <a href="#problems-we-seek">Problem Examples</a>
+      <a href="#how-impact-works">How It Works</a>
+      <a href="#impact-faq">FAQ</a>
+      <a href="#impact-intake">Apply</a>
+    </nav>
+  </div>
+</section>
+
+<section id="what-is-impact" class="py-10 md:py-12 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">What is G3 IMPACT?</h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      <strong>Meaning:</strong> G3 IMPACT stands for
+      <strong>I</strong>nnovation <strong>M</strong>odule
+      <strong>P</strong>artnership for <strong>A</strong>gency-
+      <strong>C</strong>entered <strong>T</strong>echnology.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      <strong>Program model:</strong> Agencies bring real operational and
+      administrative challenges. When a problem is a strong platform fit with
+      clear workflow value, G3 may partner directly with the agency to design
+      and build a module inside the G3 ecosystem.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      This is not generic software development. This is targeted problem-solving
+      built around the real needs of public safety organizations.
+    </p>
+  </div>
+</section>
+
+<section id="why-program-exists" class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Built around real-world agency pain points
+    </h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      Too many administrative problems in public safety become accepted as “the
+      way things are”: paper workflows, duplicated effort, poor visibility,
+      fragmented communication, and manual steps that should have been solved
+      years ago.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      G3 IMPACT exists to change that.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      The best solutions come from people closest to the friction: officers,
+      supervisors, administrators, and command staff. Through G3 IMPACT,
+      agencies help shape software based on real operations, not guesswork.
+    </p>
+  </div>
+</section>
+
+<section id="who-should-apply" class="py-10 md:py-12 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Who Should Apply</h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      G3 IMPACT is designed for agencies that have identified a clear
+      administrative or workflow problem and want to help shape a practical
+      solution.
+    </p>
+    <div
+      class="mt-6 rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+    >
+      <p class="font-semibold text-slate-100">
+        This program may be a strong fit if your agency:
+      </p>
+      <ul class="impact-list mt-3 text-slate-300">
+        <li>Has an internal administrative process that wastes time</li>
+        <li>
+          Relies on manual workarounds, spreadsheets, paper, or fragmented
+          systems
+        </li>
+        <li>Has a recurring workflow issue that creates confusion or delay</li>
+        <li>
+          Wants to improve efficiency without forcing people into clunky
+          software
+        </li>
+        <li>Is willing to collaborate on a real-world solution</li>
+        <li>
+          Wants to help shape technology designed for public safety operations
+        </li>
+      </ul>
+    </div>
+    <div
+      class="mt-5 rounded-lg border border-white/10 bg-slate-900/50 border-l-4 border-yellow-400 p-4"
+    >
+      <p class="text-slate-300">
+        <strong>This program is especially valuable for agencies</strong> that
+        have a problem no one has meaningfully solved yet.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="problems-we-seek" class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      What kind of problems are we looking for?
+    </h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      We are looking for real administrative and operational workflow issues
+      such as:
+    </p>
+    <div class="mt-6 grid md:grid-cols-2 gap-4">
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <ul class="impact-list text-slate-300">
+          <li>State Required Annual Training Tracking</li>
+          <li>Police Activity Report-Time Sheets</li>
+          <li>Inventory Tracking Issues</li>
+        </ul>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+      >
+        <ul class="impact-list text-slate-300">
+          <li>Repetitive Data-Entry Tasks</li>
+          <li>Paper-Based or Email-Based Processes that Should Be Automated</li>
+          <li>
+            Agency-Specific Workflow Problems that Do Not Fit Existing Software
+          </li>
+        </ul>
+      </article>
+    </div>
+    <p class="mt-5 text-slate-300 max-w-4xl">
+      If it slows your officers down, creates confusion, or has become
+      “normal” simply because no one has fixed it, it may be a good fit for G3
+      IMPACT.
+    </p>
+  </div>
+</section>
+
+<section id="how-impact-works" class="py-10 md:py-12 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">How G3 IMPACT Works</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">1</span>
+        <div>
+          <h3 class="font-semibold">Identify the problem</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            Tell us about an administrative or workflow issue inside your
+            agency. Explain what the problem is, who it affects, and why it
+            matters.
+          </p>
+        </div>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">2</span>
+        <div>
+          <h3 class="font-semibold">Submit your idea</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            Share the current process, the pain points, and the operational
+            impact. The clearer the problem, the better we can evaluate it.
+          </p>
+        </div>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">3</span>
+        <div>
+          <h3 class="font-semibold">G3 reviews the opportunity</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            We assess whether the problem is a fit for our platform, whether it
+            has meaningful value for your agency, and whether the resulting
+            solution could help other agencies as well.
+          </p>
+        </div>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">4</span>
+        <div>
+          <h3 class="font-semibold">Agency selection</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            If the opportunity is a strong fit, your agency may be invited to
+            participate in the G3 IMPACT Program as a design partner.
+          </p>
+        </div>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">5</span>
+        <div>
+          <h3 class="font-semibold">Collaborative development</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            We work with your agency to understand the workflow, identify the
+            best solution path, and build the module inside the G3 platform.
+          </p>
+        </div>
+      </article>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 flex gap-3"
+      >
+        <span class="impact-step-num">6</span>
+        <div>
+          <h3 class="font-semibold">Early access and refinement</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            Partner agencies receive early involvement and practical
+            collaboration as the solution is refined for real-world use.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="partner-benefits" class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">What Partner Agencies Receive</h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      Agencies selected for G3 IMPACT may receive:
+    </p>
+    <div
+      class="mt-5 rounded-lg border border-white/10 card-border bg-slate-900/50 p-5"
+    >
+      <ul class="impact-list text-slate-300">
+        <li>Direct collaboration with G3 Industries on a real agency problem</li>
+        <li>Priority input during module design and workflow development</li>
+        <li>Early access to the resulting functionality</li>
+        <li>
+          The opportunity to shape practical tools built around real operations
+        </li>
+        <li>Recognition as a G3 IMPACT partner, where appropriate</li>
+        <li>A stronger platform aligned with public safety realities</li>
+      </ul>
+    </div>
+    <p class="mt-5 text-slate-300 max-w-4xl">
+      This is an opportunity to help shape a solution that works for your agency
+      while contributing to broader innovation in public safety administration.
+    </p>
+  </div>
+</section>
+
+<section id="ownership-model" class="py-10 md:py-12 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">How Product Ownership Works</h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      Modules developed through the G3 IMPACT Program are built within the G3
+      platform. G3 Industries retains ownership of the resulting software,
+      product functionality, and module rights, including the ability to
+      improve, reuse, and offer those capabilities to other agencies.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      This model allows us to keep investing in the platform while turning
+      agency-specific challenges into scalable solutions that can benefit the
+      wider public safety community.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      Our goal is simple and sincere: help cops solve administrative pain points
+      for other cops. If your agency has a workflow problem, chances are other
+      agencies are facing that same challenge. Let’s fix them together and build
+      long-term value for partner agencies and future customers.
+    </p>
+  </div>
+</section>
+
+<section id="impact-faq" class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+    <div class="mt-6 rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <details class="impact-faq-item" open>
+        <summary>Does submitting an idea guarantee acceptance into the program?</summary>
+        <p class="impact-faq-answer">
+          No. All submissions are reviewed, but only selected opportunities will
+          be invited into the G3 IMPACT Program.
+        </p>
+      </details>
+      <details class="impact-faq-item">
+        <summary>Does the problem have to be unique to our agency?</summary>
+        <p class="impact-faq-answer">
+          No. The problem can be agency-specific or common across many agencies.
+          What matters most is whether it is meaningful, operationally relevant,
+          and a strong fit for the platform.
+        </p>
+      </details>
+      <details class="impact-faq-item">
+        <summary>Does G3 keep ownership of the module?</summary>
+        <p class="impact-faq-answer">
+          Yes. Modules developed through G3 IMPACT are built inside the G3
+          platform, and G3 Industries retains ownership of the resulting product
+          and software rights.
+        </p>
+      </details>
+      <details class="impact-faq-item">
+        <summary>Will our agency have input into the solution?</summary>
+        <p class="impact-faq-answer">
+          Yes. Selected agencies collaborate with G3 during the design and
+          development process to help ensure the module reflects real-world
+          workflow needs.
+        </p>
+      </details>
+      <details class="impact-faq-item">
+        <summary>Is this custom software development for any agency that asks?</summary>
+        <p class="impact-faq-answer">
+          No. G3 IMPACT is a selective design-partner program. Opportunities are
+          evaluated based on fit, operational value, platform alignment, and
+          broader applicability.
+        </p>
+      </details>
+      <details class="impact-faq-item">
+        <summary>Who should submit an idea?</summary>
+        <p class="impact-faq-answer">
+          Officers, supervisors, administrators, command staff, and others who
+          understand an agency workflow problem are welcome to submit ideas,
+          subject to their agency’s internal policies and approval process where
+          applicable.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="impact-intake" class="py-10 md:py-12 bg-slate-900/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Tell us about the problem your agency needs solved
+    </h2>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      We are looking for real administrative and workflow challenges that create
+      inefficiency, delay, unnecessary manual work, or recurring frustration
+      inside public safety organizations.
+    </p>
+    <p class="mt-3 text-slate-300 max-w-4xl">
+      If your submission is a strong fit, your agency may be considered for the
+      G3 IMPACT Program.
+    </p>
+
+    <form id="impact-form" action="/demo" method="post" class="form-shell mt-6 grid gap-4 md:grid-cols-2" novalidate>
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-name">Name</label>
+        <input
+          id="impact-name"
+          name="name"
+          type="text"
+          required
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Full name"
+        />
+        <p id="impact-name-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-role">Title / Rank</label>
+        <input
+          id="impact-role"
+          name="role"
+          type="text"
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Sergeant, Lieutenant, Analyst..."
+        />
+        <p id="impact-role-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-agency">Agency</label>
+        <input
+          id="impact-agency"
+          name="agency"
+          type="text"
+          required
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Agency name"
+        />
+        <p id="impact-agency-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-email">Work Email</label>
+        <input
+          id="impact-email"
+          name="email"
+          type="email"
+          required
+          maxlength="160"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="name@agency.gov"
+        />
+        <p id="impact-email-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-phone">Phone Number</label>
+        <input
+          id="impact-phone"
+          name="phone"
+          type="tel"
+          maxlength="40"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="(555) 555-5555"
+        />
+        <p id="impact-phone-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-problem">
+          What administrative or workflow problem is your agency dealing with?
+        </label>
+        <textarea
+          id="impact-problem"
+          rows="4"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Describe the core problem in plain terms"
+          required
+        ></textarea>
+        <p id="impact-problem-error" class="field-error hidden" aria-live="polite"></p>
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-affected">Who does this problem affect?</label>
+        <input
+          id="impact-affected"
+          type="text"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Patrol, supervisors, records, command staff..."
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-frequency">How often does this problem occur?</label>
+        <input
+          id="impact-frequency"
+          type="text"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Daily, weekly, monthly..."
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-current-process">How is the problem currently handled?</label>
+        <textarea
+          id="impact-current-process"
+          rows="3"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Current process, workarounds, systems, paper, email..."
+        ></textarea>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-hard">Why has this problem been difficult to solve?</label>
+        <textarea
+          id="impact-hard"
+          rows="3"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Constraints, dependencies, policy, tooling, staffing..."
+        ></textarea>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-operational">What impact does this problem have on operations, time, or staffing?</label>
+        <textarea
+          id="impact-operational"
+          rows="3"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Time lost, delays, staffing risk, confusion, overtime..."
+        ></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-tried">Has your agency tried to solve this before?</label>
+        <input
+          id="impact-tried"
+          type="text"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="If yes, what was attempted?"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="impact-leadership">Is leadership aware of the issue?</label>
+        <select
+          id="impact-leadership"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+        >
+          <option value="">Select one</option>
+          <option>Yes</option>
+          <option>No</option>
+          <option>Partially</option>
+        </select>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm text-slate-300 mb-1" for="impact-extra">Anything else we should know?</label>
+        <textarea
+          id="impact-extra"
+          rows="3"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
+          placeholder="Additional details, timing, constraints, or context"
+        ></textarea>
+      </div>
+
+      <div class="hidden" aria-hidden="true">
+        <label for="impact-website">Website</label>
+        <input id="impact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <textarea id="impact-notes" name="notes" class="hidden"></textarea>
+      <input type="hidden" name="form_start" id="impact-form-start" />
+      <input type="hidden" name="utm_source" id="impact-utm_source" />
+      <input type="hidden" name="utm_medium" id="impact-utm_medium" />
+      <input type="hidden" name="utm_campaign" id="impact-utm_campaign" />
+      <input type="hidden" name="utm_term" id="impact-utm_term" />
+      <input type="hidden" name="utm_content" id="impact-utm_content" />
+      <input type="hidden" name="landing_page" id="impact-landing_page" />
+      <input type="hidden" name="referrer" id="impact-referrer" />
+
+      {% if turnstile_site_key %}
+      <div class="md:col-span-2 mt-1">
+        <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}" data-theme="dark"></div>
+        <p class="mt-2 text-xs text-slate-400">
+          This form is protected by Cloudflare Turnstile.
+        </p>
+      </div>
+      {% endif %}
+
+      <div class="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3 mt-1">
+        <button id="impact-submit" type="submit" class="btn btn-primary btn-lg w-full sm:w-auto">
+          Submit G3 IMPACT Application
+        </button>
+      </div>
+      <p class="md:col-span-2 text-xs text-slate-400">
+        We review every submission and typically respond within 5 business days.
+      </p>
+      <div
+        id="impact-status"
+        class="md:col-span-2 text-sm mt-1 form-status hidden"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </form>
+  </div>
+</section>
+
+<section class="py-10 md:py-12">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Have a problem your agency is tired of working around?
+    </h2>
+    <p class="mt-3 text-slate-300 max-w-3xl mx-auto">Let’s talk about it.</p>
+    <p class="mt-2 text-slate-300 max-w-3xl mx-auto">
+      If your agency is dealing with an administrative problem that has gone
+      unresolved for too long, G3 IMPACT may be the right place to start.
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <a
+        href="#impact-intake"
+        class="btn btn-primary"
+        data-track-event="cta_click"
+        data-track-label="apply_for_impact"
+        data-track-location="impact_final_cta"
+        >Apply for G3 IMPACT</a
+      >
+      <a
+        href="#impact-intake"
+        class="btn btn-outline"
+        data-track-event="cta_click"
+        data-track-label="submit_your_idea"
+        data-track-location="impact_final_cta"
+        >Submit Your Idea</a
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const form = document.getElementById("impact-form");
+    const submitBtn = document.getElementById("impact-submit");
+    const statusEl = document.getElementById("impact-status");
+    const notesEl = document.getElementById("impact-notes");
+    const startEl = document.getElementById("impact-form-start");
+
+    const utmSourceEl = document.getElementById("impact-utm_source");
+    const utmMediumEl = document.getElementById("impact-utm_medium");
+    const utmCampaignEl = document.getElementById("impact-utm_campaign");
+    const utmTermEl = document.getElementById("impact-utm_term");
+    const utmContentEl = document.getElementById("impact-utm_content");
+    const landingPageEl = document.getElementById("impact-landing_page");
+    const referrerEl = document.getElementById("impact-referrer");
+
+    const turnstileEnabled = "{{ '1' if turnstile_site_key else '0' }}" === "1";
+
+    if (!form || !submitBtn || !statusEl || !notesEl) return;
+    if (startEl) startEl.value = Date.now();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const fields = {
+      name: document.getElementById("impact-name"),
+      role: document.getElementById("impact-role"),
+      agency: document.getElementById("impact-agency"),
+      email: document.getElementById("impact-email"),
+      phone: document.getElementById("impact-phone"),
+      problem: document.getElementById("impact-problem"),
+      affected: document.getElementById("impact-affected"),
+      frequency: document.getElementById("impact-frequency"),
+      current: document.getElementById("impact-current-process"),
+      hard: document.getElementById("impact-hard"),
+      operational: document.getElementById("impact-operational"),
+      tried: document.getElementById("impact-tried"),
+      leadership: document.getElementById("impact-leadership"),
+      extra: document.getElementById("impact-extra"),
+    };
+
+    const errorEls = {
+      name: document.getElementById("impact-name-error"),
+      role: document.getElementById("impact-role-error"),
+      agency: document.getElementById("impact-agency-error"),
+      email: document.getElementById("impact-email-error"),
+      phone: document.getElementById("impact-phone-error"),
+      problem: document.getElementById("impact-problem-error"),
+    };
+
+    function setFieldError(key, message) {
+      const field = fields[key];
+      const errorEl = errorEls[key];
+      if (field) field.classList.add("is-invalid");
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+    }
+
+    function clearFieldError(key) {
+      const field = fields[key];
+      const errorEl = errorEls[key];
+      if (field) field.classList.remove("is-invalid");
+      if (errorEl) {
+        errorEl.textContent = "";
+        errorEl.classList.add("hidden");
+      }
+    }
+
+    function clearAllFieldErrors() {
+      Object.keys(errorEls).forEach(clearFieldError);
+    }
+
+    function setStatus(message, isOk) {
+      statusEl.textContent = message;
+      statusEl.className =
+        "md:col-span-2 text-sm mt-1 form-status " +
+        (isOk ? "form-status-success" : "form-status-error");
+    }
+
+    function resetStatus() {
+      statusEl.textContent = "";
+      statusEl.className = "md:col-span-2 text-sm mt-1 form-status hidden";
+    }
+
+    function getSessionAttribution() {
+      try {
+        return JSON.parse(sessionStorage.getItem("g3_attribution") || "{}");
+      } catch (_err) {
+        return {};
+      }
+    }
+
+    function saveSessionAttribution(payload) {
+      try {
+        sessionStorage.setItem("g3_attribution", JSON.stringify(payload));
+      } catch (_err) {
+        // Ignore storage write errors.
+      }
+    }
+
+    function buildAttributionPayload() {
+      const params = new URLSearchParams(window.location.search);
+      const stored = getSessionAttribution();
+      const payload = {
+        utm_source: stored.utm_source || "",
+        utm_medium: stored.utm_medium || "",
+        utm_campaign: stored.utm_campaign || "",
+        utm_term: stored.utm_term || "",
+        utm_content: stored.utm_content || "",
+        landing_page:
+          stored.landing_page ||
+          `${window.location.pathname}${window.location.search}`,
+        referrer: stored.referrer || document.referrer || "",
+      };
+
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(
+        (key) => {
+          const value = params.get(key);
+          if (value) payload[key] = value;
+        },
+      );
+
+      saveSessionAttribution(payload);
+      return payload;
+    }
+
+    function hydrateAttributionFields() {
+      const payload = buildAttributionPayload();
+      if (utmSourceEl) utmSourceEl.value = payload.utm_source || "";
+      if (utmMediumEl) utmMediumEl.value = payload.utm_medium || "";
+      if (utmCampaignEl) utmCampaignEl.value = payload.utm_campaign || "";
+      if (utmTermEl) utmTermEl.value = payload.utm_term || "";
+      if (utmContentEl) utmContentEl.value = payload.utm_content || "";
+      if (landingPageEl) landingPageEl.value = payload.landing_page || "";
+      if (referrerEl) referrerEl.value = payload.referrer || "";
+    }
+
+    function validate() {
+      clearAllFieldErrors();
+
+      const name = (fields.name?.value || "").trim();
+      const agency = (fields.agency?.value || "").trim();
+      const email = (fields.email?.value || "").trim();
+      const problem = (fields.problem?.value || "").trim();
+
+      let firstInvalid = null;
+
+      if (!name) {
+        setFieldError("name", "Please provide your name.");
+        firstInvalid = firstInvalid || fields.name;
+      }
+      if (!agency) {
+        setFieldError("agency", "Please provide your agency.");
+        firstInvalid = firstInvalid || fields.agency;
+      }
+      if (!email) {
+        setFieldError("email", "Please provide your work email.");
+        firstInvalid = firstInvalid || fields.email;
+      } else if (!emailRegex.test(email)) {
+        setFieldError("email", "Please use a valid email format.");
+        firstInvalid = firstInvalid || fields.email;
+      }
+      if (!problem) {
+        setFieldError("problem", "Please describe the agency problem.");
+        firstInvalid = firstInvalid || fields.problem;
+      }
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+        return false;
+      }
+
+      return true;
+    }
+
+    function value(el) {
+      return (el?.value || "").trim();
+    }
+
+    function buildNotes() {
+      const lines = [
+        "IMPACT Program Submission",
+        "",
+        `Agency Problem: ${value(fields.problem)}`,
+        `Who Is Affected: ${value(fields.affected)}`,
+        `Frequency: ${value(fields.frequency)}`,
+        `Current Handling: ${value(fields.current)}`,
+        `Why Hard To Solve: ${value(fields.hard)}`,
+        `Operational Impact: ${value(fields.operational)}`,
+        `Tried Before: ${value(fields.tried)}`,
+        `Leadership Aware: ${value(fields.leadership)}`,
+        `Additional Context: ${value(fields.extra)}`,
+      ];
+
+      let text = lines.join("\n").trim();
+      const maxLen = 1950;
+      if (text.length > maxLen) {
+        text = text.slice(0, maxLen - 20).trimEnd() + "\n\n[Truncated]";
+      }
+      return text;
+    }
+
+    hydrateAttributionFields();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      resetStatus();
+      hydrateAttributionFields();
+
+      if (!validate()) {
+        setStatus("Please fix the highlighted fields and try again.", false);
+        return;
+      }
+
+      if (turnstileEnabled) {
+        const tokenEl = form.querySelector('[name="cf-turnstile-response"]');
+        if (!tokenEl || !tokenEl.value.trim()) {
+          setStatus("Please complete the Turnstile verification.", false);
+          return;
+        }
+      }
+
+      notesEl.value = buildNotes();
+      if (startEl && !startEl.value) startEl.value = Date.now();
+
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      try {
+        const response = await fetch("/demo", {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            Accept: "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        });
+
+        let payload = {};
+        try {
+          payload = await response.json();
+        } catch (_err) {
+          payload = {};
+        }
+
+        if (!response.ok || payload.ok === false) {
+          const message =
+            payload.error ||
+            (Array.isArray(payload.errors) && payload.errors.length
+              ? `Please review these fields: ${payload.errors.join(", ")}.`
+              : "We could not submit your request. Please try again.");
+          setStatus(message, false);
+          if (turnstileEnabled && window.turnstile) window.turnstile.reset();
+          return;
+        }
+
+        form.reset();
+        notesEl.value = "";
+        if (startEl) startEl.value = Date.now();
+        hydrateAttributionFields();
+        if (turnstileEnabled && window.turnstile) window.turnstile.reset();
+        clearAllFieldErrors();
+        setStatus(
+          "Submission received. Thank you. We typically respond within 5 business days.",
+          true,
+        );
+      } catch (_err) {
+        setStatus(
+          "Network issue while submitting. Please retry in a moment.",
+          false,
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  })();
+</script>
+{% endblock %}
