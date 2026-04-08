@@ -1023,17 +1023,25 @@
               supervisor review confirms policy and coverage, approved leave
               lands on the calendar, and every action is captured for audit.
             </p>
-            <div
-              class="mt-5 rounded-md bg-slate-950/80 border border-white/10 flex items-center justify-center"
-              style="aspect-ratio: 16/9"
-            >
-              <div class="coming-soon-box">
-                <span class="coming-soon-tag">Video Placeholder</span>
-                <span class="coming-soon-label"
-                  >Scheduling walkthrough: Request → Review → Calendar →
-                  Audit</span
-                >
-              </div>
+            <div class="overview-video-shell mt-5">
+              <video
+                controls
+                preload="metadata"
+                playsinline
+                poster="{{ url_for('static', filename='img/thumbnail/vacationrequestworkflow.png') }}"
+                aria-label="Vacation request workflow video"
+              >
+                <source
+                  src="{{ url_for('static', filename='videos/vacationrequestworkflow.mp4') }}"
+                  type="video/mp4"
+                />
+                Your browser does not support embedded video. You can
+                <a
+                  class="underline text-slate-200"
+                  href="{{ url_for('static', filename='videos/vacationrequestworkflow.mp4') }}"
+                  >download it here</a
+                >.
+              </video>
             </div>
           </article>
         </div>
