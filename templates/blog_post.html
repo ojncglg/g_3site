@@ -164,7 +164,7 @@
     </section>
     {% endif %}
 
-    <div class="blog-prose rounded-xl border border-white/10 bg-slate-900/45 p-4 sm:p-5 md:p-7">
+    <div class="blog-prose {% if post.key_takeaways %}mt-4 {% endif %}rounded-xl border border-white/10 bg-slate-900/45 p-4 sm:p-5 md:p-7">
       {% for section in post.sections %}
       <section>
         <h2>{{ section.heading }}</h2>
@@ -206,7 +206,6 @@
       <div class="mt-4 flex flex-col sm:flex-row gap-3">
         <a href="/#demo" class="btn btn-primary w-full sm:w-auto justify-center">Request a demo</a>
         <a href="/products" class="btn btn-outline w-full sm:w-auto justify-center">Explore products</a>
-        <a href="/security" class="btn btn-outline w-full sm:w-auto justify-center">Review security posture</a>
       </div>
     </aside>
   </div>

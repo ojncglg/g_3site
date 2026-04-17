@@ -164,6 +164,108 @@ RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 # Each post appears at /blog/<slug>.
 BLOG_POSTS: List[Dict[str, Any]] = [
     {
+        "slug": "how-g3-modules-work-together-to-solve-agency-scheduling",
+        "title": "How G3 Modules Work Together to Solve Agency Scheduling Problems",
+        "description": (
+            "When agencies connect Vacation Book, Extra Duty, and Vacation Bidding, command gets "
+            "clearer staffing visibility, stronger scheduling control, and faster deployment readiness."
+        ),
+        "published_at": "2026-04-17",
+        "published_label": "April 17, 2026",
+        "updated_at": "2026-04-17",
+        "updated_label": "April 17, 2026",
+        "read_time": "5 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Scheduling", "Module Ecosystem", "Command Visibility", "Police Operations"],
+        "summary": (
+            "Agencies gain stronger operational control when core scheduling modules are connected "
+            "in one ecosystem, not split across disconnected tools."
+        ),
+        "quick_answer": (
+            "When Vacation Book, Extra Duty, and Vacation Bidding work together, leadership has a "
+            "clearer view of officer availability and deployable assets across daily operations."
+        ),
+        "key_takeaways": [
+            "A single module can reduce one bottleneck, but connected modules reduce cross-workflow friction.",
+            "Vacation Book, Extra Duty, and Vacation Bidding together create stronger command-level staffing visibility.",
+            "When workflows share one policy-aligned system, supervisors spend less time reconciling data.",
+            "A modular rollout lets agencies start small and build toward full ecosystem control.",
+        ],
+        "qa": [
+            {
+                "question": "Why does adding more modules improve scheduling outcomes?",
+                "answer": (
+                    "Because each connected module removes another manual handoff and gives command "
+                    "a more complete staffing picture in one place."
+                ),
+            },
+            {
+                "question": "What is a practical three-module starting point?",
+                "answer": (
+                    "Vacation Book, Vacation Bidding, and Extra Duty are a strong foundation because "
+                    "they directly affect officer availability and assignment readiness."
+                ),
+            },
+            {
+                "question": "Can agencies still deploy in phases?",
+                "answer": (
+                    "Yes. Most agencies start with one high-friction workflow first, then add modules "
+                    "as adoption grows."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Start with the strongest ecosystem value first",
+                "paragraphs": [
+                    "When Vacation Book, Extra Duty, and Vacation Bidding are connected, command can quickly see who is available, who is committed, and what staffing capacity is left to deploy.",
+                    "Many agencies still run these decisions across separate tools, spreadsheets, paper forms, and manual approvals. Each extra handoff creates delay and increases the chance that leadership is working from outdated staffing information.",
+                    "When systems are disconnected, supervisors spend time reconciling status instead of making faster, policy-aligned decisions.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The module ecosystem G3 offers",
+                "paragraphs": [
+                    "G3 is designed as a connected public safety operations ecosystem. Agencies can deploy modules independently, but each module becomes more valuable when connected to the others.",
+                ],
+                "bullets": [
+                    "Vacation Book: request, approval, and calendar workflows with policy guardrails.",
+                    "Vacation Bidding: structured bidding cycles with transparent rules and outcomes.",
+                    "Extra Duty: intake, assignment, conflict checks, and supervisor visibility.",
+                    "Staffing Predictor: forward-looking staffing risk insights for command planning.",
+                    "Tow Logs and Anonymous Tips: operational workflows that expand accountability and visibility across the platform.",
+                ],
+            },
+            {
+                "heading": "How the ecosystem gets stronger as you add modules",
+                "paragraphs": [
+                    "A clear example is combining Vacation Book, Extra Duty, and Vacation Bidding. Together, these modules give leadership stronger control over leave, assignments, and upcoming staffing windows from one command view.",
+                    "That means better visibility into which officers are available, which resources are already committed, and what capacity remains if you need to deploy quickly.",
+                ],
+                "bullets": [
+                    "Fewer blind spots across on-duty, off-duty, and committed staffing.",
+                    "Less duplicate data entry by supervisors and admin staff.",
+                    "Faster decision cycles when operational changes happen mid-shift.",
+                ],
+            },
+            {
+                "heading": "Start with one module, build toward full scheduling control",
+                "paragraphs": [
+                    "Most agencies do not need a full rollout on day one. Start with the workflow causing the most friction, then expand module by module as your team sees value.",
+                    "That phased approach keeps change practical while building toward a unified scheduling and staffing ecosystem that supports command readiness.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Want a practical module rollout plan?",
+        "cta_body": (
+            "We can map which module to deploy first, then build a phased plan that improves "
+            "staffing visibility and control without disrupting operations."
+        ),
+    },
+    {
         "slug": "why-change-is-so-hard-in-policing",
         "title": "Why Change Is So Hard in Policing",
         "description": (
