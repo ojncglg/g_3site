@@ -1,4 +1,19 @@
-<!-- Products page for G3 Industries. Sections: Hero, Mini‑nav, Core Flow, Features, How to Buy, How it works (Payjobs/Tips/Tow), Partners, Back‑to‑Top, Scripts. UI aligns with global styles in static/style.css. -->
+<!--
+  Template: products.html
+  Purpose: Product catalog + workflow education page for G3 modules.
+  Inherits: base.html.
+
+  Section map:
+  - Overview hero and suite positioning
+  - Sticky in-page mini-nav (desktop) for long-page wayfinding
+  - Module feature grid and "how it works" walkthrough sections
+  - FAQ + partner CTA + back-to-top utility behavior
+
+  Maintainer guidance:
+  - Keep section ids stable; mini-nav links and deep links depend on them.
+  - Video blocks use static media paths; update poster/source together to avoid broken previews.
+  - If reordering sections, update mini-nav anchors and active-section script expectations.
+-->
 {% extends "base.html" %}
 {% block title %}Police Scheduling, Extra Duty, Tow Logs & Staffing Software | G3 Industries{% endblock %}
 {% block meta %}

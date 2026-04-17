@@ -1,4 +1,22 @@
-<!-- Blog article page. -->
+<!--
+  Template: blog_post.html
+  Purpose: Render one long-form article with structured data and conversion CTA.
+  Inherits: base.html.
+
+  Required context:
+  - post.title, post.description, post.summary, post.quick_answer
+  - post.published_at / updated_at / labels / read_time
+  - post.author_name / author_role
+  - post.tags (list)
+  - post.key_takeaways (list, optional)
+  - post.sections (list of {heading, paragraphs, bullets})
+  - post.qa (list of {question, answer}, optional)
+  - post.cta_title / post.cta_body
+
+  Maintainer notes:
+  - This template outputs schema.org JSON-LD; keep field names valid JSON and avoid comments inside JSON blocks.
+  - Keep intro summary concise; the "Quick answer" is intended for skimmers and AI answer extraction.
+-->
 {% extends "base.html" %}
 {% block title %}{{ post.title }} | G3 Industries Blog{% endblock %}
 {% block meta %}
@@ -10,6 +28,7 @@
 <meta property="og:url" content="{{ request.base_url }}" />
 <meta name="twitter:title" content="{{ post.title }}" />
 <meta name="twitter:description" content="{{ post.description }}" />
+<!-- Structured data: Article schema for search indexing and rich snippets. -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,6 +49,7 @@
     "mainEntityOfPage": {{ request.base_url | tojson }}
   }
 </script>
+<!-- Structured data: Breadcrumb schema for clearer result hierarchy. -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -57,6 +77,7 @@
   }
 </script>
 {% if post.qa %}
+<!-- Structured data: FAQ schema generated only when Q&A exists. -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -113,6 +134,7 @@
 {% endblock %}
 {% block content %}
 <article class="py-10 md:py-12">
+  <!-- Header area: title, author, summary, quick answer, and metadata chips. -->
   <div class="max-w-4xl mx-auto px-2 sm:px-3 md:px-4">
     <a href="{{ url_for('blog') }}" class="inline-flex items-center text-sm nav-link">
       <span aria-hidden="true">&larr;&nbsp;</span>Back to blog
@@ -153,6 +175,7 @@
   </div>
 
   <div class="max-w-4xl mx-auto px-2 sm:px-3 md:px-4 mt-7">
+    <!-- Key takeaways card: high-signal summary for quick readers. -->
     {% if post.key_takeaways %}
     <section class="rounded-xl border border-white/10 bg-slate-900/55 p-4 sm:p-5">
       <h2 class="text-xl font-semibold">Key takeaways</h2>
@@ -164,6 +187,7 @@
     </section>
     {% endif %}
 
+    <!-- Main article body generated from post.sections in app.py. -->
     <div class="blog-prose {% if post.key_takeaways %}mt-4 {% endif %}rounded-xl border border-white/10 bg-slate-900/45 p-4 sm:p-5 md:p-7">
       {% for section in post.sections %}
       <section>
@@ -192,6 +216,7 @@
       {% endif %}
     </div>
 
+    <!-- Author + conversion CTA block at end of article. -->
     <aside class="mt-6 rounded-xl border border-white/10 bg-slate-900/55 p-4 sm:p-5">
       <p class="text-xs uppercase tracking-wider text-slate-400">Author</p>
       <p class="mt-1 text-base font-semibold text-white">

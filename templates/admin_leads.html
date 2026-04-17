@@ -1,10 +1,27 @@
-<!-- Internal leads dashboard (basic-auth protected) for attribution and volume monitoring. -->
+<!--
+  Template: admin_leads.html
+  Purpose: Internal-only leads reporting dashboard (protected by basic auth in app.py).
+  Inherits: base.html, but this page is marked noindex to avoid search indexing.
+
+  Required context:
+  - dashboard.total_leads
+  - dashboard.leads_last_30_days
+  - dashboard.top_sources (list of tuples)
+  - dashboard.top_campaigns (list of tuples)
+  - dashboard.leads_by_day (list of tuples)
+  - dashboard.recent_leads (list of dict rows)
+
+  Maintainer notes:
+  - Keep labels plain-language so non-technical stakeholders can read this page quickly.
+  - Keep table columns aligned with CSV export fields in /admin/leads.csv.
+-->
 {% extends "base.html" %}
 {% block title %}Leads Dashboard — G3 Industries{% endblock %}
 {% block meta %}
 <meta name="robots" content="noindex,nofollow,noarchive" />
 {% endblock %}
 {% block content %}
+<!-- KPI strip: quick operational totals and top source snapshot. -->
 <section class="py-6 md:py-10">
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div>
@@ -40,6 +57,7 @@
   </div>
 </section>
 
+<!-- Distribution panels: source mix, campaign mix, and recent daily volume. -->
 <section class="py-2 md:py-4">
   <div class="grid gap-4 lg:grid-cols-3">
     <article class="rounded-lg border border-white/10 bg-slate-900/40 p-4">
@@ -92,6 +110,7 @@
   </div>
 </section>
 
+<!-- Lead detail table: recent submissions with attribution and preview notes. -->
 <section class="py-6 md:py-8">
   <h2 class="text-xl font-semibold">Recent Leads</h2>
   <div class="mt-3 overflow-x-auto rounded-lg border border-white/10">

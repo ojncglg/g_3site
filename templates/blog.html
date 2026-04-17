@@ -1,4 +1,16 @@
-<!-- Blog index: article list focused on operational time-loss topics. -->
+<!--
+  Template: blog.html
+  Purpose: Blog index listing article cards and routing readers into individual posts.
+  Inherits: base.html.
+
+  Required context:
+  - posts: iterable of blog post objects from published_blog_posts() in app.py.
+  - Each post should include: slug, title, description, published_label, read_time, author_name, tags.
+
+  UX intent:
+  - Fast scanning by command staff: date/read-time first, concise description, clear "Read article" CTA.
+  - Keep card copy short and operationally specific.
+-->
 {% extends "base.html" %}
 {% block title %}Police Operations & Administrative Workflow Blog | G3 Industries{% endblock %}
 {% block meta %}
@@ -21,6 +33,7 @@
 {% endblock %}
 {% block extra_head %}
 <style>
+  /* Card style is intentionally subtle to keep content hierarchy dominant. */
   .blog-card {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.85rem;
@@ -37,6 +50,7 @@
 </style>
 {% endblock %}
 {% block content %}
+<!-- Blog landing hero + article grid. -->
 <section class="py-10 md:py-12 reveal">
   <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
     <p class="text-xs uppercase tracking-wider text-cyan-300 font-semibold">
@@ -49,6 +63,7 @@
       Short, practical write-ups for command staff and supervisors. Every post
       focuses on a real workflow bottleneck and a fix you can apply.
     </p>
+    <!-- Post cards: simple repeatable unit for easy future pagination/filtering. -->
     <div class="mt-7 grid gap-4 md:gap-5 md:grid-cols-2">
       {% for post in posts %}
       <article class="blog-card p-4 sm:p-5 flex flex-col h-full">

@@ -1,4 +1,13 @@
-<!-- Custom 404 page with branded matrix background and recovery CTA. -->
+<!--
+  Template: 404.html
+  Purpose: Render a branded "not found" experience when no route matches.
+  Inherits: base.html (global head, navigation, footer, shared styles/scripts).
+
+  Maintainer notes:
+  - Keep <canvas id="matrix"> because static/matrix.js attaches to this exact id.
+  - Keep recovery copy short; users on this page are already off their expected path.
+  - Keep one primary CTA back to home to reduce decision friction.
+-->
 {% extends "base.html" %}
 {% block title %}404 — Page Not Found{% endblock %}
 {% block content %}

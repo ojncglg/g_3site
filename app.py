@@ -990,6 +990,11 @@ BLOG_POSTS: List[Dict[str, Any]] = [
     }
 ]
 BLOG_POSTS_BY_SLUG: Dict[str, Dict[str, Any]] = {post["slug"]: post for post in BLOG_POSTS}
+BLOG_POSTS_SORTED: List[Dict[str, Any]] = sorted(
+    BLOG_POSTS,
+    key=lambda post: post.get("published_at", ""),
+    reverse=True,
+)
 BLOG_SLUG_REDIRECTS: Dict[str, str] = {
     "5-police-workflows-that-waste-time": "how-much-time-are-administrative-tasks-worth"
 }
@@ -1034,6 +1039,37 @@ def wants_json_response() -> bool:
 def redirect_to_demo_anchor():
     """Send browser users back to the home page demo section."""
     return redirect(url_for("home", _anchor="demo"))
+
+
+def demo_success_response(
+    expects_json: bool,
+    *,
+    flash_message: str,
+    json_message: str,
+    status_code: int = 200,
+):
+    """Return a success response for demo intake in JSON or browser mode."""
+    if expects_json:
+        return jsonify({"ok": True, "message": json_message}), status_code
+    flash(flash_message, "success")
+    return redirect_to_demo_anchor()
+
+
+def demo_error_response(
+    expects_json: bool,
+    *,
+    flash_message: str,
+    json_error: str = "",
+    status_code: int = 400,
+    field_errors: List[str] | None = None,
+):
+    """Return an error response for demo intake in JSON or browser mode."""
+    if expects_json:
+        if field_errors is not None:
+            return jsonify({"ok": False, "errors": field_errors}), status_code
+        return jsonify({"ok": False, "error": json_error or flash_message}), status_code
+    flash(flash_message, "error")
+    return redirect_to_demo_anchor()
 
 
 def ensure_data_store() -> None:
@@ -1104,7 +1140,7 @@ def preview_text(value: str, limit: int = 90) -> str:
 
 def published_blog_posts() -> List[Dict[str, Any]]:
     """Return blog posts sorted by publish date (newest first)."""
-    return sorted(BLOG_POSTS, key=lambda post: post.get("published_at", ""), reverse=True)
+    return BLOG_POSTS_SORTED
 
 
 def build_lead_dashboard_data(leads: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -1580,40 +1616,45 @@ def indexnow_key_txt():
     return Response(INDEXNOW_KEY, mimetype="text/plain")
 
 
+def render_site_page(template_name: str, title: str):
+    """Render a static marketing page with the shared base context."""
+    return render_template(template_name, title=title)
+
+
 @app.route("/")
 def home():
     """Marketing home page."""
-    return render_template("index.html", title="G3 Industries")
+    return render_site_page("index.html", "G3 Industries")
 
 
 @app.route("/products")
 def products():
     """Products overview page."""
-    return render_template("products.html", title="Products — G3 Industries")
+    return render_site_page("products.html", "Products — G3 Industries")
 
 
 @app.route("/impact")
 def impact():
     """Impact Program page."""
-    return render_template("impact.html", title="IMPACT Program — G3 Industries")
+    return render_site_page("impact.html", "IMPACT Program — G3 Industries")
 
 
 @app.route("/about")
 def about():
     """Company/about page."""
-    return render_template("about.html", title="About — G3 Industries")
+    return render_site_page("about.html", "About — G3 Industries")
 
 
 @app.route("/security")
 def security():
     """Security posture page."""
-    return render_template("security.html", title="Security — G3 Industries")
+    return render_site_page("security.html", "Security — G3 Industries")
 
 
 @app.route("/grants")
 def grants():
     """Grant assistance page."""
-    return render_template("grants.html", title="Grant Assistance — G3 Industries")
+    return render_site_page("grants.html", "Grant Assistance — G3 Industries")
 
 
 @app.route("/blog")
@@ -1739,6 +1780,7 @@ def demo():
     honeypot = normalize_text(request.form.get("website", ""))
     form_start = normalize_text(request.form.get("form_start", ""))
     client_ip = get_client_ip()
+    expects_json = wants_json_response()
 
     # Time-based anti-spam check: require ~3 seconds before submit.
     min_delay_ms = 3000
@@ -1754,10 +1796,11 @@ def demo():
 
     # Honeypot trips are treated as bot submissions and quietly ignored.
     if honeypot:
-        if wants_json_response():
-            return jsonify({"ok": True, "message": "Thanks"}), 200
-        flash("Thanks — we’ll be in touch.", "success")
-        return redirect_to_demo_anchor()
+        return demo_success_response(
+            expects_json,
+            flash_message="Thanks — we’ll be in touch.",
+            json_message="Thanks",
+        )
 
     # Trim optional attribution metadata to fixed safe limits.
     utm_source = clip_text(utm_source, FIELD_MAX_LENGTHS["utm_source"])
@@ -1791,29 +1834,32 @@ def demo():
 
     validation_errors = sorted(set(missing_fields + invalid_fields))
     if validation_errors:
-        if wants_json_response():
-            return jsonify({"ok": False, "errors": validation_errors}), 400
-        flash(
-            "Please review the form fields: " + ", ".join(validation_errors),
-            "error",
+        return demo_error_response(
+            expects_json,
+            flash_message="Please review the form fields: " + ", ".join(validation_errors),
+            status_code=400,
+            field_errors=validation_errors,
         )
-        return redirect_to_demo_anchor()
 
     # Verify Turnstile challenge before rate-limit/storage/email work.
     turnstile_ok, turnstile_error = verify_turnstile_token(turnstile_token, client_ip)
     if not turnstile_ok:
-        if wants_json_response():
-            return jsonify({"ok": False, "error": turnstile_error}), 400
-        flash(turnstile_error, "error")
-        return redirect_to_demo_anchor()
+        return demo_error_response(
+            expects_json,
+            flash_message=turnstile_error,
+            json_error=turnstile_error,
+            status_code=400,
+        )
 
     # Apply server-side rate limits before persisting or sending email.
     allowed, rate_message = check_and_record_rate_limit(client_ip, email)
     if not allowed:
-        if wants_json_response():
-            return jsonify({"ok": False, "error": rate_message}), 429
-        flash(rate_message, "error")
-        return redirect_to_demo_anchor()
+        return demo_error_response(
+            expects_json,
+            flash_message=rate_message,
+            json_error=rate_message,
+            status_code=429,
+        )
 
     # Build and persist normalized lead record.
     submitted_at = utc_now()
@@ -1844,27 +1890,23 @@ def demo():
     if not email_sent:
         app.logger.error("Demo email delivery failed: %s", delivery_error)
         if REQUIRE_EMAIL_DELIVERY:
-            if wants_json_response():
-                return (
-                    jsonify(
-                        {
-                            "ok": False,
-                            "error": "Request saved, but email delivery failed. Please try again or email us directly.",
-                        }
-                    ),
-                    503,
-                )
-            flash(
-                "We received your request, but email delivery failed. Please email us directly at "
-                + CONTACT_EMAIL,
-                "error",
+            return demo_error_response(
+                expects_json,
+                flash_message=(
+                    "We received your request, but email delivery failed. Please email us directly at "
+                    + CONTACT_EMAIL
+                ),
+                json_error=(
+                    "Request saved, but email delivery failed. Please try again or email us directly."
+                ),
+                status_code=503,
             )
-            return redirect_to_demo_anchor()
 
-    if wants_json_response():
-        return jsonify({"ok": True, "message": "Lead received"}), 200
-    flash("Thanks — we received your request and will get back to you.", "success")
-    return redirect_to_demo_anchor()
+    return demo_success_response(
+        expects_json,
+        flash_message="Thanks — we received your request and will get back to you.",
+        json_message="Lead received",
+    )
 
 
 @app.errorhandler(404)

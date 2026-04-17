@@ -1,4 +1,13 @@
-<!-- Custom 500 page with branded matrix background and recovery CTA. -->
+<!--
+  Template: 500.html
+  Purpose: Render a branded fallback when an internal server error occurs.
+  Inherits: base.html (global head, navigation, footer, shared styles/scripts).
+
+  Maintainer notes:
+  - Keep <canvas id="matrix"> because static/matrix.js expects this id.
+  - Keep tone reassuring; this page should acknowledge fault without exposing internals.
+  - Keep one clear exit path (home CTA) so users can recover quickly.
+-->
 {% extends "base.html" %}
 {% block title %}500 — Internal Server Error{% endblock %}
 {% block content %}

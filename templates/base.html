@@ -1,7 +1,24 @@
 <!doctype html>
 <!--
-  Base template used by all pages.
-  Includes shared head metadata, primary navigation, flash alerts, footer, and site-wide JS helpers.
+  Template: base.html
+  Purpose: Shared application shell used by all public/internal templates.
+
+  What lives here:
+  - Global SEO defaults + social metadata defaults.
+  - Shared navigation (desktop + mobile), footer, and flash alerts.
+  - Site-wide JS helpers (active nav state, analytics click tracking, mobile menu, reveal animation).
+
+  Child-template contract:
+  - {% block title %}: page-level title.
+  - {% block meta %}: page-level metadata overrides/additions.
+  - {% block social %}: optional OG/Twitter overrides.
+  - {% block extra_head %}: page-specific CSS/JS.
+  - {% block content %}: page body.
+
+  Maintainer guidance:
+  - Changes here affect every route; test multiple templates after edits.
+  - Keep accessibility hooks (skip link, aria labels, aria-current handling) intact.
+  - Prefer adding page-specific styles in child templates unless reuse is clearly global.
 -->
 <html lang="en">
   <head>

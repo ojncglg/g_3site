@@ -1,10 +1,26 @@
-<!-- About page: mission, founder background, values, and final CTA. -->
-{% extends "base.html" %} {% block title %}About G3 Industries | Built by Law Enforcement for Law Enforcement{% endblock %} {% block meta %}
+<!--
+  Template: about.html
+  Purpose: Explain company mission, founder background, operating values, and trust posture.
+  Inherits: base.html.
+
+  Content strategy:
+  - Section order intentionally moves from mission -> credibility -> values -> CTA.
+  - Keep copy practical and operations-focused (command visibility, accountability, policy fit).
+  - Avoid marketing buzzwords that do not map to real agency workflows.
+
+  Safe edit zones:
+  - Update section copy and card text freely.
+  - Keep heading hierarchy (H1 then H2 sections) for accessibility/SEO consistency.
+-->
+{% extends "base.html" %}
+{% block title %}About G3 Industries | Built by Law Enforcement for Law Enforcement{% endblock %}
+{% block meta %}
 <meta
   name="description"
   content="Learn about G3 Industries and founder Grigori LopezGarcia. Built from real law enforcement experience to modernize staffing, approvals, and accountability workflows."
 />
-{% endblock %} {% block extra_head %}
+{% endblock %}
+{% block extra_head %}
 <style>
   /* Page-specific minor tweaks only (most styles are global) */
   @media (max-width: 640px) {
@@ -24,7 +40,8 @@
     }
   }
 </style>
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <!-- === Hero === -->
 <section class="py-10 md:py-12">
   <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
