@@ -9,11 +9,11 @@
   - Site-wide JS helpers (active nav state, analytics click tracking, mobile menu, reveal animation).
 
   Child-template contract:
-  - {% block title %}: page-level title.
-  - {% block meta %}: page-level metadata overrides/additions.
-  - {% block social %}: optional OG/Twitter overrides.
-  - {% block extra_head %}: page-specific CSS/JS.
-  - {% block content %}: page body.
+  - block `title`: page-level title.
+  - block `meta`: page-level metadata overrides/additions.
+  - block `social`: optional OG/Twitter overrides.
+  - block `extra_head`: page-specific CSS/JS.
+  - block `content`: page body.
 
   Maintainer guidance:
   - Changes here affect every route; test multiple templates after edits.
