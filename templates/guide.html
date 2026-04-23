@@ -1,0 +1,1766 @@
+<!--
+  Template: guide.html
+  Purpose: Plain-language role guide for officers and supervisors using the G3 app.
+  Inherits: base.html.
+
+  Section map:
+  - Quick orientation and role-based table of contents
+  - General menu navigation
+  - Officer workflows for vacation requests and sick calls
+  - Supervisor workflows for approvals, roster editing, pairing, moves, gaps, status, and printing
+  - Help and first-week checklist
+
+  Maintainer guidance:
+  - Screenshot placeholders are CSS-only for now. Replace each `guide-shot`
+    block with real screenshots when production images are ready.
+  - Keep the language simple. This page is for users who may not be comfortable
+    with software terms.
+-->
+{% extends "base.html" %} {% block title %}How-To Guide for Officers and
+Supervisors | G3 Industries{% endblock %} {% block meta %}
+<meta
+  name="description"
+  content="Plain-language G3 application guide for officers and supervisors: menus, vacation requests, sick calls, approvals, waitlists, rosters, coverage gaps, officer status, and printing."
+/>
+<meta
+  property="og:title"
+  content="How-To Guide for Officers and Supervisors | G3 Industries"
+/>
+<meta
+  property="og:description"
+  content="Step-by-step G3 application guide for officers and supervisors using vacation, sick call, roster, approval, waitlist, and coverage tools."
+/>
+<meta
+  name="twitter:title"
+  content="How-To Guide for Officers and Supervisors | G3 Industries"
+/>
+<meta
+  name="twitter:description"
+  content="Step-by-step G3 application guide for officers and supervisors using vacation, sick call, roster, approval, waitlist, and coverage tools."
+/>
+{% endblock %} {% block extra_head %}
+<style>
+  .guide-shell {
+    --guide-panel: rgba(15, 23, 42, 0.78);
+    --guide-panel-soft: rgba(30, 41, 59, 0.55);
+    --guide-line: rgba(148, 163, 184, 0.22);
+    --guide-line-strong: rgba(34, 211, 238, 0.34);
+  }
+
+  .guide-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    background:
+      radial-gradient(
+        900px 380px at 86% 0%,
+        rgba(250, 204, 21, 0.2),
+        transparent 60%
+      ),
+      linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.9));
+  }
+
+  .guide-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: 0.22;
+  }
+
+  .guide-eyebrow {
+    color: #7dd3fc;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2rem;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    border-radius: 999px;
+    background: rgba(250, 204, 21, 0.09);
+    color: #fef3c7;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .guide-panel {
+    border: 1px solid var(--guide-line);
+    border-radius: 0.75rem;
+    background: var(--guide-panel);
+  }
+
+  .guide-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.625rem;
+    background: rgba(2, 6, 23, 0.42);
+    padding: 0.9rem;
+    color: #e2e8f0;
+    transition:
+      border-color var(--motion-fast) var(--ease-standard),
+      background-color var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .guide-link-card:hover,
+  .guide-link-card:focus-visible {
+    border-color: var(--guide-line-strong);
+    background: rgba(2, 6, 23, 0.7);
+    transform: translateY(-1px);
+  }
+
+  .guide-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 2.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    background: rgba(250, 204, 21, 0.1);
+    color: var(--g3-gold);
+  }
+
+  .guide-icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .guide-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .guide-page-break {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #fef3c7;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-page-break::before,
+  .guide-page-break::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(
+      90deg,
+      rgba(250, 204, 21, 0),
+      rgba(250, 204, 21, 0.5),
+      rgba(34, 211, 238, 0.25)
+    );
+  }
+
+  .guide-page-break::after {
+    background: linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0.25),
+      rgba(250, 204, 21, 0.5),
+      rgba(250, 204, 21, 0)
+    );
+  }
+
+  .guide-step-list {
+    counter-reset: guide-step;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .guide-step {
+    counter-increment: guide-step;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.75rem;
+    border: 1px solid var(--guide-line);
+    border-radius: 0.625rem;
+    background: rgba(15, 23, 42, 0.56);
+    padding: 0.85rem;
+  }
+
+  .guide-step::before {
+    content: counter(guide-step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, var(--g3-gold), var(--g3-gold-light));
+    color: var(--g3-slate-deep);
+    font-weight: 800;
+  }
+
+  .guide-note {
+    border-left: 3px solid var(--g3-gold);
+    background: rgba(250, 204, 21, 0.08);
+    border-radius: 0.5rem;
+    padding: 0.85rem 1rem;
+    color: #f8fafc;
+  }
+
+  .guide-warning {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    border: 1px solid rgba(250, 204, 21, 0.34);
+    border-left: 4px solid var(--g3-gold);
+    border-radius: 0.625rem;
+    background: rgba(250, 204, 21, 0.1);
+    color: #f8fafc;
+    padding: 0.9rem 1rem;
+  }
+
+  .guide-warning-icon {
+    flex: 0 0 1.35rem;
+    color: var(--g3-gold);
+    margin-top: 0.05rem;
+  }
+
+  .guide-warning-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .guide-shot {
+    min-height: 20rem;
+    border: 1px solid rgba(34, 211, 238, 0.24);
+    border-radius: 0.75rem;
+    background:
+      radial-gradient(
+        420px 180px at 72% 0%,
+        rgba(34, 211, 238, 0.13),
+        transparent 64%
+      ),
+      linear-gradient(145deg, rgba(2, 6, 23, 0.95), rgba(15, 23, 42, 0.8));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+  }
+
+  .guide-shot-form {
+    min-height: 22rem;
+  }
+
+  .guide-shot-compact {
+    min-height: 16rem;
+  }
+
+  .shot-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(15, 23, 42, 0.82);
+    padding: 0.65rem 0.8rem;
+  }
+
+  .shot-dot {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.55);
+  }
+
+  .shot-dot.gold {
+    background: var(--g3-gold);
+  }
+
+  .shot-body {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 0.85fr) 2fr;
+    gap: 0.85rem;
+    padding: 0.9rem;
+  }
+
+  .shot-sidebar,
+  .shot-main,
+  .shot-card,
+  .shot-row {
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 0.5rem;
+    background: rgba(15, 23, 42, 0.58);
+  }
+
+  .shot-sidebar {
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+    padding: 0.65rem;
+  }
+
+  .shot-menu-item {
+    height: 1.55rem;
+    border-radius: 0.375rem;
+    background: rgba(148, 163, 184, 0.18);
+  }
+
+  .shot-menu-item.active {
+    background: linear-gradient(
+      90deg,
+      rgba(250, 204, 21, 0.72),
+      rgba(125, 211, 252, 0.24)
+    );
+  }
+
+  .shot-main {
+    min-height: 13.5rem;
+    padding: 0.75rem;
+  }
+
+  .shot-row {
+    display: grid;
+    grid-template-columns: 1fr 3.25rem;
+    gap: 0.5rem;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.45rem;
+  }
+
+  .shot-row + .shot-row {
+    margin-top: 0.55rem;
+  }
+
+  .shot-line {
+    height: 0.55rem;
+    border-radius: 999px;
+    background: rgba(203, 213, 225, 0.28);
+  }
+
+  .shot-line.short {
+    width: 58%;
+  }
+
+  .shot-status {
+    height: 1.35rem;
+    border-radius: 999px;
+    background: rgba(250, 204, 21, 0.22);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+  }
+
+  .shot-status.available {
+    background: rgba(34, 197, 94, 0.24);
+    border-color: rgba(34, 197, 94, 0.38);
+  }
+
+  .shot-status.off {
+    background: rgba(148, 163, 184, 0.22);
+    border-color: rgba(148, 163, 184, 0.38);
+  }
+
+  .shot-status.waitlisted {
+    background: rgba(250, 204, 21, 0.24);
+    border-color: rgba(250, 204, 21, 0.38);
+  }
+
+  .shot-status.asset {
+    background: rgba(34, 211, 238, 0.2);
+    border-color: rgba(34, 211, 238, 0.34);
+  }
+
+  .shot-actions {
+    display: flex;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .shot-button {
+    height: 2rem;
+    flex: 1;
+    border-radius: 0.45rem;
+    background: linear-gradient(90deg, var(--g3-gold), var(--g3-gold-light));
+  }
+
+  .shot-button.secondary {
+    background: rgba(34, 211, 238, 0.18);
+    border: 1px solid rgba(34, 211, 238, 0.28);
+  }
+
+  .shot-roster {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .shot-card {
+    min-height: 4.75rem;
+    padding: 0.65rem;
+  }
+
+  .shot-card.paired {
+    border-color: rgba(250, 204, 21, 0.34);
+    background: rgba(250, 204, 21, 0.08);
+  }
+
+  .shot-graph {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.55rem;
+    min-height: 11rem;
+    border-bottom: 2px solid rgba(148, 163, 184, 0.34);
+    padding: 0 0.5rem;
+  }
+
+  .shot-bar {
+    position: relative;
+    min-height: 2rem;
+    border-radius: 0.35rem 0.35rem 0 0;
+    background: rgba(34, 197, 94, 0.68);
+  }
+
+  .shot-bar.warn {
+    background: rgba(250, 204, 21, 0.72);
+  }
+
+  .shot-bar.gap {
+    background: rgba(248, 113, 113, 0.76);
+  }
+
+  .shot-bar::before {
+    content: "";
+    position: absolute;
+    left: -0.2rem;
+    right: -0.2rem;
+    top: 38%;
+    border-top: 2px dashed rgba(255, 255, 255, 0.72);
+  }
+
+  .guide-shot figcaption {
+    border-top: 1px solid rgba(148, 163, 184, 0.14);
+    color: #94a3b8;
+    font-size: 0.75rem;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .guide-mini-nav {
+    position: sticky;
+    top: 5.75rem;
+  }
+
+  .guide-mini-nav a {
+    display: block;
+    border-radius: 0.5rem;
+    color: #cbd5e1;
+    padding: 0.55rem 0.7rem;
+  }
+
+  .guide-mini-nav a:hover,
+  .guide-mini-nav a:focus-visible {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+  }
+
+  .guide-checklist li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+  }
+
+  .guide-checklist li::before {
+    content: "";
+    flex: 0 0 0.7rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-top: 0.45rem;
+    border-radius: 999px;
+    background: var(--g3-gold);
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.12);
+  }
+
+  @media (max-width: 900px) {
+    .guide-mini-nav {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .guide-shot {
+      min-height: 17rem;
+    }
+
+    .shot-body {
+      grid-template-columns: 1fr;
+    }
+
+    .shot-sidebar {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .shot-roster {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media print {
+    header,
+    footer,
+    .guide-print-control,
+    .guide-mini-nav {
+      display: none !important;
+    }
+
+    body {
+      background: #ffffff !important;
+      color: #111827 !important;
+    }
+
+    main {
+      max-width: none !important;
+    }
+
+    .guide-hero,
+    .guide-panel,
+    .guide-step,
+    .guide-shot,
+    .guide-note {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #111827 !important;
+      box-shadow: none !important;
+    }
+
+    .text-gray-300,
+    .text-gray-400,
+    .text-slate-300,
+    .text-slate-400 {
+      color: #374151 !important;
+    }
+
+    .guide-page-break {
+      break-before: page;
+      color: #111827 !important;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="guide-shell space-y-8">
+  <section class="guide-hero px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
+    <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+      <div>
+        <div class="guide-eyebrow">Plain-language training guide</div>
+        <h1 class="mt-3 text-3xl font-black text-white sm:text-5xl">
+          G3 application how-to guide
+        </h1>
+        <p class="mt-4 max-w-3xl text-base text-slate-300 sm:text-lg">
+          Simple steps for officers and supervisors to find menus, handle
+          vacation requests, call in sick, manage rosters, review coverage, and
+          print the day&apos;s staffing plan.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="guide-pill">Officer workflows</span>
+          <span class="guide-pill">Supervisor workflows</span>
+          <span class="guide-pill">Screenshot placeholders</span>
+        </div>
+      </div>
+
+      <div class="guide-panel p-4">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="text-sm font-semibold text-white">Training copy</div>
+            <div class="text-xs text-slate-400">Last updated April 2026</div>
+          </div>
+          <button
+            type="button"
+            class="guide-print-control btn btn-primary btn-sm"
+            onclick="window.print()"
+          >
+            <svg
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path
+                d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+              />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            Print guide
+          </button>
+        </div>
+        <p class="mt-4 text-sm text-slate-300">
+          Menu names may vary by agency setup and user role. If you do not see a
+          button shown here, your account may not have that permission.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="start-title">
+    <div class="grid gap-5 lg:grid-cols-[15rem_1fr]">
+      <nav
+        class="guide-mini-nav guide-panel p-3 text-sm"
+        aria-label="Guide sections"
+      >
+        <a href="#menus">View all menus</a>
+        <a href="#officers">Officer guide</a>
+        <a href="#supervisors">Supervisor guide</a>
+        <a href="#coverage">Coverage gap graph</a>
+        <a href="#help">Help checklist</a>
+      </nav>
+
+      <div class="space-y-6">
+        <div>
+          <div class="guide-eyebrow">Start here</div>
+          <h2
+            id="start-title"
+            class="mt-2 text-2xl font-black text-white sm:text-3xl"
+          >
+            Pick the section that matches what you need to do
+          </h2>
+        </div>
+
+        <div class="grid gap-3 md:grid-cols-2">
+          <a class="guide-link-card" href="#officers">
+            <span class="guide-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21a8 8 0 0 0-16 0" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </span>
+            <span>
+              <span class="block font-bold text-white">Officers</span>
+              <span class="mt-1 block text-sm text-slate-400">
+                View all menus, request vacation, call in sick, view My Requests,
+                view the calendar, and open Pay Jobs.
+              </span>
+            </span>
+          </a>
+
+          <a class="guide-link-card" href="#supervisors">
+            <span class="guide-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </span>
+            <span>
+              <span class="block font-bold text-white">Supervisors</span>
+              <span class="mt-1 block text-sm text-slate-400">
+                Approve or waitlist vacation, edit the roster, pair and move
+                officers, review coverage gaps, change status, and print.
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menus" class="guide-section" aria-labelledby="menus-title">
+    <div class="space-y-6">
+      <div class="max-w-3xl">
+        <div class="guide-eyebrow">Finding your way around</div>
+        <h2
+          id="menus-title"
+          class="mt-2 text-2xl font-black text-white sm:text-3xl"
+        >
+          How to view all menus
+        </h2>
+        <p class="mt-3 text-slate-300">
+          Use the menu to move around the application. On a phone or tablet, the
+          menu may be hidden until you tap the menu button. On a computer, the
+          menu is usually already visible.
+        </p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+        <div class="guide-step-list">
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">
+                Sign in and stay on the main screen.
+              </h3>
+              <p class="mt-1 text-sm text-slate-400">
+                After signing in, look for the left side menu, top menu, or menu
+                button.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">Open the menu.</h3>
+              <p class="mt-1 text-sm text-slate-400">
+                Tap the menu button on a phone. Click a menu name on a computer.
+                If a menu has an arrow, open it to see more choices.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">Choose the area you need.</h3>
+              <p class="mt-1 text-sm text-slate-400">
+                You can request time off, view your requests, view your
+                calendar, view your training days, or go to Pay Jobs.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <figure
+          class="guide-shot lg:self-center"
+          role="img"
+          aria-label="Placeholder screenshot showing the main application menu"
+        >
+          <div class="shot-topbar">
+            <div class="flex gap-2" aria-hidden="true">
+              <span class="shot-dot gold"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+            </div>
+            <div class="shot-line short" aria-hidden="true"></div>
+          </div>
+          <div class="shot-body" aria-hidden="true">
+            <div class="shot-sidebar">
+              <div class="shot-menu-item active"></div>
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item"></div>
+            </div>
+            <div class="shot-main">
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+              <div class="shot-actions">
+                <div class="shot-button"></div>
+                <div class="shot-button secondary"></div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            Placeholder image: main menu with role-based options.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="officers" class="guide-section" aria-labelledby="officer-title">
+    <div>
+      <div class="guide-eyebrow">Officer guide</div>
+      <h2
+        id="officer-title"
+        class="mt-2 text-2xl font-black text-white sm:text-3xl"
+      >
+        Vacation, sick calls, calendar, and Pay Jobs
+      </h2>
+      <p class="mt-3 max-w-3xl text-slate-300">
+        Officers usually need five things: request vacation, report sick time,
+        check the status of requests already submitted, view the day calendar,
+        and open Pay Jobs. Always follow your agency policy for phone calls or
+        notifications outside the application.
+      </p>
+    </div>
+
+    <div class="mt-6 grid gap-8">
+      <div class="space-y-6">
+        <div class="max-w-3xl">
+          <h3 class="text-xl font-black text-white">Request vacation</h3>
+          <div class="guide-warning mt-4" role="alert">
+            <span class="guide-warning-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </span>
+            <div>
+              <h4 class="font-bold text-white">Important before you submit</h4>
+              <p class="mt-1 text-sm text-slate-300">
+                You must request vacation only for days you are scheduled to
+                work, and you must choose the correct shift length. If either
+                one is wrong, the system may show an error and stop the request
+                from submitting.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div class="guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Click Request Time Off.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  After you sign in and reach the main dashboard, choose Request
+                  Time Off.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Choose one day or multiple days.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  For one day, select the work day you want off. For multiple
+                  days, select the first work day and the last work day of the
+                  vacation.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Only select days you are scheduled to work.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Do not include your regular days off. If you select a day you
+                  are not working, the system may give you an error.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Enter your work hours.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Select the correct number of hours for your shift. For this
+                  example, choose 11.25 hours. The wrong shift length may also
+                  cause an error.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Click Submit.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Wait for the confirmation message. Then check My Requests to
+                  make sure the request was saved.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <figure
+            class="guide-shot guide-shot-form lg:self-center"
+            role="img"
+            aria-label="Placeholder screenshot showing the Request Time Off form"
+          >
+            <div class="shot-topbar">
+              <div class="flex gap-2" aria-hidden="true">
+                <span class="shot-dot gold"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-line short" aria-hidden="true"></div>
+            </div>
+            <div class="shot-body" aria-hidden="true">
+              <div class="shot-sidebar">
+                <div class="shot-menu-item active"></div>
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item"></div>
+              </div>
+              <div class="shot-main">
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status"></div>
+                </div>
+                <div class="shot-actions">
+                  <div class="shot-button"></div>
+                  <div class="shot-button secondary"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Placeholder image: Request Time Off form with dates, hours, and
+              submit button.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="max-w-3xl">
+          <h3 class="text-xl font-black text-white">Call in sick</h3>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div class="guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Open Sick Call.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Choose Call In Sick or Report Sick Time.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Confirm the date and shift.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Add a note if your agency requires one.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Submit and follow policy.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  If your policy requires a phone call to a supervisor, still
+                  make that call after submitting.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <figure
+            class="guide-shot guide-shot-compact lg:self-center"
+            role="img"
+            aria-label="Placeholder screenshot showing the Call In Sick form"
+          >
+            <div class="shot-topbar">
+              <div class="flex gap-2" aria-hidden="true">
+                <span class="shot-dot gold"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-line short" aria-hidden="true"></div>
+            </div>
+            <div class="shot-body" aria-hidden="true">
+              <div class="shot-sidebar">
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item active"></div>
+                <div class="shot-menu-item"></div>
+              </div>
+              <div class="shot-main">
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status"></div>
+                </div>
+                <div class="shot-actions">
+                  <div class="shot-button"></div>
+                  <div class="shot-button secondary"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Placeholder image: Call In Sick form with date, shift, notes, and
+              submit button.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="guide-page-break" aria-hidden="true">After submitting</div>
+
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
+        <div>
+          <h3 class="text-xl font-black text-white">
+            View your vacation requests
+          </h3>
+          <div class="mt-4 guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Click My Requests.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Use My Requests to see the vacation requests you already
+                  submitted.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Check your pending requests.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Pending means the request was sent, but a squad commander has
+                  not made a decision yet.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Cancel before a decision is made.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  If the request is still pending, you can cancel it before it
+                  is approved, waitlisted, or denied.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Review the final decision.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  After the squad commander makes a decision, My Requests will
+                  show whether the request was approved or waitlisted.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <figure
+          class="guide-shot lg:self-center"
+          role="img"
+          aria-label="Placeholder screenshot showing a vacation request list"
+        >
+          <div class="shot-topbar">
+            <div class="flex gap-2" aria-hidden="true">
+              <span class="shot-dot gold"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+            </div>
+            <div class="shot-line short" aria-hidden="true"></div>
+          </div>
+          <div class="shot-body" aria-hidden="true">
+            <div class="shot-sidebar">
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item active"></div>
+              <div class="shot-menu-item"></div>
+            </div>
+            <div class="shot-main">
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            Placeholder image: vacation request list and status labels.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="guide-page-break" aria-hidden="true">Calendar view</div>
+
+      <div class="space-y-6">
+        <div class="max-w-3xl">
+          <h3 class="text-xl font-black text-white">Calendar View</h3>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div class="guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Click View My Calendar.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  From the dashboard, choose View My Calendar.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Select the day you want to see.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Pick the date you want to review from the calendar.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Review Day View.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Day View shows the up-to-date roster, including who is
+                  available, who is off, who is waitlisted, and which assets are
+                  available that day.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <figure
+            class="guide-shot lg:self-center"
+            role="img"
+            aria-label="Placeholder screenshot showing Day View calendar roster"
+          >
+            <div class="shot-topbar">
+              <div class="flex gap-2" aria-hidden="true">
+                <span class="shot-dot gold"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-line short" aria-hidden="true"></div>
+            </div>
+            <div class="shot-body" aria-hidden="true">
+              <div class="shot-sidebar">
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item active"></div>
+                <div class="shot-menu-item"></div>
+              </div>
+              <div class="shot-main">
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status available"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status off"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status waitlisted"></div>
+                </div>
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status asset"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Placeholder image: Day View roster with available, off,
+              waitlisted, and asset status.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="guide-page-break" aria-hidden="true">Pay Jobs</div>
+
+      <div class="space-y-6">
+        <div class="max-w-3xl">
+          <h3 class="text-xl font-black text-white">View Payjobs</h3>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+          <div class="guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Click the Payjob button.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  From the dashboard, choose the Payjob button.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Go to Xtra Duty.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  The button takes you to the Xtra Duty sign-in page.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Sign in and continue.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  You know what to do from here right? Sign in to Xtra Duty and
+                  view your Payjob options.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <figure
+            class="guide-shot guide-shot-compact lg:self-center"
+            role="img"
+            aria-label="Placeholder screenshot showing the Payjob handoff to Xtra Duty"
+          >
+            <div class="shot-topbar">
+              <div class="flex gap-2" aria-hidden="true">
+                <span class="shot-dot gold"></span>
+                <span class="shot-dot"></span>
+                <span class="shot-dot"></span>
+              </div>
+              <div class="shot-line short" aria-hidden="true"></div>
+            </div>
+            <div class="shot-body" aria-hidden="true">
+              <div class="shot-sidebar">
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item"></div>
+                <div class="shot-menu-item active"></div>
+              </div>
+              <div class="shot-main">
+                <div class="shot-row">
+                  <div>
+                    <div class="shot-line"></div>
+                    <div class="shot-line short mt-2"></div>
+                  </div>
+                  <div class="shot-status asset"></div>
+                </div>
+                <div class="shot-actions">
+                  <div class="shot-button"></div>
+                  <div class="shot-button secondary"></div>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              Placeholder image: Payjob button opens the Xtra Duty sign-in page.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="supervisors"
+    class="guide-section"
+    aria-labelledby="supervisor-title"
+  >
+    <div>
+      <div class="guide-eyebrow">Supervisor guide</div>
+      <h2
+        id="supervisor-title"
+        class="mt-2 text-2xl font-black text-white sm:text-3xl"
+      >
+        Approvals, waitlists, and roster control
+      </h2>
+      <p class="mt-3 max-w-3xl text-slate-300">
+        Supervisors use the application to review requests, keep the roster
+        accurate, and spot staffing problems early. Make one change at a time
+        and save before moving to the next task.
+      </p>
+    </div>
+
+    <div class="mt-6 grid gap-8">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
+        <div>
+          <h3 class="text-xl font-black text-white">
+            Approve or waitlist vacation requests
+          </h3>
+          <div class="mt-4 guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Open Vacation Requests.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Choose Pending Requests or Requests Needing Review.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Open the request.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Review the officer, date, shift, staffing impact, and any
+                  notes.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Choose Approve or Waitlist.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Approve when staffing allows. Use Waitlist when the request
+                  should stay in line but cannot be approved yet.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Save the decision.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Look for the confirmation message before leaving the page.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <figure
+          class="guide-shot"
+          role="img"
+          aria-label="Placeholder screenshot showing approve and waitlist buttons"
+        >
+          <div class="shot-topbar">
+            <div class="flex gap-2" aria-hidden="true">
+              <span class="shot-dot gold"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+            </div>
+            <div class="shot-line short" aria-hidden="true"></div>
+          </div>
+          <div class="shot-body" aria-hidden="true">
+            <div class="shot-sidebar">
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item active"></div>
+              <div class="shot-menu-item"></div>
+            </div>
+            <div class="shot-main">
+              <div class="shot-row">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+              <div class="shot-actions">
+                <div class="shot-button"></div>
+                <div class="shot-button secondary"></div>
+              </div>
+              <div class="shot-row mt-3">
+                <div>
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-status"></div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            Placeholder image: request review screen with approve and waitlist
+            actions.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[0.95fr_1fr] lg:items-start">
+        <figure
+          class="guide-shot lg:order-first"
+          role="img"
+          aria-label="Placeholder screenshot showing a roster board"
+        >
+          <div class="shot-topbar">
+            <div class="flex gap-2" aria-hidden="true">
+              <span class="shot-dot gold"></span>
+              <span class="shot-dot"></span>
+              <span class="shot-dot"></span>
+            </div>
+            <div class="shot-line short" aria-hidden="true"></div>
+          </div>
+          <div class="shot-body" aria-hidden="true">
+            <div class="shot-sidebar">
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item"></div>
+              <div class="shot-menu-item active"></div>
+              <div class="shot-menu-item"></div>
+            </div>
+            <div class="shot-main">
+              <div class="shot-roster">
+                <div class="shot-card paired">
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-card paired">
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-card">
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+                <div class="shot-card">
+                  <div class="shot-line"></div>
+                  <div class="shot-line short mt-2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            Placeholder image: roster view with paired officers and assignments.
+          </figcaption>
+        </figure>
+
+        <div>
+          <h3 class="text-xl font-black text-white">
+            Read and edit the roster
+          </h3>
+          <div class="mt-4 guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Open Roster.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Pick the date, shift, squad, or unit you want to review.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">
+                  Read the roster left to right.
+                </h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Look for officer name, assignment, partner, status, and notes.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Choose Edit Roster.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Make the needed change, then save. Confirm the change appears
+                  on the roster before moving on.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-black text-white">Pair up officers</h3>
+          <div class="mt-4 guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Select the first officer.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Open the officer card or row from the roster.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Choose Pair or Partner.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Select the second officer from the list.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Save and check the roster.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Both officers should show the same assignment or pairing mark.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-black text-white">Move officers</h3>
+          <div class="mt-4 guide-step-list">
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Select the officer.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Use the officer row, officer card, or move action.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Choose the new assignment.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Pick the new post, car, sector, squad, or unit.
+                </p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <div>
+                <h4 class="font-bold text-white">Save the move.</h4>
+                <p class="mt-1 text-sm text-slate-400">
+                  Recheck the coverage view if the move affects minimum
+                  staffing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="coverage" class="guide-section" aria-labelledby="coverage-title">
+    <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
+      <div>
+        <div class="guide-eyebrow">Supervisor guide</div>
+        <h2
+          id="coverage-title"
+          class="mt-2 text-2xl font-black text-white sm:text-3xl"
+        >
+          Coverage gap graph, officer status, and printing
+        </h2>
+        <p class="mt-3 text-slate-300">
+          The coverage gap graph is a quick warning tool. It helps supervisors
+          see where staffing meets the requirement and where a shift may be
+          short.
+        </p>
+
+        <div class="mt-5 guide-step-list">
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">Read the coverage graph.</h3>
+              <p class="mt-1 text-sm text-slate-400">
+                Each bar shows coverage for a time, unit, or assignment. The
+                dashed line represents the minimum staffing target.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">Look for warning colors.</h3>
+              <p class="mt-1 text-sm text-slate-400">
+                Green means coverage is healthy. Yellow means watch it. Red
+                means the roster may be below the needed level.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h3 class="font-bold text-white">Open the gap details.</h3>
+              <p class="mt-1 text-sm text-slate-400">
+                Click or tap a bar to see which officers, assignments, or times
+                are causing the shortage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <figure
+        class="guide-shot"
+        role="img"
+        aria-label="Placeholder screenshot showing a coverage gap graph"
+      >
+        <div class="shot-topbar">
+          <div class="flex gap-2" aria-hidden="true">
+            <span class="shot-dot gold"></span>
+            <span class="shot-dot"></span>
+            <span class="shot-dot"></span>
+          </div>
+          <div class="shot-line short" aria-hidden="true"></div>
+        </div>
+        <div class="shot-main m-3" aria-hidden="true">
+          <div class="shot-graph">
+            <div class="shot-bar" style="height: 78%"></div>
+            <div class="shot-bar" style="height: 62%"></div>
+            <div class="shot-bar warn" style="height: 47%"></div>
+            <div class="shot-bar gap" style="height: 31%"></div>
+            <div class="shot-bar warn" style="height: 45%"></div>
+            <div class="shot-bar" style="height: 70%"></div>
+          </div>
+        </div>
+        <figcaption>
+          Placeholder image: coverage gap graph with green, yellow, and red
+          bars.
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <div>
+        <h3 class="text-xl font-black text-white">
+          Change an officer&apos;s status
+        </h3>
+        <div class="mt-4 guide-step-list">
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">
+                Open the roster and select the officer.
+              </h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Use the correct date and shift before making the change.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Open Status.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Choose the correct status, such as On Duty, Sick, Vacation,
+                Training, Detail, Light Duty, or Unavailable.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Save and review coverage.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                A status change can create a staffing gap, so check the graph
+                after saving.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-black text-white">Print the roster</h3>
+        <div class="mt-4 guide-step-list">
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Open the roster you want.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Confirm the date, shift, squad, and unit are correct.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Choose Print.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Review the print preview before sending it to the printer.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Print or save as PDF.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Use paper for roll call or save a PDF if command staff needs a
+                copy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="help" class="guide-section" aria-labelledby="help-title">
+    <div class="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+      <div>
+        <div class="guide-eyebrow">When something does not look right</div>
+        <h2
+          id="help-title"
+          class="mt-2 text-2xl font-black text-white sm:text-3xl"
+        >
+          Quick help checklist
+        </h2>
+        <ul class="guide-checklist mt-5 grid gap-3 text-slate-300">
+          <li>
+            Check that you are viewing the correct date, shift, squad, or unit.
+          </li>
+          <li>
+            Refresh the page if a saved change does not appear right away.
+          </li>
+          <li>
+            Look for a confirmation message after submitting, approving, or
+            saving.
+          </li>
+          <li>
+            Ask a supervisor if you do not see a menu or button you expected.
+          </li>
+          <li>
+            Follow agency policy for urgent sick calls or staffing changes.
+          </li>
+        </ul>
+      </div>
+
+      <div class="guide-panel p-5">
+        <h3 class="text-lg font-black text-white">
+          Recommended first-week practice
+        </h3>
+        <p class="mt-2 text-sm text-slate-400">
+          During rollout, have officers practice submitting one test vacation
+          request and have supervisors practice approving, waitlisting, moving
+          an officer, changing status, and printing a sample roster.
+        </p>
+        <a href="/#demo" class="btn btn-primary mt-5 w-full sm:w-auto">
+          Request guided setup
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
