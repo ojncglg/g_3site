@@ -91,6 +91,10 @@ TURNSTILE_VERIFY_URL = os.environ.get(
 ADMIN_DASHBOARD_USERNAME = os.environ.get("ADMIN_DASHBOARD_USERNAME", "admin").strip()
 ADMIN_DASHBOARD_PASSWORD = os.environ.get("ADMIN_DASHBOARD_PASSWORD", "").strip()
 
+# Basic-auth credentials for the hidden pricing calculator.
+PRICING_ROOM_USERNAME = os.environ.get("PRICING_ROOM_USERNAME", "pricing").strip()
+PRICING_ROOM_PASSWORD = os.environ.get("PRICING_ROOM_PASSWORD", "").strip()
+
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
@@ -1217,32 +1221,55 @@ def admin_dashboard_enabled() -> bool:
     return bool(ADMIN_DASHBOARD_PASSWORD)
 
 
-def admin_unauthorized_response() -> Response:
+def basic_auth_unauthorized_response(realm: str) -> Response:
     """Return a standard basic-auth challenge response."""
     return Response(
         "Authentication required.",
         status=401,
-        headers={"WWW-Authenticate": 'Basic realm="G3 Admin Leads", charset="UTF-8"'},
+        headers={"WWW-Authenticate": f'Basic realm="{realm}", charset="UTF-8"'},
     )
 
 
-def require_admin_auth() -> Response | None:
-    """Enforce basic auth for internal dashboard routes."""
-    if not admin_dashboard_enabled():
+def require_basic_auth(
+    *,
+    username: str,
+    password: str,
+    realm: str,
+) -> Response | None:
+    """Enforce constant-time HTTP Basic Auth for a protected route."""
+    if not password:
         abort(404)
 
     auth = request.authorization
     if not auth or (auth.type or "").lower() != "basic":
-        return admin_unauthorized_response()
+        return basic_auth_unauthorized_response(realm)
 
     provided_user = auth.username or ""
     provided_password = auth.password or ""
-    username_ok = hmac.compare_digest(provided_user, ADMIN_DASHBOARD_USERNAME)
-    password_ok = hmac.compare_digest(provided_password, ADMIN_DASHBOARD_PASSWORD)
+    username_ok = hmac.compare_digest(provided_user, username)
+    password_ok = hmac.compare_digest(provided_password, password)
     if not (username_ok and password_ok):
-        return admin_unauthorized_response()
+        return basic_auth_unauthorized_response(realm)
 
     return None
+
+
+def require_admin_auth() -> Response | None:
+    """Enforce basic auth for internal dashboard routes."""
+    return require_basic_auth(
+        username=ADMIN_DASHBOARD_USERNAME,
+        password=ADMIN_DASHBOARD_PASSWORD,
+        realm="G3 Admin Leads",
+    )
+
+
+def require_pricing_room_auth() -> Response | None:
+    """Enforce basic auth for the hidden pricing calculator."""
+    return require_basic_auth(
+        username=PRICING_ROOM_USERNAME,
+        password=PRICING_ROOM_PASSWORD,
+        realm="G3 Price Calculator",
+    )
 
 
 def normalize_text(value: str, *, allow_newlines: bool = False) -> str:
@@ -1569,7 +1596,7 @@ def enforce_https():
     # Only redirect safe idempotent methods.
     if request.method not in ("GET", "HEAD"):
         return None
-    if app.debug or request.is_secure:
+    if not RUNNING_PRODUCTION or app.debug or request.is_secure:
         return None
     # Convert explicit http:// URLs to https://.
     if request.url.startswith("http://"):
@@ -1580,9 +1607,10 @@ def enforce_https():
 @app.after_request
 def set_security_headers(response):
     """Attach baseline security headers to every response."""
-    response.headers.setdefault(
-        "Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload"
-    )
+    if RUNNING_PRODUCTION:
+        response.headers.setdefault(
+            "Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload"
+        )
     response.headers.setdefault("X-Content-Type-Options", "nosniff")
     response.headers.setdefault("X-Frame-Options", "DENY")
     response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
@@ -1637,6 +1665,30 @@ def products():
 def guide():
     """Plain-language user guide page."""
     return render_site_page("guide.html", "How-To Guide - G3 Industries")
+
+
+@app.route("/price-calculator")
+@app.route("/g3-internal/agency-price-lab")
+def price_calculator():
+    """Hidden, password-protected agency price calculator."""
+    auth_error = require_pricing_room_auth()
+    if auth_error:
+        return auth_error
+
+    response = Response(render_template("price_calculator.html"))
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+    response.headers["Cache-Control"] = "no-store, private"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline'; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "img-src 'self' data:; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "connect-src 'self'; "
+        "base-uri 'self'; "
+        "frame-ancestors 'none'"
+    )
+    return response
 
 
 @app.route("/impact")

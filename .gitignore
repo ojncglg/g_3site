@@ -14,3 +14,4 @@ venv_broken_*/
 
 # Data / local state
 data/leads.json
+data/rate_limits.json

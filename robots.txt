@@ -8,6 +8,8 @@ Allow: /
 
 # Block sensitive paths (if any are added later)
 Disallow: /admin/
+Disallow: /price-calculator
+Disallow: /g3-internal/
 Disallow: /static/
 
 # Explicitly allow your key public pages
