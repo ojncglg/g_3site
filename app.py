@@ -91,10 +91,6 @@ TURNSTILE_VERIFY_URL = os.environ.get(
 ADMIN_DASHBOARD_USERNAME = os.environ.get("ADMIN_DASHBOARD_USERNAME", "admin").strip()
 ADMIN_DASHBOARD_PASSWORD = os.environ.get("ADMIN_DASHBOARD_PASSWORD", "").strip()
 
-# Basic-auth credentials for the hidden pricing calculator.
-PRICING_ROOM_USERNAME = os.environ.get("PRICING_ROOM_USERNAME", "pricing").strip()
-PRICING_ROOM_PASSWORD = os.environ.get("PRICING_ROOM_PASSWORD", "").strip()
-
 # SMTP settings used when provider is "smtp" or when "auto" falls back to SMTP.
 SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
@@ -1263,15 +1259,6 @@ def require_admin_auth() -> Response | None:
     )
 
 
-def require_pricing_room_auth() -> Response | None:
-    """Enforce basic auth for the hidden pricing calculator."""
-    return require_basic_auth(
-        username=PRICING_ROOM_USERNAME,
-        password=PRICING_ROOM_PASSWORD,
-        realm="G3 Price Calculator",
-    )
-
-
 def normalize_text(value: str, *, allow_newlines: bool = False) -> str:
     """Trim and normalize user-provided text for consistent validation."""
     value = (value or "").replace("\x00", "").strip()
@@ -1668,13 +1655,10 @@ def guide():
 
 
 @app.route("/price-calculator")
+@app.route("/prices")
 @app.route("/g3-internal/agency-price-lab")
 def price_calculator():
-    """Hidden, password-protected agency price calculator."""
-    auth_error = require_pricing_room_auth()
-    if auth_error:
-        return auth_error
-
+    """Unlisted agency price calculator."""
     response = Response(render_template("price_calculator.html"))
     response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
     response.headers["Cache-Control"] = "no-store, private"

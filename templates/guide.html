@@ -11,8 +11,8 @@
   - Help and first-week checklist
 
   Maintainer guidance:
-  - Screenshot placeholders are CSS-only for now. Replace each `guide-shot`
-    block with real screenshots when production images are ready.
+  - Most guide-shot blocks use real screenshots. Keep any remaining
+    placeholders short-lived and replace them when production images are ready.
   - Keep the language simple. This page is for users who may not be comfortable
     with software terms.
 -->
@@ -78,6 +78,21 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     color: #7dd3fc;
     font-size: 0.72rem;
     font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-role-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.15rem;
+    border: 1px solid rgba(125, 211, 252, 0.32);
+    border-radius: 0.5rem;
+    background: rgba(14, 165, 233, 0.1);
+    color: #bae6fd;
+    padding: 0.35rem 0.7rem;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 900;
     letter-spacing: 0;
     text-transform: uppercase;
   }
@@ -180,6 +195,28 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     );
   }
 
+  .guide-break-note {
+    max-width: 42rem;
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    margin-top: 0.85rem;
+  }
+
+  .guide-access-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    border: 1px solid rgba(250, 204, 21, 0.34);
+    border-radius: 999px;
+    background: rgba(250, 204, 21, 0.1);
+    color: #fef3c7;
+    font-size: 0.72rem;
+    font-weight: 900;
+    margin-top: 1rem;
+    padding: 0.25rem 0.6rem;
+    text-transform: uppercase;
+  }
+
   .guide-step-list {
     counter-reset: guide-step;
     display: grid;
@@ -208,6 +245,24 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     background: linear-gradient(135deg, var(--g3-gold), var(--g3-gold-light));
     color: var(--g3-slate-deep);
     font-weight: 800;
+  }
+
+  @media (min-width: 1024px) {
+    .guide-approval-copy {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .guide-step-list-spacious {
+      flex: 1;
+      align-content: space-between;
+      gap: clamp(1.25rem, 4vw, 4rem);
+    }
+
+    .guide-step-list-spacious .guide-step {
+      min-height: 7rem;
+      align-items: start;
+    }
   }
 
   .guide-note {
@@ -452,22 +507,216 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     padding: 0.65rem 0.85rem;
   }
 
+  .guide-shot-image {
+    display: block;
+    width: 100%;
+    max-height: 31rem;
+    object-fit: contain;
+    background: rgba(2, 6, 23, 0.72);
+    transition: transform var(--motion-medium) var(--ease-standard);
+  }
+
+  .guide-shot-gallery {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .guide-shot-trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    text-align: inherit;
+  }
+
+  .guide-shot:has(.guide-shot-image) {
+    cursor: zoom-in;
+  }
+
+  .guide-shot-trigger:hover .guide-shot-image,
+  .guide-shot-trigger:focus-visible .guide-shot-image {
+    transform: scale(1.06);
+  }
+
+  .guide-shot-trigger::after {
+    content: "Click to enlarge";
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(2, 6, 23, 0.78);
+    color: #f8fafc;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.35rem 0.65rem;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition:
+      opacity var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .guide-shot-trigger:hover::after,
+  .guide-shot-trigger:focus-visible::after {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .guide-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 6, 23, 0.82);
+    backdrop-filter: blur(14px);
+    padding: clamp(1rem, 3vw, 2.5rem);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-medium) var(--ease-standard);
+  }
+
+  .guide-lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .guide-lightbox-panel {
+    position: relative;
+    width: min(100%, 72rem);
+    max-height: 92vh;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.94);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: translateY(0.75rem) scale(0.98);
+    transition: transform var(--motion-medium) var(--ease-standard);
+  }
+
+  .guide-lightbox.is-open .guide-lightbox-panel {
+    transform: translateY(0) scale(1);
+  }
+
+  .guide-lightbox-image {
+    display: block;
+    width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    background: rgba(2, 6, 23, 0.9);
+  }
+
+  .guide-lightbox-caption {
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .guide-lightbox-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(2, 6, 23, 0.76);
+    color: #ffffff;
+  }
+
+  .guide-lightbox-close svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .guide-lightbox-close:hover,
+  .guide-lightbox-close:focus-visible {
+    background: rgba(15, 23, 42, 0.96);
+    border-color: rgba(250, 204, 21, 0.65);
+  }
+
   .guide-mini-nav {
-    position: sticky;
-    top: 5.75rem;
+    max-height: calc(100vh - 7.5rem);
+    overflow-y: auto;
   }
 
   .guide-mini-nav a {
+    position: relative;
     display: block;
     border-radius: 0.5rem;
     color: #cbd5e1;
     padding: 0.55rem 0.7rem;
+    transition:
+      background-color var(--motion-fast) var(--ease-standard),
+      color var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard);
   }
 
   .guide-mini-nav a:hover,
   .guide-mini-nav a:focus-visible {
     background: rgba(255, 255, 255, 0.07);
     color: #ffffff;
+  }
+
+  .guide-mini-nav a::before {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    top: 50%;
+    width: 0.18rem;
+    height: 1.45rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--g3-gold), #7dd3fc);
+    opacity: 0;
+    transform: translateY(-50%) scaleY(0.45);
+    transition:
+      opacity var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .guide-mini-nav a.is-active {
+    background: rgba(250, 204, 21, 0.12);
+    color: #fef3c7;
+    transform: translateX(0.15rem);
+  }
+
+  .guide-mini-nav a.is-active::before {
+    opacity: 1;
+    transform: translateY(-50%) scaleY(1);
+  }
+
+  .guide-mini-nav-label {
+    color: #fef3c7;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .guide-mini-nav-group {
+    border-top: 1px solid rgba(148, 163, 184, 0.16);
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+  }
+
+  .guide-topic-target {
+    scroll-margin-top: 7rem;
+  }
+
+  .guide-half-width-stack {
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+
+  .guide-mobile-top-link {
+    display: none;
   }
 
   .guide-checklist li {
@@ -487,13 +736,45 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.12);
   }
 
-  @media (max-width: 900px) {
+  @media (min-width: 1024px) {
+    .guide-shell {
+      padding-left: 13.5rem;
+    }
+
     .guide-mini-nav {
-      position: static;
+      position: fixed;
+      z-index: 30;
+      top: 6.25rem;
+      left: max(1rem, calc((100vw - 72rem) / 2));
+      width: 12rem;
+      box-shadow: 0 18px 50px rgba(2, 6, 23, 0.28);
     }
   }
 
   @media (max-width: 640px) {
+    .guide-half-width-stack {
+      max-width: none;
+    }
+
+    .guide-mobile-top-link {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.5rem;
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      color: #fef3c7;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.55rem 0.8rem;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.32);
+    }
+
     .guide-shot {
       min-height: 17rem;
     }
@@ -568,11 +849,6 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           vacation requests, call in sick, manage rosters, review coverage, and
           print the day&apos;s staffing plan.
         </p>
-        <div class="mt-5 flex flex-wrap gap-2">
-          <span class="guide-pill">Officer workflows</span>
-          <span class="guide-pill">Supervisor workflows</span>
-          <span class="guide-pill">Screenshot placeholders</span>
-        </div>
       </div>
 
       <div class="guide-panel p-4">
@@ -613,80 +889,104 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     </div>
   </section>
 
+  <nav
+    id="guide-topics"
+    class="guide-mini-nav guide-panel p-3 text-sm"
+    aria-label="Guide topics"
+  >
+    <div class="guide-mini-nav-label px-2 pb-1">Guide topics</div>
+    <a href="#menus">View all menus</a>
+    <div class="guide-mini-nav-group">
+      <div class="guide-mini-nav-label px-2 pb-1">Officer guide</div>
+      <a href="#officers">Officer overview</a>
+      <a href="#request-vacation">Request vacation</a>
+      <a href="#call-in-sick">Call in sick</a>
+      <a href="#my-requests">My Requests</a>
+      <a href="#calendar-view">Calendar View</a>
+      <a href="#pay-jobs">Pay Jobs</a>
+    </div>
+    <div class="guide-mini-nav-group">
+      <div class="guide-mini-nav-label px-2 pb-1">Supervisor guide</div>
+      <a href="#supervisors">Supervisor overview</a>
+      <a href="#approve-waitlist">Approve or waitlist</a>
+      <a href="#edit-roster">Read and edit roster</a>
+      <a href="#pair-officers">Pair up officers</a>
+      <a href="#coverage">Coverage gaps</a>
+      <a href="#officer-status">Daily status</a>
+      <a href="#transfer-squads">Transfer users</a>
+      <a href="#print-roster">Print roster</a>
+    </div>
+    <div class="guide-mini-nav-group">
+      <a href="#help">Help checklist</a>
+    </div>
+  </nav>
+  <a class="guide-mobile-top-link" href="#guide-topics">Guide topics</a>
+
   <section aria-labelledby="start-title">
-    <div class="grid gap-5 lg:grid-cols-[15rem_1fr]">
-      <nav
-        class="guide-mini-nav guide-panel p-3 text-sm"
-        aria-label="Guide sections"
-      >
-        <a href="#menus">View all menus</a>
-        <a href="#officers">Officer guide</a>
-        <a href="#supervisors">Supervisor guide</a>
-        <a href="#coverage">Coverage gap graph</a>
-        <a href="#help">Help checklist</a>
-      </nav>
+    <div class="space-y-6">
+      <div>
+        <div class="guide-eyebrow">Start here</div>
+        <h2
+          id="start-title"
+          class="mt-2 text-2xl font-black text-white sm:text-3xl"
+        >
+          Pick the section that matches what you need to do
+        </h2>
+      </div>
 
-      <div class="space-y-6">
-        <div>
-          <div class="guide-eyebrow">Start here</div>
-          <h2
-            id="start-title"
-            class="mt-2 text-2xl font-black text-white sm:text-3xl"
-          >
-            Pick the section that matches what you need to do
-          </h2>
-        </div>
+      <div class="grid gap-3 md:grid-cols-2">
+        <a class="guide-link-card" href="#officers">
+          <span class="guide-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21a8 8 0 0 0-16 0" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </span>
+          <span>
+            <span class="block font-bold text-white">Officers</span>
+            <span class="mt-1 block text-sm text-slate-400">
+              View all menus, request vacation, call in sick, view My Requests,
+              view the calendar, and open Pay Jobs.
+            </span>
+          </span>
+        </a>
 
-        <div class="grid gap-3 md:grid-cols-2">
-          <a class="guide-link-card" href="#officers">
-            <span class="guide-icon" aria-hidden="true">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M20 21a8 8 0 0 0-16 0" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+        <a class="guide-link-card" href="#supervisors">
+          <span class="guide-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </span>
+          <span>
+            <span class="block font-bold text-white">Supervisors</span>
+            <span class="mt-1 block text-sm text-slate-400">
+                Approve or waitlist vacation, edit the roster, pair officers,
+                review coverage gaps, change status, and print.
             </span>
-            <span>
-              <span class="block font-bold text-white">Officers</span>
-              <span class="mt-1 block text-sm text-slate-400">
-                View all menus, request vacation, call in sick, view My Requests,
-                view the calendar, and open Pay Jobs.
-              </span>
-            </span>
-          </a>
-
-          <a class="guide-link-card" href="#supervisors">
-            <span class="guide-icon" aria-hidden="true">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            </span>
-            <span>
-              <span class="block font-bold text-white">Supervisors</span>
-              <span class="mt-1 block text-sm text-slate-400">
-                Approve or waitlist vacation, edit the roster, pair and move
-                officers, review coverage gaps, change status, and print.
-              </span>
-            </span>
-          </a>
-        </div>
+          </span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="menus" class="guide-section" aria-labelledby="menus-title">
+  <section
+    id="menus"
+    class="guide-section guide-topic-target"
+    aria-labelledby="menus-title"
+  >
     <div class="space-y-6">
       <div class="max-w-3xl">
         <div class="guide-eyebrow">Finding your way around</div>
@@ -736,60 +1036,36 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           </div>
         </div>
 
-        <figure
-          class="guide-shot lg:self-center"
-          role="img"
-          aria-label="Placeholder screenshot showing the main application menu"
-        >
-          <div class="shot-topbar">
-            <div class="flex gap-2" aria-hidden="true">
-              <span class="shot-dot gold"></span>
-              <span class="shot-dot"></span>
-              <span class="shot-dot"></span>
-            </div>
-            <div class="shot-line short" aria-hidden="true"></div>
-          </div>
-          <div class="shot-body" aria-hidden="true">
-            <div class="shot-sidebar">
-              <div class="shot-menu-item active"></div>
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item"></div>
-            </div>
-            <div class="shot-main">
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-              <div class="shot-actions">
-                <div class="shot-button"></div>
-                <div class="shot-button secondary"></div>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            Placeholder image: main menu with role-based options.
-          </figcaption>
+        <figure class="guide-shot lg:self-center">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/main_menu.png') }}"
+            data-lightbox-alt="G3 main menu showing officer navigation options."
+            data-lightbox-caption="Main menu with role-based options."
+            aria-label="Enlarge main menu screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/main_menu.png') }}"
+              alt="G3 main menu showing officer navigation options."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>Main menu with role-based options.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section id="officers" class="guide-section" aria-labelledby="officer-title">
+  <section
+    id="officers"
+    class="guide-section guide-topic-target"
+    aria-labelledby="officer-title"
+  >
     <div>
-      <div class="guide-eyebrow">Officer guide</div>
+      <div class="guide-role-label">Officer guide</div>
       <h2
         id="officer-title"
         class="mt-2 text-2xl font-black text-white sm:text-3xl"
@@ -807,7 +1083,12 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     <div class="mt-6 grid gap-8">
       <div class="space-y-6">
         <div class="max-w-3xl">
-          <h3 class="text-xl font-black text-white">Request vacation</h3>
+          <h3
+            id="request-vacation"
+            class="guide-topic-target text-xl font-black text-white"
+          >
+            Request vacation
+          </h3>
           <div class="guide-warning mt-4" role="alert">
             <span class="guide-warning-icon" aria-hidden="true">
               <svg
@@ -837,8 +1118,8 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           </div>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-          <div class="guide-step-list">
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+          <div class="guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">Click Request Time Off.</h4>
@@ -892,84 +1173,81 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
             </div>
           </div>
 
-          <figure
-            class="guide-shot guide-shot-form lg:self-center"
-            role="img"
-            aria-label="Placeholder screenshot showing the Request Time Off form"
-          >
-            <div class="shot-topbar">
-              <div class="flex gap-2" aria-hidden="true">
-                <span class="shot-dot gold"></span>
-                <span class="shot-dot"></span>
-                <span class="shot-dot"></span>
-              </div>
-              <div class="shot-line short" aria-hidden="true"></div>
-            </div>
-            <div class="shot-body" aria-hidden="true">
-              <div class="shot-sidebar">
-                <div class="shot-menu-item active"></div>
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item"></div>
-              </div>
-              <div class="shot-main">
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status"></div>
-                </div>
-                <div class="shot-actions">
-                  <div class="shot-button"></div>
-                  <div class="shot-button secondary"></div>
-                </div>
-              </div>
-            </div>
-            <figcaption>
-              Placeholder image: Request Time Off form with dates, hours, and
-              submit button.
-            </figcaption>
-          </figure>
+          <div class="guide-shot-gallery lg:self-center">
+            <figure class="guide-shot">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/officer_request_main_menu.png') }}"
+                data-lightbox-alt="Officer main menu showing the Request Time Off button."
+                data-lightbox-caption="Step 1: Click Request Time Off from the officer main menu."
+                aria-label="Enlarge officer request main menu screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/officer_request_main_menu.png') }}"
+                  alt="Officer main menu showing the Request Time Off button."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>
+                Step 1: Click Request Time Off from the officer main menu.
+              </figcaption>
+            </figure>
+
+            <figure class="guide-shot guide-shot-form">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/workflow.png') }}"
+                data-lightbox-alt="Vacation request workflow showing the steps to submit time off."
+                data-lightbox-caption="Steps 2-5: Complete the date, hours, and submit fields."
+                aria-label="Enlarge vacation request workflow screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/workflow.png') }}"
+                  alt="Vacation request workflow showing the steps to submit time off."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>
+                Steps 2-5: Complete the date, hours, and submit fields.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
 
       <div class="space-y-6">
         <div class="max-w-3xl">
-          <h3 class="text-xl font-black text-white">Call in sick</h3>
+          <h3
+            id="call-in-sick"
+            class="guide-topic-target text-xl font-black text-white"
+          >
+            Call in sick
+          </h3>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-          <div class="guide-step-list">
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+          <div class="guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
-                <h4 class="font-bold text-white">Open Sick Call.</h4>
+                <h4 class="font-bold text-white">Select Sick Leave</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Choose Call In Sick or Report Sick Time.
+                  Choose Sick Leave from the Request Time Off page.
                 </p>
               </div>
             </div>
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">
-                  Confirm the date and shift.
+                  Confirm the date and hours.
                 </h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Add a note if your agency requires one.
+                  Add a note or location if your agency requires one.
                 </p>
               </div>
             </div>
@@ -977,69 +1255,53 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
               <div>
                 <h4 class="font-bold text-white">Submit and follow policy.</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  If your policy requires a phone call to a supervisor, still
-                  make that call after submitting.
+                  Sick leave is automatically approved. If your agency requires a
+                  phone call, make sure to follow up with that call after
+                  submitting your sick leave request.
                 </p>
               </div>
             </div>
           </div>
 
-          <figure
-            class="guide-shot guide-shot-compact lg:self-center"
-            role="img"
-            aria-label="Placeholder screenshot showing the Call In Sick form"
-          >
-            <div class="shot-topbar">
-              <div class="flex gap-2" aria-hidden="true">
-                <span class="shot-dot gold"></span>
-                <span class="shot-dot"></span>
-                <span class="shot-dot"></span>
-              </div>
-              <div class="shot-line short" aria-hidden="true"></div>
-            </div>
-            <div class="shot-body" aria-hidden="true">
-              <div class="shot-sidebar">
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item active"></div>
-                <div class="shot-menu-item"></div>
-              </div>
-              <div class="shot-main">
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status"></div>
-                </div>
-                <div class="shot-actions">
-                  <div class="shot-button"></div>
-                  <div class="shot-button secondary"></div>
-                </div>
-              </div>
-            </div>
+          <figure class="guide-shot guide-shot-compact lg:self-center">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/sick.png') }}"
+              data-lightbox-alt="Call In Sick workflow showing the steps to report sick time."
+              data-lightbox-caption="Complete the sick leave fields, then submit and follow policy."
+              aria-label="Enlarge Call In Sick workflow screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/sick.png') }}"
+                alt="Call In Sick workflow showing the steps to report sick time."
+                loading="lazy"
+              />
+            </button>
             <figcaption>
-              Placeholder image: Call In Sick form with date, shift, notes, and
-              submit button.
+              Complete the sick leave fields, then submit and follow policy.
             </figcaption>
           </figure>
         </div>
       </div>
 
       <div class="guide-page-break" aria-hidden="true">After submitting</div>
+      <p class="guide-break-note">
+        Use this section after a request is saved to check status, cancel while
+        pending, or confirm the final decision.
+      </p>
 
-      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
-        <div>
-          <h3 class="text-xl font-black text-white">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+        <div class="guide-approval-copy">
+          <h3
+            id="my-requests"
+            class="guide-topic-target text-xl font-black text-white"
+          >
             View your vacation requests
           </h3>
-          <div class="mt-4 guide-step-list">
+          <div class="mt-4 guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">Click My Requests.</h4>
@@ -1083,64 +1345,72 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           </div>
         </div>
 
-        <figure
-          class="guide-shot lg:self-center"
-          role="img"
-          aria-label="Placeholder screenshot showing a vacation request list"
-        >
-          <div class="shot-topbar">
-            <div class="flex gap-2" aria-hidden="true">
-              <span class="shot-dot gold"></span>
-              <span class="shot-dot"></span>
-              <span class="shot-dot"></span>
-            </div>
-            <div class="shot-line short" aria-hidden="true"></div>
-          </div>
-          <div class="shot-body" aria-hidden="true">
-            <div class="shot-sidebar">
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item active"></div>
-              <div class="shot-menu-item"></div>
-            </div>
-            <div class="shot-main">
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            Placeholder image: vacation request list and status labels.
-          </figcaption>
-        </figure>
+        <div class="guide-shot-gallery lg:self-center">
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/my_requests.png') }}"
+              data-lightbox-alt="Officer main menu showing the My Requests option."
+              data-lightbox-caption="Step 1: Click My Requests from the officer main menu."
+              aria-label="Enlarge My Requests menu screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/my_requests.png') }}"
+                alt="Officer main menu showing the My Requests option."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Step 1: Click My Requests from the officer main menu.
+            </figcaption>
+          </figure>
+
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/requests.png') }}"
+              data-lightbox-alt="My Requests screen showing vacation request status labels."
+              data-lightbox-caption="Use the status labels to confirm pending, approved, waitlisted, or denied requests."
+              aria-label="Enlarge My Requests status screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/requests.png') }}"
+                alt="My Requests screen showing vacation request status labels."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Use the status labels to confirm pending, approved, waitlisted,
+              or denied requests.
+            </figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="guide-page-break" aria-hidden="true">Calendar view</div>
+      <p class="guide-break-note">
+        The calendar helps officers review a specific date and open Day View for
+        roster details.
+      </p>
 
       <div class="space-y-6">
         <div class="max-w-3xl">
-          <h3 class="text-xl font-black text-white">Calendar View</h3>
+          <h3
+            id="calendar-view"
+            class="guide-topic-target text-xl font-black text-white"
+          >
+            Calendar View
+          </h3>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-          <div class="guide-step-list">
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+          <div class="guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">Click View My Calendar.</h4>
@@ -1171,79 +1441,78 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
             </div>
           </div>
 
-          <figure
-            class="guide-shot lg:self-center"
-            role="img"
-            aria-label="Placeholder screenshot showing Day View calendar roster"
-          >
-            <div class="shot-topbar">
-              <div class="flex gap-2" aria-hidden="true">
-                <span class="shot-dot gold"></span>
-                <span class="shot-dot"></span>
-                <span class="shot-dot"></span>
-              </div>
-              <div class="shot-line short" aria-hidden="true"></div>
-            </div>
-            <div class="shot-body" aria-hidden="true">
-              <div class="shot-sidebar">
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item active"></div>
-                <div class="shot-menu-item"></div>
-              </div>
-              <div class="shot-main">
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status available"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status off"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status waitlisted"></div>
-                </div>
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status asset"></div>
-                </div>
-              </div>
-            </div>
-            <figcaption>
-              Placeholder image: Day View roster with available, off,
-              waitlisted, and asset status.
-            </figcaption>
-          </figure>
+          <div class="guide-shot-gallery lg:self-center">
+            <figure class="guide-shot">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/calendar.png') }}"
+                data-lightbox-alt="Calendar screen showing dates available for review."
+                data-lightbox-caption="Calendar screen for choosing the day to review."
+                aria-label="Enlarge calendar screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/calendar.png') }}"
+                  alt="Calendar screen showing dates available for review."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>
+                Calendar screen for choosing the day to review.
+              </figcaption>
+            </figure>
+
+            <figure class="guide-shot">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/dayview.png') }}"
+                data-lightbox-alt="Day View screen showing roster and daily status details."
+                data-lightbox-caption="Day View roster with available, off, waitlisted, and asset status."
+                aria-label="Enlarge Day View screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/dayview.png') }}"
+                  alt="Day View screen showing roster and daily status details."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>
+                Day View roster with available, off, waitlisted, and asset
+                status.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
 
       <div class="guide-page-break" aria-hidden="true">Pay Jobs</div>
+      <p class="guide-break-note">
+        Use this handoff when an officer needs to leave G3 and continue into
+        Xtra Duty.
+      </p>
 
       <div class="space-y-6">
         <div class="max-w-3xl">
-          <h3 class="text-xl font-black text-white">View Payjobs</h3>
+          <h3
+            id="pay-jobs"
+            class="guide-topic-target text-xl font-black text-white"
+          >
+            View Pay Jobs
+          </h3>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
-          <div class="guide-step-list">
+        <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+          <div class="guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
-                <h4 class="font-bold text-white">Click the Payjob button.</h4>
+                <h4 class="font-bold text-white">Click the Pay Jobs button.</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  From the dashboard, choose the Payjob button.
+                  From the dashboard, choose the Pay Jobs button.
                 </p>
               </div>
             </div>
@@ -1260,50 +1529,55 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
                 <h4 class="font-bold text-white">Sign in and continue.</h4>
                 <p class="mt-1 text-sm text-slate-400">
                   You know what to do from here right? Sign in to Xtra Duty and
-                  view your Payjob options.
+                  view your Pay Jobs options.
                 </p>
               </div>
             </div>
           </div>
 
-          <figure
-            class="guide-shot guide-shot-compact lg:self-center"
-            role="img"
-            aria-label="Placeholder screenshot showing the Payjob handoff to Xtra Duty"
-          >
-            <div class="shot-topbar">
-              <div class="flex gap-2" aria-hidden="true">
-                <span class="shot-dot gold"></span>
-                <span class="shot-dot"></span>
-                <span class="shot-dot"></span>
-              </div>
-              <div class="shot-line short" aria-hidden="true"></div>
-            </div>
-            <div class="shot-body" aria-hidden="true">
-              <div class="shot-sidebar">
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item"></div>
-                <div class="shot-menu-item active"></div>
-              </div>
-              <div class="shot-main">
-                <div class="shot-row">
-                  <div>
-                    <div class="shot-line"></div>
-                    <div class="shot-line short mt-2"></div>
-                  </div>
-                  <div class="shot-status asset"></div>
-                </div>
-                <div class="shot-actions">
-                  <div class="shot-button"></div>
-                  <div class="shot-button secondary"></div>
-                </div>
-              </div>
-            </div>
-            <figcaption>
-              Placeholder image: Payjob button opens the Xtra Duty sign-in page.
-            </figcaption>
-          </figure>
+          <div class="guide-shot-gallery lg:self-center">
+            <figure class="guide-shot">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/payjob_main_menu.png') }}"
+                data-lightbox-alt="G3 main menu showing the Pay Jobs button."
+                data-lightbox-caption="Step 1: Click Pay Jobs from the main menu."
+                aria-label="Enlarge Pay Jobs main menu screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/payjob_main_menu.png') }}"
+                  alt="G3 main menu showing the Pay Jobs button."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>Step 1: Click Pay Jobs from the main menu.</figcaption>
+            </figure>
+
+            <figure class="guide-shot">
+              <button
+                type="button"
+                class="guide-shot-trigger"
+                data-guide-lightbox
+                data-lightbox-src="{{ url_for('static', filename='img/guide/payjobs.png') }}"
+                data-lightbox-alt="Pay Jobs screen showing the Xtra Duty sign-in destination."
+                data-lightbox-caption="Continue into Xtra Duty from the Pay Jobs screen."
+                aria-label="Enlarge Pay Jobs screenshot"
+              >
+                <img
+                  class="guide-shot-image"
+                  src="{{ url_for('static', filename='img/guide/payjobs.png') }}"
+                  alt="Pay Jobs screen showing the Xtra Duty sign-in destination."
+                  loading="lazy"
+                />
+              </button>
+              <figcaption>
+                Continue into Xtra Duty from the Pay Jobs screen.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </div>
@@ -1311,11 +1585,11 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
 
   <section
     id="supervisors"
-    class="guide-section"
+    class="guide-section guide-topic-target"
     aria-labelledby="supervisor-title"
   >
     <div>
-      <div class="guide-eyebrow">Supervisor guide</div>
+      <div class="guide-role-label">Supervisor guide</div>
       <h2
         id="supervisor-title"
         class="mt-2 text-2xl font-black text-white sm:text-3xl"
@@ -1330,23 +1604,28 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     </div>
 
     <div class="mt-6 grid gap-8">
-      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
-        <div>
-          <h3 class="text-xl font-black text-white">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+        <div class="guide-approval-copy">
+          <h3
+            id="approve-waitlist"
+            class="guide-topic-target text-xl font-black text-white"
+          >
             Approve or waitlist vacation requests
           </h3>
-          <div class="mt-4 guide-step-list">
+          <div class="mt-4 guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
-                <h4 class="font-bold text-white">Open Vacation Requests.</h4>
+                <h4 class="font-bold text-white">
+                  Open Approval Request Time Off
+                </h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Choose Pending Requests or Requests Needing Review.
+                  From the main menu click Approval Request Time Off.
                 </p>
               </div>
             </div>
             <div class="guide-step">
               <div>
-                <h4 class="font-bold text-white">Open the request.</h4>
+                <h4 class="font-bold text-white">View the request.</h4>
                 <p class="mt-1 text-sm text-slate-400">
                   Review the officer, date, shift, staffing impact, and any
                   notes.
@@ -1360,7 +1639,8 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
                 </h4>
                 <p class="mt-1 text-sm text-slate-400">
                   Approve when staffing allows. Use Waitlist when the request
-                  should stay in line but cannot be approved yet.
+                  should stay in line but cannot be approved yet. Follow your
+                  agency policy for staffing decisions.
                 </p>
               </div>
             </div>
@@ -1375,139 +1655,184 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           </div>
         </div>
 
-        <figure
-          class="guide-shot"
-          role="img"
-          aria-label="Placeholder screenshot showing approve and waitlist buttons"
-        >
-          <div class="shot-topbar">
-            <div class="flex gap-2" aria-hidden="true">
-              <span class="shot-dot gold"></span>
-              <span class="shot-dot"></span>
-              <span class="shot-dot"></span>
-            </div>
-            <div class="shot-line short" aria-hidden="true"></div>
-          </div>
-          <div class="shot-body" aria-hidden="true">
-            <div class="shot-sidebar">
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item active"></div>
-              <div class="shot-menu-item"></div>
-            </div>
-            <div class="shot-main">
-              <div class="shot-row">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-              <div class="shot-actions">
-                <div class="shot-button"></div>
-                <div class="shot-button secondary"></div>
-              </div>
-              <div class="shot-row mt-3">
-                <div>
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-status"></div>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            Placeholder image: request review screen with approve and waitlist
-            actions.
-          </figcaption>
-        </figure>
+        <div class="guide-shot-gallery">
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/supervisor_main_menu.png') }}"
+              data-lightbox-alt="Supervisor main menu showing review and roster options."
+              data-lightbox-caption="Step 1: Open Approval Request Time Off from the supervisor menu."
+              aria-label="Enlarge supervisor main menu screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/supervisor_main_menu.png') }}"
+                alt="Supervisor main menu showing review and roster options."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Step 1: Open Approval Request Time Off from the supervisor menu.
+            </figcaption>
+          </figure>
+
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/time_off_approval.png') }}"
+              data-lightbox-alt="Time off approval screen showing approve and waitlist actions."
+              data-lightbox-caption="Steps 2-3: Review the request and choose Approve or Waitlist."
+              aria-label="Enlarge time off approval screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/time_off_approval.png') }}"
+                alt="Time off approval screen showing approve and waitlist actions."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Steps 2-3: Review the request and choose Approve or Waitlist.
+            </figcaption>
+          </figure>
+
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/confirm.png') }}"
+              data-lightbox-alt="Confirmation screen showing a saved supervisor approval decision."
+              data-lightbox-caption="Step 4: Confirm the decision was saved before leaving."
+              aria-label="Enlarge supervisor confirmation screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/confirm.png') }}"
+                alt="Confirmation screen showing a saved supervisor approval decision."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Step 4: Confirm the decision was saved before leaving.
+            </figcaption>
+          </figure>
+        </div>
       </div>
 
-      <div class="grid gap-6 lg:grid-cols-[0.95fr_1fr] lg:items-start">
-        <figure
-          class="guide-shot lg:order-first"
-          role="img"
-          aria-label="Placeholder screenshot showing a roster board"
-        >
-          <div class="shot-topbar">
-            <div class="flex gap-2" aria-hidden="true">
-              <span class="shot-dot gold"></span>
-              <span class="shot-dot"></span>
-              <span class="shot-dot"></span>
-            </div>
-            <div class="shot-line short" aria-hidden="true"></div>
-          </div>
-          <div class="shot-body" aria-hidden="true">
-            <div class="shot-sidebar">
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item"></div>
-              <div class="shot-menu-item active"></div>
-              <div class="shot-menu-item"></div>
-            </div>
-            <div class="shot-main">
-              <div class="shot-roster">
-                <div class="shot-card paired">
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-card paired">
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-card">
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-                <div class="shot-card">
-                  <div class="shot-line"></div>
-                  <div class="shot-line short mt-2"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            Placeholder image: roster view with paired officers and assignments.
-          </figcaption>
-        </figure>
+      <div class="guide-page-break" aria-hidden="true">Roster workflow</div>
+      <p class="guide-break-note">
+        Use this workflow to read staffing counts, check officer status, and
+        make roster edits for a selected day.
+      </p>
 
-        <div>
-          <h3 class="text-xl font-black text-white">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+        <div class="guide-approval-copy">
+          <h3
+            id="edit-roster"
+            class="guide-topic-target text-xl font-black text-white"
+          >
             Read and edit the roster
           </h3>
-          <div class="mt-4 guide-step-list">
+          <div class="mt-4 guide-step-list guide-step-list-spacious">
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">Open Roster.</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Pick the date, shift, squad, or unit you want to review.
+                  Each tab shows the number of officers with that skill, plus
+                  available and unavailable counts.
                 </p>
               </div>
             </div>
             <div class="guide-step">
               <div>
                 <h4 class="font-bold text-white">
-                  Read the roster left to right.
+                  Use the legend to read status.
                 </h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Look for officer name, assignment, partner, status, and notes.
+                  Check each officer&apos;s name, assignment, partner, status,
+                  and notes.
                 </p>
               </div>
             </div>
             <div class="guide-step">
               <div>
-                <h4 class="font-bold text-white">Choose Edit Roster.</h4>
+                <h4 class="font-bold text-white">Edit Roster.</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  Make the needed change, then save. Confirm the change appears
-                  on the roster before moving on.
+                  Click and drag officers to different zones. The officer gets
+                  an email notification when they are moved to a new zone.
                 </p>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="guide-shot-gallery">
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/supervisor_dayview1.png') }}"
+              data-lightbox-alt="Supervisor Day View showing roster tabs and staffing counts."
+              data-lightbox-caption="Step 1: Use Day View tabs to check staffing counts."
+              aria-label="Enlarge supervisor Day View screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/supervisor_dayview1.png') }}"
+                alt="Supervisor Day View showing roster tabs and staffing counts."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Step 1: Use Day View tabs to check staffing counts.
+            </figcaption>
+          </figure>
+
+          <figure class="guide-shot">
+            <button
+              type="button"
+              class="guide-shot-trigger"
+              data-guide-lightbox
+              data-lightbox-src="{{ url_for('static', filename='img/guide/roster_dayview2.png') }}"
+              data-lightbox-alt="Roster Day View showing officer cards and assignments."
+              data-lightbox-caption="Steps 2-3: Read status, then drag officers to edit the roster."
+              aria-label="Enlarge roster Day View screenshot"
+            >
+              <img
+                class="guide-shot-image"
+                src="{{ url_for('static', filename='img/guide/roster_dayview2.png') }}"
+                alt="Roster Day View showing officer cards and assignments."
+                loading="lazy"
+              />
+            </button>
+            <figcaption>
+              Steps 2-3: Read status, then drag officers to edit the roster.
+            </figcaption>
+          </figure>
+        </div>
+
       </div>
+
+      <div class="guide-page-break" aria-hidden="true">Pairing workflow</div>
+      <p class="guide-break-note">
+        Use pairing when two officers need to show the same assignment or
+        partner relationship on the roster.
+      </p>
 
       <div class="grid gap-6 md:grid-cols-2">
         <div>
-          <h3 class="text-xl font-black text-white">Pair up officers</h3>
+          <h3
+            id="pair-officers"
+            class="guide-topic-target text-xl font-black text-white"
+          >
+            Pair up officers
+          </h3>
           <div class="mt-4 guide-step-list">
             <div class="guide-step">
               <div>
@@ -1535,48 +1860,20 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
             </div>
           </div>
         </div>
-
-        <div>
-          <h3 class="text-xl font-black text-white">Move officers</h3>
-          <div class="mt-4 guide-step-list">
-            <div class="guide-step">
-              <div>
-                <h4 class="font-bold text-white">Select the officer.</h4>
-                <p class="mt-1 text-sm text-slate-400">
-                  Use the officer row, officer card, or move action.
-                </p>
-              </div>
-            </div>
-            <div class="guide-step">
-              <div>
-                <h4 class="font-bold text-white">Choose the new assignment.</h4>
-                <p class="mt-1 text-sm text-slate-400">
-                  Pick the new post, car, sector, squad, or unit.
-                </p>
-              </div>
-            </div>
-            <div class="guide-step">
-              <div>
-                <h4 class="font-bold text-white">Save the move.</h4>
-                <p class="mt-1 text-sm text-slate-400">
-                  Recheck the coverage view if the move affects minimum
-                  staffing.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <section id="coverage" class="guide-section" aria-labelledby="coverage-title">
+  <section
+    id="coverage"
+    class="guide-section guide-topic-target"
+    aria-labelledby="coverage-title"
+  >
     <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-start">
       <div>
-        <div class="guide-eyebrow">Supervisor guide</div>
         <h2
           id="coverage-title"
-          class="mt-2 text-2xl font-black text-white sm:text-3xl"
+          class="text-2xl font-black text-white sm:text-3xl"
         >
           Coverage gap graph, officer status, and printing
         </h2>
@@ -1647,16 +1944,29 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
       </figure>
     </div>
 
-    <div class="mt-8 grid gap-6 md:grid-cols-2">
-      <div>
-        <h3 class="text-xl font-black text-white">
-          Change an officer&apos;s status
+    <div class="guide-page-break mt-8" aria-hidden="true">
+      Administrative tasks
+    </div>
+    <div class="guide-access-label">Admin only</div>
+    <p class="mt-3 max-w-3xl text-slate-300">
+      This section is more administrative. Use it for officer status changes,
+      adding skills, transferring officers, and printing the roster.
+    </p>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+      <div class="guide-approval-copy">
+        <h3
+          id="officer-status"
+          class="guide-topic-target text-xl font-black text-white"
+        >
+          Change an officer&apos;s daily status
         </h3>
-        <div class="mt-4 guide-step-list">
+        <div class="mt-4 guide-step-list guide-step-list-spacious">
           <div class="guide-step">
             <div>
               <h4 class="font-bold text-white">
-                Open the roster and select the officer.
+                From the main menu, scroll down to Admin Tools and click Select
+                Day Status.
               </h4>
               <p class="mt-1 text-sm text-slate-400">
                 Use the correct date and shift before making the change.
@@ -1665,50 +1975,225 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           </div>
           <div class="guide-step">
             <div>
-              <h4 class="font-bold text-white">Open Status.</h4>
+              <h4 class="font-bold text-white">Set Status.</h4>
               <p class="mt-1 text-sm text-slate-400">
-                Choose the correct status, such as On Duty, Sick, Vacation,
-                Training, Detail, Light Duty, or Unavailable.
+                Choose the officer, set the start date and end date and select
+                the new status. Use the notes field to explain the reason for
+                the change.
               </p>
             </div>
           </div>
           <div class="guide-step">
             <div>
-              <h4 class="font-bold text-white">Save and review coverage.</h4>
+              <h4 class="font-bold text-white">Apply.</h4>
               <p class="mt-1 text-sm text-slate-400">
-                A status change can create a staffing gap, so check the graph
-                after saving.
+                Ensure all information is correct before applying the change.
+                The platform will show you the number of days that will be
+                affected and the new status for each day. After applying, the
+                officer will get an email notification about the change.
               </p>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="guide-shot-gallery">
+        <figure class="guide-shot">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/admin_tool.png') }}"
+            data-lightbox-alt="Admin tools menu showing the Select Day Status option."
+            data-lightbox-caption="Step 1: Click Select Day Status under Admin Tools."
+            aria-label="Enlarge admin tools screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/admin_tool.png') }}"
+              alt="Admin tools menu showing the Select Day Status option."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>
+            Step 1: Click Select Day Status under Admin Tools.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-shot">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/set_day_full.png') }}"
+            data-lightbox-alt="Set Day Status screen with all required fields filled in."
+            data-lightbox-caption="Steps 2-3: Complete the fields and review the affected days before applying."
+            aria-label="Enlarge Set Day Status screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/set_day_full.png') }}"
+              alt="Set Day Status screen with all required fields filled in."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>
+            Steps 2-3: Complete the fields and review the affected days before
+            applying.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="guide-page-break mt-8" aria-hidden="true">Squad transfers</div>
+    <p class="guide-break-note">
+      Use this workflow when a user needs to move from one squad or unit to
+      another.
+    </p>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-stretch">
+      <div class="guide-approval-copy">
+        <h3
+          id="transfer-squads"
+          class="guide-topic-target text-xl font-black text-white"
+        >
+          Transfer users from squad to squad
+        </h3>
+        <div class="mt-4 guide-step-list guide-step-list-spacious">
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Open User Provisioning.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                From the main menu, scroll to Admin Tools and click User
+                Provisioning.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Find the user.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Click on Directory and search for the officer or user you need
+                to transfer, click on the three dots and click edit.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Click Transfer Unit.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                Select the squad the user should move to. The user will be
+                transferred immediately on the day of the transfer. If the user
+                is promoted assign a supervisor role, if the user is just being
+                laterally transferred keep the role as officer.
+              </p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div>
+              <h4 class="font-bold text-white">Update your roster.</h4>
+              <p class="mt-1 text-sm text-slate-400">
+                When you click transfer, the user will be transferred to the new
+                unit. You will lose access to the user and their roster
+                information, so make sure to update your roster and coverage
+                information after the transfer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-shot-gallery">
+        <figure class="guide-shot">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/user_provisioning.png') }}"
+            data-lightbox-alt="Admin Tools menu showing the User Provisioning option."
+            data-lightbox-caption="Step 1: Click User Provisioning under Admin Tools."
+            aria-label="Enlarge User Provisioning screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/user_provisioning.png') }}"
+              alt="Admin Tools menu showing the User Provisioning option."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>
+            Step 1: Click User Provisioning under Admin Tools.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-shot">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/edit_user.png') }}"
+            data-lightbox-alt="User directory screen showing the edit user action."
+            data-lightbox-caption="Step 2: Find the user in Directory, open the three-dot menu, and click Edit."
+            aria-label="Enlarge Edit User screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/edit_user.png') }}"
+              alt="User directory screen showing the edit user action."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>
+            Step 2: Find the user in Directory, open the three-dot menu, and
+            click Edit.
+          </figcaption>
+        </figure>
+
+        <figure class="guide-shot">
+          <button
+            type="button"
+            class="guide-shot-trigger"
+            data-guide-lightbox
+            data-lightbox-src="{{ url_for('static', filename='img/guide/transfer.png') }}"
+            data-lightbox-alt="Transfer Unit screen showing the new unit selection."
+            data-lightbox-caption="Steps 3-4: Choose the new unit, confirm the role, then click Transfer."
+            aria-label="Enlarge Transfer Unit screenshot"
+          >
+            <img
+              class="guide-shot-image"
+              src="{{ url_for('static', filename='img/guide/transfer.png') }}"
+              alt="Transfer Unit screen showing the new unit selection."
+              loading="lazy"
+            />
+          </button>
+          <figcaption>
+            Steps 3-4: Choose the new unit, confirm the role, then click
+            Transfer.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="guide-page-break mt-8" aria-hidden="true">Print roster</div>
+    <p class="guide-break-note">
+      Printing uses the same date-specific roster view you opened earlier.
+    </p>
+
+    <div class="guide-half-width-stack mt-8 grid gap-8">
       <div>
-        <h3 class="text-xl font-black text-white">Print the roster</h3>
+        <h3
+          id="print-roster"
+          class="guide-topic-target text-xl font-black text-white"
+        >
+          Print the roster
+        </h3>
         <div class="mt-4 guide-step-list">
           <div class="guide-step">
             <div>
-              <h4 class="font-bold text-white">Open the roster you want.</h4>
+              <h4 class="font-bold text-white">Print the roster.</h4>
               <p class="mt-1 text-sm text-slate-400">
-                Confirm the date, shift, squad, and unit are correct.
-              </p>
-            </div>
-          </div>
-          <div class="guide-step">
-            <div>
-              <h4 class="font-bold text-white">Choose Print.</h4>
-              <p class="mt-1 text-sm text-slate-400">
-                Review the print preview before sending it to the printer.
-              </p>
-            </div>
-          </div>
-          <div class="guide-step">
-            <div>
-              <h4 class="font-bold text-white">Print or save as PDF.</h4>
-              <p class="mt-1 text-sm text-slate-400">
-                Use paper for roll call or save a PDF if command staff needs a
-                copy.
+                To print the roster, repeat the steps to open a specific date
+                and click Print Roster in the top right corner.
               </p>
             </div>
           </div>
@@ -1717,7 +2202,11 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     </div>
   </section>
 
-  <section id="help" class="guide-section" aria-labelledby="help-title">
+  <section
+    id="help"
+    class="guide-section guide-topic-target"
+    aria-labelledby="help-title"
+  >
     <div class="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
       <div>
         <div class="guide-eyebrow">When something does not look right</div>
@@ -1756,11 +2245,170 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
           request and have supervisors practice approving, waitlisting, moving
           an officer, changing status, and printing a sample roster.
         </p>
-        <a href="/#demo" class="btn btn-primary mt-5 w-full sm:w-auto">
-          Request guided setup
+        <a
+          href="mailto:grigori.lopezgarcia@g3industries.io?subject=G3%20Guide%20Setup%20Request"
+          class="btn btn-primary mt-5 w-full sm:w-auto"
+        >
+          Email guided setup
         </a>
       </div>
     </div>
   </section>
 </div>
+<div
+  class="guide-lightbox"
+  id="guideLightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Enlarged guide screenshot"
+  hidden
+>
+  <div class="guide-lightbox-panel" role="document">
+    <button
+      type="button"
+      class="guide-lightbox-close"
+      data-guide-lightbox-close
+      aria-label="Close enlarged screenshot"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    </button>
+    <img class="guide-lightbox-image" alt="" data-guide-lightbox-image />
+    <div class="guide-lightbox-caption" data-guide-lightbox-caption></div>
+  </div>
+</div>
+<script>
+  (() => {
+    const lightbox = document.getElementById("guideLightbox");
+    if (!lightbox) return;
+
+    const image = lightbox.querySelector("[data-guide-lightbox-image]");
+    const caption = lightbox.querySelector("[data-guide-lightbox-caption]");
+    const closeButton = lightbox.querySelector("[data-guide-lightbox-close]");
+    let lastTrigger = null;
+
+    const closeLightbox = () => {
+      lightbox.classList.remove("is-open");
+      lightbox.hidden = true;
+      document.body.style.overflow = "";
+      image.removeAttribute("src");
+      if (lastTrigger) lastTrigger.focus();
+    };
+
+    const openLightbox = (trigger) => {
+      lastTrigger = trigger;
+      image.src = trigger.dataset.lightboxSrc;
+      image.alt = trigger.dataset.lightboxAlt || "";
+      caption.textContent = trigger.dataset.lightboxCaption || "";
+      lightbox.hidden = false;
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    };
+
+    document.querySelectorAll("[data-guide-lightbox]").forEach((trigger) => {
+      trigger.addEventListener("click", () => openLightbox(trigger));
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !lightbox.hidden) closeLightbox();
+    });
+  })();
+
+  (() => {
+    const navLinks = Array.from(
+      document.querySelectorAll(".guide-mini-nav a[href^='#']"),
+    );
+    if (!navLinks.length) return;
+
+    const linkById = new Map();
+    const targets = navLinks
+      .map((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const target = document.getElementById(id);
+        if (target) linkById.set(id, link);
+        return target;
+      })
+      .filter(Boolean);
+
+    if (!targets.length) return;
+
+    let userSelectedUntil = 0;
+
+    const setActive = (id) => {
+      navLinks.forEach((link) => {
+        const isActive = link === linkById.get(id);
+        link.classList.toggle("is-active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "location");
+          link.scrollIntoView({ block: "nearest", inline: "nearest" });
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    const setActiveFromHash = () => {
+      const id = window.location.hash.slice(1);
+      if (linkById.has(id)) setActive(id);
+    };
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const id = link.getAttribute("href").slice(1);
+        userSelectedUntil = Date.now() + 900;
+        setActive(id);
+      });
+    });
+
+    window.addEventListener("hashchange", setActiveFromHash);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (Date.now() < userSelectedUntil) return;
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) setActive(visible.target.id);
+        },
+        {
+          rootMargin: "-22% 0px -62% 0px",
+          threshold: [0.1, 0.25, 0.5, 0.75],
+        },
+      );
+
+      targets.forEach((target) => observer.observe(target));
+      setActiveFromHash();
+      if (!window.location.hash) setActive(targets[0].id);
+      return;
+    }
+
+    const updateActiveOnScroll = () => {
+      if (Date.now() < userSelectedUntil) return;
+      const current = targets
+        .filter((target) => target.getBoundingClientRect().top < 180)
+        .at(-1);
+      setActive((current || targets[0]).id);
+    };
+
+    setActiveFromHash();
+    if (!window.location.hash) updateActiveOnScroll();
+    window.addEventListener("scroll", updateActiveOnScroll, { passive: true });
+  })();
+</script>
 {% endblock %}
