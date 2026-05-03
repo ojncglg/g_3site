@@ -919,12 +919,13 @@
 <script>
   (() => {
     const prices = {
-      essential: { name: "Essential", values: { 1: 7000, 2: 9000, 3: 18000, 4: 60000 } },
-      operations: { name: "Operations", values: { 1: 10500, 2: 13500, 3: 27000, 4: 90000 } },
-      command: { name: "Command Suite", values: { 1: 14000, 2: 18000, 3: 36000, 4: 120000 } },
+      essential: { name: "Essential", values: { 1: 6300, 2: 10800, 3: 16200, 4: 23100 } },
+      operations: { name: "Operations", values: { 1: 6720, 2: 11700, 3: 18000, 4: 26400 } },
+      command: { name: "Command Suite", values: { 1: 9660, 2: 16200, 3: 25200, 4: 39600 } },
     };
     const setupFee = 2500;
     const addonPrice = 10000;
+    const monthlyFloor = 500;
 
     const officerInput = document.getElementById("agencyOfficers");
     const packageInput = document.getElementById("agencyPackage");
@@ -990,7 +991,7 @@
         }
       });
 
-      const annual = selectedPackage.values[tier.id];
+      const annual = Math.max(selectedPackage.values[tier.id], monthlyFloor * 12);
       const addons = commandSelected
         ? 0
         : (tipsInput.checked ? addonPrice : 0) + (towInput.checked ? addonPrice : 0);

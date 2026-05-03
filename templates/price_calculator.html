@@ -508,7 +508,7 @@
         <h1>Agency Price Calculator</h1>
         <p class="subhead">Model agency pricing, monthly costs, profit floor, margin, add-ons, implementation fee, and channel commission before quoting a deal.</p>
       </div>
-      <div class="pill" id="topStatus">Protected calculator</div>
+      <div class="pill" id="topStatus">Unlisted calculator</div>
     </div>
 
     <div class="layout">
@@ -700,21 +700,22 @@
 
     const VAR_RATE = 0.22;
     const IMPL_FEE = 2500;
+    const MONTHLY_FLOOR = 500;
     const PACKAGES = {
       essential: {
         name: "Essential",
         note: "Vacation Book: access, vacation requests, daily rosters, shift pairings, coverage charts, audit logs",
-        prices: { 1: 7000, 2: 9000, 3: 18000, 4: 60000 }
+        prices: { 1: 6300, 2: 10800, 3: 16200, 4: 23100 }
       },
       operations: {
         name: "Operations",
         note: "Vacation Book + Vacation Bidding + Training Day Scheduler",
-        prices: { 1: 10500, 2: 13500, 3: 27000, 4: 90000 }
+        prices: { 1: 6720, 2: 11700, 3: 18000, 4: 26400 }
       },
       command: {
         name: "Command Suite",
         note: "Operations + Payjob + Anonymous Tips + Tow Logs",
-        prices: { 1: 14000, 2: 18000, 3: 36000, 4: 120000 }
+        prices: { 1: 9660, 2: 16200, 3: 25200, 4: 39600 }
       }
     };
 
@@ -753,7 +754,8 @@
     }
 
     function listAnnual(n) {
-      return getCombo(n).annual + addonAnnual();
+      const base = Math.max(getCombo(n).annual, MONTHLY_FLOOR * 12);
+      return base + addonAnnual();
     }
 
     function syncAnnualSubscriptionToList() {
@@ -842,7 +844,8 @@
 
       $("officerDisplay").textContent = n;
       $("tierName").textContent = tier.name;
-      $("packageNote").textContent = `${combo.packageName}: ${money(combo.annual)}/yr list price for ${tier.name.split(" - ")[0]}. ${combo.packageNote}`;
+      const floorApplies = combo.annual < MONTHLY_FLOOR * 12;
+      $("packageNote").textContent = `${combo.packageName}: ${money(combo.annual)}/yr list price for ${tier.name.split(" - ")[0]}${floorApplies ? ` — $500/mo minimum floor applies` : ""}. ${combo.packageNote}`;
       $("quoteNote").textContent = annualOverrideDirty
         ? `Custom quote active. List price with add-ons would be ${money(defaultAnnualRevenue)}.`
         : `Using list price${addonLabel() ? " with selected add-ons" : ""}: ${money(defaultAnnualRevenue)}.`;
