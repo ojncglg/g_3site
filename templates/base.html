@@ -490,9 +490,12 @@
         if (backdrop) {
           backdrop.addEventListener("click", () => toggle(false));
         }
-        // Close menu after selecting a link
+        // Close menu only for same-page anchor links; full-page navigation handles itself
         menu.addEventListener("click", (e) => {
-          if (e.target.closest("a")) toggle(false);
+          const link = e.target.closest("a");
+          if (!link) return;
+          const href = link.getAttribute("href") || "";
+          if (href.startsWith("#") || /\/#/.test(href)) toggle(false);
         });
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") toggle(false);

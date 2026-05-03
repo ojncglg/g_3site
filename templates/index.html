@@ -14,13 +14,12 @@
   - This page is the highest-impact conversion surface; test form + CTA tracking after edits.
   - Keep heading hierarchy and CTA placement stable for SEO and analytics continuity.
 -->
-{% extends "base.html" %}
-{% block title %}Police Workforce Management Software for Law Enforcement | G3 Industries{% endblock %}
-{% block meta %}
+{% extends "base.html" %} {% block title %}Police Workforce Management Software
+for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
 <meta
   name="description"
   content="Police workforce management software built for command staff: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one audit-ready platform."
-/>
+
 <meta
   property="og:title"
   content="Police Workforce Management Software for Law Enforcement | G3 Industries"
@@ -37,8 +36,7 @@
   name="twitter:description"
   content="Purpose-built for command staff: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one secure platform."
 />
-{% endblock %}
-{% block extra_head %}
+{% endblock %} {% block extra_head %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {
@@ -287,9 +285,7 @@
   async
   defer
 ></script>
-{% endif %}
-{% endblock %}
-{% block content %}
+{% endif %} {% endblock %} {% block content %}
 <!-- Inline SVG sprite: tiny line icons used in bullet lists -->
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -386,17 +382,21 @@
 </svg>
 <!-- === Hero (value proposition + primary CTAs) === -->
 <section class="hero-bg relative reveal">
-  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 pt-16 pb-12 md:pt-24 md:pb-20">
+  <div
+    class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 pt-16 pb-12 md:pt-24 md:pb-20"
+  >
     <div class="max-w-3xl">
-      <h1 class="scanline-accent text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-        The workforce platform built for policing
+      <h1
+        class="scanline-accent text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight"
+      >
+        Vacation Book — Built to solve every scheduling problem policing creates.
       </h1>
       <p class="mt-4 max-w-2xl text-base sm:text-lg md:text-xl text-slate-300">
-        Unifying scheduling, vacation bidding, extra duty, anonymous tips, tow
-        logs, and staffing forecasting in one secure, audit-ready platform built
-        for policing.
+        One secure, audit-ready platform that unifies scheduling, vacation
+        bidding, extra duty, anonymous tips, tow logs, and staffing
+        forecasting — purpose-built for law enforcement.
       </p>
-      <div class="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
+      <div class="mt-6 md:mt-8">
         <a
           href="#demo"
           class="btn btn-lg btn-primary w-full sm:w-auto"
@@ -406,47 +406,55 @@
         >
           Request a demo
         </a>
-        <a
-          href="#pilot"
-          class="btn btn-lg btn-outline w-full sm:w-auto"
-          data-track-event="cta_click"
-          data-track-label="start_pilot"
-          data-track-location="home_hero"
-        >
-          Start pilot program
-        </a>
+        <p class="mt-3 text-sm text-slate-400">
+          Interested in a low-risk pilot first?
+          <a href="#pilot" class="text-[color:var(--g3-gold)] hover:underline">See how the pilot program works ↓</a>
+        </p>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- === Proof (measurable impact benchmarks) === -->
-<section class="defer py-10 md:py-12 border-y border-white/5 bg-slate-900/35 section-decor reveal">
+<section
+  class="defer py-10 md:py-12 border-y border-white/5 bg-slate-900/35 section-decor reveal"
+>
   <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
-    <h2 class="text-2xl md:text-3xl font-bold">Operational Impact You Can Measure</h2>
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Operational Impact You Can Measure
+    </h2>
     <p class="mt-2 text-slate-300 max-w-3xl">
-      These are practical benchmark targets agencies use during pilots to measure
-      impact in scheduling, approvals, and audit readiness.
+      These are practical benchmark targets agencies use during pilots to
+      measure impact in scheduling, approvals, and audit readiness.
     </p>
     <div class="mt-6 grid gap-4 md:grid-cols-3">
-      <article class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5">
-        <p class="text-xs uppercase tracking-wide text-cyan-300">Command Time</p>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5"
+      >
+        <p class="text-xs uppercase tracking-wide text-cyan-300">
+          Command Time
+        </p>
         <p class="mt-2 text-3xl font-bold text-white">32 hrs/mo</p>
         <p class="mt-2 text-sm text-slate-300">
           Benchmark command-level time that can be recovered when manual
           reconciliation is reduced in a four-squad operation.
         </p>
       </article>
-      <article class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5">
-        <p class="text-xs uppercase tracking-wide text-cyan-300">Approval Speed</p>
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5"
+      >
+        <p class="text-xs uppercase tracking-wide text-cyan-300">
+          Approval Speed
+        </p>
         <p class="mt-2 text-3xl font-bold text-white">Same shift</p>
         <p class="mt-2 text-sm text-slate-300">
           Target approval turnaround inside one shift window instead of 24-72
           hour lag across disconnected tools.
         </p>
       </article>
-      <article class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5">
+      <article
+        class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5"
+      >
         <p class="text-xs uppercase tracking-wide text-cyan-300">Audit Prep</p>
         <p class="mt-2 text-3xl font-bold text-white">Minutes, not hours</p>
         <p class="mt-2 text-sm text-slate-300">
@@ -470,7 +478,9 @@
       keeps staffing clear.
     </p>
     <!-- Cards: scannable module overview; link back to screenshots -->
-    <div class="mt-6 md:mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+    <div
+      class="mt-6 md:mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
+    >
       <!-- Vacation Book -->
       <a
         href="/products#how-scheduling"
@@ -594,6 +604,27 @@
           time, leave patterns, weather, and events—so command can proactively
           cover low‑staff windows.
         </p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- === Mid-page demo CTA === -->
+<section class="py-8 md:py-10 reveal">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <div class="rounded-lg border border-[color:var(--g3-gold)]/30 bg-[color:var(--g3-gold)]/5 px-6 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-white">Ready to see Vacation Book in action?</p>
+        <p class="mt-1 text-sm text-slate-400">We'll walk you through the platform and map it to your agency's workflow.</p>
+      </div>
+      <a
+        href="#demo"
+        class="btn btn-primary whitespace-nowrap shrink-0"
+        data-track-event="cta_click"
+        data-track-label="request_demo"
+        data-track-location="mid_page_banner"
+      >
+        Request a demo →
       </a>
     </div>
   </div>
@@ -751,28 +782,44 @@
             >
               Start pilot program
             </a>
-            <a href="#how" class="btn btn-outline w-full sm:w-auto">See rollout steps</a>
+            <a href="#how" class="btn btn-outline w-full sm:w-auto"
+              >See rollout steps</a
+            >
           </div>
         </div>
-        <aside class="rounded-lg border border-white/10 bg-slate-950/60 p-4 sm:p-5">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-300">
+        <aside
+          class="rounded-lg border border-white/10 bg-slate-950/60 p-4 sm:p-5"
+        >
+          <h3
+            class="text-sm font-semibold uppercase tracking-wide text-slate-300"
+          >
             Pilot includes
           </h3>
           <ul class="pilot-list mt-3 md:mt-4 space-y-2.5 sm:space-y-3">
             <li>
-              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
-              <span>One unit or workflow start to reduce operational risk.</span>
+              <svg class="li-icon" aria-hidden="true">
+                <use href="#i-check-circle" />
+              </svg>
+              <span
+                >One unit or workflow start to reduce operational risk.</span
+              >
             </li>
             <li>
-              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <svg class="li-icon" aria-hidden="true">
+                <use href="#i-check-circle" />
+              </svg>
               <span>Joint success metrics defined with your command team.</span>
             </li>
             <li>
-              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <svg class="li-icon" aria-hidden="true">
+                <use href="#i-check-circle" />
+              </svg>
               <span>Supervisor feedback loop before broader rollout.</span>
             </li>
             <li>
-              <svg class="li-icon" aria-hidden="true"><use href="#i-check-circle" /></svg>
+              <svg class="li-icon" aria-hidden="true">
+                <use href="#i-check-circle" />
+              </svg>
               <span>Structured go/no-go review with full transparency.</span>
             </li>
           </ul>
@@ -789,8 +836,8 @@
       Request a demo or pilot kickoff
     </h2>
     <p class="mt-2 text-slate-300">
-      Tell us a bit about your agency and we’ll recommend the fastest path:
-      a low-risk pilot or full deployment plan.
+      Tell us a bit about your agency and we’ll recommend the fastest path: a
+      low-risk pilot or full deployment plan.
     </p>
 
     <form
@@ -931,8 +978,14 @@
       </div>
       {% endif %}
 
-      <div class="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3 mt-2">
-        <button id="demo-submit" type="submit" class="btn btn-primary btn-lg w-full sm:w-auto">
+      <div
+        class="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3 mt-2"
+      >
+        <button
+          id="demo-submit"
+          type="submit"
+          class="btn btn-primary btn-lg w-full sm:w-auto"
+        >
           Submit request
         </button>
         <a
@@ -969,7 +1022,9 @@
     data-close="true"
     aria-hidden="true"
   ></div>
-  <div class="relative z-10 max-w-5xl mx-auto mt-10 sm:mt-14 md:mt-20 px-2 sm:px-3 md:px-4">
+  <div
+    class="relative z-10 max-w-5xl mx-auto mt-10 sm:mt-14 md:mt-20 px-2 sm:px-3 md:px-4"
+  >
     <div class="rounded-lg bg-slate-950 border border-white/10 shadow-xl">
       <div
         class="flex items-center justify-between px-4 py-3 border-b border-white/10"
@@ -1051,7 +1106,8 @@
         utm_term: stored.utm_term || "",
         utm_content: stored.utm_content || "",
         landing_page:
-          stored.landing_page || `${window.location.pathname}${window.location.search}`,
+          stored.landing_page ||
+          `${window.location.pathname}${window.location.search}`,
         referrer: stored.referrer || document.referrer || "",
       };
 
@@ -1167,12 +1223,20 @@
       }
 
       const emailEl = getFieldEl("email");
-      if (emailEl && emailEl.value.trim() && !emailRegex.test(emailEl.value.trim())) {
+      if (
+        emailEl &&
+        emailEl.value.trim() &&
+        !emailRegex.test(emailEl.value.trim())
+      ) {
         failField("email", "Please enter a valid email address.");
       }
 
       const phoneEl = getFieldEl("phone");
-      if (phoneEl && phoneEl.value.trim() && !phoneRegex.test(phoneEl.value.trim())) {
+      if (
+        phoneEl &&
+        phoneEl.value.trim() &&
+        !phoneRegex.test(phoneEl.value.trim())
+      ) {
         failField("phone", "Please enter a valid phone number.");
       }
 
@@ -1260,7 +1324,10 @@
               const firstField = getFieldEl(firstFieldName);
               if (firstField) firstField.focus();
             }
-            setStatus("Please review the highlighted fields and try again.", false);
+            setStatus(
+              "Please review the highlighted fields and try again.",
+              false,
+            );
             return;
           }
           if (typeof data.error === "string" && data.error.trim()) {
@@ -1379,7 +1446,7 @@
 
     // Bind click handlers to any screenshot trigger using data attributes.
     document
-      .querySelectorAll('button[data-title][data-caption]')
+      .querySelectorAll("button[data-title][data-caption]")
       .forEach((btn) => {
         btn.addEventListener("click", () => {
           openModal(

@@ -501,6 +501,14 @@
       </h2>
     </div>
 
+    <div class="sales-card mb-5 flex items-start gap-4 border-l-4 border-yellow-400/70" style="border-radius:0.5rem;padding:1rem 1.25rem;">
+      <svg class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <strong class="text-white text-sm">Operations is the best value for most small agencies.</strong>
+        <p class="mt-1 text-slate-400 text-sm">For a 35-officer department, Operations costs just $35/month more than Essential — and adds Vacation Bidding and a full Training Scheduler. Most agencies choose Operations.</p>
+      </div>
+    </div>
+
     <div class="grid gap-5 lg:grid-cols-3">
       <article class="sales-package">
         <div>
@@ -957,6 +965,25 @@
 
     if (!officerInput || !packageInput || !contractInput) return;
 
+    function readParams() {
+      const p = new URLSearchParams(window.location.search);
+      if (p.has("officers")) officerInput.value = Math.max(1, Math.min(1000, parseInt(p.get("officers"), 10) || 1));
+      if (p.has("package") && prices[p.get("package")]) packageInput.value = p.get("package");
+      if (p.has("term") && ["1", "3"].includes(p.get("term"))) contractInput.value = p.get("term");
+      if (tipsInput && p.get("tips") === "1") tipsInput.checked = true;
+      if (towInput && p.get("tow") === "1") towInput.checked = true;
+    }
+
+    function writeParams() {
+      const p = new URLSearchParams();
+      p.set("officers", officerInput.value);
+      p.set("package", packageInput.value);
+      p.set("term", contractInput.value);
+      if (tipsInput && tipsInput.checked) p.set("tips", "1");
+      if (towInput && towInput.checked) p.set("tow", "1");
+      window.history.replaceState(null, "", window.location.pathname + "?" + p.toString());
+    }
+
     const money = (value) =>
       "$" + value.toLocaleString(undefined, { maximumFractionDigits: 0 });
 
@@ -1068,7 +1095,19 @@
         input.addEventListener("change", updateEstimate);
       });
 
+    readParams();
     updateEstimate();
+
+    const origUpdate = updateEstimate;
+    const updateEstimateWithParams = () => { origUpdate(); writeParams(); };
+    [officerInput, packageInput, contractInput, tipsInput, towInput]
+      .filter(Boolean)
+      .forEach((input) => {
+        input.removeEventListener("input", origUpdate);
+        input.removeEventListener("change", origUpdate);
+        input.addEventListener("input", updateEstimateWithParams);
+        input.addEventListener("change", updateEstimateWithParams);
+      });
   })();
 </script>
 {% endblock %}

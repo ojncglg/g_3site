@@ -458,9 +458,10 @@
 <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-[220px_1fr] gap-6">
   <!-- Sidebar (desktop only) -->
   <aside class="hidden md:block">
-    <nav class="mini-nav sticky top-24 space-y-2.5 text-sm">
-      <div class="text-xs uppercase tracking-wide text-slate-400 mb-2">
-        On this page
+    <nav class="mini-nav sticky top-24 space-y-1 text-sm rounded-lg border border-white/10 bg-slate-900/60 p-4">
+      <div class="text-xs font-bold uppercase tracking-widest text-[color:var(--g3-gold)] mb-3 flex items-center gap-2">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        Jump to section
       </div>
       <a href="#overview" class="block px-3 py-2 rounded hover:bg-white/5"
         >Overview</a
@@ -1552,7 +1553,7 @@
     const btnWrap = document.getElementById("backToTop");
     if (!btnWrap) return;
     const btn = btnWrap.querySelector("button");
-    const TOP_THRESHOLD = 400; // px
+    const TOP_THRESHOLD = 200; // px
 
     function onScroll() {
       if (window.scrollY > TOP_THRESHOLD) btnWrap.classList.add("show");
