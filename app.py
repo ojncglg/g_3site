@@ -1654,6 +1654,17 @@ def guide():
     return render_site_page("guide.html", "How-To Guide - G3 Industries")
 
 
+@app.route("/sales")
+def sales():
+    """Hidden agency-facing sales price sheet."""
+    response = Response(
+        render_template("sales.html", title="Agency Pricing - G3 Industries")
+    )
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+    response.headers["Cache-Control"] = "no-store, private"
+    return response
+
+
 @app.route("/price-calculator")
 @app.route("/prices")
 @app.route("/g3-internal/agency-price-lab")
