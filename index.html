@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G3 Industries | Special Olympics Event Staffing Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="hero section">
+      <nav class="top-nav" aria-label="Presentation sections">
+        <a href="#workflow">Workflow</a>
+        <a href="#coordinator-view">Coordinator View</a>
+        <a href="#mobile-signup">Mobile Signup</a>
+        <a href="#pilot">Pilot Plan</a>
+      </nav>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="brand-lockup">
+            <img src="static/img/g3-logo.png" alt="G3 Industries logo">
+            <div>
+              <p class="eyebrow">G3 Industries presents</p>
+              <span>Concept workflow for discussion</span>
+            </div>
+          </div>
+          <h1>Volunteer Staffing, Simplified</h1>
+          <p class="hero-text">A platform that helps Special Olympics Delaware coordinators create and manage events, assign volunteer time slots, and give officers a simple way to sign up from their phones, while providing real-time visibility into staffing needs, volunteer hours, and event participation.</p>
+          <p class="concept-note">Concept workflow for discussion. Final screens, labels, and implementation details would be refined during discovery.</p>
+        </div>
+
+        <div class="hero-preview workflow-preview" aria-label="Volunteer staffing workflow preview">
+          <div class="preview-topbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="workflow-graphic-header">
+            <p><span class="concept-badge">Concept / not final UI</span></p>
+            <h2>From request to confirmed coverage</h2>
+          </div>
+          <div class="vertical-workflow">
+            <div class="process-step">
+              <i>+</i>
+              <p>Create the request with event details, contact, duties, time slots, and coverage needs</p>
+            </div>
+            <div class="process-step">
+              <i>↑</i>
+              <p>Publish the approved opportunity to the officer dashboard and send a notification</p>
+            </div>
+            <div class="process-step">
+              <i>✓</i>
+              <p>Officer reviews the details, selects an available slot, and signs up</p>
+            </div>
+            <div class="process-step">
+              <i>↗</i>
+              <p>Coordinator tracks coverage status, contacts, and volunteer hours</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Operational challenge</p>
+          <h2>Volunteer Coordination Can Get Hectic</h2>
+          <p>When event needs arrive through email, calls, or shared lists, the coordinator has to turn each request into confirmed coverage while keeping everyone informed.</p>
+        </div>
+        <div class="lost-row" aria-label="What gets lost in manual coordination">
+          <span>Who is confirmed?</span>
+          <span>Who is the point of contact?</span>
+          <span>Which slots are still open?</span>
+          <span>How many hours were completed?</span>
+        </div>
+        <div class="problem-grid">
+          <article class="card">
+            <h3>Email-based officer outreach</h3>
+            <p>Coordinators may need to send availability emails and wait for officers to reply before coverage is clear.</p>
+          </article>
+          <article class="card">
+            <h3>Manual headcounts</h3>
+            <p>Signups can end up tracked in spreadsheets, notes, or message threads instead of one shared view.</p>
+          </article>
+          <article class="card">
+            <h3>Unclear point of contact</h3>
+            <p>Officers may not know whether to contact the event manager or the administrator for day-of details.</p>
+          </article>
+          <article class="card">
+            <h3>Volunteer hours are hard to capture</h3>
+            <p>Participation history and volunteer hours can be difficult to verify after the event is over.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Proposed solution</p>
+          <h2>A Clear Path From Request to Signup</h2>
+          <p>The workflow follows a familiar request, publish, signup, and tracking pattern.</p>
+        </div>
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <div class="workflow-icon">1</div>
+            <span>Step 1</span>
+            <h3>Create the request</h3>
+            <p>The administrator enters the event, location, point of contact, duties, time slots, and number of officers needed.</p>
+          </article>
+          <article class="workflow-card">
+            <div class="workflow-icon">2</div>
+            <span>Step 2</span>
+            <h3>Publish to officers</h3>
+            <p>Once approved, the volunteer opportunity appears in the officer dashboard and triggers an email or SMS notification.</p>
+          </article>
+          <article class="workflow-card">
+            <div class="workflow-icon">3</div>
+            <span>Step 3</span>
+            <h3>Officer signs up</h3>
+            <p>The officer reviews the event details, selects an available slot, and confirms the volunteer assignment.</p>
+          </article>
+          <article class="workflow-card">
+            <div class="workflow-icon">4</div>
+            <span>Step 4</span>
+            <h3>Close the loop</h3>
+            <p>The administrator sees coverage status, receives updates, and keeps volunteer hours connected to each officer profile.</p>
+          </article>
+        </div>
+        <div class="change-row" aria-label="What changes with the proposed workflow">
+          <span>No separate spreadsheet</span>
+          <span>Fewer follow-up texts</span>
+          <span>Clear event contact</span>
+          <span>Hours tied to officer profiles</span>
+        </div>
+        <div class="avoid-row" aria-label="What this workflow helps avoid">
+          <span>Manual reply tracking</span>
+          <span>Unknown point of contact</span>
+          <span>Duplicate headcounts</span>
+          <span>Lost volunteer hours</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="coordinator-view">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Admin tools</p>
+          <h2>Conceptual Coordinator View</h2>
+          <p>A possible coordinator view could centralize the request queue, published opportunities, signup status, and volunteer hour history without locking in a final interface too early.</p>
+        </div>
+        <div class="concept-shell">
+          <div class="concept-header">
+            <div>
+              <p>Illustrative workflow view</p>
+              <h3>Coordinator tools could be organized around the request lifecycle.</h3>
+            </div>
+            <span>Concept only</span>
+          </div>
+          <div class="concept-grid">
+            <article class="concept-card">
+              <span>01</span>
+              <h4>Request queue</h4>
+              <p>Review incoming volunteer needs and see which requests need action.</p>
+            </article>
+            <article class="concept-card">
+              <span>02</span>
+              <h4>Published opportunities</h4>
+              <p>Keep a lightweight view of opportunities currently visible to officers.</p>
+            </article>
+            <article class="concept-card">
+              <span>03</span>
+              <h4>Signup status</h4>
+              <p>Understand who has signed up and what still needs coverage.</p>
+            </article>
+            <article class="concept-card">
+              <span>04</span>
+              <h4>Notifications</h4>
+              <p>Support availability notices, fill-status updates, and reminders without relying on separate message threads.</p>
+            </article>
+            <article class="concept-card">
+              <span>05</span>
+              <h4>Volunteer history</h4>
+              <p>Associate participation and volunteer hours with the correct officer profile.</p>
+            </article>
+            <article class="concept-card">
+              <span>06</span>
+              <h4>Reporting support</h4>
+              <p>Prepare participation summaries or exports when leadership needs event coverage or volunteer-hour totals.</p>
+            </article>
+          </div>
+          <div class="lifecycle-panel">
+            <div class="panel-title">
+              <h4>Example Request Lifecycle</h4>
+              <span>Not final UI</span>
+            </div>
+            <div class="lifecycle-steps">
+              <span>Draft request</span>
+              <span>Review details</span>
+              <span>Publish opportunity</span>
+              <span>Monitor signups</span>
+              <span>Confirm hours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mobile-signup">
+      <div class="container mobile-grid">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="phone-speaker"></div>
+            <div class="phone-screen">
+              <div class="phone-header">
+                <span>Officer Dashboard</span>
+                <strong>Verified</strong>
+              </div>
+              <div class="verified-badge">
+                <span>✓</span>
+                Verified officer profile
+              </div>
+              <div class="phone-event selected">
+                <span>Available</span>
+                <h4>Volunteer Coverage</h4>
+                <p>Event date - Morning shift</p>
+              </div>
+              <div class="phone-event">
+                <span>Available</span>
+                <h4>Event Support</h4>
+                <p>Event date - Afternoon shift</p>
+              </div>
+              <div class="slot-list">
+                <p>Choose a volunteer time slot</p>
+                <button>Morning shift</button>
+                <button>Afternoon shift</button>
+              </div>
+              <button class="signup-button">Sign Up for Event</button>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-copy">
+          <p class="eyebrow">Mobile-first access</p>
+          <h2>Mobile Signup Concept</h2>
+          <p>Published volunteer requests appear in the officer dashboard. Officers can review the details, select a time slot, and confirm participation without waiting for a coordinator to update a list manually.</p>
+          <ul class="value-list">
+            <li><span></span>Notification when a volunteer event is available</li>
+            <li><span></span>Clear event times, duties, and slot options</li>
+            <li><span></span>Automatic admin visibility when officers sign up</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="pilot">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Pilot approach</p>
+          <h2>Start Small, Validate the Workflow, Then Expand</h2>
+          <p>The pilot can focus on proving the request-to-signup workflow before committing to a larger platform build.</p>
+        </div>
+        <div class="pilot-grid">
+          <article class="pilot-card">
+            <span>Risk reduction</span>
+            <h3>Validate before overbuilding</h3>
+            <p>Start with the coordinator's real process, confirm the officer signup model, and identify integration or security needs early.</p>
+          </article>
+          <article class="pilot-card">
+            <span>Scope control</span>
+            <h3>Quote the pilot around core workflow</h3>
+            <p>Focus the first quote on intake, publishing, officer signup, notifications, and basic participation tracking.</p>
+          </article>
+          <article class="pilot-card">
+            <span>Expansion path</span>
+            <h3>Use pilot results to define phase two</h3>
+            <p>After a few events, refine reporting, user roles, data retention, and any integrations based on actual usage.</p>
+          </article>
+        </div>
+        <div class="roadmap">
+          <div class="roadmap-step">
+            <span>01</span>
+            <h3>Discovery and pilot quote</h3>
+            <p>Confirm the workflow, user model, security requirements, and pilot scope needed for a realistic estimate.</p>
+          </div>
+          <div class="roadmap-step">
+            <span>02</span>
+            <h3>Pilot workflow build</h3>
+            <p>Build the smallest useful version around request creation, officer signup, notifications, and coordinator visibility.</p>
+          </div>
+          <div class="roadmap-step">
+            <span>03</span>
+            <h3>Live event validation</h3>
+            <p>Use selected volunteer events to test officer adoption, coordinator workload, and coverage tracking.</p>
+          </div>
+          <div class="roadmap-step">
+            <span>04</span>
+            <h3>Expansion decision</h3>
+            <p>Use pilot findings to decide what should become permanent, what needs refinement, and what can wait.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Stakeholder value</p>
+          <h2>Value for Every Group Involved</h2>
+        </div>
+        <div class="stakeholder-grid">
+          <article class="stakeholder-card">
+            <h3>Coordinator</h3>
+            <p>Less manual follow-up, clearer coverage status, and a single place to track requests.</p>
+          </article>
+          <article class="stakeholder-card">
+            <h3>Officers</h3>
+            <p>A simpler way to see available opportunities, understand the details, and sign up quickly.</p>
+          </article>
+          <article class="stakeholder-card">
+            <h3>Leadership</h3>
+            <p>Better visibility into participation, volunteer hours, and event readiness.</p>
+          </article>
+          <article class="stakeholder-card">
+            <h3>Event contacts</h3>
+            <p>Clearer communication around coverage needs, point of contact, and staffing status.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container why-grid">
+        <div class="section-heading">
+          <p class="eyebrow">Why G3</p>
+          <h2>Built Around Public-Safety Workflow Experience</h2>
+          <p>G3 can approach this as an operational workflow challenge first: requests, approvals, officer visibility, signup tracking, and administrative reporting.</p>
+        </div>
+        <div class="why-panel">
+          <div>
+            <span>01</span>
+            <p>Experience translating public-safety processes into practical digital workflows.</p>
+          </div>
+          <div>
+            <span>02</span>
+            <p>Ability to start with a focused pilot instead of forcing a full platform decision upfront.</p>
+          </div>
+          <div>
+            <span>03</span>
+            <p>Emphasis on coordinator usability, officer adoption, and clean administrative visibility.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="questions">
+      <div class="container">
+        <div class="section-heading center">
+          <p class="eyebrow">Discovery before quote</p>
+          <h2>Discovery Areas Before Pilot</h2>
+          <p>These questions help turn the concept into a realistic pilot scope and quote.</p>
+        </div>
+        <div class="tools-grid">
+          <article class="tool-card">
+            <h3>How do events enter the system?</h3>
+            <p>Does the coordinator work from an event calendar, or does an outside event contact submit a request form?</p>
+          </article>
+          <article class="tool-card">
+            <h3>Who creates the request?</h3>
+            <p>Should the administrator create every volunteer request, or should submitted requests arrive for review and approval?</p>
+          </article>
+          <article class="tool-card">
+            <h3>How are officers verified?</h3>
+            <p>Is there an existing officer roster, or would officers create accounts that need to be reviewed before signup?</p>
+          </article>
+          <article class="tool-card">
+            <h3>What is the expected user volume?</h3>
+            <p>How many officers, coordinators, event contacts, and administrators should the system be built to support?</p>
+          </article>
+          <article class="tool-card">
+            <h3>What data needs to be stored?</h3>
+            <p>Define the event details, signup records, contact information, volunteer hours, and reporting history that matter.</p>
+          </article>
+          <article class="tool-card">
+            <h3>How long should data be kept?</h3>
+            <p>Decide what should remain available for reporting, auditing, officer history, and future planning.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Who needs to be involved?</h3>
+            <p>Confirm whether an IT department, system owner, or outside vendor needs to review access, hosting, or security.</p>
+          </article>
+          <article class="tool-card">
+            <h3>Who can view opportunities?</h3>
+            <p>Decide whether events are public to view, login-only, or visible to everyone but restricted to verified officer signups.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta section">
+      <div class="container cta-panel">
+        <p class="eyebrow">Recommended next step</p>
+        <h2>Define the Pilot Scope and Quote</h2>
+        <p>Since Special Olympics Delaware has asked G3 to quote a pilot, the next step is to confirm the administrator workflow, officer verification model, data requirements, and first-event pilot scope.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

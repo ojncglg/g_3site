@@ -1642,6 +1642,16 @@ def home():
     return render_site_page("index.html", "G3 Industries")
 
 
+@app.route("/sticker-2026")
+def sticker_2026():
+    """Sticker campaign clone of the marketing home page."""
+    response = Response(
+        render_template("sticker_2026.html", title="G3 Industries")
+    )
+    response.headers["X-Robots-Tag"] = "noindex, follow"
+    return response
+
+
 @app.route("/products")
 def products():
     """Products overview page."""

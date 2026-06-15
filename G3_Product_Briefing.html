@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>G3 Industries Product Briefing</title>
+    <style>
+      :root {
+        --navy: #071323;
+        --navy-2: #0d1d34;
+        --panel: rgba(15, 32, 56, 0.86);
+        --panel-soft: rgba(255, 255, 255, 0.045);
+        --line: rgba(226, 232, 240, 0.14);
+        --line-strong: rgba(232, 184, 75, 0.42);
+        --gold: #e8b84b;
+        --gold-soft: rgba(232, 184, 75, 0.12);
+        --blue: #60a5fa;
+        --cyan: #22d3ee;
+        --green: #22c55e;
+        --text: #f8fafc;
+        --soft: #d9e4f5;
+        --muted: #9caecb;
+        --ink: #020617;
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.14), transparent 30rem),
+          radial-gradient(circle at 88% 8%, rgba(232, 184, 75, 0.15), transparent 34rem),
+          linear-gradient(180deg, var(--navy), #050b16 70%);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        padding: 56px 0 34px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+        gap: 28px;
+        align-items: end;
+      }
+
+      .eyebrow,
+      .label,
+      .tag,
+      .mini-label {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .eyebrow {
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 16px;
+        font-size: clamp(40px, 7vw, 76px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin-bottom: 0;
+        color: var(--soft);
+        font-size: clamp(17px, 2vw, 21px);
+      }
+
+      .brief-box {
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background: rgba(232, 184, 75, 0.08);
+        padding: 18px;
+      }
+
+      .brief-box p {
+        margin-bottom: 0;
+        color: #fff4cf;
+        font-size: 14px;
+      }
+
+      .nav-strip {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: rgba(5, 11, 22, 0.9);
+        backdrop-filter: blur(12px);
+        padding: 10px 0;
+      }
+
+      .nav-strip a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--soft);
+        padding: 7px 11px;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      .nav-strip a:hover {
+        border-color: var(--line-strong);
+        color: #fff4cf;
+      }
+
+      section {
+        padding: 42px 0;
+        border-bottom: 1px solid rgba(226, 232, 240, 0.08);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+        gap: 24px;
+        align-items: start;
+        margin-bottom: 22px;
+      }
+
+      .label {
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.05;
+      }
+
+      .section-copy {
+        margin-bottom: 0;
+        color: var(--soft);
+      }
+
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card,
+      .module,
+      .role-card,
+      .matrix-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+      }
+
+      .card,
+      .role-card,
+      .matrix-card {
+        padding: 18px;
+      }
+
+      .module-overview .card {
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 180ms ease,
+          box-shadow 180ms ease,
+          transform 180ms ease;
+      }
+
+      .module-overview .card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(circle at 18% 0%, rgba(232, 184, 75, 0.2), transparent 62%);
+        transition: opacity 180ms ease;
+      }
+
+      .module-overview .card:hover {
+        border-color: rgba(232, 184, 75, 0.5);
+        box-shadow:
+          0 18px 48px rgba(0, 0, 0, 0.24),
+          0 0 28px rgba(232, 184, 75, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .module-overview .card:hover::before {
+        opacity: 1;
+      }
+
+      .module-overview .card > * {
+        position: relative;
+      }
+
+      .card h3,
+      .role-card h3,
+      .module h3,
+      .matrix-card h3 {
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .card p,
+      .role-card p,
+      .matrix-card p {
+        margin-bottom: 0;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        border: 1px solid rgba(34, 211, 238, 0.28);
+        border-radius: 999px;
+        background: rgba(34, 211, 238, 0.08);
+        color: #cffafe;
+        padding: 4px 9px;
+        margin-bottom: 12px;
+      }
+
+      .problem-band {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--line);
+      }
+
+      .problem-band > div {
+        background: rgba(15, 32, 56, 0.9);
+        padding: 18px;
+      }
+
+      .mini-label {
+        color: var(--gold);
+        margin-bottom: 7px;
+      }
+
+      .problem-band p {
+        color: var(--soft);
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      .module {
+        overflow: hidden;
+      }
+
+      .module-head {
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, rgba(232, 184, 75, 0.12), transparent),
+          rgba(255, 255, 255, 0.03);
+        padding: 18px;
+      }
+
+      .module-head h3 {
+        margin-bottom: 8px;
+        font-size: 22px;
+      }
+
+      .module-head p {
+        margin-bottom: 0;
+        color: var(--soft);
+      }
+
+      .module-body {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 1px;
+        background: var(--line);
+      }
+
+      .module-body > div {
+        background: rgba(15, 32, 56, 0.82);
+        padding: 18px;
+      }
+
+      .module-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .module-list li {
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .module-list li::before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--gold);
+        margin-right: 8px;
+        transform: translateY(-1px);
+      }
+
+      .perspectives {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .perspective {
+        border: 1px solid rgba(226, 232, 240, 0.1);
+        border-radius: 7px;
+        background: var(--panel-soft);
+        padding: 13px;
+      }
+
+      .perspective strong {
+        display: block;
+        color: var(--text);
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+
+      .perspective span {
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      .role-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .role-card ul {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding-left: 18px;
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .flow-step {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 16px;
+        min-height: 150px;
+      }
+
+      .flow-step .number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: var(--gold);
+        color: var(--ink);
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+
+      .flow-step h3 {
+        font-size: 16px;
+      }
+
+      .flow-step p {
+        margin-bottom: 0;
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      .shared-picture {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .module-feed {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .feed-card,
+      .picture-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 16px;
+      }
+
+      .feed-card h3,
+      .picture-card h3 {
+        margin-bottom: 6px;
+        font-size: 16px;
+      }
+
+      .feed-card p,
+      .picture-card p {
+        margin-bottom: 0;
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      .picture-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-color: var(--line-strong);
+        background:
+          radial-gradient(circle at 15% 0%, rgba(232, 184, 75, 0.18), transparent 58%),
+          rgba(15, 32, 56, 0.92);
+      }
+
+      .picture-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .picture-list span {
+        border: 1px solid rgba(232, 184, 75, 0.32);
+        border-radius: 999px;
+        background: rgba(232, 184, 75, 0.08);
+        color: #fff4cf;
+        padding: 6px 9px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .summary {
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(232, 184, 75, 0.13), transparent 55%),
+          rgba(15, 32, 56, 0.9);
+        padding: 26px;
+      }
+
+      .summary p {
+        max-width: 900px;
+        margin-bottom: 0;
+        color: #fff4cf;
+        font-size: 18px;
+      }
+
+      footer {
+        padding: 28px 0 44px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          color: #111827;
+        }
+
+        .nav-strip {
+          display: none;
+        }
+
+        .card,
+        .module,
+        .role-card,
+        .matrix-card,
+        .summary,
+        .brief-box {
+          box-shadow: none;
+          break-inside: avoid;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .section-head,
+        .module-body,
+        .grid.two,
+        .grid.three,
+        .grid.four,
+        .problem-band,
+        .perspectives,
+        .flow {
+          grid-template-columns: 1fr;
+        }
+
+        .shared-picture,
+        .module-feed {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100% - 20px, 1180px);
+        }
+
+        .hero {
+          padding-top: 34px;
+        }
+
+        section {
+          padding: 30px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <div class="eyebrow">G3 Industries Product Briefing</div>
+          <h1>A plain-language overview of the G3 public safety operations platform.</h1>
+          <p class="lead">
+            G3 is a modular software platform for police agency operations. It
+            helps agencies organize leave, staffing, assignments, field records,
+            public input, and command visibility in one structured environment.
+          </p>
+        </div>
+        <aside class="brief-box">
+          <div class="mini-label">How to read this briefing</div>
+          <p>
+            This document is informational. It explains what each module does,
+            what problem it addresses, and how the workflow looks from the
+            officer, supervisor, and command staff perspectives.
+          </p>
+        </aside>
+      </header>
+
+      <nav class="nav-strip" aria-label="Briefing sections">
+        <a href="#what">What G3 Industries does</a>
+        <a href="#why">Why It Matters</a>
+        <a href="#modules">Modules</a>
+        <a href="#roles">Role Perspectives</a>
+        <a href="#connected">Shared Picture</a>
+        <a href="#summary">Summary</a>
+      </nav>
+
+      <section id="what">
+        <div class="section-head">
+          <div>
+            <div class="label">01 / Platform</div>
+            <h2>G3 Industries</h2>
+          </div>
+          <p class="section-copy">
+            Police agencies have to be staffed 24/7. They rely on staffing,
+            availability, approvals, documentation, and clear handoffs. G3
+            turns those daily workflows into modules that are easier for
+            officers to use, easier for supervisors to manage, and easier for
+            command staff to trust.
+          </p>
+        </div>
+        <div class="grid three module-overview">
+          <article class="card">
+            <span class="tag">Modular</span>
+            <h3>Start with one workflow</h3>
+            <p>
+              A department may begin with Vacation Book for leave requests and
+              roster visibility, or choose a broader package that adds Vacation
+              Bidding and Training Tracker for a more complete scheduling
+              workflow.
+            </p>
+          </article>
+          <article class="card">
+            <span class="tag">Operational</span>
+            <h3>Built around police work</h3>
+            <p>
+              Command staff get clearer operational information, patrol
+              officers get practical functionality they can use day to day, and
+              supervisors get faster workflows that reduce administrative drag.
+            </p>
+          </article>
+          <article class="card">
+            <span class="tag">Expandable</span>
+            <h3>Modules become more useful together</h3>
+            <p>
+              One module can solve one problem, but connected modules create a
+              stronger command picture by linking scheduling, staffing,
+              assignments, logs, and records across the agency.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="why">
+        <div class="section-head">
+          <div>
+            <div class="label">02 / Problem</div>
+            <h2>Why these workflows matter</h2>
+          </div>
+          <p class="section-copy">
+            Many agencies still rely on paper forms, spreadsheets, and
+            disconnected tools for work that directly affects staffing,
+            accountability, liability, and officer safety. That creates more
+            than inconvenience. When supervisors and command staff cannot
+            clearly see staffing levels, availability, coverage gaps, and
+            expected turnover for a specific day, the agency is left making
+            operational decisions with incomplete information. G3 reduces that
+            guesswork by turning staffing activity into a clearer, more
+            reliable operating picture.
+          </p>
+        </div>
+        <div class="problem-band">
+          <div>
+            <div class="mini-label">Officer perspective</div>
+            <p>
+              Officers need a simple way to check their schedule, see available vacation time, track request status, and access opportunities fairly without relying on informal handoffs.
+            </p>
+          </div>
+          <div>
+            <div class="mini-label">Supervisor perspective</div>
+            <p>
+              Supervisors need to approve, assign, verify, and document without
+              checking multiple systems or rebuilding context manually.
+            </p>
+          </div>
+          <div>
+            <div class="mini-label">Command perspective</div>
+            <p>
+              Command staff need visibility into staffing risk, operational
+              readiness, approvals, trends, and audit history.
+            </p>
+          </div>
+          <div>
+            <div class="mini-label">Agency impact</div>
+            <p>
+              Manual workflows cost time, create inconsistency, weaken
+              accountability, and make it harder to explain decisions later.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="modules">
+        <div class="section-head">
+          <div>
+            <div class="label">03 / Modules</div>
+            <h2>Module overview</h2>
+          </div>
+          <p class="section-copy">
+            Each module tackles a specific law enforcement problem. One module
+            can improve one workflow, but the modules work even better together
+            by sharing staffing, roster, and assignment context.
+          </p>
+        </div>
+        <div class="grid three module-overview">
+          <article class="card">
+            <h3>Vacation Book</h3>
+            <p>Leave requests, approvals, calendars, coverage, daily rosters, units, squads, shifts, statuses, pairings, assignments, staffing graphs that forecast low-staff windows, least-privilege access, and audit history.</p>
+          </article>
+          <article class="card">
+            <h3>Vacation Bidding</h3>
+            <p>Supports seniority or lottery-based vacation bidding, including separate bidding lanes, defined bidding seasons, selection windows, policy caps, fair resolution, and automatic calendar placement.</p>
+          </article>
+          <article class="card">
+            <h3>Extra Duty / Pay Jobs</h3>
+            <p>Public intake, supervisor vetting, fair assignments, conflict checks, billing exports, and audit trails.</p>
+          </article>
+          <article class="card">
+            <h3>Training Tracker</h3>
+            <p>Supports training day planning, availability checks, roster impact, and assignment visibility while giving officers clear instructions on where to report and helping the training unit track attendance.</p>
+          </article>
+          <article class="card">
+            <h3>Tow Logs</h3>
+            <p>Tow companies are assigned unit designators and can submit tow sheets with the required information for private tows and repossessions. The officer's role is simplified to running the vehicle through NCIC and verifying the entry.</p>
+          </article>
+          <article class="card">
+            <h3>Anonymous Tips</h3>
+            <p>Secure public input, supervisor triage, tasking, status tracking, and audit-ready reporting.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <div class="label">04 / Details</div>
+            <h2>Module briefings</h2>
+          </div>
+          <p class="section-copy">
+            The following cards explain each module in a consistent format:
+            purpose, common problem, role impact, and operational improvement.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Scheduling and leave</span>
+              <h3>Vacation Book</h3>
+              <p>
+                Vacation Book manages leave requests, approvals, availability,
+                calendar placement, daily roster impact, unit and squad views,
+                shift status, pairings, assignments, access controls, and audit
+                history.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Daily schedules may live in paper forms, emails, texts, or spreadsheets.</li>
+                  <li>Officers cannot request time off when they are away from headquarters.</li>
+                  <li>Supervisors often check staffing manually before approving time off.</li>
+                  <li>Supervisors are unable to see coverage gaps for turnover.</li>
+                  <li>Command may not see future staffing issues until they are close.</li>
+                  <li>Command staff may not see staffing issues until there is an incident.</li>
+                  <li>Rosters are often updated in one place but referenced in several others.</li>
+                  <li>Status changes such as sick, training, vacation, detail, or unavailable can be missed.</li>
+                  <li>Different ranks need different levels of access and editing authority.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Submits requests, sees status, and views assignments in a cleaner daily schedule.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Gets a complete view of staffing, schedules, available assets, rules, pairings, assignments, and audit history so they can approve requests with control and confidence.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Gets visibility into leave patterns, roster impact, staffing status, and upcoming shortages across squads, shifts, and units.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Annual selection process</span>
+              <h3>Vacation Bidding</h3>
+              <p>
+                This module helps command staff turn a painful manual process
+                into a structured workflow with bid seasons, selection windows,
+                seniority or lottery rules, policy limits, officer choices, and
+                approved calendar placement.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Bidding cycles can be hard to manage fairly when they depend on spreadsheets or manual lists.</li>
+                  <li>Policy caps and bid order rules are easy to misread or apply inconsistently.</li>
+                  <li>Bidding can take a long time when it depends on spreadsheets or manual lists.</li>
+                  <li>Approved bid outcomes must often be re-entered somewhere else.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Understands bid windows, order, choices, and results more clearly.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Runs the process with fewer manual checks and fewer disputes.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Sees the final vacation picture earlier and can plan staffing around it.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Training and availability</span>
+              <h3>Training Tracker</h3>
+              <p>
+                Training Tracker helps agencies plan training days, see roster
+                impact, assign personnel, and keep training-related status
+                visible to supervisors and command staff.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Training assignments affect daily coverage but may be tracked separately.</li>
+                  <li>Supervisors can lose time tracking individual attendance to training.</li>
+                  <li>An officer may be on the street without their required annual training.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Sees assigned training and status more clearly.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Gives supervisors a simpler way to assign training and track attendance.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Reduces liability by helping confirm officers have required annual training.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Assignments and paid details</span>
+              <h3>Extra Duty / Pay Jobs</h3>
+              <p>
+                Extra Duty organizes outside requests, supervisor review,
+                conflict checks, officer assignment, notifications, audit
+                history, and billing exports.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Requests can arrive through phone calls, emails, forms, or informal contacts.</li>
+                  <li>Assignments may be questioned if the process is not visible or documented.</li>
+                  <li>Billing and audit support can require manual reconstruction.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Gets a clearer path to available work and assignment notifications.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Vets requests, checks conflicts, assigns fairly, and keeps a record.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Reviews detail activity, fairness, accountability, and billing support.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Records and custody history</span>
+              <h3>Tow Logs</h3>
+              <p>
+                Tow companies are assigned unit designators and can submit tow
+                sheets with the required information for private tows and
+                repossessions. The officer's role is simplified to running the
+                vehicle through NCIC and verifying the entry.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Tow documentation can be scattered across paper, forms, email, or records systems.</li>
+                  <li>Searching for a vehicle, tow company, officer, or custody event can take time.</li>
+                  <li>Records staff and command need cleaner documentation for review.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Completes tow entries with clearer required fields.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Reviews tow activity and verifies required documentation.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Gets searchable history and exports for records, audits, and accountability.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="module">
+            <div class="module-head">
+              <span class="tag">Public input workflow</span>
+              <h3>Anonymous Tips</h3>
+              <p>
+                Anonymous Tips gives agencies a controlled intake workflow for
+                public information, with triage, tasking, status tracking, and
+                audit-ready reporting.
+              </p>
+            </div>
+            <div class="module-body">
+              <div>
+                <div class="mini-label">Common problem</div>
+                <ul class="module-list">
+                  <li>Tips can arrive through disconnected channels and lose context.</li>
+                  <li>Follow-up tasks may be hard to track across shifts or units.</li>
+                  <li>Leadership may not have a clear picture of intake, action, and closure.</li>
+                </ul>
+              </div>
+              <div class="perspectives">
+                <div class="perspective">
+                  <strong>Officer</strong>
+                  <span>Receives clearer assignments when a tip requires follow-up.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Supervisor</strong>
+                  <span>Triages tips, assigns action, and tracks progress.</span>
+                </div>
+                <div class="perspective">
+                  <strong>Command</strong>
+                  <span>Reviews tip volume, status, outcomes, and accountability reports.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="roles">
+        <div class="section-head">
+          <div>
+            <div class="label">05 / People</div>
+            <h2>Role perspectives</h2>
+          </div>
+          <p class="section-copy">
+            G3 is designed so each rank gets value in the way they actually
+            work: easy-to-use tools for officers, safer and faster workflows
+            for supervisors, and clearer oversight for command staff.
+          </p>
+        </div>
+        <div class="grid four">
+          <article class="role-card">
+            <h3>Officers</h3>
+            <p>Officers need tools that are easy to use during real daily work.</p>
+            <ul>
+              <li>Check schedules, assignments, and vacation availability without chasing information.</li>
+              <li>Submit requests and see status from wherever they are working.</li>
+              <li>Get clear training instructions, reporting locations, and fair access to opportunities.</li>
+            </ul>
+          </article>
+          <article class="role-card">
+            <h3>Supervisors</h3>
+            <p>Supervisors need control of staffing, schedules, assets, and assignments in order to increase officer safety.</p>
+            <ul>
+              <li>Approve requests with a full view of coverage, turnover, rules, and available assets.</li>
+              <li>Assign training, details, and follow-up tasks with less back-and-forth.</li>
+              <li>See coverage gaps earlier so staffing decisions are made before safety is affected.</li>
+            </ul>
+          </article>
+          <article class="role-card">
+            <h3>Command staff</h3>
+            <p>Command staff need operational visibility that supports reducing liability.</p>
+            <ul>
+              <li>See staffing levels, coverage gaps, leave patterns, and turnover risk before they become incidents.</li>
+              <li>Confirm that required training, assignments, and operational records are documented.</li>
+              <li>Use audit history to explain decisions and reduce liability after questions arise.</li>
+            </ul>
+          </article>
+          <article class="role-card">
+            <h3>Administrative stakeholders</h3>
+            <p>Administrative stakeholders need safer shifts, stronger documentation, and more officer time focused on public safety.</p>
+            <ul>
+              <li>Reduce administrative work so officers spend less time managing paperwork.</li>
+              <li>Support safer shifts through better staffing visibility.</li>
+              <li>Keep documentation cleaner for records, review, and continuity.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="connected">
+        <div class="section-head">
+          <div>
+            <div class="label">06 / Ecosystem</div>
+            <h2>One shared operating picture</h2>
+          </div>
+          <p class="section-copy">
+            Each module handles a different part of the operation, but they all
+            feed the same staffing and accountability picture. That helps
+            supervisors and command staff understand who is available, what work
+            is happening, and where risk may be building.
+          </p>
+        </div>
+        <div class="shared-picture">
+          <div class="module-feed">
+            <article class="feed-card">
+              <h3>Vacation Book</h3>
+              <p>Shows who is working, who is off, where coverage is thin, and how leave affects the roster.</p>
+            </article>
+            <article class="feed-card">
+              <h3>Vacation Bidding</h3>
+              <p>Shows future leave selections before they become staffing problems.</p>
+            </article>
+            <article class="feed-card">
+              <h3>Training Tracker</h3>
+              <p>Shows who is unavailable for training and whether attendance is documented.</p>
+            </article>
+            <article class="feed-card">
+              <h3>Extra Duty / Pay Jobs</h3>
+              <p>Shows who is assigned to outside work and the ability to recall them in case of emergency.</p>
+            </article>
+            <article class="feed-card">
+              <h3>Tow Logs</h3>
+              <p>Shows tow activity, required information, and records that may need review.</p>
+            </article>
+            <article class="feed-card">
+              <h3>Anonymous Tips</h3>
+              <p>Shows what information came in, what needs follow-up, and what has been closed.</p>
+            </article>
+          </div>
+          <article class="picture-card">
+            <div class="mini-label">Together they create</div>
+            <h3>One shared operating picture</h3>
+            <p>
+              Instead of separate notebooks, spreadsheets, and messages, the
+              agency gets a clearer view of staffing, availability, assignments,
+              follow-up, documentation, officer safety, and liability risk.
+            </p>
+            <div class="picture-list" aria-label="Shared operating picture outputs">
+              <span>Staffing</span>
+              <span>Availability</span>
+              <span>Assignments</span>
+              <span>Follow-up</span>
+              <span>Audit history</span>
+              <span>Officer safety</span>
+              <span>Liability reduction</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="summary">
+          <div class="label">07 / Summary</div>
+          <h2>We reduce administrative drag so agencies can spend less time managing scattered paperwork and more time focused on public safety.</h2>
+          <p>
+            The platform was built for police by police. It is more than a
+            scheduling tool; it is a modular operations layer that organizes
+            daily workflows, gives supervisors cleaner control, and gives
+            command staff a clearer view of the department.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        G3 Industries Product Briefing. Informational draft for discussion and review.
+      </footer>
+    </main>
+  </body>
+</html>
