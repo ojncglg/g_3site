@@ -1696,6 +1696,15 @@ def price_calculator():
     return response
 
 
+@app.route("/pitch")
+def pitch():
+    """Unlisted 90-day GTM pitch dashboard."""
+    response = Response(render_template("pitch.html"))
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+    response.headers["Cache-Control"] = "no-store, private"
+    return response
+
+
 @app.route("/impact")
 def impact():
     """Impact Program page."""

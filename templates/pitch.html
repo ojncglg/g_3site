@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G3 Industries — 90-Day GTM Dashboard</title>
+  <style>
+    :root {
+      --navy: #071a2f;
+      --blue: #0f4c81;
+      --gold: #f2b705;
+      --light: #f7f9fc;
+      --ink: #172033;
+      --muted: #5d6678;
+      --border: #d9e1ec;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #e9eef6;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .page {
+      width: 11in;
+      min-height: 8.5in;
+      margin: 24px auto;
+      background: var(--light);
+      box-shadow: 0 12px 35px rgba(7, 26, 47, 0.18);
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy), #0a2b4e 55%, var(--blue));
+      color: white;
+      padding: 26px 34px 22px;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -70px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(242, 183, 5, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 0.04em;
+    }
+
+    .brand .tagline {
+      margin-top: 4px;
+      font-size: 15px;
+      color: #dce8f7;
+    }
+
+    .badge {
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 14px 16px;
+      border-radius: 12px;
+    }
+
+    .label {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 5px;
+    }
+
+    .goal {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .ask {
+      font-size: 15px;
+      margin: 0;
+      color: #f2f6fb;
+    }
+
+    .content {
+      padding: 22px 28px 26px;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      min-height: 118px;
+    }
+
+    .card h2 {
+      margin: 0 0 9px;
+      color: var(--navy);
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold);
+      color: var(--navy);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 4px 0; font-size: 13px; color: var(--ink); }
+
+    .section-title {
+      margin: 19px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .section-title::after {
+      content: "";
+      height: 3px;
+      flex: 1;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 999px;
+    }
+
+    .agency-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .agency {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      min-height: 84px;
+    }
+
+    .agency strong {
+      display: block;
+      color: var(--navy);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .agency span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .phase {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .phase-head {
+      background: var(--navy);
+      color: white;
+      padding: 10px 12px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .phase-head strong { display: block; font-size: 16px; }
+    .phase-head span { color: #d6e3f1; font-size: 12px; }
+    .phase-body { padding: 11px 12px; }
+
+    .metrics-risks {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    .metric {
+      background: #f9fbfe;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .metric b {
+      display: block;
+      color: var(--blue);
+      font-size: 20px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .footer {
+      background: var(--navy);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 28px;
+      font-size: 12px;
+    }
+
+    .footer .gold { color: var(--gold); font-weight: 700; }
+
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        width: 11in;
+        height: 8.5in;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="brand">
+        <div>
+          <h1>G3 INDUSTRIES</h1>
+          <div class="tagline">Modernizing Law Enforcement Operations</div>
+        </div>
+        <div class="badge">90-Day Go-to-Market Dashboard</div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="label">Primary 90-Day Outcome</div>
+          <p class="goal">NCCPD ethics approval + 2 smaller-agency pilots</p>
+        </div>
+        <div class="hero-card">
+          <div class="label">Advisor Ask</div>
+          <p class="ask">Help refine the sales process from interest → demo → pilot → paid contract, with feedback on procurement, pricing, pilot conversion, and NCCPD ethics path.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="columns">
+        <div class="card">
+          <h2><span class="num">1</span> Target Segment</h2>
+          <ul>
+            <li>Small to mid-sized Delaware law enforcement agencies</li>
+            <li>Agencies relying on paper books, spreadsheets, and emails</li>
+            <li>NCCPD as flagship credibility target</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2><span class="num">2</span> Sales Channels</h2>
+          <ul>
+            <li>Warm conference leads</li>
+            <li>Chief/captain outreach</li>
+            <li>Delaware law enforcement referrals</li>
+            <li>In-person demos</li>
+            <li>Grant-funded purchase strategy</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2><span class="num">3</span> Pilot Offer</h2>
+          <ul>
+            <li>90-day scheduling/workforce visibility pilot</li>
+            <li>Under 20 personnel: whole agency</li>
+            <li>20+ personnel: one squad or shift</li>
+            <li>$5,000 first-year partner contract, onboarding included</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="section-title">Lead Customer Strategy</h2>
+      <div class="agency-grid">
+        <div class="agency"><strong>NCCPD</strong><span>Flagship credibility target; ethics review first, then procurement/pilot path.</span></div>
+        <div class="agency"><strong>Kenton PD</strong><span>Primary small-agency pilot target for fast validation.</span></div>
+        <div class="agency"><strong>New Castle City PD</strong><span>Primary pilot target; explore payroll/export needs after core pilot.</span></div>
+        <div class="agency"><strong>Harrington PD</strong><span>Backup pilot-to-paid target from conference lead.</span></div>
+        <div class="agency"><strong>Milton PD</strong><span>Backup pilot-to-paid target with chief-level contact.</span></div>
+      </div>
+
+      <h2 class="section-title">90-Day Action Plan</h2>
+      <div class="timeline">
+        <div class="phase">
+          <div class="phase-head"><strong>Days 1–30</strong><span>Prepare + Activate Pipeline</span></div>
+          <div class="phase-body">
+            <ul>
+              <li>Schedule Ethics Commission attorney meeting</li>
+              <li>Finalize one-pager, demo script, pilot agreement</li>
+              <li>Follow up with warm agency leads</li>
+              <li>Schedule demos and build CRM tracker</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-head"><strong>Days 31–60</strong><span>Demo + Pilot Setup</span></div>
+          <div class="phase-body">
+            <ul>
+              <li>Conduct 3–5 agency demos</li>
+              <li>Select pilot agencies and gather setup data</li>
+              <li>Configure roster, shifts, leave categories, staffing rules</li>
+              <li>Train supervisors and schedule launches</li>
+            </ul>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-head"><strong>Days 61–90</strong><span>Pilot Execution + Conversion</span></div>
+          <div class="phase-body">
+            <ul>
+              <li>Launch 2 active pilots</li>
+              <li>Hold feedback sessions and track product gaps</li>
+              <li>Prepare pilot summaries and conversion offers</li>
+              <li>Advance NCCPD after ethics guidance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-risks">
+        <div class="card">
+          <h2>Success Metrics</h2>
+          <div class="metric-grid">
+            <div class="metric"><b>2</b><span>Pilots launched</span></div>
+            <div class="metric"><b>1</b><span>Ethics path advanced</span></div>
+            <div class="metric"><b>3–5</b><span>Demos completed</span></div>
+            <div class="metric"><b>1</b><span>Paid-contract path</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Key Risks + Mitigation</h2>
+          <ul>
+            <li><strong>Ethics delay:</strong> keep smaller-agency pilots moving.</li>
+            <li><strong>Scope creep:</strong> keep pilot limited to scheduling module.</li>
+            <li><strong>No budget:</strong> use grant-funded purchase strategy.</li>
+            <li><strong>Customization requests:</strong> separate pilot from future paid configuration.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div><span class="gold">Built for police by police.</span> Scheduling • Leave • Coverage gaps • Workforce visibility</div>
+      <div>g3industries.io</div>
+    </footer>
+  </main>
+</body>
+</html>
