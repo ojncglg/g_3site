@@ -36,6 +36,20 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- Blog article: seniority, date of hire vs date of rank. -->
+  <url>
+    <loc>https://g3industries.io/blog/seniority-date-of-hire-vs-date-of-rank</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Blog article: how G3 modules work together. -->
+  <url>
+    <loc>https://g3industries.io/blog/how-g3-modules-work-together-to-solve-agency-scheduling</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- Blog article: change management and modernization in policing. -->
   <url>
     <loc>https://g3industries.io/blog/why-change-is-so-hard-in-policing</loc>

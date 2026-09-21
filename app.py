@@ -988,7 +988,103 @@ BLOG_POSTS: List[Dict[str, Any]] = [
             "If this challenge sounds familiar, we can walk you through a quick demo and map "
             "where your command team can recover time first."
         ),
-    }
+    },
+    {
+        "slug": "seniority-date-of-hire-vs-date-of-rank",
+        "title": "Seniority: Date of Hire vs. Date of Rank. Which One Is Actually Fair?",
+        "description": (
+            "Date of hire and date of rank are the two ways departments define seniority. "
+            "Here is how each system works, what each one costs, and which is better for the department."
+        ),
+        "published_at": "2026-09-21",
+        "published_label": "September 21, 2026",
+        "updated_at": "2026-09-21",
+        "updated_label": "September 21, 2026",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Seniority", "Vacation Bidding", "Police Operations"],
+        "summary": (
+            "Every department runs on seniority, but not every department defines it the same way. "
+            "Date of hire and date of rank each solve one fairness problem and create another."
+        ),
+        "quick_answer": (
+            "Date of hire rewards total time with the agency; date of rank rewards time in the rank itself. "
+            "The better system depends on what the department is trying to protect."
+        ),
+        "key_takeaways": [
+            "Date of hire is simple and objective, but can put a new supervisor ahead of a veteran supervisor.",
+            "Date of rank respects supervisory experience, but punishes officers who develop specialty skills before promoting.",
+            "Most seniority grievances come from unwritten rules and gray areas, not from the system itself.",
+            "When seniority lists and bid rules live in one visible system, the argument ends before it starts.",
+        ],
+        "qa": [
+            {
+                "question": "Is it fair for a young, newly promoted supervisor to outrank a veteran supervisor?",
+                "answer": (
+                    "Under date of hire, yes, because total agency time is the only measure. Under date of "
+                    "rank, no, because time in the rank is what counts. The fairness question is really a "
+                    "question about which system the department chose."
+                ),
+            },
+            {
+                "question": "Which system do most departments use?",
+                "answer": (
+                    "It varies by agency and is often set by contract or policy. Many departments use date "
+                    "of hire for vacation bidding and date of rank for shift or assignment preference among "
+                    "supervisors."
+                ),
+            },
+            {
+                "question": "What causes the most seniority disputes?",
+                "answer": (
+                    "Gray areas: ties, lateral transfers, military leave, and prior time at other agencies. "
+                    "Whichever system is chosen, it needs to be written down and applied the same way every time."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Date of hire",
+                "paragraphs": [
+                    "Your seniority is your start date with the agency, period. A sergeant promoted last year with twelve years on the job outranks a sergeant promoted five years ago with eight years on. Time in the department is the only currency.",
+                    "The case for it is simplicity. It is objective, nobody can game it, and everyone knows exactly where they stand from the day they are hired. It rewards loyalty to the agency, and it avoids punishing officers who promote later because they spent years in specialty units, on military deployments, or raising a family.",
+                    "The case against it is the young-supervisor problem. When the twelve-year officer makes sergeant and suddenly outranks the eight-year sergeant for shift picks, vacation slots, and overtime order, the veteran sergeant feels like his time in rank counted for nothing. That breeds resentment, and resentment in a supervisor ranks spreads fast.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Date of rank",
+                "paragraphs": [
+                    "Your seniority resets to the date you pinned on the stripes. Among sergeants, the one promoted first is senior, regardless of total time on the job.",
+                    "The case for it is that it respects the rank itself. Supervision is a different job, and time doing that job should count for something. It answers the fairness question directly: the officer who promoted fast does not leapfrog the sergeant who has been running a squad for six years.",
+                    "The case against it is that it punishes late bloomers. The officer who spent ten years becoming an outstanding investigator, K-9 handler, or firearms instructor, then promotes at year eleven, starts at the bottom of the sergeant list behind someone with half his total service. Departments that do this quietly discourage officers from developing specialty skills before promoting, because every year spent elsewhere is a year lost in rank seniority.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Which is better for the department?",
+                "paragraphs": [
+                    "It depends on what the department is trying to protect. Date of hire protects institutional loyalty and keeps the rules dead simple. Date of rank protects the authority of the rank and rewards supervisory experience.",
+                    "There is no universally right answer, which is why this argument never dies in breakrooms. But most of the real-world pain is not the system itself. It is the gray areas: ties, lateral transfers, military leave, and time in other agencies.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The rule has to be written down and visible",
+                "paragraphs": [
+                    "Whichever system a department picks, it needs to be written down, applied the same way every time, and visible to everyone it affects. The grievances do not come from the rule. They come from the rule being a mystery.",
+                    "That is the part technology can actually fix. When seniority lists, bid windows, and tiebreakers live in one system instead of a sergeant's spreadsheet, the argument ends before it starts. Nobody has to trust the process. They can see it.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Tired of seniority disputes eating command time?",
+        "cta_body": (
+            "G3's vacation bidding module runs structured bidding cycles with transparent rules "
+            "and outcomes, so seniority stops being an argument and starts being a setting."
+        ),
+    },
 ]
 BLOG_POSTS_BY_SLUG: Dict[str, Dict[str, Any]] = {post["slug"]: post for post in BLOG_POSTS}
 BLOG_POSTS_SORTED: List[Dict[str, Any]] = sorted(
