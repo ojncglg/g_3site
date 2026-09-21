@@ -158,6 +158,7 @@ DEMO_IP_MIN_INTERVAL_SECONDS = int(os.environ.get("DEMO_IP_MIN_INTERVAL_SECONDS"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 LEADS_FILE = os.path.join(DATA_DIR, "leads.json")
+EVENT_SIGNUPS_FILE = os.path.join(DATA_DIR, "event_signups.json")
 RATE_LIMIT_FILE = os.path.join(DATA_DIR, "rate_limits.json")
 
 # Seed blog content lives in code for now so publishing is simple.
@@ -1081,6 +1082,9 @@ def ensure_data_store() -> None:
     if not os.path.exists(RATE_LIMIT_FILE):
         with open(RATE_LIMIT_FILE, "w", encoding="utf-8") as file:
             json.dump({"global": [], "ip": {}, "email": {}}, file)
+    if not os.path.exists(EVENT_SIGNUPS_FILE):
+        with open(EVENT_SIGNUPS_FILE, "w", encoding="utf-8") as file:
+            json.dump([], file)
 
 
 def append_lead(lead: Dict[str, Any]) -> None:
@@ -1108,6 +1112,51 @@ def load_leads() -> List[Dict[str, Any]]:
     if not isinstance(loaded, list):
         return []
     return [row for row in loaded if isinstance(row, dict)]
+
+
+def append_event_signup(signup: Dict[str, Any]) -> None:
+    """Append one A Squad event signup, tolerating a corrupt file."""
+    ensure_data_store()
+    try:
+        with open(EVENT_SIGNUPS_FILE, "r", encoding="utf-8") as file:
+            data: List[Dict[str, Any]] = json.load(file)
+    except json.JSONDecodeError:
+        data = []
+
+    data.append(signup)
+    with open(EVENT_SIGNUPS_FILE, "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=2)
+
+
+def read_event_signups() -> List[Dict[str, Any]]:
+    """Read all A Squad event signups, tolerating a missing or corrupt file."""
+    ensure_data_store()
+    try:
+        with open(EVENT_SIGNUPS_FILE, "r", encoding="utf-8") as file:
+            data: List[Dict[str, Any]] = json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return []
+    if not isinstance(data, list):
+        return []
+    return [row for row in data if isinstance(row, dict)]
+
+
+def public_guest_list() -> tuple[List[Dict[str, Any]], int]:
+    """Build the public-facing guest list: names and ticket counts only.
+
+    Emails, IPs, and user agents stay server-side. Returns (guests, total_tickets).
+    """
+    guests: List[Dict[str, Any]] = []
+    for row in read_event_signups():
+        name = normalize_text(str(row.get("name", "")))
+        try:
+            tickets = int(row.get("tickets", 0))
+        except (TypeError, ValueError):
+            tickets = 0
+        if name and tickets > 0:
+            guests.append({"name": name, "tickets": tickets})
+    total_tickets = sum(guest["tickets"] for guest in guests)
+    return guests, total_tickets
 
 
 def parse_lead_timestamp(value: str) -> datetime | None:
@@ -1709,6 +1758,79 @@ def pitch():
 def impact():
     """Impact Program page."""
     return render_site_page("impact.html", "IMPACT Program — G3 Industries")
+
+
+@app.route("/events")
+def squad_events():
+    """Hidden A Squad events page (not in nav or sitemap)."""
+    guests, total_tickets = public_guest_list()
+    response = Response(
+        render_template(
+            "events.html",
+            title="A Squad Events — G3 Industries",
+            guests=guests,
+            total_tickets=total_tickets,
+        )
+    )
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+    response.headers["Cache-Control"] = "no-store, private"
+    return response
+
+
+@app.route("/events/signup", methods=["POST"])
+def squad_events_signup():
+    """Handle A Squad event signups: validate, persist, flash, redirect."""
+    name = normalize_text(request.form.get("name", ""))
+    tickets_raw = normalize_text(request.form.get("tickets", ""))
+    email = normalize_text(request.form.get("email", "")).lower()
+    honeypot = normalize_text(request.form.get("website", ""))
+    client_ip = get_client_ip()
+
+    # Honeypot trips are treated as bot submissions and quietly accepted.
+    if honeypot:
+        flash("Thanks — your spot is saved.", "success")
+        return redirect(url_for("squad_events"))
+
+    try:
+        tickets = int(tickets_raw)
+    except (TypeError, ValueError):
+        tickets = 0
+
+    errors = []
+    if not name or len(name) > FIELD_MAX_LENGTHS["name"]:
+        errors.append("name")
+    if tickets < 1 or tickets > 20:
+        errors.append("tickets")
+    if email and (
+        len(email) > FIELD_MAX_LENGTHS["email"] or not EMAIL_RE.fullmatch(email)
+    ):
+        errors.append("email")
+    if errors:
+        flash(
+            "Please review the highlighted fields: "
+            + ", ".join(sorted(set(errors)))
+            + ".",
+            "error",
+        )
+        return redirect(url_for("squad_events"))
+
+    allowed, rate_message = check_and_record_rate_limit(client_ip, email or name)
+    if not allowed:
+        flash(rate_message, "error")
+        return redirect(url_for("squad_events"))
+
+    signup = {
+        "timestamp": utc_now().isoformat().replace("+00:00", "Z"),
+        "name": name,
+        "tickets": tickets,
+        "email": email,
+        "source_ip": client_ip,
+        "user_agent": clip_text(request.headers.get("User-Agent", ""), 512),
+    }
+    append_event_signup(signup)
+
+    flash("Thanks — your spot is saved. We will see you there.", "success")
+    return redirect(url_for("squad_events"))
 
 
 @app.route("/about")
