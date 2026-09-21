@@ -169,7 +169,7 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         "title": "How G3 Modules Work Together to Solve Agency Scheduling Problems",
         "description": (
             "When agencies connect Vacation Book, Extra Duty, and Vacation Bidding, command gets "
-            "clearer staffing visibility, stronger scheduling control, and faster deployment readiness."
+            "clearer staffing visibility and stronger scheduling control."
         ),
         "published_at": "2026-04-17",
         "published_label": "April 17, 2026",
@@ -463,8 +463,8 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         "slug": "why-vacation-approval-delays-hurt-staffing-readiness",
         "title": "Why Vacation Approval Delays Hurt Staffing Readiness",
         "description": (
-            "How approval lag in vacation requests creates preventable staffing blind spots "
-            "for supervisors and command staff."
+            "How approval lag in vacation requests creates preventable staffing blind spots, "
+            "and what supervisors and command staff can do to fix it."
         ),
         "published_at": "2026-03-27",
         "published_label": "March 27, 2026",
@@ -993,8 +993,8 @@ BLOG_POSTS: List[Dict[str, Any]] = [
         "slug": "seniority-date-of-hire-vs-date-of-rank",
         "title": "Seniority: Date of Hire vs. Date of Rank. Which One Is Actually Fair?",
         "description": (
-            "Date of hire and date of rank are the two ways departments define seniority. "
-            "Here is how each system works, what each one costs, and which is better for the department."
+            "Date of hire vs. date of rank: how each seniority system works, what each one "
+            "costs a department, and which is actually fairer."
         ),
         "published_at": "2026-09-21",
         "published_label": "September 21, 2026",
