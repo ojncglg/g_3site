@@ -10,13 +10,14 @@ Allow: /
 Disallow: /admin/
 Disallow: /price-calculator
 Disallow: /g3-internal/
-Disallow: /static/
 
 # Explicitly allow your key public pages
 Allow: /$
 Allow: /products
 Allow: /security
 Allow: /grants
+Allow: /guide
+Allow: /impact
 Allow: /blog
 Allow: /blog/
 Allow: /about

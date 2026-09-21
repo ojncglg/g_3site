@@ -92,6 +92,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- Operational impact and measured outcomes page. -->
+  <url>
+    <loc>https://g3industries.io/impact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Company/founder information page. -->
   <url>
     <loc>https://g3industries.io/about</loc>

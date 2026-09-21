@@ -385,7 +385,8 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
   <div
     class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4 pt-16 pb-12 md:pt-24 md:pb-20"
   >
-    <div class="max-w-3xl">
+    <div class="grid gap-10 md:grid-cols-2 items-center">
+    <div>
       <h1
         class="scanline-accent text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight"
       >
@@ -411,6 +412,35 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
           <a href="#pilot" class="text-[color:var(--g3-gold)] hover:underline">See how the pilot program works ↓</a>
         </p>
       </div>
+    </div>
+    <figure class="console-depth p-2">
+      <div class="overview-video-shell rounded-lg overflow-hidden">
+        <video
+          class="w-full h-auto block"
+          controls
+          preload="metadata"
+          playsinline
+          poster="{{ url_for('static', filename='img/thumbnail/suiteshowcase.png') }}"
+          aria-label="G3 Vacation Book suite showcase video"
+        >
+          <source
+            src="{{ url_for('static', filename='videos/showcase.webm') }}"
+            type="video/webm"
+          />
+          <source
+            src="{{ url_for('static', filename='videos/showcase.mp4') }}"
+            type="video/mp4"
+          />
+          Your browser does not support embedded video. You can
+          <a
+            class="underline text-slate-200"
+            href="{{ url_for('static', filename='videos/showcase.mp4') }}"
+            >download it here</a
+          >.
+        </video>
+      </div>
+      <figcaption class="px-3 py-2 text-xs text-slate-400">Live staffing picture, one screen. Command sees risk before the shift starts.</figcaption>
+    </figure>
     </div>
   </div>
 </section>
@@ -825,6 +855,12 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
           </ul>
         </aside>
       </div>
+      <div class="mt-5 md:mt-6 rounded-lg border border-[color:var(--g3-gold)]/30 bg-[color:var(--g3-gold)]/5 p-4">
+        <p class="text-sm text-slate-200">
+          <span class="font-semibold text-[color:var(--g3-gold)]">Founding agencies wanted.</span>
+          We are onboarding our first Delaware departments now. Founding partners get hands-on setup, direct input on the product roadmap, and locked-in early pricing.
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -881,21 +917,6 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
         <p id="agency-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="role"
-          >Role/Rank</label
-        >
-        <input
-          id="role"
-          name="role"
-          type="text"
-          maxlength="120"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="e.g., Deputy Chief"
-        />
-        <p id="role-error" class="field-error hidden" aria-live="polite"></p>
-      </div>
-
       <!-- Required -->
       <div>
         <label class="block text-sm text-slate-300 mb-1" for="email"
@@ -926,21 +947,6 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
           placeholder="(555) 555-5555"
         />
         <p id="phone-error" class="field-error hidden" aria-live="polite"></p>
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm text-slate-300 mb-1" for="notes"
-          >Notes</label
-        >
-        <textarea
-          id="notes"
-          name="notes"
-          rows="4"
-          maxlength="2000"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Anything we should know before we meet?"
-        ></textarea>
-        <p id="notes-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
       <!-- Honeypot (hidden for humans) -->
@@ -1148,14 +1154,12 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
     // Fill hidden attribution fields on load and again right before submit.
     hydrateAttributionFields();
 
-    const fieldIds = ["name", "agency", "role", "email", "phone", "notes"];
+    const fieldIds = ["name", "agency", "email", "phone"];
     const fieldLabels = {
       name: "full name",
       agency: "agency",
-      role: "role/rank",
       email: "email",
       phone: "phone",
-      notes: "notes",
     };
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9+().\-\s]{7,40}$/;

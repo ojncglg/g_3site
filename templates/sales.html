@@ -1,22 +1,17 @@
-{% extends "base.html" %}
-{% block title %}Agency Pricing | G3 Industries{% endblock %}
-{% block meta %}
+{% extends "base.html" %} {% block title %}Agency Pricing | G3 Industries{%
+endblock %} {% block meta %}
 <meta name="robots" content="noindex,nofollow,noarchive" />
 <meta
   name="description"
   content="Agency-facing pricing estimator for G3 Industries public safety software packages, setup, and optional add-ons."
 />
-{% endblock %}
-{% macro check_cell() -%}
+{% endblock %} {% macro check_cell() -%}
 <td class="sales-checkmark" aria-label="Included">&#10003;</td>
-{%- endmacro %}
-{% macro unavailable_cell() -%}
+{%- endmacro %} {% macro unavailable_cell() -%}
 <td class="sales-unavailable" aria-label="Not included">-</td>
-{%- endmacro %}
-{% macro addon_cell(note) -%}
+{%- endmacro %} {% macro addon_cell(note) -%}
 <td>Available add-on<br /><span class="sales-note">{{ note }}</span></td>
-{%- endmacro %}
-{% block extra_head %}
+{%- endmacro %} {% block extra_head %}
 <style>
   .sales-shell {
     --sales-panel: rgba(15, 23, 42, 0.74);
@@ -29,8 +24,16 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.75rem;
     background:
-      radial-gradient(900px 360px at 82% 0%, rgba(250, 204, 21, 0.18), transparent 58%),
-      radial-gradient(700px 300px at 8% 8%, rgba(34, 211, 238, 0.14), transparent 58%),
+      radial-gradient(
+        900px 360px at 82% 0%,
+        rgba(250, 204, 21, 0.18),
+        transparent 58%
+      ),
+      radial-gradient(
+        700px 300px at 8% 8%,
+        rgba(34, 211, 238, 0.14),
+        transparent 58%
+      ),
       linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.94));
   }
 
@@ -131,7 +134,11 @@
     border: 1px solid var(--sales-line-strong);
     border-radius: 0.75rem;
     background:
-      radial-gradient(520px 220px at 100% 0%, rgba(250, 204, 21, 0.16), transparent 62%),
+      radial-gradient(
+        520px 220px at 100% 0%,
+        rgba(250, 204, 21, 0.16),
+        transparent 62%
+      ),
       rgba(15, 23, 42, 0.86);
     padding: 1.25rem;
   }
@@ -304,9 +311,7 @@
     }
   }
 </style>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="sales-shell space-y-8">
   <section class="sales-hero px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
     <div class="grid gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
@@ -388,7 +393,9 @@
             <label for="contractTerm">Contract length</label>
             <select id="contractTerm">
               <option value="1" selected>Annual agreement</option>
-              <option value="3">3-year agreement - implementation waived</option>
+              <option value="3">
+                3-year agreement - implementation waived
+              </option>
             </select>
           </div>
 
@@ -501,11 +508,31 @@
       </h2>
     </div>
 
-    <div class="sales-card mb-5 flex items-start gap-4 border-l-4 border-yellow-400/70" style="border-radius:0.5rem;padding:1rem 1.25rem;">
-      <svg class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div
+      class="sales-card mb-5 flex items-start gap-4 border-l-4 border-yellow-400/70"
+      style="border-radius: 0.5rem; padding: 1rem 1.25rem"
+    >
+      <svg
+        class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
       <div>
-        <strong class="text-white text-sm">Operations is the best value for most small agencies.</strong>
-        <p class="mt-1 text-slate-400 text-sm">For a 35-officer department, Operations costs just $35/month more than Essential — and adds Vacation Bidding and a full Training Scheduler. Most agencies choose Operations.</p>
+        <strong class="text-white text-sm"
+          >Operations is the best value for most small agencies.</strong
+        >
+        <p class="mt-1 text-slate-400 text-sm">
+          For a 35-officer department, Operations costs just $35/month more than
+          Essential — and adds Vacation Bidding and a full Training Scheduler.
+          Most agencies choose Operations.
+        </p>
       </div>
     </div>
 
@@ -633,24 +660,20 @@
                 and audit history.
               </div>
             </td>
-            {{ check_cell() }}
-            {{ check_cell() }}
-            {{ check_cell() }}
+            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
               Daily roster and shift pairings
               <div class="sales-module-detail">
-                Gives supervisors a clear view of who is working, where they
-                are assigned, and who they are paired with for the day. Agencies
-                can organize officers by squad, shift, unit, status, and
-                assignment so supervisors can make daily staffing decisions
-                without chasing multiple spreadsheets or paper rosters.
+                Gives supervisors a clear view of who is working, where they are
+                assigned, and who they are paired with for the day. Agencies can
+                organize officers by squad, shift, unit, status, and assignment
+                so supervisors can make daily staffing decisions without chasing
+                multiple spreadsheets or paper rosters.
               </div>
             </td>
-            {{ check_cell() }}
-            {{ check_cell() }}
-            {{ check_cell() }}
+            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
@@ -663,9 +686,7 @@
                 review decisions and maintain accountability.
               </div>
             </td>
-            {{ check_cell() }}
-            {{ check_cell() }}
-            {{ check_cell() }}
+            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
@@ -677,9 +698,7 @@
                 placement.
               </div>
             </td>
-            {{ unavailable_cell() }}
-            {{ check_cell() }}
-            {{ check_cell() }}
+            {{ unavailable_cell() }} {{ check_cell() }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
@@ -691,9 +710,7 @@
                 track attendance.
               </div>
             </td>
-            {{ unavailable_cell() }}
-            {{ check_cell() }}
-            {{ check_cell() }}
+            {{ unavailable_cell() }} {{ check_cell() }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
@@ -707,9 +724,8 @@
                 aware of where officers are working.
               </div>
             </td>
-            {{ addon_cell("Custom pricing") }}
-            {{ addon_cell("Custom pricing") }}
-            {{ check_cell() }}
+            {{ addon_cell("Custom pricing") }} {{ addon_cell("Custom pricing")
+            }} {{ check_cell() }}
           </tr>
           <tr>
             <td>
@@ -723,9 +739,8 @@
                 moving toward the right people.
               </div>
             </td>
-            {{ addon_cell("$10,000/year") }}
-            {{ addon_cell("$10,000/year") }}
-            {{ check_cell() }}
+            {{ addon_cell("$10,000/year") }} {{ addon_cell("$10,000/year") }} {{
+            check_cell() }}
           </tr>
           <tr>
             <td>
@@ -737,9 +752,8 @@
                 vehicle through NCIC and verifying the entry.
               </div>
             </td>
-            {{ addon_cell("$10,000/year") }}
-            {{ addon_cell("$10,000/year") }}
-            {{ check_cell() }}
+            {{ addon_cell("$10,000/year") }} {{ addon_cell("$10,000/year") }} {{
+            check_cell() }}
           </tr>
         </tbody>
       </table>
@@ -760,8 +774,8 @@
       <div class="sales-eyebrow">Optional add-on</div>
       <h2 class="mt-2 text-2xl font-black text-white">Custom pricing</h2>
       <p class="mt-2 text-sm text-slate-300">
-        Pay Jobs helps agencies manage extra-duty and part-time assignments
-        from request through signup, approval, assignment, and payment tracking.
+        Pay Jobs helps agencies manage extra-duty and part-time assignments from
+        request through signup, approval, assignment, and payment tracking.
         Agencies can configure rules, eligibility, rotation, customer billing,
         and assignment workflows around their own policies.
       </p>
@@ -879,7 +893,9 @@
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="sales-card">
           <div class="sales-eyebrow">Annual agreement</div>
-          <h3 class="mt-2 text-lg font-black text-white">Year 1 includes setup</h3>
+          <h3 class="mt-2 text-lg font-black text-white">
+            Year 1 includes setup
+          </h3>
           <p class="mt-2 text-sm text-slate-300">
             The calculator shows year 1 with implementation, then years 2 and 3
             without the initial fee so agencies can see recurring budget impact
@@ -888,7 +904,9 @@
         </div>
         <div class="sales-card">
           <div class="sales-eyebrow">3-year agreement</div>
-          <h3 class="mt-2 text-lg font-black text-white">$2,500 setup waived</h3>
+          <h3 class="mt-2 text-lg font-black text-white">
+            $2,500 setup waived
+          </h3>
           <p class="mt-2 text-sm text-slate-300">
             Choosing a three-year term removes the one-time implementation fee
             from the estimate and gives budget officers a cleaner multi-year
@@ -927,9 +945,18 @@
 <script>
   (() => {
     const prices = {
-      essential: { name: "Essential", values: { 1: 6300, 2: 10800, 3: 16200, 4: 23100 } },
-      operations: { name: "Operations", values: { 1: 6720, 2: 11700, 3: 18000, 4: 26400 } },
-      command: { name: "Command Suite", values: { 1: 9660, 2: 16200, 3: 25200, 4: 39600 } },
+      essential: {
+        name: "Essential",
+        values: { 1: 6300, 2: 10800, 3: 16200, 4: 23100 },
+      },
+      operations: {
+        name: "Operations",
+        values: { 1: 6720, 2: 11700, 3: 18000, 4: 26400 },
+      },
+      command: {
+        name: "Command Suite",
+        values: { 1: 9660, 2: 16200, 3: 25200, 4: 39600 },
+      },
     };
     const setupFee = 2500;
     const addonPrice = 10000;
@@ -967,9 +994,15 @@
 
     function readParams() {
       const p = new URLSearchParams(window.location.search);
-      if (p.has("officers")) officerInput.value = Math.max(1, Math.min(1000, parseInt(p.get("officers"), 10) || 1));
-      if (p.has("package") && prices[p.get("package")]) packageInput.value = p.get("package");
-      if (p.has("term") && ["1", "3"].includes(p.get("term"))) contractInput.value = p.get("term");
+      if (p.has("officers"))
+        officerInput.value = Math.max(
+          1,
+          Math.min(1000, parseInt(p.get("officers"), 10) || 1),
+        );
+      if (p.has("package") && prices[p.get("package")])
+        packageInput.value = p.get("package");
+      if (p.has("term") && ["1", "3"].includes(p.get("term")))
+        contractInput.value = p.get("term");
       if (tipsInput && p.get("tips") === "1") tipsInput.checked = true;
       if (towInput && p.get("tow") === "1") towInput.checked = true;
     }
@@ -981,7 +1014,11 @@
       p.set("term", contractInput.value);
       if (tipsInput && tipsInput.checked) p.set("tips", "1");
       if (towInput && towInput.checked) p.set("tow", "1");
-      window.history.replaceState(null, "", window.location.pathname + "?" + p.toString());
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + "?" + p.toString(),
+      );
     }
 
     const money = (value) =>
@@ -1018,10 +1055,14 @@
         }
       });
 
-      const annual = Math.max(selectedPackage.values[tier.id], monthlyFloor * 12);
+      const annual = Math.max(
+        selectedPackage.values[tier.id],
+        monthlyFloor * 12,
+      );
       const addons = commandSelected
         ? 0
-        : (tipsInput.checked ? addonPrice : 0) + (towInput.checked ? addonPrice : 0);
+        : (tipsInput.checked ? addonPrice : 0) +
+          (towInput.checked ? addonPrice : 0);
       const recurringTotal = annual + addons;
       const implementation = isThreeYear ? 0 : setupFee;
       const total = recurringTotal + implementation;
@@ -1039,7 +1080,8 @@
         : "Year 1 includes implementation. Years 2 and 3 show the recurring annual cost without the initial setup fee.";
 
       yearTotals.forEach((yearTotal, index) => {
-        if (yearOutputs[index]) yearOutputs[index].textContent = money(yearTotal);
+        if (yearOutputs[index])
+          yearOutputs[index].textContent = money(yearTotal);
         if (yearFills[index]) {
           yearFills[index].style.width =
             Math.max(8, Math.round((yearTotal / highestYear) * 100)) + "%";
@@ -1065,7 +1107,7 @@
           `Estimated year 3: ${money(yearTotals[2])}`,
           "",
           "Please contact me to review scope and next steps.",
-        ].join("\n")
+        ].join("\n"),
       );
 
       emailLinks.forEach((link) => {
@@ -1099,7 +1141,10 @@
     updateEstimate();
 
     const origUpdate = updateEstimate;
-    const updateEstimateWithParams = () => { origUpdate(); writeParams(); };
+    const updateEstimateWithParams = () => {
+      origUpdate();
+      writeParams();
+    };
     [officerInput, packageInput, contractInput, tipsInput, towInput]
       .filter(Boolean)
       .forEach((input) => {
