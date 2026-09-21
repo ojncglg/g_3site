@@ -20,6 +20,7 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
   name="description"
   content="Police workforce management software built for command staff: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one audit-ready platform."
 />
+{% endblock %} {% block social %}
 <meta
   property="og:title"
   content="Police Workforce Management Software for Law Enforcement | G3 Industries"
@@ -36,6 +37,7 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
   name="twitter:description"
   content="Purpose-built for command staff: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one secure platform."
 />
+{% endblock %}
 <!-- Structured data: Organization and SoftwareApplication schema for search engines. -->
 <script type="application/ld+json">
 {
@@ -80,7 +82,7 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
   ]
 }
 </script>
-{% endblock %} {% block extra_head %}
+{% block extra_head %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */
   .hero-bg {

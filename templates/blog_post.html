@@ -21,13 +21,15 @@
 {% block title %}{{ post.title }} | G3 Industries Blog{% endblock %}
 {% block meta %}
 <meta name="description" content="{{ post.description }}" />
-<link rel="canonical" href="{{ request.base_url }}" />
+{% endblock %}
+{% block social %}
 <meta property="og:title" content="{{ post.title }}" />
 <meta property="og:description" content="{{ post.description }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ request.base_url }}" />
 <meta name="twitter:title" content="{{ post.title }}" />
 <meta name="twitter:description" content="{{ post.description }}" />
+{% endblock %}
 <!-- Structured data: Article schema for search indexing and rich snippets. -->
 <script type="application/ld+json">
   {
@@ -97,7 +99,6 @@
   }
 </script>
 {% endif %}
-{% endblock %}
 {% block extra_head %}
 <style>
   .blog-prose h2 {
