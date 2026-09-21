@@ -36,6 +36,50 @@ for Law Enforcement | G3 Industries{% endblock %} {% block meta %}
   name="twitter:description"
   content="Purpose-built for command staff: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one secure platform."
 />
+<!-- Structured data: Organization and SoftwareApplication schema for search engines. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://g3industries.io/#organization",
+      "name": "G3 Industries",
+      "url": "https://g3industries.io/",
+      "logo": "https://g3industries.io/static/img/g3-logo.png",
+      "description": "Police workforce management software: scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and staffing forecasting in one audit-ready platform.",
+      "email": "grigori.lopezgarcia@g3industries.io",
+      "founder": {
+        "@type": "Person",
+        "name": "Grigori LopezGarcia",
+        "jobTitle": "Founder, G3 Industries",
+        "url": "https://g3industries.io/about"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://g3industries.io/#software",
+      "name": "G3 Industries Police Workforce Management Platform",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://g3industries.io/",
+      "description": "One secure, audit-ready platform that unifies police scheduling, vacation bidding, extra duty, anonymous tips, tow logs, and AI staffing forecasting.",
+      "publisher": { "@id": "https://g3industries.io/#organization" },
+      "offers": {
+        "@type": "Offer",
+        "description": "Pilot programs available for law enforcement agencies. Contact for pricing."
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://g3industries.io/#website",
+      "url": "https://g3industries.io/",
+      "name": "G3 Industries",
+      "publisher": { "@id": "https://g3industries.io/#organization" }
+    }
+  ]
+}
+</script>
 {% endblock %} {% block extra_head %}
 <style>
   /* Background: subtle vignette + flag stripe vibe (kept very light) */

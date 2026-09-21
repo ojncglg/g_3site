@@ -12,6 +12,24 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <!-- Keyword landing page: police scheduling software. -->
+  <url>
+    <loc>https://g3industries.io/police-scheduling-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Keyword landing page: vacation bidding software. -->
+  <url>
+    <loc>https://g3industries.io/vacation-bidding-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Keyword landing page: extra duty management software. -->
+  <url>
+    <loc>https://g3industries.io/extra-duty-management-software</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- Plain-language officer and supervisor user guide. -->
   <url>
     <loc>https://g3industries.io/guide</loc>

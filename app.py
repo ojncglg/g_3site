@@ -1947,6 +1947,33 @@ def grants():
     return render_site_page("grants.html", "Grant Assistance — G3 Industries")
 
 
+@app.route("/police-scheduling-software")
+def police_scheduling_software():
+    """Keyword landing page: police scheduling software."""
+    return render_site_page(
+        "police-scheduling-software.html",
+        "Police Scheduling Software for Law Enforcement Agencies — G3 Industries",
+    )
+
+
+@app.route("/vacation-bidding-software")
+def vacation_bidding_software():
+    """Keyword landing page: vacation bidding software."""
+    return render_site_page(
+        "vacation-bidding-software.html",
+        "Vacation Bidding Software for Police Departments — G3 Industries",
+    )
+
+
+@app.route("/extra-duty-management-software")
+def extra_duty_management_software():
+    """Keyword landing page: extra duty management software."""
+    return render_site_page(
+        "extra-duty-management-software.html",
+        "Extra Duty Management Software for Law Enforcement — G3 Industries",
+    )
+
+
 @app.route("/blog")
 def blog():
     """Blog index page."""
@@ -2236,6 +2263,9 @@ def sitemap_xml():
     entries: List[Dict[str, str]] = [
         {"loc": f"{base_url}/", "changefreq": "weekly", "priority": "1.0"},
         {"loc": f"{base_url}/products", "changefreq": "weekly", "priority": "0.9"},
+        {"loc": f"{base_url}/police-scheduling-software", "changefreq": "monthly", "priority": "0.9"},
+        {"loc": f"{base_url}/vacation-bidding-software", "changefreq": "monthly", "priority": "0.8"},
+        {"loc": f"{base_url}/extra-duty-management-software", "changefreq": "monthly", "priority": "0.8"},
         {"loc": f"{base_url}/guide", "changefreq": "monthly", "priority": "0.8"},
         {"loc": f"{base_url}/impact", "changefreq": "monthly", "priority": "0.7"},
         {"loc": f"{base_url}/security", "changefreq": "monthly", "priority": "0.8"},

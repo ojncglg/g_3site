@@ -1,0 +1,208 @@
+<!--
+  Template: extra-duty-management-software.html
+  Purpose: Keyword-targeted landing page for "extra duty management software" searches.
+  Inherits: base.html.
+-->
+{% extends "base.html" %}
+{% block title %}Extra Duty Management Software for Law Enforcement | G3 Industries{% endblock %}
+{% block meta %}
+<meta
+  name="description"
+  content="Extra duty management software for police: job intake, fair assignment logic, conflict checks, overtime control, and audit-ready records."
+/>
+<link rel="canonical" href="{{ request.base_url }}" />
+<meta
+  property="og:title"
+  content="Extra Duty Management Software for Law Enforcement | G3 Industries"
+/>
+<meta
+  property="og:description"
+  content="Extra duty intake, fair assignment, conflict checks, and audit-ready records in one platform built for law enforcement."
+/>
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.base_url }}" />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Extra Duty Management Software for Law Enforcement",
+    "url": {{ request.base_url | tojson }},
+    "description": "Extra duty management software with job intake, fair assignment logic, conflict checks, overtime control, and audit-ready records.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": {{ url_for('home', _external=True) | tojson }}},
+        {"@type": "ListItem", "position": 2, "name": "Extra Duty Management Software", "item": {{ request.base_url | tojson }}}
+      ]
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does extra duty management software keep assignments fair?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Assignment rules are configured by your agency, rotation order, hours balancing, or eligibility tiers, and applied automatically to every job. Every assignment decision is logged."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about overtime and conflict checks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jobs are checked against the master schedule before assignment, so overlapping shifts, rest-period violations, and overtime surprises are caught in advance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can vendors request extra duty online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Structured intake captures the job details, location, hours, and rate requirements in one place, replacing phone calls and paper requests."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it keep records for audits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Every job, assignment, cancellation, and payment record is kept in one audit-ready trail that command can review at any time."
+        }
+      }
+    ]
+  }
+</script>
+{% endblock %}
+{% block content %}
+<!-- Hero -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <p class="text-xs uppercase tracking-wider text-cyan-300 font-semibold">Extra Duty Management Software</p>
+    <h1 class="mt-2 text-3xl md:text-4xl font-bold">Extra Duty Management Software for Law Enforcement</h1>
+    <p class="mt-3 text-slate-300 max-w-3xl">
+      Job intake, fair assignment logic, conflict checks, and audit-ready records
+      in one place. Extra duty stops being a group chat and a stack of paper
+      requests, and starts being a system command can defend.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/#demo" class="btn btn-primary">Request a demo</a>
+      <a href="/products" class="btn btn-outline">Explore the platform</a>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="defer pb-6 md:pb-10 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold">Why extra duty becomes a headache</h2>
+    <p class="mt-3 text-slate-300 max-w-3xl">
+      Extra duty is some of the most complained-about work in policing, and it is
+      almost always a process problem, not a people problem. Jobs get offered to
+      whoever the coordinator knows first. Conflicts get discovered after the
+      fact. Cancellations leave gaps. When officers cannot see how assignments
+      were made, fairness becomes a rumor.
+    </p>
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section class="defer pb-6 md:pb-10">
+  <div class="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-2">
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Structured job intake</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        One request form captures the job details, location, hours, and rate
+        requirements. No more phone calls, texts, and paper slips competing for
+        the coordinator's attention.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Fair, visible assignment</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Your assignment rules, rotation order, hours balancing, or eligibility
+        tiers, applied automatically to every job. Every decision is logged, so
+        fairness is documented, not rumored.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Conflict checks before assignment</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Jobs are checked against the master schedule and officer commitments
+        before assignment, catching overlapping shifts and rest-period issues in
+        advance instead of on the day of the job.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Audit-ready records</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Every job, assignment, cancellation, and payment record lives in one
+        trail that command can review at any time. Accountability without the
+        spreadsheet archaeology.
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="defer pb-6 md:pb-10 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold">Common questions</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">How does extra duty management software keep assignments fair?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Assignment rules are configured by your agency, rotation order, hours
+          balancing, or eligibility tiers, and applied automatically to every job.
+          Every assignment decision is logged.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">What about overtime and conflict checks?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Jobs are checked against the master schedule before assignment, so
+          overlapping shifts, rest-period violations, and overtime surprises are
+          caught in advance.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">Can vendors request extra duty online?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Structured intake captures the job details, location, hours, and
+          rate requirements in one place, replacing phone calls and paper
+          requests.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">Does it keep records for audits?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Every job, assignment, cancellation, and payment record is kept
+          in one audit-ready trail that command can review at any time.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="defer py-12 md:py-16 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="rounded-lg border border-white/10 bg-slate-900/40 p-6">
+      <h2 class="text-xl font-semibold">Make extra duty defensible</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        We will map your current extra duty workflow, configure your assignment
+        rules, and run a pilot with your first jobs so command can see the
+        difference immediately.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href="/#demo" class="btn btn-primary">Request a demo</a>
+        <a href="/police-scheduling-software" class="btn btn-outline">Police scheduling software</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

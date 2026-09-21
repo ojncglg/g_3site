@@ -1,0 +1,207 @@
+<!--
+  Template: police-scheduling-software.html
+  Purpose: Keyword-targeted landing page for "police scheduling software" searches.
+  Inherits: base.html.
+-->
+{% extends "base.html" %}
+{% block title %}Police Scheduling Software for Law Enforcement Agencies | G3 Industries{% endblock %}
+{% block meta %}
+<meta
+  name="description"
+  content="Police scheduling software built for command staff: shift scheduling, vacation bidding, extra duty coordination, and staffing forecasting in one audit-ready platform."
+/>
+<link rel="canonical" href="{{ request.base_url }}" />
+<meta
+  property="og:title"
+  content="Police Scheduling Software for Law Enforcement Agencies | G3 Industries"
+/>
+<meta
+  property="og:description"
+  content="One audit-ready platform for police scheduling: shifts, vacation bidding, extra duty, and staffing forecasts with policy guardrails."
+/>
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.base_url }}" />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Police Scheduling Software for Law Enforcement Agencies",
+    "url": {{ request.base_url | tojson }},
+    "description": "Police scheduling software that unifies shift scheduling, vacation bidding, extra duty, and staffing forecasting in one audit-ready platform.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": {{ url_for('home', _external=True) | tojson }}},
+        {"@type": "ListItem", "position": 2, "name": "Police Scheduling Software", "item": {{ request.base_url | tojson }}}
+      ]
+    }
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does police scheduling software replace our current scheduling process?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It replaces the disconnected parts: spreadsheets, texts, and paper forms become one shared scheduling calendar with approvals and policy guardrails. Your shift structure and policies stay the same."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can it handle our shift structure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Rotations, 8s, 10s, 12s, and mixed squad structures are configured to match how your agency actually staffs, including rank-based rules and minimums."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work for small agencies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Small departments feel scheduling friction hardest because one absence hits coverage immediately. Pilot programs start with a single squad or workflow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does a pilot take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pilots are scoped in weeks, not months. You start with one high-friction workflow, measure the impact, and expand from there."
+        }
+      }
+    ]
+  }
+</script>
+{% endblock %}
+{% block content %}
+<!-- Hero -->
+<section class="py-12 md:py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <p class="text-xs uppercase tracking-wider text-cyan-300 font-semibold">Police Scheduling Software</p>
+    <h1 class="mt-2 text-3xl md:text-4xl font-bold">Police Scheduling Software Built for Law Enforcement</h1>
+    <p class="mt-3 text-slate-300 max-w-3xl">
+      One audit-ready platform for shift scheduling, vacation bidding, extra duty
+      coordination, and staffing forecasts. Built around real police policy, rank
+      structure, and approval chains, not retrofitted from generic HR software.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/#demo" class="btn btn-primary">Request a demo</a>
+      <a href="/products" class="btn btn-outline">Explore the platform</a>
+    </div>
+  </div>
+</section>
+
+<!-- Problem -->
+<section class="defer pb-6 md:pb-10 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold">The problem with how most agencies schedule</h2>
+    <p class="mt-3 text-slate-300 max-w-3xl">
+      Schedules live in spreadsheets. Time-off requests arrive by text, email, and
+      paper slips. Extra duty is coordinated in a group chat. Coverage risk gets
+      discovered the morning of the shift, and overtime surprises show up after
+      the fact. Every handoff between disconnected tools is a place where
+      staffing truth gets lost.
+    </p>
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section class="defer pb-6 md:pb-10">
+  <div class="max-w-6xl mx-auto px-4 grid gap-6 md:grid-cols-2">
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">One scheduling calendar</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Shifts, leave, extra duty commitments, and training in a single view.
+        Command sees who is available and who is committed before the shift
+        starts, not after.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Policy guardrails, not workarounds</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Minimum staffing, rank requirements, and approval chains are enforced in
+        the workflow itself, so policy compliance happens by default instead of
+        by memory.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Vacation bidding without the grievances</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Structured bid cycles with transparent seniority rules and tiebreakers.
+        Officers see the order and the outcome. See how it works on our
+        <a href="/vacation-bidding-software" class="nav-link">vacation bidding software</a> page.
+      </p>
+    </article>
+    <article class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5">
+      <h2 class="font-semibold">Staffing forecasts</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        Forward-looking staffing risk signals help command cover low-staff
+        windows proactively instead of scrambling for overtime at the last minute.
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="defer pb-6 md:pb-10 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold">Common questions</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">Does police scheduling software replace our current scheduling process?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          It replaces the disconnected parts: spreadsheets, texts, and paper forms
+          become one shared scheduling calendar with approvals and policy
+          guardrails. Your shift structure and policies stay the same.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">Can it handle our shift structure?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Rotations, 8s, 10s, 12s, and mixed squad structures are configured
+          to match how your agency actually staffs, including rank-based rules
+          and minimums.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">Does it work for small agencies?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Yes. Small departments feel scheduling friction hardest because one
+          absence hits coverage immediately. Pilot programs start with a single
+          squad or workflow.
+        </p>
+      </details>
+      <details class="rounded-lg border border-white/10 bg-slate-900/45 p-4">
+        <summary class="cursor-pointer font-semibold">How long does a pilot take?</summary>
+        <p class="mt-2 text-sm text-slate-300">
+          Pilots are scoped in weeks, not months. You start with one
+          high-friction workflow, measure the impact, and expand from there.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="defer py-12 md:py-16 section-decor">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="rounded-lg border border-white/10 bg-slate-900/40 p-6">
+      <h2 class="text-xl font-semibold">See your agency's schedule in one place</h2>
+      <p class="mt-2 text-sm text-slate-300">
+        We will map your current scheduling workflow and show you what changes
+        with one connected platform. Founding agencies get hands-on setup and
+        locked-in early pricing.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href="/#demo" class="btn btn-primary">Request a demo</a>
+        <a href="/extra-duty-management-software" class="btn btn-outline">Extra duty management</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
