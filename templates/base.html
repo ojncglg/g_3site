@@ -33,12 +33,6 @@
     <link rel="dns-prefetch" href="//cdn.tailwindcss.com" />
     <title>{% block title %}G3 Industries{% endblock %}</title>
     <link rel="canonical" href="{{ request.base_url }}" />
-    {% block meta %}
-    <meta
-      name="description"
-      content="Revolutionizing law enforcement through innovation"
-    />
-    {% endblock %}
     <!-- SEO: keywords, author, robots -->
     <meta
       name="keywords"
@@ -152,6 +146,10 @@
     {% endif %}
     {# Page-level SEO/metadata overrides from child templates. #}
     {% block meta %}
+    <meta
+      name="description"
+      content="Revolutionizing law enforcement through innovation"
+    />
     {% endblock %}
     {# Default social cards; child templates can override. #}
     {% block social %}
