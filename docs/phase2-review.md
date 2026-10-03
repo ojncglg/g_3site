@@ -94,10 +94,10 @@ Placeholder punctuation uses commas to follow the no-em-dash instruction. The co
 - `[PHONE]`: supply the business phone number for Contact and the footer.
 - Business hours: supply the schedule for Contact.
 - Testimonial quotes: replace both pilot placeholders with approved real quotes and citations.
-- `[CJIS status]`: the copy decision is resolved; the approved sentence retains `[TO BE CONFIRMED BY FOUNDER]` for the formal assessment status.
+- CJIS copy: replaced with the founder's statement that G3 does not collect, store, or transmit CJI; no assessment-status placeholder remains.
 - Cloudflare: also switch the Turnstile widget to Managed mode in the Cloudflare dashboard. [Widget appearance documentation](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/widget-configurations/#appearance-modes).
 
-No requested implementation item is blocked. Real contact details, testimonials, and formal assessment status cannot be supplied from repository evidence. The Cloudflare dashboard setting remains pending. Production deployment is complete and the internal calculator is no longer publicly accessible without authentication.
+No requested implementation item is blocked. Phone, hours, and testimonials stay unpublished until real details are provided. The Cloudflare dashboard setting remains pending. Production deployment is complete and the internal calculator is no longer publicly accessible without authentication.
 
 ## Production deployment verification
 
@@ -116,3 +116,9 @@ The reviewed commit was pushed to `ojncglg/g_3site` on `main`. Render served the
 - The deployed stylesheet's SHA-256 hash matches the committed local stylesheet.
 
 All production checks passed. No form submissions, emails, or lead writes were performed.
+
+## Production placeholder cleanup
+
+- Homepage testimonials are excluded from rendered HTML with a Jinja comment until real quotes and citations exist. File: `templates/index.html`.
+- Phone and hours have been removed from Contact, and the shared footer phone placeholder has been removed from every page. Files: `templates/contact.html`, `templates/base.html`.
+- Compliance now contains the founder's exact replacement CJIS wording with no bracketed status. File: `templates/security.html`.
