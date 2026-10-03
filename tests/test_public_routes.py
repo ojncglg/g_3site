@@ -61,8 +61,22 @@ class PublicRouteTests(unittest.TestCase):
                 for internal_name in ("const prices", "monthlyFloor", "setupFee", "addonPrice"):
                     self.assertNotIn(internal_name, html)
                 self.assertIn("Founding Pilot", html)
-                self.assertIn("Department", html)
-                self.assertIn("Enterprise", html)
+                self.assertIn("Essential", html)
+                self.assertIn("Operations", html)
+                self.assertIn("Command Suite", html)
+                self.assertNotIn("Enterprise", html)
+                self.assertIn(
+                    "G3 is priced per sworn officer per month, billed annually. "
+                    "Final quotes are confirmed after scope review.", html
+                )
+                self.assertNotRegex(html, r'<article[^>]*id="founding-pilot"')
+                essential = re.search(r'<article[^>]*id="essential"[^>]*>(.*?)</article>', html, re.S).group(1)
+                self.assertEqual(essential.count("<li>"), 2)
+                for feature in ("Vacation Bidding", "Training Day", "Extra Duty", "Anonymous Tips", "Tow Logs", "add-on"):
+                    self.assertNotIn(feature, essential)
+                if path == "/sales":
+                    selector = re.search(r'<select id="agencyPackage"[^>]*>(.*?)</select>', html, re.S).group(1)
+                    self.assertEqual(re.findall(r'<option value="([^"]+)"', selector), ["essential", "operations", "command"])
 
     def test_sitemap_contains_public_additions_and_excludes_unlisted_pages(self):
         response = self.get("/sitemap.xml")

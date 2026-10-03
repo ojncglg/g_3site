@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_package_data.html" import tiers %}
 {% block title %}Agency Planning Estimate | G3 Industries{% endblock %}
 {% block robots %}<meta name="robots" content="noindex,nofollow,noarchive" />{% endblock %}
 {% block meta %}
@@ -38,7 +39,7 @@
   <p class="text-sm font-semibold text-cyan-300">Agency planning estimate</p>
   <h1 class="mt-3 text-3xl md:text-4xl font-bold">Plan the package your agency needs</h1>
   <p class="mt-4 max-w-3xl text-slate-300">Build a planning estimate by selecting agency size, package, and deployment scope. Final quotes are confirmed after scope, rollout needs, and support requirements are reviewed.</p>
-  <p class="mt-3 max-w-3xl text-slate-300">G3 is priced per sworn officer per month, billed annually. Pilot programs are flat-fee.</p>
+  <p class="mt-3 max-w-3xl text-slate-300">G3 is priced per sworn officer per month, billed annually. Final quotes are confirmed after scope review.</p>
 </section>
 <section class="sales-panel p-5 sm:p-6" aria-labelledby="estimator-title">
   <div class="grid gap-6 lg:grid-cols-2">
@@ -53,9 +54,9 @@
         <div>
           <label for="agencyPackage" class="block text-sm text-slate-300 mb-1">Package</label>
           <select id="agencyPackage" class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 px-3 py-2">
-            <option value="founding-pilot">Founding Pilot</option>
-            <option value="department" selected>Department</option>
-            <option value="enterprise">Enterprise</option>
+            {% for tier in tiers %}
+            <option value="{{ tier.id }}"{% if tier.id == 'operations' %} selected{% endif %}>{{ tier.name }}</option>
+            {% endfor %}
           </select>
         </div>
         <div>
@@ -69,14 +70,24 @@
     </div>
     <div class="sales-result" role="status" aria-live="polite" aria-atomic="true">
       <h2 class="text-xl font-semibold">Planning estimate</h2>
-      <p id="estimatePackage" class="mt-3 text-2xl font-bold">Department</p>
+      <p id="estimatePackage" class="mt-3 text-2xl font-bold">Operations</p>
+      <p id="estimateTagline" class="mt-2 text-slate-300">{{ tiers[1].tagline }}</p>
       <p class="mt-2 text-slate-300">Quote after scope review</p>
       <dl class="mt-5">
         <div class="sales-result-row"><dt>Sworn officers</dt><dd id="estimateOfficers">75</dd></div>
         <div class="sales-result-row"><dt>Deployment</dt><dd id="estimateScope">Single agency</dd></div>
         <div class="sales-result-row"><dt>Pricing model</dt><dd id="estimateModel">Per sworn officer per month, billed annually</dd></div>
         <div class="sales-result-row"><dt>Term</dt><dd id="estimateTerm">Annual agreement</dd></div>
-        <div class="sales-result-row"><dt>Included</dt><dd id="estimateFeatures">Full G3 suite</dd></div>
+        <div class="sales-result-row">
+          <dt>Included</dt>
+          <dd class="w-full">
+            <ul id="estimateFeatures" class="space-y-3 text-sm text-slate-300 list-disc pl-5">
+              {% for feature in tiers[0].features + tiers[1].features %}
+              <li><strong class="text-white">{{ feature.name }}:</strong> {{ feature.description }}</li>
+              {% endfor %}
+            </ul>
+          </dd>
+        </div>
       </dl>
       <p id="estimateNote" class="mt-3 text-sm text-slate-300">Final quotes are confirmed after scope review.</p>
       <div class="sales-controls mt-5 flex flex-wrap gap-3">
@@ -87,6 +98,7 @@
     </div>
   </div>
 </section>
+{% include "_founding_pilot.html" %}
 <section class="py-10 md:py-12" aria-label="Package scope">
   {% include "_package_cards.html" %}
 </section>
@@ -95,39 +107,47 @@
     const officerInput = document.getElementById("agencyOfficers");
     const packageInput = document.getElementById("agencyPackage");
     const scopeInput = document.getElementById("deploymentScope");
-    const packages = {
-      "founding-pilot": { name: "Founding Pilot", model: "Flat fee", term: "90 days", features: "Full G3 suite, onboarding, training, and feedback partnership", note: "Limited cohort of Delaware agencies. Final pilot quote follows scope review." },
-      department: { name: "Department", model: "Per sworn officer per month, billed annually", term: "Annual agreement", features: "Full G3 suite", note: "For a single agency. Final quotes are confirmed after scope review." },
-      enterprise: { name: "Enterprise", model: "Per sworn officer per month, billed annually", term: "Annual agreement", features: "Full G3 suite, SSO, API access, dedicated support, and custom integrations", note: "For multi-agency or county deployments. Final quotes are confirmed after scope review." }
-    };
+    const tiers = {{ tiers | tojson }};
+    const packages = new Map(tiers.map((tier) => [tier.id, tier]));
+    const model = "Per sworn officer per month, billed annually";
+    const term = "Annual agreement";
+
+    function includedFeatures(tier) {
+      const inherited = tier.inherits
+        ? includedFeatures(packages.get(tier.inherits))
+        : [];
+      return [...inherited, ...tier.features];
+    }
+
     const params = new URLSearchParams(window.location.search);
     if (params.has("officers")) officerInput.value = String(Math.min(1000, Math.max(1, parseInt(params.get("officers"), 10) || 1)));
-    if (Object.hasOwn(packages, params.get("package"))) packageInput.value = params.get("package");
-    scopeInput.value = packageInput.value === "enterprise" ? "multi" : "single";
+    if (packages.has(params.get("package"))) packageInput.value = params.get("package");
+    scopeInput.value = params.get("scope") === "multi" ? "multi" : "single";
 
     function updateEstimate() {
       const officers = Math.min(1000, Math.max(1, parseInt(officerInput.value, 10) || 1));
-      const pkg = packages[packageInput.value];
+      const pkg = packages.get(packageInput.value);
+      const features = includedFeatures(pkg);
       const scope = scopeInput.options[scopeInput.selectedIndex].text;
       document.getElementById("estimatePackage").textContent = pkg.name;
+      document.getElementById("estimateTagline").textContent = pkg.tagline;
       document.getElementById("estimateOfficers").textContent = String(officers);
       document.getElementById("estimateScope").textContent = scope;
-      document.getElementById("estimateModel").textContent = pkg.model;
-      document.getElementById("estimateTerm").textContent = pkg.term;
-      document.getElementById("estimateFeatures").textContent = pkg.features;
-      document.getElementById("estimateNote").textContent = pkg.note;
-      const body = ["Hello G3,", "", "Please review this agency planning estimate:", "Sworn officers: " + officers, "Package: " + pkg.name, "Deployment: " + scope, "Pricing model: " + pkg.model, "Term: " + pkg.term, "", "Please confirm a quote after scope review."].join("\n");
+      const featureList = document.getElementById("estimateFeatures");
+      featureList.replaceChildren(...features.map((feature) => {
+        const item = document.createElement("li");
+        const label = document.createElement("strong");
+        label.className = "text-white";
+        label.textContent = feature.name + ":";
+        item.append(label, " " + feature.description);
+        return item;
+      }));
+      const featureLines = features.map((feature) => feature.name + ": " + feature.description);
+      const body = ["Hello G3,", "", "Please review this agency planning estimate:", "Sworn officers: " + officers, "Package: " + pkg.name, "Deployment: " + scope, "Pricing model: " + model, "Term: " + term, "", "Included:", ...featureLines, "", "Please confirm a quote after scope review."].join("\n");
       document.getElementById("estimateEmail").href = "mailto:" + {{ contact_email | tojson }} + "?subject=" + encodeURIComponent("G3 Agency Planning Estimate") + "&body=" + encodeURIComponent(body);
     }
-    packageInput.addEventListener("change", () => {
-      scopeInput.value = packageInput.value === "enterprise" ? "multi" : "single";
-      updateEstimate();
-    });
-    scopeInput.addEventListener("change", () => {
-      if (scopeInput.value === "multi") packageInput.value = "enterprise";
-      else if (packageInput.value === "enterprise") packageInput.value = "department";
-      updateEstimate();
-    });
+    packageInput.addEventListener("change", updateEstimate);
+    scopeInput.addEventListener("change", updateEstimate);
     officerInput.addEventListener("input", updateEstimate);
     officerInput.addEventListener("change", () => {
       officerInput.value = String(Math.min(1000, Math.max(1, parseInt(officerInput.value, 10) || 1)));

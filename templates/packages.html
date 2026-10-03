@@ -1,24 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Police Workforce Software Packages | G3 Industries{% endblock %}
 {% block meta %}
-<meta name="description" content="Explore G3's Founding Pilot, Department, and Enterprise packages for police scheduling and staffing. Request a quote based on your agency's scope." />
+<meta name="description" content="Explore G3's Essential, Operations, and Command Suite packages for police scheduling and staffing. Request a quote based on your agency's scope." />
 {% endblock %}
 {% block social %}
 <meta property="og:title" content="Police Workforce Software Packages | G3 Industries" />
-<meta property="og:description" content="Choose a pilot, single-agency, or multi-agency deployment. Final quotes follow scope review." />
+<meta property="og:description" content="Choose Essential, Operations, or Command Suite. Final quotes are confirmed after scope review." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request.base_url }}" />
 <meta property="og:image" content="{{ url_for('static', filename='img/g3-logo.png', _external=True) }}" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Police Workforce Software Packages | G3 Industries" />
-<meta name="twitter:description" content="Choose a pilot, single-agency, or multi-agency deployment." />
+<meta name="twitter:description" content="Choose Essential, Operations, or Command Suite for your agency." />
 {% endblock %}
 {% block content %}
 <section class="py-10 md:py-12 section-decor reveal">
   <h1 class="text-3xl md:text-4xl font-bold">Packages built for your agency</h1>
-  <p class="mt-4 max-w-3xl text-slate-300">G3 is priced per sworn officer per month, billed annually. Pilot programs are flat-fee.</p>
-  <p class="mt-3 max-w-3xl text-slate-300">Choose the deployment that fits your agency. Final quotes are confirmed after scope, rollout needs, and support requirements are reviewed.</p>
+  <p class="mt-4 max-w-3xl text-slate-300">G3 is priced per sworn officer per month, billed annually. Final quotes are confirmed after scope review.</p>
+  <p class="mt-3 max-w-3xl text-slate-300">Choose the package that fits your agency's operational needs.</p>
 </section>
+{% include "_founding_pilot.html" %}
 <section class="pb-10 md:pb-12 reveal" aria-label="G3 packages">
   {% include "_package_cards.html" %}
 </section>

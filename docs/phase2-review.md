@@ -52,7 +52,7 @@ Neither `/sales` nor any calculator alias was in the generated sitemap before ed
 | --- | --- | --- |
 | Founding banner | Replaced the onboarding sentence with the Founding Agency Program limited-cohort copy. | `templates/index.html` |
 | Founding agencies | Added two intentional quote placeholders and name/rank/department citation slots directly below the pilot section. | `templates/index.html` |
-| Packages | Added Founding Pilot, Department, and Enterprise tiers, approved scope, pricing-model line, homepage demo CTAs, and `/pricing` redirect. | `app.py`, `templates/packages.html`, `templates/_package_cards.html`, `static/style.css` |
+| Packages | Essential, Operations, and Command Suite use the original scope; Founding Pilot is a separate callout, and `/pricing` redirects to `/packages`. | `templates/packages.html`, `templates/_package_cards.html`, `templates/_package_data.html`, `templates/_founding_pilot.html` |
 | Navigation | Added Packages between Products and G3 IMPACT on desktop/mobile, and in the footer. | `templates/base.html` |
 | Contact | Added Newark location, supplied email, pending phone/hours, and a city-level map with a contact-only CSP allowance. | `app.py`, `templates/contact.html` |
 | Footer contact | Contact now links to `/contact`; pending phone appears in the footer where it fits. | `templates/base.html` |
@@ -122,3 +122,13 @@ All production checks passed. No form submissions, emails, or lead writes were p
 - Homepage testimonials are excluded from rendered HTML with a Jinja comment until real quotes and citations exist. File: `templates/index.html`.
 - Phone and hours have been removed from Contact, and the shared footer phone placeholder has been removed from every page. Files: `templates/contact.html`, `templates/base.html`.
 - Compliance now contains the founder's exact replacement CJIS wording with no bracketed status. File: `templates/security.html`.
+
+## Package rebuild
+
+- Both `/packages` and `/sales` show Essential, Operations, and Command Suite with the requested taglines and feature lists. Essential contains only Vacation requests and Scheduler; Operations adds Vacation Bidding and Training Day; Command Suite adds Extra Duty, Anonymous Tips, and Tow Logs.
+- Founding Pilot is a separate callout above the tier cards on both pages, links to `/#demo`, and preserves the homepage's `/packages#founding-pilot` destination.
+- Both pages use the exact line: "G3 is priced per sworn officer per month, billed annually. Final quotes are confirmed after scope review." No dollar figures or em dashes are rendered.
+- The sales planner options are Essential, Operations, and Command Suite. Its summary includes inherited features, and deployment scope no longer changes the selected package. Email links include the selected feature scope; no emails were sent.
+- Shared definitions in `templates/_package_data.html` keep the cards and planner consistent. The existing tier-card classes, colors, typography, and buttons are reused.
+- Files changed: `templates/packages.html`, `templates/sales.html`, `templates/_package_cards.html`, `templates/_package_data.html`, `templates/_founding_pilot.html`, `tests/test_public_routes.py`, and this review document.
+- Verification: six regression tests pass; rendered JavaScript passes syntax checks; Chrome confirms feature counts of 2, 4, and 7, query-string selection, independent deployment scope, and mobile/desktop layouts at 375, 768, and 1280px. No horizontal overflow, controls below 44px, or runtime exceptions were found. No forms were submitted.

@@ -1,0 +1,34 @@
+{# One source of truth for package cards and the sales planner. #}
+{% set tiers = [
+  {
+    "id": "essential",
+    "name": "Essential",
+    "tagline": "Start with the operational foundation.",
+    "inherits": none,
+    "features": [
+      {"name": "Vacation requests (Vacation Book)", "description": "Leave requests from submission through approval, denial, or waitlist; role-based access; coverage calendars; audit history."},
+      {"name": "Scheduler", "description": "Daily rosters, units, squads, shifts, statuses, shift pairings and assignments, coverage charts."}
+    ]
+  },
+  {
+    "id": "operations",
+    "name": "Operations",
+    "tagline": "Manage staffing and planning.",
+    "inherits": "essential",
+    "features": [
+      {"name": "Vacation Bidding", "description": "Seniority or lottery-based bidding, bidding lanes, defined seasons, selection windows, policy caps, automatic calendar placement."},
+      {"name": "Training Day (Training Tracker)", "description": "Training day planning, availability checks, roster impact, attendance tracking."}
+    ]
+  },
+  {
+    "id": "command",
+    "name": "Command Suite",
+    "tagline": "Run the full command workflow.",
+    "inherits": "operations",
+    "features": [
+      {"name": "Extra Duty (Pay Jobs)", "description": "Extra-duty and part-time assignments from request through signup, approval, assignment, and payment tracking; customer billing; configurable job rules, eligibility, and rotation."},
+      {"name": "Anonymous Tips", "description": "Citizen tip intake page, routing, triage, and dissemination to the right unit or officer."},
+      {"name": "Tow Logs", "description": "Structured tow records with unit designators for tow companies and accountability review."}
+    ]
+  }
+] %}
