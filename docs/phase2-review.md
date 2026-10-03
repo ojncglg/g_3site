@@ -1,6 +1,6 @@
 # Phase 2 review
 
-Changes are implemented locally and have not been deployed. No forms were submitted during testing.
+Phase 2 was deployed to Render on October 3, 2026, and verified live at https://www.g3industries.io/. Deployment commit: `90adf60ebe77a23bfa46c5e05bd42c292c743b1c`. No forms were submitted during testing or production verification.
 
 ## Complete route audit
 
@@ -97,4 +97,22 @@ Placeholder punctuation uses commas to follow the no-em-dash instruction. The co
 - `[CJIS status]`: the copy decision is resolved; the approved sentence retains `[TO BE CONFIRMED BY FOUNDER]` for the formal assessment status.
 - Cloudflare: also switch the Turnstile widget to Managed mode in the Cloudflare dashboard. [Widget appearance documentation](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/widget-configurations/#appearance-modes).
 
-No requested implementation item is blocked. Real contact details, testimonials, and formal assessment status cannot be supplied from repository evidence. The Cloudflare dashboard setting and production deployment have not been performed in this code-editing session. The live internal calculator exposure is only resolved once these code changes are deployed.
+No requested implementation item is blocked. Real contact details, testimonials, and formal assessment status cannot be supplied from repository evidence. The Cloudflare dashboard setting remains pending. Production deployment is complete and the internal calculator is no longer publicly accessible without authentication.
+
+## Production deployment verification
+
+The reviewed commit was pushed to `ojncglg/g_3site` on `main`. Render served the new release, and GET-only production checks completed successfully at approximately 6:35 a.m. Eastern on October 3, 2026.
+
+- `/_health` returned 200 and `ok`.
+- `/packages` and `/contact` returned 200 with the approved content.
+- `/pricing` returned 301 to `/packages`.
+- `/sales` returned 200 with the interactive scope planner and no dollar figures or price constants.
+- `/prices`, `/price-calculator`, and `/g3-internal/agency-price-lab` each returned 401 without credentials, with noindex and no-store headers and no internal figures in the response.
+- The live homepage has the new hero, pilot link, testimonial placeholders, optional demo selects, and interaction-only Turnstile configuration.
+- `/impact` has six visible intake fields; `/security` has the approved CJIS sentence.
+- `/products`, `/guide`, `/blog`, and the other changed public pages returned 200 with one H1.
+- The generated sitemap includes `/packages` and `/contact`, and excludes sales, calculator aliases, other unlisted tools, and the pricing redirect.
+- An unknown URL returned the branded 404 page.
+- The deployed stylesheet's SHA-256 hash matches the committed local stylesheet.
+
+All production checks passed. No form submissions, emails, or lead writes were performed.
