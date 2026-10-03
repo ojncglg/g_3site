@@ -845,7 +845,7 @@
       $("officerDisplay").textContent = n;
       $("tierName").textContent = tier.name;
       const floorApplies = combo.annual < MONTHLY_FLOOR * 12;
-      $("packageNote").textContent = `${combo.packageName}: ${money(combo.annual)}/yr list price for ${tier.name.split(" - ")[0]}${floorApplies ? ` — $500/mo minimum floor applies` : ""}. ${combo.packageNote}`;
+      $("packageNote").textContent = `${combo.packageName}: ${money(combo.annual)}/yr list price for ${tier.name.split(" - ")[0]}${floorApplies ? `, $500/mo minimum floor applies` : ""}. ${combo.packageNote}`;
       $("quoteNote").textContent = annualOverrideDirty
         ? `Custom quote active. List price with add-ons would be ${money(defaultAnnualRevenue)}.`
         : `Using list price${addonLabel() ? " with selected add-ons" : ""}: ${money(defaultAnnualRevenue)}.`;

@@ -1,1159 +1,140 @@
-{% extends "base.html" %} {% block title %}Agency Pricing | G3 Industries{%
-endblock %} {% block robots %}
-<meta name="robots" content="noindex,nofollow,noarchive" />
-{% endblock %} {% block meta %}
-<meta
-  name="description"
-  content="Estimate G3 Industries pricing for your agency: public safety software packages, setup, and optional add-ons for scheduling, extra duty, and more."
-/>
-{% endblock %} {% macro check_cell() -%}
-<td class="sales-checkmark" aria-label="Included">&#10003;</td>
-{%- endmacro %} {% macro unavailable_cell() -%}
-<td class="sales-unavailable" aria-label="Not included">-</td>
-{%- endmacro %} {% macro addon_cell(note) -%}
-<td>Available add-on<br /><span class="sales-note">{{ note }}</span></td>
-{%- endmacro %} {% block extra_head %}
+{% extends "base.html" %}
+{% block title %}Agency Planning Estimate | G3 Industries{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow,noarchive" />{% endblock %}
+{% block meta %}
+<meta name="description" content="Plan your G3 package scope and rollout. Final quotes are confirmed after scope review." />
+{% endblock %}
+{% block extra_head %}
 <style>
-  .sales-shell {
-    --sales-panel: rgba(15, 23, 42, 0.74);
-    --sales-panel-strong: rgba(15, 23, 42, 0.94);
-    --sales-line: rgba(148, 163, 184, 0.24);
-    --sales-line-strong: rgba(250, 204, 21, 0.42);
-  }
-
-  .sales-hero {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .sales-panel {
+    border: 1px solid rgba(148, 163, 184, 0.24);
     border-radius: 0.75rem;
-    background:
-      radial-gradient(
-        900px 360px at 82% 0%,
-        rgba(250, 204, 21, 0.18),
-        transparent 58%
-      ),
-      radial-gradient(
-        700px 300px at 8% 8%,
-        rgba(34, 211, 238, 0.14),
-        transparent 58%
-      ),
-      linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.94));
+    background: rgba(15, 23, 42, 0.74);
   }
-
-  .sales-eyebrow {
-    color: #7dd3fc;
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
-  .sales-panel,
-  .sales-card,
-  .sales-package {
-    border: 1px solid var(--sales-line);
-    border-radius: 0.75rem;
-    background: var(--sales-panel);
-  }
-
-  .sales-card,
-  .sales-package {
-    padding: 1.1rem;
-  }
-
-  .sales-package {
-    display: grid;
-    align-content: space-between;
-    gap: 1rem;
-    min-height: 100%;
-  }
-
-  .sales-package.featured {
-    border-color: var(--sales-line-strong);
-    background:
-      linear-gradient(rgba(250, 204, 21, 0.08), rgba(15, 23, 42, 0.72)),
-      var(--sales-panel);
-  }
-
-  .sales-badge {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    border: 1px solid rgba(250, 204, 21, 0.34);
-    border-radius: 999px;
-    background: rgba(250, 204, 21, 0.1);
-    color: #fef3c7;
-    font-size: 0.72rem;
-    font-weight: 900;
-    padding: 0.25rem 0.55rem;
-    text-transform: uppercase;
-  }
-
-  .sales-field {
-    display: grid;
-    gap: 0.45rem;
-  }
-
-  .sales-field label,
-  .sales-option-title {
-    color: #e2e8f0;
-    font-size: 0.82rem;
-    font-weight: 800;
-  }
-
-  .sales-field input,
-  .sales-field select {
-    width: 100%;
-    min-height: 2.75rem;
-    border: 1px solid rgba(148, 163, 184, 0.28);
-    border-radius: 0.5rem;
-    background: rgba(2, 6, 23, 0.52);
-    color: #ffffff;
-    padding: 0.65rem 0.75rem;
-  }
-
-  .sales-check {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    border-radius: 0.55rem;
-    background: rgba(2, 6, 23, 0.32);
-    color: #cbd5e1;
-    cursor: pointer;
-    padding: 0.8rem;
-  }
-
-  .sales-check input {
-    accent-color: var(--g3-gold);
-    margin-top: 0.2rem;
-  }
-
-  .sales-check input:disabled {
-    cursor: not-allowed;
-  }
-
   .sales-result {
-    border: 1px solid var(--sales-line-strong);
+    border: 1px solid rgba(250, 204, 21, 0.42);
     border-radius: 0.75rem;
-    background:
-      radial-gradient(
-        520px 220px at 100% 0%,
-        rgba(250, 204, 21, 0.16),
-        transparent 62%
-      ),
-      rgba(15, 23, 42, 0.86);
+    background: rgba(15, 23, 42, 0.86);
     padding: 1.25rem;
   }
-
-  .sales-result-number {
-    color: #ffffff;
-    font-size: clamp(2rem, 5vw, 3.35rem);
-    font-weight: 950;
-    line-height: 1;
-  }
-
-  .sales-result-row,
-  .sales-year-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
   .sales-result-row {
-    border-top: 1px solid rgba(148, 163, 184, 0.16);
-    color: #cbd5e1;
-    padding: 0.75rem 0;
-  }
-
-  .sales-result-row strong,
-  .sales-year-meta strong {
-    color: #ffffff;
-    white-space: nowrap;
-  }
-
-  .sales-year-chart {
-    display: grid;
-    gap: 0.85rem;
-  }
-
-  .sales-year-bar {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .sales-year-meta {
-    color: #cbd5e1;
-    font-size: 0.86rem;
-    font-weight: 800;
-  }
-
-  .sales-year-track {
-    overflow: hidden;
-    height: 0.85rem;
-    border-radius: 999px;
-    background: rgba(148, 163, 184, 0.16);
-  }
-
-  .sales-year-fill {
-    width: 0;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, var(--g3-gold), #67e8f9);
-    transition: width 180ms ease;
-  }
-
-  .sales-table-wrap {
-    overflow-x: auto;
-    border: 1px solid var(--sales-line);
-    border-radius: 0.75rem;
-    background: var(--sales-panel-strong);
-  }
-
-  .sales-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
-  }
-
-  .sales-table th,
-  .sales-table td {
-    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-    padding: 1rem;
-    text-align: left;
-    vertical-align: top;
-  }
-
-  .sales-table th {
-    color: #fef3c7;
-    font-size: 0.75rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .sales-table td {
-    color: #e2e8f0;
-  }
-
-  .sales-table tr:last-child td {
-    border-bottom: 0;
-  }
-
-  .sales-checkmark,
-  .sales-unavailable {
-    font-weight: 950;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .sales-checkmark {
-    color: #22c55e;
-    font-size: 1.1rem;
-  }
-
-  .sales-unavailable {
-    color: #64748b;
-  }
-
-  .sales-note,
-  .sales-module-detail {
-    color: #94a3b8;
-    font-size: 0.84rem;
-    line-height: 1.5;
-  }
-
-  .sales-note {
-    margin-top: 0.35rem;
-  }
-
-  .sales-module-detail {
-    margin-top: 0.4rem;
-  }
-
-  .sales-list li {
     display: flex;
-    gap: 0.65rem;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.16);
+    padding: 0.75rem 0;
+    color: #cbd5e1;
   }
-
-  .sales-list li::before {
-    content: "";
-    width: 0.55rem;
-    height: 0.55rem;
-    flex: 0 0 0.55rem;
-    margin-top: 0.55rem;
-    border-radius: 999px;
-    background: var(--g3-gold);
-    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.12);
-  }
-
+  .sales-result-row dd { color: #fff; }
   @media print {
-    header,
-    footer,
-    .sales-print-control,
-    .sales-email-control,
-    .sales-estimator-controls {
-      display: none !important;
-    }
-
-    body {
-      background: #ffffff !important;
-      color: #111827 !important;
-    }
-
-    .sales-hero,
-    .sales-panel,
-    .sales-card,
-    .sales-package,
-    .sales-result,
-    .sales-table-wrap {
-      background: #ffffff !important;
-      border-color: #cbd5e1 !important;
-      color: #111827 !important;
-      box-shadow: none !important;
-    }
+    header, footer, .sales-controls { display: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
   }
 </style>
-{% endblock %} {% block content %}
-<div class="sales-shell space-y-8">
-  <section class="sales-hero px-5 py-8 sm:px-8 lg:px-10 lg:py-10">
-    <div class="grid gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-      <div>
-        <div class="sales-eyebrow">Agency planning estimate</div>
-        <h1 class="mt-3 text-3xl font-black text-white sm:text-5xl">
-          Price the command tools your agency actually needs
-        </h1>
-        <p class="mt-4 max-w-3xl text-base text-slate-300 sm:text-lg">
-          Build a planning estimate for G3 by selecting agency size, package,
-          contract term, and optional modules. This page is designed for chiefs,
-          command staff, and business administrators who need a clear budget
-          conversation.
-        </p>
-      </div>
-
-      <div class="sales-panel p-5">
-        <div class="sales-eyebrow">Planning note</div>
-        <p class="mt-3 text-sm text-slate-300">
-          Pricing is for budgeting and planning. Final quotes are confirmed
-          after scope, rollout needs, and support requirements are reviewed.
-        </p>
-        <div class="mt-5 flex flex-wrap gap-3">
-          <a
-            id="salesEmailHero"
-            href="mailto:grigori.lopezgarcia@g3industries.io?subject=G3%20Pricing%20Request"
-            class="sales-email-control btn btn-primary"
-          >
-            Email my estimate
-          </a>
-          <button
-            id="salesPrintButton"
-            type="button"
-            class="sales-print-control btn btn-outline"
-          >
-            Print price sheet
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sales-panel p-5 sm:p-6" aria-labelledby="estimator-title">
-    <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-      <div>
-        <div class="sales-eyebrow">Agency calculator</div>
-        <h2 id="estimator-title" class="mt-2 text-2xl font-black text-white">
-          Build a budget estimate
-        </h2>
-        <p class="mt-2 text-slate-300">
-          Enter the number of officers, select a package, and choose any
-          add-ons. The first-year estimate and three-year payment view update
-          instantly.
-        </p>
-
-        <div class="sales-estimator-controls mt-5 grid gap-4">
-          <div class="sales-field">
-            <label for="agencyOfficers">Number of officers</label>
-            <input
-              id="agencyOfficers"
-              type="number"
-              min="1"
-              max="1000"
-              value="75"
-              inputmode="numeric"
-            />
-          </div>
-
-          <div class="sales-field">
-            <label for="agencyPackage">Package</label>
-            <select id="agencyPackage">
-              <option value="essential">Essential</option>
-              <option value="operations" selected>Operations</option>
-              <option value="command">Command Suite</option>
-            </select>
-          </div>
-
-          <div class="sales-field">
-            <label for="contractTerm">Contract length</label>
-            <select id="contractTerm">
-              <option value="1" selected>Annual agreement</option>
-              <option value="3">
-                3-year agreement - implementation waived
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <div class="sales-option-title mb-2">Optional add-ons</div>
-            <div class="grid gap-2">
-              <label class="sales-check">
-                <input id="tipsAddon" type="checkbox" />
-                <span>
-                  <strong class="text-white">Anonymous Tips</strong>
-                  <span class="block text-sm text-slate-400">
-                    Add anonymous citizen submissions, routing, and triage.
-                  </span>
-                </span>
-              </label>
-              <label class="sales-check">
-                <input id="towAddon" type="checkbox" />
-                <span>
-                  <strong class="text-white">Tow Logs</strong>
-                  <span class="block text-sm text-slate-400">
-                    Add structured tow records and accountability review.
-                  </span>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sales-result" aria-live="polite">
-        <div class="sales-eyebrow" id="estimateTier">
-          Tier 2 - 36-100 officers
-        </div>
-        <div class="mt-3 text-sm text-slate-300" id="estimatePackage">
-          Operations package
-        </div>
-        <div class="sales-result-number mt-3" id="firstYearTotal">$16,000</div>
-        <div class="mt-2 text-sm text-slate-400">
-          Estimated first-year total
-        </div>
-
-        <div class="mt-5">
-          <div class="sales-result-row">
-            <span>Annual subscription</span>
-            <strong id="annualEstimate">$13,500</strong>
-          </div>
-          <div class="sales-result-row">
-            <span>Optional add-ons</span>
-            <strong id="addonEstimate">$0</strong>
-          </div>
-          <div class="sales-result-row">
-            <span>One-time implementation</span>
-            <strong id="setupEstimate">$2,500</strong>
-          </div>
-        </div>
-
-        <div class="mt-5 border-t border-slate-700/50 pt-5">
-          <div class="sales-option-title">Estimated payment by year</div>
-          <p class="mt-1 text-sm text-slate-400" id="contractNote">
-            Year 1 includes implementation. Years 2 and 3 show the recurring
-            annual cost without the initial setup fee.
-          </p>
-          <div class="sales-year-chart mt-4">
-            <div class="sales-year-bar">
-              <div class="sales-year-meta">
-                <span>Year 1</span>
-                <strong id="yearOneEstimate">$16,000</strong>
-              </div>
-              <div class="sales-year-track">
-                <div class="sales-year-fill" id="yearOneFill"></div>
-              </div>
-            </div>
-            <div class="sales-year-bar">
-              <div class="sales-year-meta">
-                <span>Year 2</span>
-                <strong id="yearTwoEstimate">$13,500</strong>
-              </div>
-              <div class="sales-year-track">
-                <div class="sales-year-fill" id="yearTwoFill"></div>
-              </div>
-            </div>
-            <div class="sales-year-bar">
-              <div class="sales-year-meta">
-                <span>Year 3</span>
-                <strong id="yearThreeEstimate">$13,500</strong>
-              </div>
-              <div class="sales-year-track">
-                <div class="sales-year-fill" id="yearThreeFill"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <a
-          id="estimateEmail"
-          href="mailto:grigori.lopezgarcia@g3industries.io?subject=G3%20Pricing%20Request"
-          class="sales-email-control btn btn-primary mt-5 w-full"
-        >
-          Email this estimate
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section aria-labelledby="package-title" class="space-y-5">
+{% endblock %}
+{% block content %}
+<section class="py-10 md:py-12 section-decor reveal">
+  <p class="text-sm font-semibold text-cyan-300">Agency planning estimate</p>
+  <h1 class="mt-3 text-3xl md:text-4xl font-bold">Plan the package your agency needs</h1>
+  <p class="mt-4 max-w-3xl text-slate-300">Build a planning estimate by selecting agency size, package, and deployment scope. Final quotes are confirmed after scope, rollout needs, and support requirements are reviewed.</p>
+  <p class="mt-3 max-w-3xl text-slate-300">G3 is priced per sworn officer per month, billed annually. Pilot programs are flat-fee.</p>
+</section>
+<section class="sales-panel p-5 sm:p-6" aria-labelledby="estimator-title">
+  <div class="grid gap-6 lg:grid-cols-2">
     <div>
-      <div class="sales-eyebrow">Pick the right bundle</div>
-      <h2 id="package-title" class="mt-2 text-2xl font-black text-white">
-        Packages built around how agencies operate
-      </h2>
-    </div>
-
-    <div
-      class="sales-card mb-5 flex items-start gap-4 border-l-4 border-yellow-400/70"
-      style="border-radius: 0.5rem; padding: 1rem 1.25rem"
-    >
-      <svg
-        class="w-5 h-5 text-yellow-400 shrink-0 mt-0.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="8" x2="12" y2="12" />
-        <line x1="12" y1="16" x2="12.01" y2="16" />
-      </svg>
-      <div>
-        <strong class="text-white text-sm"
-          >Operations is the best value for most small agencies.</strong
-        >
-        <p class="mt-1 text-slate-400 text-sm">
-          For a 35-officer department, Operations costs just $35/month more than
-          Essential — and adds Vacation Bidding and a full Training Scheduler.
-          Most agencies choose Operations.
-        </p>
-      </div>
-    </div>
-
-    <div class="grid gap-5 lg:grid-cols-3">
-      <article class="sales-package">
+      <h2 id="estimator-title" class="text-2xl font-bold">Build a planning estimate</h2>
+      <p class="mt-3 text-slate-300">Your selections update the scope summary. Request a quote to confirm pricing.</p>
+      <div class="mt-5 grid gap-4">
         <div>
-          <span class="sales-badge">Essential</span>
-          <h3 class="mt-3 text-xl font-black text-white">
-            Start with the operational foundation
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Manage leave requests from submission through approval, denial, or
-            waitlist with role-based access. View coverage through daily
-            rosters, configure units, squads, shifts, officer statuses, and
-            skills, and keep access controls and audit history in one place.
-          </p>
-          <ul class="sales-list mt-4 grid gap-2 text-sm text-slate-300">
-            <li>Vacation Book</li>
-            <li>Daily rosters, units, squads, shifts, and statuses</li>
-            <li>Pairings, assignments, and coverage calendars</li>
-            <li>Staffing graphs that forecast low-staff windows</li>
-            <li>Least-privilege access and audit history</li>
-          </ul>
+          <label for="agencyOfficers" class="block text-sm text-slate-300 mb-1">Number of sworn officers</label>
+          <input id="agencyOfficers" type="number" min="1" max="1000" value="75" inputmode="numeric" class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 px-3 py-2" />
         </div>
-        <button
-          type="button"
-          class="sales-print-control btn btn-outline w-full"
-          data-package-select="essential"
-        >
-          Estimate Essential
-        </button>
-      </article>
-
-      <article class="sales-package featured">
         <div>
-          <span class="sales-badge">Operations</span>
-          <h3 class="mt-3 text-xl font-black text-white">
-            Manage staffing and planning
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            The best fit for agencies that want a stronger planning workflow.
-            Operations includes vacation bidding with custom rules, tie
-            breakers, bidding lanes, selection windows, and defined seasons. It
-            also lets you build training schedules and track officer training
-            requirements in one place.
-          </p>
-          <ul class="sales-list mt-4 grid gap-2 text-sm text-slate-300">
-            <li>Everything in Essential</li>
-            <li>Vacation Bidding</li>
-            <li>Training Tracker</li>
-            <li>Better command planning</li>
-          </ul>
+          <label for="agencyPackage" class="block text-sm text-slate-300 mb-1">Package</label>
+          <select id="agencyPackage" class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 px-3 py-2">
+            <option value="founding-pilot">Founding Pilot</option>
+            <option value="department" selected>Department</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
         </div>
-        <button
-          type="button"
-          class="sales-print-control btn btn-primary w-full"
-          data-package-select="operations"
-        >
-          Estimate Operations
-        </button>
-      </article>
-
-      <article class="sales-package">
         <div>
-          <span class="sales-badge">Command Suite</span>
-          <h3 class="mt-3 text-xl font-black text-white">
-            Run the full command workflow
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Best for agencies that want full control of staffing, extra-duty
-            work, tips, and tow workflows. Command Suite connects pay jobs and
-            part-time assignments to the broader staffing picture, so agencies
-            know where officers are working and can customize sign-up and
-            assignment rules around their own policies.
-          </p>
-          <ul class="sales-list mt-4 grid gap-2 text-sm text-slate-300">
-            <li>Everything in Operations</li>
-            <li>Pay Jobs</li>
-            <li>Anonymous Tips</li>
-            <li>Tow Logs</li>
-          </ul>
-        </div>
-        <button
-          type="button"
-          class="sales-print-control btn btn-outline w-full"
-          data-package-select="command"
-        >
-          Estimate Command Suite
-        </button>
-      </article>
-    </div>
-  </section>
-
-  <section aria-labelledby="comparison-title" class="space-y-5">
-    <div>
-      <div class="sales-eyebrow">What is included</div>
-      <h2 id="comparison-title" class="mt-2 text-2xl font-black text-white">
-        Bundle comparison
-      </h2>
-      <p class="mt-2 max-w-3xl text-slate-300">
-        Pay Jobs, Anonymous Tips, and Tow Logs can also be added separately when
-        an agency wants one of those workflows without moving into the full
-        Command Suite.
-      </p>
-    </div>
-
-    <div class="sales-table-wrap">
-      <table class="sales-table">
-        <thead>
-          <tr>
-            <th scope="col">Capability</th>
-            <th scope="col">Essential</th>
-            <th scope="col">Operations</th>
-            <th scope="col">Command Suite</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              Vacation Book
-              <div class="sales-module-detail">
-                Leave requests, approvals, calendars, coverage, daily rosters,
-                units, squads, shifts, statuses, pairings, assignments, staffing
-                graphs that forecast low-staff windows, least-privilege access,
-                and audit history.
-              </div>
-            </td>
-            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Daily roster and shift pairings
-              <div class="sales-module-detail">
-                Gives supervisors a clear view of who is working, where they are
-                assigned, and who they are paired with for the day. Agencies can
-                organize officers by squad, shift, unit, status, and assignment
-                so supervisors can make daily staffing decisions without chasing
-                multiple spreadsheets or paper rosters.
-              </div>
-            </td>
-            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Coverage charts and audit logs
-              <div class="sales-module-detail">
-                Help command staff see staffing levels across the schedule and
-                identify low-coverage windows before they become operational
-                problems. Audit history keeps a record of key changes,
-                approvals, assignments, and roster updates so agencies can
-                review decisions and maintain accountability.
-              </div>
-            </td>
-            {{ check_cell() }} {{ check_cell() }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Vacation Bidding
-              <div class="sales-module-detail">
-                Supports seniority or lottery-based vacation bidding, including
-                separate bidding lanes, defined bidding seasons, selection
-                windows, policy caps, fair resolution, and automatic calendar
-                placement.
-              </div>
-            </td>
-            {{ unavailable_cell() }} {{ check_cell() }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Training Tracker
-              <div class="sales-module-detail">
-                Supports training day planning, availability checks, roster
-                impact, and assignment visibility while giving officers clear
-                instructions on where to report and helping the training unit
-                track attendance.
-              </div>
-            </td>
-            {{ unavailable_cell() }} {{ check_cell() }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Pay Jobs
-              <div class="sales-module-detail">
-                Pay Jobs helps agencies manage extra-duty and part-time
-                assignments from request through signup, approval, assignment,
-                and payment tracking. Agencies can configure job rules,
-                eligibility, rotation, customer billing, and officer assignment
-                workflows around their own policies while keeping command staff
-                aware of where officers are working.
-              </div>
-            </td>
-            {{ addon_cell("Custom pricing") }} {{ addon_cell("Custom pricing")
-            }} {{ check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Anonymous Tips
-              <div class="sales-module-detail">
-                Anonymous Tips gives agencies an outside-facing page where
-                citizens can submit information without identifying themselves.
-                Each tip is routed to an administrator for review, triage, and
-                dissemination to the appropriate unit or officer, helping
-                agencies keep incoming information organized, accountable, and
-                moving toward the right people.
-              </div>
-            </td>
-            {{ addon_cell("$10,000/year") }} {{ addon_cell("$10,000/year") }} {{
-            check_cell() }}
-          </tr>
-          <tr>
-            <td>
-              Tow Logs
-              <div class="sales-module-detail">
-                Tow companies are assigned unit designators and can submit tow
-                sheets with the required information for private tows and
-                repossessions. The officer's role is simplified to running the
-                vehicle through NCIC and verifying the entry.
-              </div>
-            </td>
-            {{ addon_cell("$10,000/year") }} {{ addon_cell("$10,000/year") }} {{
-            check_cell() }}
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="grid gap-5 lg:grid-cols-4" aria-label="Fees and add-ons">
-    <div class="sales-card">
-      <div class="sales-eyebrow">One-time setup</div>
-      <h2 class="mt-2 text-2xl font-black text-white">$2,500</h2>
-      <p class="mt-2 text-sm text-slate-300">
-        Implementation and setup fee for rollout preparation, configuration, and
-        onboarding support.
-      </p>
-    </div>
-
-    <div class="sales-card">
-      <div class="sales-eyebrow">Optional add-on</div>
-      <h2 class="mt-2 text-2xl font-black text-white">Custom pricing</h2>
-      <p class="mt-2 text-sm text-slate-300">
-        Pay Jobs helps agencies manage extra-duty and part-time assignments from
-        request through signup, approval, assignment, and payment tracking.
-        Agencies can configure rules, eligibility, rotation, customer billing,
-        and assignment workflows around their own policies.
-      </p>
-    </div>
-
-    <div class="sales-card">
-      <div class="sales-eyebrow">Optional add-on</div>
-      <h2 class="mt-2 text-2xl font-black text-white">$10,000/year</h2>
-      <p class="mt-2 text-sm text-slate-300">
-        Anonymous Tips gives citizens an outside-facing page to submit
-        information without identifying themselves. Tips route to an
-        administrator for review, triage, and assignment to the appropriate unit
-        or officer.
-      </p>
-    </div>
-
-    <div class="sales-card">
-      <div class="sales-eyebrow">Optional add-on</div>
-      <h2 class="mt-2 text-2xl font-black text-white">$10,000/year</h2>
-      <p class="mt-2 text-sm text-slate-300">
-        Tow companies receive unit designators and can submit required private
-        tow and repossession information. Officers only need to run the vehicle
-        through NCIC and verify the entry.
-      </p>
-    </div>
-  </section>
-
-  <section class="sales-panel p-5 sm:p-6" aria-labelledby="value-title">
-    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-      <div>
-        <div class="sales-eyebrow">Command value</div>
-        <h2 id="value-title" class="mt-2 text-2xl font-black text-white">
-          Built for command staff, not just software users
-        </h2>
-        <p class="mt-3 text-slate-300">
-          G3 gives command staff a clearer operating picture around staffing,
-          time off, extra-duty work, approvals, and records. The value is not
-          just replacing a form. It is reducing the daily drag that keeps
-          supervisors, lieutenants, and administrators buried in follow-up.
-        </p>
-      </div>
-
-      <ul class="sales-list grid gap-3 text-slate-300 sm:grid-cols-2">
-        <li>See staffing pressure before it becomes a coverage problem</li>
-        <li>Make approvals easier to review, explain, and audit</li>
-        <li>Give supervisors one place to manage daily roster decisions</li>
-        <li>Reduce repeated calls, emails, and spreadsheet reconciliation</li>
-        <li>Preserve institutional knowledge when roles change</li>
-        <li>Support cleaner reporting for leadership and budget review</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="sales-panel p-5 sm:p-6" aria-labelledby="grant-title">
-    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-      <div>
-        <div class="sales-eyebrow">Grant support</div>
-        <h2 id="grant-title" class="mt-2 text-2xl font-black text-white">
-          We can connect your agency with grant-writing help
-        </h2>
-        <p class="mt-3 text-slate-300">
-          When budget timing is tight, G3 can help connect your agency with a
-          grant writer who understands public safety technology proposals. That
-          gives chiefs and administrators another path to explore funding
-          without slowing down the evaluation.
-        </p>
-        <a
-          href="/grants"
-          class="btn btn-primary mt-5 inline-flex"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Visit grant assistance
-        </a>
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-2">
-        <div class="sales-card">
-          <div class="sales-eyebrow">Funding path</div>
-          <h3 class="mt-2 text-lg font-black text-white">
-            Turn scope into a proposal
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            We can help explain the operational need, modules, rollout plan, and
-            expected administrative impact in plain language.
-          </p>
-        </div>
-        <div class="sales-card">
-          <div class="sales-eyebrow">Chief-ready</div>
-          <h3 class="mt-2 text-lg font-black text-white">Support the ask</h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Use the estimate, package scope, and implementation plan as a
-            starting point for internal budget or grant conversations.
-          </p>
+          <label for="deploymentScope" class="block text-sm text-slate-300 mb-1">Deployment scope</label>
+          <select id="deploymentScope" class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 px-3 py-2">
+            <option value="single">Single agency</option>
+            <option value="multi">Multi-agency or county</option>
+          </select>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="sales-panel p-5 sm:p-6" aria-labelledby="contract-title">
-    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-      <div>
-        <div class="sales-eyebrow">Contract length</div>
-        <h2 id="contract-title" class="mt-2 text-2xl font-black text-white">
-          Annual terms are available. Three-year agreements waive setup.
-        </h2>
-        <p class="mt-3 text-slate-300">
-          A standard annual agreement includes the one-time $2,500
-          implementation fee in year 1. Agencies that sign a three-year
-          agreement have that implementation fee waived, making the first-year
-          payment match the recurring annual cost.
-        </p>
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-2">
-        <div class="sales-card">
-          <div class="sales-eyebrow">Annual agreement</div>
-          <h3 class="mt-2 text-lg font-black text-white">
-            Year 1 includes setup
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            The calculator shows year 1 with implementation, then years 2 and 3
-            without the initial fee so agencies can see recurring budget impact
-            clearly.
-          </p>
-        </div>
-        <div class="sales-card">
-          <div class="sales-eyebrow">3-year agreement</div>
-          <h3 class="mt-2 text-lg font-black text-white">
-            $2,500 setup waived
-          </h3>
-          <p class="mt-2 text-sm text-slate-300">
-            Choosing a three-year term removes the one-time implementation fee
-            from the estimate and gives budget officers a cleaner multi-year
-            forecast.
-          </p>
-        </div>
+    <div class="sales-result" role="status" aria-live="polite" aria-atomic="true">
+      <h2 class="text-xl font-semibold">Planning estimate</h2>
+      <p id="estimatePackage" class="mt-3 text-2xl font-bold">Department</p>
+      <p class="mt-2 text-slate-300">Quote after scope review</p>
+      <dl class="mt-5">
+        <div class="sales-result-row"><dt>Sworn officers</dt><dd id="estimateOfficers">75</dd></div>
+        <div class="sales-result-row"><dt>Deployment</dt><dd id="estimateScope">Single agency</dd></div>
+        <div class="sales-result-row"><dt>Pricing model</dt><dd id="estimateModel">Per sworn officer per month, billed annually</dd></div>
+        <div class="sales-result-row"><dt>Term</dt><dd id="estimateTerm">Annual agreement</dd></div>
+        <div class="sales-result-row"><dt>Included</dt><dd id="estimateFeatures">Full G3 suite</dd></div>
+      </dl>
+      <p id="estimateNote" class="mt-3 text-sm text-slate-300">Final quotes are confirmed after scope review.</p>
+      <div class="sales-controls mt-5 flex flex-wrap gap-3">
+        <a href="{{ url_for('home', _anchor='demo') }}" class="btn btn-primary">Request quote</a>
+        <a id="estimateEmail" href="mailto:{{ contact_email }}" class="btn btn-outline">Email planning estimate</a>
+        <button id="salesPrintButton" type="button" class="btn btn-outline">Print planning estimate</button>
       </div>
     </div>
-  </section>
-
-  <section class="sales-panel p-5 sm:p-6" aria-labelledby="final-price-title">
-    <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-      <div>
-        <div class="sales-eyebrow">Scope review</div>
-        <h2 id="final-price-title" class="mt-2 text-2xl font-black text-white">
-          What affects final pricing
-        </h2>
-        <p class="mt-3 text-slate-300">
-          Final pricing is confirmed after G3 reviews your agency size, module
-          needs, rollout plan, and support expectations.
-        </p>
-      </div>
-
-      <ul class="sales-list grid gap-3 text-slate-300 sm:grid-cols-2">
-        <li>Officer count and agency tier</li>
-        <li>Selected package and modules</li>
-        <li>Optional add-ons</li>
-        <li>Rollout and configuration needs</li>
-        <li>Training and onboarding expectations</li>
-        <li>Ongoing support requirements</li>
-      </ul>
-    </div>
-  </section>
-</div>
-
+  </div>
+</section>
+<section class="py-10 md:py-12" aria-label="Package scope">
+  {% include "_package_cards.html" %}
+</section>
 <script>
   (() => {
-    const prices = {
-      essential: {
-        name: "Essential",
-        values: { 1: 6300, 2: 10800, 3: 16200, 4: 23100 },
-      },
-      operations: {
-        name: "Operations",
-        values: { 1: 6720, 2: 11700, 3: 18000, 4: 26400 },
-      },
-      command: {
-        name: "Command Suite",
-        values: { 1: 9660, 2: 16200, 3: 25200, 4: 39600 },
-      },
-    };
-    const setupFee = 2500;
-    const addonPrice = 10000;
-    const monthlyFloor = 500;
-
     const officerInput = document.getElementById("agencyOfficers");
     const packageInput = document.getElementById("agencyPackage");
-    const contractInput = document.getElementById("contractTerm");
-    const tipsInput = document.getElementById("tipsAddon");
-    const towInput = document.getElementById("towAddon");
-    const printButton = document.getElementById("salesPrintButton");
-    const tierOutput = document.getElementById("estimateTier");
-    const packageOutput = document.getElementById("estimatePackage");
-    const annualOutput = document.getElementById("annualEstimate");
-    const addonOutput = document.getElementById("addonEstimate");
-    const setupOutput = document.getElementById("setupEstimate");
-    const totalOutput = document.getElementById("firstYearTotal");
-    const contractNote = document.getElementById("contractNote");
-    const yearOutputs = [
-      document.getElementById("yearOneEstimate"),
-      document.getElementById("yearTwoEstimate"),
-      document.getElementById("yearThreeEstimate"),
-    ];
-    const yearFills = [
-      document.getElementById("yearOneFill"),
-      document.getElementById("yearTwoFill"),
-      document.getElementById("yearThreeFill"),
-    ];
-    const emailLinks = [
-      document.getElementById("salesEmailHero"),
-      document.getElementById("estimateEmail"),
-    ].filter(Boolean);
-
-    if (!officerInput || !packageInput || !contractInput) return;
-
-    function readParams() {
-      const p = new URLSearchParams(window.location.search);
-      if (p.has("officers"))
-        officerInput.value = Math.max(
-          1,
-          Math.min(1000, parseInt(p.get("officers"), 10) || 1),
-        );
-      if (p.has("package") && prices[p.get("package")])
-        packageInput.value = p.get("package");
-      if (p.has("term") && ["1", "3"].includes(p.get("term")))
-        contractInput.value = p.get("term");
-      if (tipsInput && p.get("tips") === "1") tipsInput.checked = true;
-      if (towInput && p.get("tow") === "1") towInput.checked = true;
-    }
-
-    function writeParams() {
-      const p = new URLSearchParams();
-      p.set("officers", officerInput.value);
-      p.set("package", packageInput.value);
-      p.set("term", contractInput.value);
-      if (tipsInput && tipsInput.checked) p.set("tips", "1");
-      if (towInput && towInput.checked) p.set("tow", "1");
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname + "?" + p.toString(),
-      );
-    }
-
-    const money = (value) =>
-      "$" + value.toLocaleString(undefined, { maximumFractionDigits: 0 });
-
-    const tierFor = (officers) => {
-      if (officers <= 35) return { id: 1, label: "Tier 1 - up to 35 officers" };
-      if (officers <= 100) return { id: 2, label: "Tier 2 - 36-100 officers" };
-      if (officers <= 250) return { id: 3, label: "Tier 3 - 101-250 officers" };
-      return { id: 4, label: "Tier 4 - 251+ officers" };
+    const scopeInput = document.getElementById("deploymentScope");
+    const packages = {
+      "founding-pilot": { name: "Founding Pilot", model: "Flat fee", term: "90 days", features: "Full G3 suite, onboarding, training, and feedback partnership", note: "Limited cohort of Delaware agencies. Final pilot quote follows scope review." },
+      department: { name: "Department", model: "Per sworn officer per month, billed annually", term: "Annual agreement", features: "Full G3 suite", note: "For a single agency. Final quotes are confirmed after scope review." },
+      enterprise: { name: "Enterprise", model: "Per sworn officer per month, billed annually", term: "Annual agreement", features: "Full G3 suite, SSO, API access, dedicated support, and custom integrations", note: "For multi-agency or county deployments. Final quotes are confirmed after scope review." }
     };
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("officers")) officerInput.value = String(Math.min(1000, Math.max(1, parseInt(params.get("officers"), 10) || 1)));
+    if (Object.hasOwn(packages, params.get("package"))) packageInput.value = params.get("package");
+    scopeInput.value = packageInput.value === "enterprise" ? "multi" : "single";
 
-    const updateEstimate = () => {
-      const officers = Math.max(1, parseInt(officerInput.value, 10) || 1);
-      const tier = tierFor(officers);
-      const selectedPackage = prices[packageInput.value] || prices.operations;
-      const isThreeYear = contractInput.value === "3";
-      const commandSelected = packageInput.value === "command";
-
-      [tipsInput, towInput].forEach((input) => {
-        if (!input) return;
-        if (commandSelected) {
-          if (!input.dataset.previousChecked) {
-            input.dataset.previousChecked = input.checked ? "1" : "0";
-          }
-          input.checked = true;
-          input.disabled = true;
-        } else {
-          if (input.disabled && input.dataset.previousChecked) {
-            input.checked = input.dataset.previousChecked === "1";
-            delete input.dataset.previousChecked;
-          }
-          input.disabled = false;
-        }
-      });
-
-      const annual = Math.max(
-        selectedPackage.values[tier.id],
-        monthlyFloor * 12,
-      );
-      const addons = commandSelected
-        ? 0
-        : (tipsInput.checked ? addonPrice : 0) +
-          (towInput.checked ? addonPrice : 0);
-      const recurringTotal = annual + addons;
-      const implementation = isThreeYear ? 0 : setupFee;
-      const total = recurringTotal + implementation;
-      const yearTotals = [total, recurringTotal, recurringTotal];
-      const highestYear = Math.max(...yearTotals, 1);
-
-      tierOutput.textContent = tier.label;
-      packageOutput.textContent = selectedPackage.name + " package";
-      annualOutput.textContent = money(annual);
-      addonOutput.textContent = commandSelected ? "Included" : money(addons);
-      setupOutput.textContent = isThreeYear ? "Waived" : money(implementation);
-      totalOutput.textContent = money(total);
-      contractNote.textContent = isThreeYear
-        ? "Three-year agreement selected. The one-time implementation fee is waived, so each year shows the recurring annual cost."
-        : "Year 1 includes implementation. Years 2 and 3 show the recurring annual cost without the initial setup fee.";
-
-      yearTotals.forEach((yearTotal, index) => {
-        if (yearOutputs[index])
-          yearOutputs[index].textContent = money(yearTotal);
-        if (yearFills[index]) {
-          yearFills[index].style.width =
-            Math.max(8, Math.round((yearTotal / highestYear) * 100)) + "%";
-        }
-      });
-
-      const subject = encodeURIComponent("G3 Pricing Estimate Request");
-      const body = encodeURIComponent(
-        [
-          "Hello G3,",
-          "",
-          "I would like to discuss this agency pricing estimate:",
-          "",
-          `Officers: ${officers}`,
-          `Tier: ${tier.label}`,
-          `Package: ${selectedPackage.name}`,
-          `Contract term: ${isThreeYear ? "3-year agreement" : "Annual agreement"}`,
-          `Annual subscription: ${money(annual)}`,
-          `Add-ons: ${commandSelected ? "Included in Command Suite" : money(addons)}`,
-          `Implementation: ${isThreeYear ? "Waived" : money(implementation)}`,
-          `Estimated first-year total: ${money(total)}`,
-          `Estimated year 2: ${money(yearTotals[1])}`,
-          `Estimated year 3: ${money(yearTotals[2])}`,
-          "",
-          "Please contact me to review scope and next steps.",
-        ].join("\n"),
-      );
-
-      emailLinks.forEach((link) => {
-        link.href = `mailto:grigori.lopezgarcia@g3industries.io?subject=${subject}&body=${body}`;
-      });
-    };
-
-    document.querySelectorAll("[data-package-select]").forEach((button) => {
-      button.addEventListener("click", () => {
-        packageInput.value = button.dataset.packageSelect;
-        updateEstimate();
-        document.getElementById("estimator-title").scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      });
+    function updateEstimate() {
+      const officers = Math.min(1000, Math.max(1, parseInt(officerInput.value, 10) || 1));
+      const pkg = packages[packageInput.value];
+      const scope = scopeInput.options[scopeInput.selectedIndex].text;
+      document.getElementById("estimatePackage").textContent = pkg.name;
+      document.getElementById("estimateOfficers").textContent = String(officers);
+      document.getElementById("estimateScope").textContent = scope;
+      document.getElementById("estimateModel").textContent = pkg.model;
+      document.getElementById("estimateTerm").textContent = pkg.term;
+      document.getElementById("estimateFeatures").textContent = pkg.features;
+      document.getElementById("estimateNote").textContent = pkg.note;
+      const body = ["Hello G3,", "", "Please review this agency planning estimate:", "Sworn officers: " + officers, "Package: " + pkg.name, "Deployment: " + scope, "Pricing model: " + pkg.model, "Term: " + pkg.term, "", "Please confirm a quote after scope review."].join("\n");
+      document.getElementById("estimateEmail").href = "mailto:" + {{ contact_email | tojson }} + "?subject=" + encodeURIComponent("G3 Agency Planning Estimate") + "&body=" + encodeURIComponent(body);
+    }
+    packageInput.addEventListener("change", () => {
+      scopeInput.value = packageInput.value === "enterprise" ? "multi" : "single";
+      updateEstimate();
     });
-
-    if (printButton) {
-      printButton.addEventListener("click", () => window.print());
-    }
-
-    [officerInput, packageInput, contractInput, tipsInput, towInput]
-      .filter(Boolean)
-      .forEach((input) => {
-        input.addEventListener("input", updateEstimate);
-        input.addEventListener("change", updateEstimate);
-      });
-
-    readParams();
+    scopeInput.addEventListener("change", () => {
+      if (scopeInput.value === "multi") packageInput.value = "enterprise";
+      else if (packageInput.value === "enterprise") packageInput.value = "department";
+      updateEstimate();
+    });
+    officerInput.addEventListener("input", updateEstimate);
+    officerInput.addEventListener("change", () => {
+      officerInput.value = String(Math.min(1000, Math.max(1, parseInt(officerInput.value, 10) || 1)));
+      updateEstimate();
+    });
+    document.getElementById("salesPrintButton").addEventListener("click", () => window.print());
     updateEstimate();
-
-    const origUpdate = updateEstimate;
-    const updateEstimateWithParams = () => {
-      origUpdate();
-      writeParams();
-    };
-    [officerInput, packageInput, contractInput, tipsInput, towInput]
-      .filter(Boolean)
-      .forEach((input) => {
-        input.removeEventListener("input", origUpdate);
-        input.removeEventListener("change", origUpdate);
-        input.addEventListener("input", updateEstimateWithParams);
-        input.addEventListener("change", updateEstimateWithParams);
-      });
   })();
 </script>
 {% endblock %}

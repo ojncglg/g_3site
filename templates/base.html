@@ -83,6 +83,7 @@
       rel="stylesheet"
     />
     <!-- Tailwind via CDN with config -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -101,10 +102,9 @@
         },
       };
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}?v=1.0.2"
+      href="{{ url_for('static', filename='style.css') }}?v=1.0.3"
     />
     {% if analytics_provider == "ga4" and ga_measurement_id %}
     <!-- GA4 analytics tag (loads only when configured via environment). -->
@@ -203,7 +203,7 @@
               fetchpriority="high"
               decoding="async"
             />
-            <div class="hidden sm:block">
+            <div class="hidden sm:block max-w-[12rem]">
               <div class="text-base font-semibold tracking-tight">
                 G3 Industries
               </div>
@@ -215,7 +215,7 @@
           <!-- Mobile menu button (visible on small screens) -->
           <button
             id="mobileMenuBtn"
-            class="md:hidden inline-flex items-center justify-center rounded-md border border-white/20 px-3 py-2 text-sm font-semibold hover:border-white/40 hover:bg-white/5 focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
+            class="xl:hidden inline-flex items-center justify-center rounded-md border border-white/20 px-3 py-2 text-sm font-semibold hover:border-white/40 hover:bg-white/5 focus:outline-none focus:ring focus:ring-[color:var(--g3-gold)]"
             type="button"
             aria-controls="mobile-menu"
             aria-expanded="false"
@@ -254,7 +254,7 @@
             </svg>
           </button>
         </div>
-        <div class="hidden md:flex items-center gap-4 md:gap-6 ml-auto">
+        <div class="hidden xl:flex items-center gap-4 md:gap-6 ml-auto">
           <ul class="flex flex-nowrap items-center gap-4 lg:gap-5 text-sm text-gray-300">
             <li>
               <a href="/" class="nav-link">Home</a>
@@ -262,6 +262,7 @@
             <li>
               <a href="/products" class="nav-link">Products</a>
             </li>
+            <li><a href="/packages" class="nav-link">Packages</a></li>
             <li>
               <a href="/impact" class="nav-link whitespace-nowrap">G3 IMPACT</a>
             </li>
@@ -296,13 +297,13 @@
       </nav>
       <div
         id="mobile-menu-backdrop"
-        class="mobile-menu-backdrop hidden md:hidden"
+        class="mobile-menu-backdrop hidden xl:hidden"
         data-close-menu="true"
       ></div>
       <!-- Mobile menu panel -->
       <div
         id="mobile-menu"
-        class="mobile-menu-panel md:hidden hidden border-t border-white/10 bg-gray-900/98"
+        class="mobile-menu-panel xl:hidden hidden border-t border-white/10 bg-gray-900/98"
       >
         <div class="mx-auto max-w-6xl px-4 py-4">
           <a
@@ -321,6 +322,7 @@
             <li>
               <a href="/products" class="mobile-nav-link">Products</a>
             </li>
+            <li><a href="/packages" class="mobile-nav-link">Packages</a></li>
             <li>
               <a href="/impact" class="mobile-nav-link whitespace-nowrap"
                 >G3 IMPACT</a
@@ -390,6 +392,7 @@
       >
         <div>
           <div>© <span id="year"></span> G3 Industries · Newark, DE</div>
+          <p class="mt-2 text-sm text-slate-300">[PHONE, founder to provide]</p>
           <div class="mt-1 text-[11px] text-slate-400">
             Revolutionizing law enforcement through innovation
           </div>
@@ -401,13 +404,14 @@
         >
           <a href="/" class="footer-link">Home</a>
           <a href="/products" class="footer-link">Products</a>
+          <a href="/packages" class="footer-link">Packages</a>
           <a href="/guide" class="footer-link">Guide</a>
           <a href="/impact" class="footer-link">G3 IMPACT</a>
           <a href="/security" class="footer-link">Security</a>
           <a href="/grants" class="footer-link">Grant Assistance</a>
           <a href="/blog" class="footer-link">Blog</a>
           <a href="/about" class="footer-link">About</a>
-          <a href="mailto:{{ contact_email }}" class="footer-link">Contact</a>
+          <a href="/contact" class="footer-link">Contact</a>
         </nav>
         <a href="/#demo" class="btn btn-primary btn-sm w-fit">Request a demo</a>
       </div>
@@ -505,7 +509,7 @@
           if (e.key === "Escape") toggle(false);
         });
         window.addEventListener("resize", () => {
-          if (window.innerWidth >= 768) toggle(false);
+          if (window.innerWidth >= 1280) toggle(false);
         });
       })();
     </script>

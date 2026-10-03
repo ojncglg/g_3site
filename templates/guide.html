@@ -624,8 +624,8 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 999px;
     background: rgba(2, 6, 23, 0.76);
@@ -649,6 +649,7 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
   }
 
   .guide-mini-nav a {
+    min-height: 2.75rem;
     position: relative;
     display: block;
     border-radius: 0.5rem;
@@ -764,7 +765,7 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 2.5rem;
+      min-height: 2.75rem;
       border: 1px solid rgba(250, 204, 21, 0.35);
       border-radius: 999px;
       background: rgba(15, 23, 42, 0.92);
@@ -1528,8 +1529,7 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
               <div>
                 <h4 class="font-bold text-white">Sign in and continue.</h4>
                 <p class="mt-1 text-sm text-slate-400">
-                  You know what to do from here right? Sign in to Xtra Duty and
-                  view your Pay Jobs options.
+                  Sign in to Xtra Duty and open your Pay Jobs options to continue.
                 </p>
               </div>
             </div>
@@ -1914,33 +1914,11 @@ Supervisors | G3 Industries{% endblock %} {% block meta %}
         </div>
       </div>
 
-      <figure
-        class="guide-shot"
-        role="img"
-        aria-label="Placeholder screenshot showing a coverage gap graph"
-      >
-        <div class="shot-topbar">
-          <div class="flex gap-2" aria-hidden="true">
-            <span class="shot-dot gold"></span>
-            <span class="shot-dot"></span>
-            <span class="shot-dot"></span>
-          </div>
-          <div class="shot-line short" aria-hidden="true"></div>
-        </div>
-        <div class="shot-main m-3" aria-hidden="true">
-          <div class="shot-graph">
-            <div class="shot-bar" style="height: 78%"></div>
-            <div class="shot-bar" style="height: 62%"></div>
-            <div class="shot-bar warn" style="height: 47%"></div>
-            <div class="shot-bar gap" style="height: 31%"></div>
-            <div class="shot-bar warn" style="height: 45%"></div>
-            <div class="shot-bar" style="height: 70%"></div>
-          </div>
-        </div>
-        <figcaption>
-          Placeholder image: coverage gap graph with green, yellow, and red
-          bars.
-        </figcaption>
+      <figure class="guide-shot">
+        <button type="button" class="guide-shot-trigger" data-guide-lightbox data-lightbox-src="{{ url_for('static', filename='img/products/coverage.png') }}" data-lightbox-alt="Vacation Book daily roster showing officer availability, shift summaries, and assignments by unit." data-lightbox-caption="Daily roster and staffing availability in Vacation Book." aria-label="Enlarge the Vacation Book daily roster screenshot">
+          <img class="guide-shot-image" src="{{ url_for('static', filename='img/products/coverage.png') }}" alt="Vacation Book daily roster showing officer availability, shift summaries, and assignments by unit." loading="lazy" decoding="async" />
+        </button>
+        <figcaption>Daily roster and staffing availability in Vacation Book.</figcaption>
       </figure>
     </div>
 

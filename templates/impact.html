@@ -25,7 +25,7 @@ Safety Agencies{% endblock %}
 <meta property="og:title" content="G3 IMPACT Program | G3 Industries" />
 <meta
   property="og:description"
-  content="Turn agency problems into real solutions with G3 IMPACT — G3 Industries’ innovation partner program for public safety agencies."
+  content="Turn agency problems into real solutions with G3 IMPACT, G3 Industries’ innovation partner program for public safety agencies."
 />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ request.base_url }}" />
@@ -37,7 +37,7 @@ Safety Agencies{% endblock %}
 <meta name="twitter:title" content="G3 IMPACT Program | G3 Industries" />
 <meta
   name="twitter:description"
-  content="Turn agency problems into real solutions with G3 IMPACT — G3 Industries’ innovation partner program for public safety agencies."
+  content="Turn agency problems into real solutions with G3 IMPACT, G3 Industries’ innovation partner program for public safety agencies."
 />
 <meta
   name="twitter:image"
@@ -78,6 +78,9 @@ Safety Agencies{% endblock %}
     scrollbar-width: thin;
   }
   .impact-mini-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
     border-radius: 9999px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(15, 23, 42, 0.48);
@@ -713,7 +716,7 @@ Safety Agencies{% endblock %}
 
       <div class="md:col-span-2">
         <label class="block text-sm text-slate-300 mb-1" for="impact-problem">
-          What administrative or workflow problem is your agency dealing with?
+          Tell us about your staffing challenge
         </label>
         <textarea
           id="impact-problem"
@@ -725,95 +728,12 @@ Safety Agencies{% endblock %}
         <p id="impact-problem-error" class="field-error hidden" aria-live="polite"></p>
       </div>
 
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="impact-affected">Who does this problem affect?</label>
-        <input
-          id="impact-affected"
-          type="text"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Patrol, supervisors, records, command staff..."
-        />
-      </div>
-
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="impact-frequency">How often does this problem occur?</label>
-        <input
-          id="impact-frequency"
-          type="text"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Daily, weekly, monthly..."
-        />
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm text-slate-300 mb-1" for="impact-current-process">How is the problem currently handled?</label>
-        <textarea
-          id="impact-current-process"
-          rows="3"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Current process, workarounds, systems, paper, email..."
-        ></textarea>
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm text-slate-300 mb-1" for="impact-hard">Why has this problem been difficult to solve?</label>
-        <textarea
-          id="impact-hard"
-          rows="3"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Constraints, dependencies, policy, tooling, staffing..."
-        ></textarea>
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm text-slate-300 mb-1" for="impact-operational">What impact does this problem have on operations, time, or staffing?</label>
-        <textarea
-          id="impact-operational"
-          rows="3"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Time lost, delays, staffing risk, confusion, overtime..."
-        ></textarea>
-      </div>
-
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="impact-tried">Has your agency tried to solve this before?</label>
-        <input
-          id="impact-tried"
-          type="text"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="If yes, what was attempted?"
-        />
-      </div>
-
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="impact-leadership">Is leadership aware of the issue?</label>
-        <select
-          id="impact-leadership"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-        >
-          <option value="">Select one</option>
-          <option>Yes</option>
-          <option>No</option>
-          <option>Partially</option>
-        </select>
-      </div>
-
-      <div class="md:col-span-2">
-        <label class="block text-sm text-slate-300 mb-1" for="impact-extra">Anything else we should know?</label>
-        <textarea
-          id="impact-extra"
-          rows="3"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[color:var(--g3-gold)] focus:outline-none px-3 py-2"
-          placeholder="Additional details, timing, constraints, or context"
-        ></textarea>
-      </div>
-
       <div class="hidden" aria-hidden="true">
         <label for="impact-website">Website</label>
         <input id="impact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
       </div>
 
-      <textarea id="impact-notes" name="notes" class="hidden"></textarea>
+      <input id="impact-notes" name="notes" type="hidden" />
       <input type="hidden" name="form_start" id="impact-form-start" />
       <input type="hidden" name="utm_source" id="impact-utm_source" />
       <input type="hidden" name="utm_medium" id="impact-utm_medium" />
@@ -911,14 +831,6 @@ Safety Agencies{% endblock %}
       email: document.getElementById("impact-email"),
       phone: document.getElementById("impact-phone"),
       problem: document.getElementById("impact-problem"),
-      affected: document.getElementById("impact-affected"),
-      frequency: document.getElementById("impact-frequency"),
-      current: document.getElementById("impact-current-process"),
-      hard: document.getElementById("impact-hard"),
-      operational: document.getElementById("impact-operational"),
-      tried: document.getElementById("impact-tried"),
-      leadership: document.getElementById("impact-leadership"),
-      extra: document.getElementById("impact-extra"),
     };
 
     const errorEls = {
@@ -1065,15 +977,7 @@ Safety Agencies{% endblock %}
       const lines = [
         "IMPACT Program Submission",
         "",
-        `Agency Problem: ${value(fields.problem)}`,
-        `Who Is Affected: ${value(fields.affected)}`,
-        `Frequency: ${value(fields.frequency)}`,
-        `Current Handling: ${value(fields.current)}`,
-        `Why Hard To Solve: ${value(fields.hard)}`,
-        `Operational Impact: ${value(fields.operational)}`,
-        `Tried Before: ${value(fields.tried)}`,
-        `Leadership Aware: ${value(fields.leadership)}`,
-        `Additional Context: ${value(fields.extra)}`,
+        `Staffing Challenge: ${value(fields.problem)}`,
       ];
 
       let text = lines.join("\n").trim();

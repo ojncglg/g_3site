@@ -1,0 +1,48 @@
+{# Shared package cards, using the existing agency-sales tier layout. #}
+<div class="grid gap-5 lg:grid-cols-3">
+  <article id="founding-pilot" class="sales-package featured flex flex-col">
+    <div>
+      <span class="chip text-sm">Limited Delaware cohort</span>
+      <h2 class="mt-4 text-2xl font-bold">Founding Pilot</h2>
+      <p class="mt-3 text-slate-300">For Delaware agencies joining a limited cohort.</p>
+      <ul class="mt-4 space-y-2 text-sm text-slate-300 list-disc pl-5">
+        <li>Flat fee for 90 days</li>
+        <li>Full G3 suite</li>
+        <li>Onboarding and training included</li>
+        <li>Feedback partnership with the founder</li>
+      </ul>
+    </div>
+    <a href="{{ url_for('home', _anchor='demo') }}" class="btn btn-primary mt-6 w-full">Apply for the pilot</a>
+  </article>
+  <article id="department" class="sales-package flex flex-col">
+    <div>
+      <span class="chip text-sm">Single agency</span>
+      <h2 class="mt-4 text-2xl font-bold">Department</h2>
+      <p class="mt-3 text-slate-300">For a single agency managing its workforce in one platform.</p>
+      <ul class="mt-4 space-y-2 text-sm text-slate-300 list-disc pl-5">
+        <li>Scheduling</li>
+        <li>Vacation bidding</li>
+        <li>Extra duty</li>
+        <li>AI staffing forecasting</li>
+        <li>Anonymous tips</li>
+        <li>Tow logs</li>
+      </ul>
+    </div>
+    <a href="{{ url_for('home', _anchor='demo') }}" class="btn btn-primary mt-6 w-full">Request quote</a>
+  </article>
+  <article id="enterprise" class="sales-package flex flex-col">
+    <div>
+      <span class="chip text-sm">Multi-agency deployments</span>
+      <h2 class="mt-4 text-2xl font-bold">Enterprise</h2>
+      <p class="mt-3 text-slate-300">For multi-agency or county deployments.</p>
+      <ul class="mt-4 space-y-2 text-sm text-slate-300 list-disc pl-5">
+        <li>Everything in Department</li>
+        <li>Single sign-on (SSO)</li>
+        <li>API access</li>
+        <li>Dedicated support</li>
+        <li>Custom integrations</li>
+      </ul>
+    </div>
+    <a href="{{ url_for('home', _anchor='demo') }}" class="btn btn-primary mt-6 w-full">Talk to us</a>
+  </article>
+</div>

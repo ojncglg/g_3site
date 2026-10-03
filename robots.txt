@@ -8,6 +8,7 @@ Allow: /
 
 # Block sensitive paths (if any are added later)
 Disallow: /admin/
+Disallow: /prices
 Disallow: /price-calculator
 Disallow: /g3-internal/
 

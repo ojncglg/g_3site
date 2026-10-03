@@ -136,6 +136,12 @@ FIELD_MAX_LENGTHS = {
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PHONE_RE = re.compile(r"^[0-9+().\-\s]{7,40}$")
 
+# Optional demo preferences use the same choices as the public form.
+AGENCY_SIZE_OPTIONS = ("1–25 sworn", "26–100 sworn", "101–500 sworn", "500+ sworn")
+INTEREST_OPTIONS = (
+    "Scheduling", "Vacation bidding", "Extra duty", "AI staffing forecasting", "Everything"
+)
+
 # Salt used to hash identity keys inside the local rate-limit store.
 RATE_LIMIT_SALT = os.environ.get("RATE_LIMIT_SALT", app.config["SECRET_KEY"])
 
@@ -1574,7 +1580,7 @@ def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
     Send a demo request email through the configured provider.
     Returns (ok, error_message).
     """
-    subject = f"New Demo Request — {lead.get('agency', 'Unknown Agency')}"
+    subject = f"New Demo Request, {lead.get('agency', 'Unknown Agency')}"
     body_lines = [
         "A new demo request was submitted on g3industries.io.",
         "",
@@ -1583,6 +1589,8 @@ def send_demo_email(lead: Dict[str, Any]) -> tuple[bool, str]:
         f"Role/Rank: {lead.get('role', '')}",
         f"Email: {lead.get('email', '')}",
         f"Phone: {lead.get('phone', '')}",
+        f"Agency size: {lead.get('agency_size', '') or '(not specified)'}",
+        f"Interested in: {lead.get('interest', '') or '(not specified)'}",
         "",
         "Notes:",
         lead.get("notes", "") or "(none)",
@@ -1719,6 +1727,8 @@ def inject_contact_email():
         "turnstile_site_key": TURNSTILE_SITE_KEY,
         "site_published_label": SITE_PUBLISHED_LABEL,
         "site_last_updated_label": SITE_LAST_UPDATED_LABEL,
+        "agency_size_options": AGENCY_SIZE_OPTIONS,
+        "interest_options": INTEREST_OPTIONS,
     }
 
 
@@ -1750,6 +1760,9 @@ def set_security_headers(response):
         "Permissions-Policy", "camera=(), geolocation=(), microphone=()"
     )
     response.headers.setdefault("Content-Security-Policy", DEFAULT_CSP)
+    if request.endpoint == "price_calculator":
+        response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+        response.headers["Cache-Control"] = "no-store, private"
     return response
 
 
@@ -1800,7 +1813,7 @@ def sticker_2026():
 @app.route("/products")
 def products():
     """Products overview page."""
-    return render_site_page("products.html", "Products — G3 Industries")
+    return render_site_page("products.html", "Products, G3 Industries")
 
 
 @app.route("/guide")
@@ -1809,9 +1822,33 @@ def guide():
     return render_site_page("guide.html", "How-To Guide - G3 Industries")
 
 
+@app.route("/packages")
+def packages():
+    """Public package scope and pricing model, without dollar figures."""
+    return render_site_page("packages.html", "Packages | G3 Industries")
+
+
+@app.route("/pricing")
+def pricing():
+    """Keep the pricing URL useful with a permanent packages redirect."""
+    return redirect(url_for("packages"), code=301)
+
+
+@app.route("/contact")
+def contact():
+    """Business contact details and a city-level map."""
+    response = Response(render_template("contact.html", title="Contact | G3 Industries"))
+    # Allow only the map's origin on this page; retain the other CSP directives.
+    response.headers["Content-Security-Policy"] = DEFAULT_CSP.replace(
+        "frame-src 'self' https://challenges.cloudflare.com;",
+        "frame-src 'self' https://challenges.cloudflare.com https://www.google.com;",
+    )
+    return response
+
+
 @app.route("/sales")
 def sales():
-    """Hidden agency-facing sales price sheet."""
+    """Unlisted package scope planner, without public dollar figures."""
     response = Response(
         render_template("sales.html", title="Agency Pricing - G3 Industries")
     )
@@ -1824,7 +1861,14 @@ def sales():
 @app.route("/prices")
 @app.route("/g3-internal/agency-price-lab")
 def price_calculator():
-    """Unlisted agency price calculator."""
+    """Internal deal calculator, unavailable without configured admin credentials."""
+    auth_error = require_basic_auth(
+        username=ADMIN_DASHBOARD_USERNAME,
+        password=ADMIN_DASHBOARD_PASSWORD,
+        realm="G3 Internal Tools",
+    )
+    if auth_error:
+        return auth_error
     response = Response(render_template("price_calculator.html"))
     response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
     response.headers["Cache-Control"] = "no-store, private"
@@ -1853,7 +1897,7 @@ def pitch():
 @app.route("/impact")
 def impact():
     """Impact Program page."""
-    return render_site_page("impact.html", "IMPACT Program — G3 Industries")
+    return render_site_page("impact.html", "IMPACT Program, G3 Industries")
 
 
 @app.route("/events")
@@ -1863,7 +1907,7 @@ def squad_events():
     response = Response(
         render_template(
             "events.html",
-            title="A Squad Events — G3 Industries",
+            title="A Squad Events, G3 Industries",
             guests=guests,
             total_tickets=total_tickets,
         )
@@ -1884,7 +1928,7 @@ def squad_events_signup():
 
     # Honeypot trips are treated as bot submissions and quietly accepted.
     if honeypot:
-        flash("Thanks — your spot is saved.", "success")
+        flash("Thanks, your spot is saved.", "success")
         return redirect(url_for("squad_events"))
 
     try:
@@ -1925,26 +1969,26 @@ def squad_events_signup():
     }
     append_event_signup(signup)
 
-    flash("Thanks — your spot is saved. We will see you there.", "success")
+    flash("Thanks, your spot is saved. We will see you there.", "success")
     return redirect(url_for("squad_events"))
 
 
 @app.route("/about")
 def about():
     """Company/about page."""
-    return render_site_page("about.html", "About — G3 Industries")
+    return render_site_page("about.html", "About, G3 Industries")
 
 
 @app.route("/security")
 def security():
     """Security posture page."""
-    return render_site_page("security.html", "Security — G3 Industries")
+    return render_site_page("security.html", "Security, G3 Industries")
 
 
 @app.route("/grants")
 def grants():
     """Grant assistance page."""
-    return render_site_page("grants.html", "Grant Assistance — G3 Industries")
+    return render_site_page("grants.html", "Grant Assistance, G3 Industries")
 
 
 @app.route("/police-scheduling-software")
@@ -1952,7 +1996,7 @@ def police_scheduling_software():
     """Keyword landing page: police scheduling software."""
     return render_site_page(
         "police-scheduling-software.html",
-        "Police Scheduling Software for Law Enforcement Agencies — G3 Industries",
+        "Police Scheduling Software for Law Enforcement Agencies, G3 Industries",
     )
 
 
@@ -1961,7 +2005,7 @@ def vacation_bidding_software():
     """Keyword landing page: vacation bidding software."""
     return render_site_page(
         "vacation-bidding-software.html",
-        "Vacation Bidding Software for Police Departments — G3 Industries",
+        "Vacation Bidding Software for Police Departments, G3 Industries",
     )
 
 
@@ -1970,7 +2014,7 @@ def extra_duty_management_software():
     """Keyword landing page: extra duty management software."""
     return render_site_page(
         "extra-duty-management-software.html",
-        "Extra Duty Management Software for Law Enforcement — G3 Industries",
+        "Extra Duty Management Software for Law Enforcement, G3 Industries",
     )
 
 
@@ -1979,7 +2023,7 @@ def blog():
     """Blog index page."""
     return render_template(
         "blog.html",
-        title="Blog — G3 Industries",
+        title="Blog, G3 Industries",
         posts=published_blog_posts(),
     )
 
@@ -1995,7 +2039,7 @@ def blog_post(slug: str):
         abort(404)
     return render_template(
         "blog_post.html",
-        title=f"{post['title']} — G3 Industries",
+        title=f"{post['title']}, G3 Industries",
         post=post,
     )
 
@@ -2011,7 +2055,7 @@ def admin_leads():
     dashboard_data = build_lead_dashboard_data(leads)
     return render_template(
         "admin_leads.html",
-        title="Leads Dashboard — G3 Industries",
+        title="Leads Dashboard, G3 Industries",
         dashboard=dashboard_data,
     )
 
@@ -2085,6 +2129,11 @@ def demo():
     role = normalize_text(request.form.get("role", ""))
     email = normalize_text(request.form.get("email", "")).lower()
     phone = normalize_text(request.form.get("phone", ""))
+    agency_size = normalize_text(request.form.get("agency_size", ""))
+    interest = normalize_text(request.form.get("interest", ""))
+    # Unknown optional choices are ignored without changing required-field validation.
+    agency_size = agency_size if agency_size in AGENCY_SIZE_OPTIONS else ""
+    interest = interest if interest in INTEREST_OPTIONS else ""
     notes = normalize_text(request.form.get("notes", ""), allow_newlines=True)
     utm_source = normalize_text(request.form.get("utm_source", ""))
     utm_medium = normalize_text(request.form.get("utm_medium", ""))
@@ -2115,7 +2164,7 @@ def demo():
     if honeypot:
         return demo_success_response(
             expects_json,
-            flash_message="Thanks — we’ll be in touch.",
+            flash_message="Thanks, we’ll be in touch.",
             json_message="Thanks",
         )
 
@@ -2187,6 +2236,8 @@ def demo():
         "role": role,
         "email": email,
         "phone": phone,
+        "agency_size": agency_size,
+        "interest": interest,
         "notes": notes,
         "source_ip": client_ip,
         "user_agent": clip_text(request.headers.get("User-Agent", ""), 512),
@@ -2221,7 +2272,7 @@ def demo():
 
     return demo_success_response(
         expects_json,
-        flash_message="Thanks — we received your request and will get back to you.",
+        flash_message="Thanks, we received your request and will get back to you.",
         json_message="Lead received",
     )
 
@@ -2229,13 +2280,13 @@ def demo():
 @app.errorhandler(404)
 def page_not_found(_error):
     """Render branded 404 page."""
-    return render_template("404.html", title="404 — Page not found"), 404
+    return render_template("404.html", title="404, Page not found"), 404
 
 
 @app.errorhandler(500)
 def internal_error(_error):
     """Render branded 500 page."""
-    return render_template("500.html", title="500 — Internal server error"), 500
+    return render_template("500.html", title="500, Internal server error"), 500
 
 
 @app.route("/force500")
@@ -2247,7 +2298,7 @@ def force500():
 @app.route("/_preview/500")
 def preview_500():
     """Preview the 500 template while debug mode is enabled."""
-    return render_template("500.html", title="500 — Internal server error"), 500
+    return render_template("500.html", title="500, Internal server error"), 500
 
 
 @app.route("/robots.txt")
@@ -2263,6 +2314,8 @@ def sitemap_xml():
     entries: List[Dict[str, str]] = [
         {"loc": f"{base_url}/", "changefreq": "weekly", "priority": "1.0"},
         {"loc": f"{base_url}/products", "changefreq": "weekly", "priority": "0.9"},
+        {"loc": f"{base_url}/packages", "changefreq": "monthly", "priority": "0.8"},
+        {"loc": f"{base_url}/contact", "changefreq": "monthly", "priority": "0.6"},
         {"loc": f"{base_url}/police-scheduling-software", "changefreq": "monthly", "priority": "0.9"},
         {"loc": f"{base_url}/vacation-bidding-software", "changefreq": "monthly", "priority": "0.8"},
         {"loc": f"{base_url}/extra-duty-management-software", "changefreq": "monthly", "priority": "0.8"},
