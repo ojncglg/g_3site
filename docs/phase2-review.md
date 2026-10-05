@@ -132,3 +132,12 @@ All production checks passed. No form submissions, emails, or lead writes were p
 - Shared definitions in `templates/_package_data.html` keep the cards and planner consistent. The existing tier-card classes, colors, typography, and buttons are reused.
 - Files changed: `templates/packages.html`, `templates/sales.html`, `templates/_package_cards.html`, `templates/_package_data.html`, `templates/_founding_pilot.html`, `tests/test_public_routes.py`, and this review document.
 - Verification: six regression tests pass; rendered JavaScript passes syntax checks; Chrome confirms feature counts of 2, 4, and 7, query-string selection, independent deployment scope, and mobile/desktop layouts at 375, 768, and 1280px. No horizontal overflow, controls below 44px, or runtime exceptions were found. No forms were submitted.
+
+## Calculator access update, October 5, 2026
+
+This update supersedes the calculator authentication behavior documented above.
+
+- Removed Basic authentication from the shared calculator handler for `/prices`, `/price-calculator`, and `/g3-internal/agency-price-lab`, as requested by the founder. Anyone with a calculator URL can access the tool.
+- Retained the HTML robots meta tag, `X-Robots-Tag: noindex, nofollow, noarchive`, private no-store caching, and existing sitemap and public-link exclusions.
+- Removed calculator crawl blocks from `robots.txt` so Google can read the noindex rules. Admin crawl blocks and authentication remain unchanged.
+- Updated GET-only regression tests for anonymous calculator access with and without a configured admin password, noindex headers and markup, crawler access, and sitemap exclusions.

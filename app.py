@@ -1861,14 +1861,7 @@ def sales():
 @app.route("/prices")
 @app.route("/g3-internal/agency-price-lab")
 def price_calculator():
-    """Internal deal calculator, unavailable without configured admin credentials."""
-    auth_error = require_basic_auth(
-        username=ADMIN_DASHBOARD_USERNAME,
-        password=ADMIN_DASHBOARD_PASSWORD,
-        realm="G3 Internal Tools",
-    )
-    if auth_error:
-        return auth_error
+    """Unlisted deal calculator, accessible without authentication and not indexed."""
     response = Response(render_template("price_calculator.html"))
     response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
     response.headers["Cache-Control"] = "no-store, private"

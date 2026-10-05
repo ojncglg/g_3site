@@ -1,9 +1,9 @@
 """GET-only regressions for public pricing and internal-tool access."""
-import base64
 import re
 import unittest
 from unittest.mock import patch
 from xml.etree import ElementTree
+from urllib.robotparser import RobotFileParser
 
 import app as site
 
@@ -17,39 +17,30 @@ class PublicRouteTests(unittest.TestCase):
     def get(self, path, **kwargs):
         return self.client.get(path, base_url="https://www.g3industries.io", **kwargs)
 
-    def test_calculator_is_unavailable_without_configured_password(self):
-        with patch.object(site, "ADMIN_DASHBOARD_PASSWORD", ""):
-            for path in self.aliases:
-                with self.subTest(path=path):
-                    response = self.get(path)
-                    self.assertEqual(response.status_code, 404)
-                    self.assertIn("noindex", response.headers["X-Robots-Tag"])
-                    self.assertIn("no-store", response.headers["Cache-Control"])
-                    self.assertNotIn(b"Monthly COGS", response.data)
-
-    def test_every_calculator_alias_requires_valid_credentials(self):
-        with patch.object(site, "ADMIN_DASHBOARD_USERNAME", "review"), patch.object(
-            site, "ADMIN_DASHBOARD_PASSWORD", "test-only-credential"
-        ):
-            for path in self.aliases:
-                for credentials in (None, "review:incorrect", "wrong:test-only-credential"):
-                    with self.subTest(path=path, credentials=credentials):
-                        headers = {}
-                        if credentials:
-                            token = base64.b64encode(credentials.encode()).decode()
-                            headers["Authorization"] = "Basic " + token
-                        response = self.get(path, headers=headers)
-                        self.assertEqual(response.status_code, 401)
-                        self.assertIn("Basic", response.headers["WWW-Authenticate"])
+    def test_calculator_is_accessible_without_credentials_and_not_indexed(self):
+        for password in ("", "test-only-credential"):
+            with patch.object(site, "ADMIN_DASHBOARD_PASSWORD", password):
+                for path in self.aliases:
+                    with self.subTest(path=path, password_configured=bool(password)):
+                        response = self.get(path)
+                        self.assertEqual(response.status_code, 200)
+                        self.assertNotIn("WWW-Authenticate", response.headers)
+                        self.assertIn(b"Monthly COGS", response.data)
+                        self.assertIn(b'<meta name="robots" content="noindex,nofollow,noarchive">', response.data)
                         self.assertIn("noindex", response.headers["X-Robots-Tag"])
                         self.assertIn("no-store", response.headers["Cache-Control"])
-                        self.assertNotIn(b"Monthly COGS", response.data)
-                token = base64.b64encode(b"review:test-only-credential").decode()
-                response = self.get(path, headers={"Authorization": "Basic " + token})
-                self.assertEqual(response.status_code, 200)
-                self.assertIn(b"Monthly COGS", response.data)
-                self.assertIn("noindex", response.headers["X-Robots-Tag"])
-                self.assertIn("no-store", response.headers["Cache-Control"])
+                        self.assertIn("private", response.headers["Cache-Control"])
+
+    def test_robots_allows_reading_calculator_noindex_and_still_blocks_admin(self):
+        response = self.get("/robots.txt")
+        self.addCleanup(response.close)
+        self.assertEqual(response.status_code, 200)
+        robots = RobotFileParser()
+        robots.parse(response.get_data(as_text=True).splitlines())
+        for agent in ("Googlebot", "Bingbot"):
+            for path in self.aliases:
+                self.assertTrue(robots.can_fetch(agent, path))
+            self.assertFalse(robots.can_fetch(agent, "/admin/leads"))
 
     def test_public_package_pages_expose_no_dollar_figures_or_price_tables(self):
         for path in ("/sales", "/packages"):
