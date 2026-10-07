@@ -7,7 +7,10 @@
   - The A Squad logo is served locally from static/img/a-squad-logo.png
     (transparent PNG) via url_for in the <img> tag below.
   - Keep this page unlinked from the public nav so it stays direct-URL only.
-  - Update the itinerary details below once the squad finalizes each event.
+  - Current event: Medieval Times Baltimore, Fri Dec 18 2026, Sir Joseph's
+    going-away night. Update the treasury, fellowship, and caravan sections
+    as quotes and headcount change. Fellowship photos: drop real photos into
+    static/img/fellowship/ and swap the .photo-frame divs for <img> tags.
 -->
 {% extends "base.html" %}
 {% block title %}A Squad Events | G3 Industries{% endblock %}
@@ -26,6 +29,33 @@
     background: rgba(2, 6, 23, 0.75);
     border: 1px solid rgba(251, 191, 36, 0.25);
     border-radius: 0.75rem;
+  }
+  .treasury-box {
+    background: rgba(30, 64, 175, 0.22);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    border-radius: 0.75rem;
+  }
+  .fellow-card {
+    background: rgba(2, 6, 23, 0.75);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 0.75rem;
+  }
+  .photo-frame {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 9999px;
+    border: 2px dashed rgba(251, 191, 36, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.85);
+    flex-shrink: 0;
+  }
+  .detail-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
   }
   .itinerary-step {
     position: relative;
@@ -76,118 +106,302 @@
 
   <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="event-heading">
     <h2 id="event-heading" class="text-2xl font-bold text-white">
-      Haunted House Outing
+      Sir Joseph's Going-Away Night
     </h2>
     <p class="mt-2 text-slate-300">
-      The squad is picking the venue now. The vote closes September 25, and the
-      itinerary below will be finalized right after.
+      The A Squad rides south to Medieval Times Baltimore for a night of
+      feasting, jousting, and questionable chivalry, all in honor of Sir
+      Joseph, who leaves the squad after three years. Huzzah.
     </p>
 
-    <div class="mt-6 grid gap-8 md:grid-cols-2">
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div>
-        <h3 class="text-lg font-semibold text-[#FBBF24]">Sign Up</h3>
-        <p class="mt-1 text-sm text-slate-400">
-          Tell us who is coming and how many tickets to hold for your group.
-        </p>
-        <form
-          id="events-signup-form"
-          action="/events/signup"
-          method="post"
-          class="mt-4 grid gap-4"
-          novalidate
-        >
-          <div>
-            <label class="block text-sm text-slate-300 mb-1" for="events-name">
-              Who are you?
-            </label>
-            <input
-              id="events-name"
-              name="name"
-              type="text"
-              required
-              maxlength="120"
-              class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-              placeholder="Your name"
-            />
-          </div>
-          <div>
-            <label class="block text-sm text-slate-300 mb-1" for="events-tickets">
-              How many tickets are you purchasing?
-            </label>
-            <input
-              id="events-tickets"
-              name="tickets"
-              type="number"
-              required
-              min="1"
-              max="20"
-              class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-              placeholder="1"
-            />
-          </div>
-          <div>
-            <label class="block text-sm text-slate-300 mb-1" for="events-email">
-              Email <span class="text-slate-500">(optional)</span>
-            </label>
-            <input
-              id="events-email"
-              name="email"
-              type="email"
-              maxlength="254"
-              class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-              placeholder="you@example.com"
-            />
-          </div>
-          <div class="hidden" aria-hidden="true">
-            <label for="events-website">Website</label>
-            <input
-              id="events-website"
-              name="website"
-              type="text"
-              tabindex="-1"
-              autocomplete="off"
-            />
-          </div>
-          <button
-            type="submit"
-            class="mt-1 rounded-md bg-[#1E40AF] px-5 py-3 font-semibold text-white transition hover:bg-[#FBBF24] hover:text-slate-950"
-          >
-            Save My Spot
-          </button>
-        </form>
+        <p class="detail-label">Date</p>
+        <p class="font-semibold text-white">Friday, December 18, 2026</p>
       </div>
-
       <div>
-        <h3 class="text-lg font-semibold text-[#FBBF24]">Itinerary</h3>
-        <p class="mt-1 text-sm text-slate-400">
-          Final times post once the squad picks the venue.
-        </p>
-        <ol class="mt-4">
-          <li class="itinerary-step">
-            <span class="itinerary-dot" aria-hidden="true"></span>
-            <p class="font-semibold text-white">Meeting Spot</p>
-            <p class="text-sm text-slate-400">To be announced</p>
-          </li>
-          <li class="itinerary-step">
-            <span class="itinerary-dot" aria-hidden="true"></span>
-            <p class="font-semibold text-white">Departure</p>
-            <p class="text-sm text-slate-400">To be announced</p>
-          </li>
-          <li class="itinerary-step">
-            <span class="itinerary-dot" aria-hidden="true"></span>
-            <p class="font-semibold text-white">Haunted House</p>
-            <p class="text-sm text-slate-400">
-              Venue to be announced after the September 25 squad vote
-            </p>
-          </li>
-          <li class="itinerary-step">
-            <span class="itinerary-dot" aria-hidden="true"></span>
-            <p class="font-semibold text-white">Return</p>
-            <p class="text-sm text-slate-400">To be announced</p>
-          </li>
-        </ol>
+        <p class="detail-label">Show</p>
+        <p class="font-semibold text-white">7:00 PM, Knight's Banquet package</p>
+      </div>
+      <div>
+        <p class="detail-label">Castle</p>
+        <p class="font-semibold text-white">Medieval Times Baltimore</p>
+        <p class="text-sm text-slate-400">7000 Arundel Mills Circle, Hanover, MD</p>
+      </div>
+      <div>
+        <p class="detail-label">Doors</p>
+        <p class="font-semibold text-white">Open 5:30 PM</p>
+        <p class="text-sm text-slate-400">Be inside by 6:00 PM. Group checks in under Grigori's name.</p>
       </div>
     </div>
+
+    <div class="treasury-box mt-6 p-5" aria-labelledby="treasury-heading">
+      <h3 id="treasury-heading" class="text-lg font-semibold text-[#FBBF24]">The Royal Treasury</h3>
+      <p class="mt-2 text-slate-200">
+        <span class="font-bold text-white">$91.14</span> per person. Group total
+        <span class="font-semibold text-white">$1,822.80</span> for 20 adults,
+        all-inclusive (tax and gratuity included). That is the castle's group
+        rate, the lowest they offer.
+      </p>
+      <p class="mt-2 text-slate-200">
+        <span class="font-semibold text-white">Coin due: October 31.</span>
+        The crown only has to put down the 25% deposit (about $456) to lock our
+        seats, but he wants everyone's money by the end of the month. Final
+        headcount and full payment are due to the castle December 4.
+      </p>
+      <p class="mt-2 text-sm text-slate-400">
+        Possible 21st seat: the Lady Caroline. We have asked the castle whether
+        we can add one more to the party later; awaiting their raven.
+      </p>
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-lg font-semibold text-[#FBBF24]">The Royal Itinerary</h3>
+      <ol class="mt-4">
+        <li class="itinerary-step">
+          <span class="itinerary-dot" aria-hidden="true"></span>
+          <p class="font-semibold text-white">4:30 PM, Wheels Up</p>
+          <p class="text-sm text-slate-400">Party bus pickup in Newark (for the caravan riders)</p>
+        </li>
+        <li class="itinerary-step">
+          <span class="itinerary-dot" aria-hidden="true"></span>
+          <p class="font-semibold text-white">~6:00 PM, Arrive the Castle</p>
+          <p class="text-sm text-slate-400">About an hour from Newark. Check in under Grigori's name.</p>
+        </li>
+        <li class="itinerary-step">
+          <span class="itinerary-dot" aria-hidden="true"></span>
+          <p class="font-semibold text-white">7:00 PM, Showtime</p>
+          <p class="text-sm text-slate-400">Knight's Banquet served. Cheer for our knight. Boo the other ones.</p>
+        </li>
+        <li class="itinerary-step">
+          <span class="itinerary-dot" aria-hidden="true"></span>
+          <p class="font-semibold text-white">~11:30 PM, Return</p>
+          <p class="text-sm text-slate-400">Caravan rolls back to Newark.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="fellowship-heading">
+    <h2 id="fellowship-heading" class="text-2xl font-bold text-white text-center">
+      The <span class="text-[#FBBF24]">Fellowship</span>
+    </h2>
+    <p class="mt-2 text-center text-slate-400">
+      The brave souls riding to Baltimore. Photos to come; bios are
+      historically accurate-ish.
+    </p>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">G</span></div>
+        <div>
+          <p class="font-semibold text-white">Grigori <span class="text-xs font-normal text-slate-400">, the Convener</span></p>
+          <p class="mt-1 text-sm text-slate-400">Keeper of the group chat and lord of the spreadsheet. Found the castle, charmed the crown's coin-counters, and will collect your tribute by October 31. Brown belt in the gentle art; black belt in herding night-shift cops.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start border-[#FBBF24]/60" style="border-width:2px">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">J</span></div>
+        <div>
+          <p class="font-semibold text-white">Sir Joseph <span class="text-xs font-normal text-[#FBBF24]">, the Guest of Honor, 3 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Three winters strong on the A Squad. The realm feasts in his honor before he rides to new lands. All hail, and no take-backs.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">S</span></div>
+        <div>
+          <p class="font-semibold text-white">Scott "SJ" Williams <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Scott the Steadfast, first of his name to settle his patch debt. Never late to a fight, never short on coin.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
+        <div>
+          <p class="font-semibold text-white">Kaycee Galan <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Dame Kaycee of the Five Patches, who paid her tribute in full and fears no reckoning.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">O</span></div>
+        <div>
+          <p class="font-semibold text-white">Owen Slank <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Owen the Unflappable, bringer of one guest and zero drama.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">M</span></div>
+        <div>
+          <p class="font-semibold text-white">Mihalyi <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Mihalyi and the Lady Time, who arrive precisely when they mean to.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
+        <div>
+          <p class="font-semibold text-white">Kay Simpson <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Kay the Decisive, who chose the Baltimore castle before it was cool. Brings his lady wife.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">G</span></div>
+        <div>
+          <p class="font-semibold text-white">Shane "Gilly" Gilbert <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Gilly the Scholar, sector partner by night and student by day. Questing for a degree while the rest of us quest for turkey legs.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">S</span></div>
+        <div>
+          <p class="font-semibold text-white">Scotty <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Scotty of Unknown Surname, a mystery wrapped in chainmail. Brings a guest, leaves a legend.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">W</span></div>
+        <div>
+          <p class="font-semibold text-white">Joseph "Wolfe" Wolfe <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Wolfe the Swift-Coin, whose tribute arrived fastest in all the land.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">B</span></div>
+        <div>
+          <p class="font-semibold text-white">Berry <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Keeper of the night watch's secrets. What happens on the caravan stays on the caravan.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">M</span></div>
+        <div>
+          <p class="font-semibold text-white">McCord <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir McCord the Latecomer, who joined the quest at the eleventh hour and paid his patch debt all the same.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start opacity-75">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
+        <div>
+          <p class="font-semibold text-white">Kyle McCausland <span class="text-xs font-normal text-slate-400">, 2 seats, tentative</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Kyle the Maybe, whose raven has not yet returned. Two seats held by the fire, just in case.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start opacity-75">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">T</span></div>
+        <div>
+          <p class="font-semibold text-white">Tolan <span class="text-xs font-normal text-slate-400">, 2 seats, maybe</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Tolan the Unconfirmed, currently wandering somewhere between "maybe" and the castle gates.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start opacity-75">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">C</span></div>
+        <div>
+          <p class="font-semibold text-white">The Lady Caroline <span class="text-xs font-normal text-slate-400">, 1 seat, pending</span></p>
+          <p class="mt-1 text-sm text-slate-400">Dame Caroline of the Trauma Ward, mender of the realm's wounded. Her seat awaits the crown's blessing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="caravan-heading">
+    <h2 id="caravan-heading" class="text-2xl font-bold text-white">
+      The <span class="text-[#FBBF24]">Caravan</span>
+    </h2>
+    <p class="mt-2 text-slate-300">
+      How we get to the castle. Carpoolers, coordinate among yourselves. If you
+      would rather ride in style, the party bus rolls if enough riders commit.
+    </p>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      <div class="treasury-box p-5">
+        <p class="font-semibold text-white">Delaware Limo</p>
+        <p class="mt-1 text-2xl font-bold text-[#FBBF24]">$1,906</p>
+        <p class="mt-2 text-sm text-slate-400">23-passenger party bus, all-inclusive. Pickup Newark about 4:30 PM, return about 11:30 PM. About $95.30 per person at 20 riders. Quote expires around October 17.</p>
+      </div>
+      <div class="treasury-box p-5">
+        <p class="font-semibold text-white">Price4Limo</p>
+        <p class="mt-1 text-2xl font-bold text-[#FBBF24]">$2,485</p>
+        <p class="mt-2 text-sm text-slate-400">20-passenger party bus, 7 hours, service charge included. About $124.25 per person at 20 riders.</p>
+      </div>
+      <div class="treasury-box p-5">
+        <p class="font-semibold text-white">Krapf</p>
+        <p class="mt-1 text-2xl font-bold text-[#FBBF24]">Pending</p>
+        <p class="mt-2 text-sm text-slate-400">School bus quote requested. Awaiting their reply.</p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-slate-400">
+      Estimated arrival at the castle: about 6:00 PM, roughly an hour from
+      Newark. That puts us inside well before the 7:00 PM show.
+    </p>
+  </section>
+
+  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="signup-heading">
+    <h2 id="signup-heading" class="text-2xl font-bold text-white">Claim a Seat</h2>
+    <p class="mt-2 text-slate-300">
+      Late additions and plus-ones: tell us who is coming and how many tickets
+      to hold for your group.
+    </p>
+    <form
+      id="events-signup-form"
+      action="/events/signup"
+      method="post"
+      class="mt-4 grid gap-4"
+      novalidate
+    >
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="events-name">
+          Who are you?
+        </label>
+        <input
+          id="events-name"
+          name="name"
+          type="text"
+          required
+          maxlength="120"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
+          placeholder="Your name"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="events-tickets">
+          How many tickets are you purchasing?
+        </label>
+        <input
+          id="events-tickets"
+          name="tickets"
+          type="number"
+          required
+          min="1"
+          max="20"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
+          placeholder="1"
+        />
+      </div>
+      <div>
+        <label class="block text-sm text-slate-300 mb-1" for="events-email">
+          Email <span class="text-slate-500">(optional)</span>
+        </label>
+        <input
+          id="events-email"
+          name="email"
+          type="email"
+          maxlength="254"
+          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
+          placeholder="you@example.com"
+        />
+      </div>
+      <div class="hidden" aria-hidden="true">
+        <label for="events-website">Website</label>
+        <input
+          id="events-website"
+          name="website"
+          type="text"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+      <button
+        type="submit"
+        class="mt-1 rounded-md bg-[#1E40AF] px-5 py-3 font-semibold text-white transition hover:bg-[#FBBF24] hover:text-slate-950"
+      >
+        Save My Spot
+      </button>
+    </form>
   </section>
 
   <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="guestlist-heading">
