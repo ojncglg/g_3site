@@ -2,7 +2,7 @@
 {% from "_package_data.html" import tiers %}
 <div class="grid gap-5 lg:grid-cols-3">
   {% for tier in tiers %}
-  <article id="{{ tier.id }}" class="sales-package{% if tier.id == 'operations' %} featured{% endif %} flex flex-col">
+  <article id="{{ tier.id }}" class="sales-package flex flex-col">
     <div>
       <h2 class="text-2xl font-bold">{{ tier.name }}</h2>
       <p class="mt-3 text-slate-300">{{ tier.tagline }}</p>
