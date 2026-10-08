@@ -51,6 +51,15 @@
     background: rgba(15, 23, 42, 0.85);
     flex-shrink: 0;
   }
+  .fellow-photo {
+    width: 5rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(251, 191, 36, 0.5);
+    flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.85);
+  }
   .detail-label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -182,94 +191,120 @@
     </div>
   </section>
 
-    <section class="mt-10" aria-labelledby="fellowship-heading">
+      <section class="mt-10" aria-labelledby="fellowship-heading">
     <h2 id="fellowship-heading" class="text-2xl font-bold text-white text-center">
       The <span class="text-[#FBBF24]">Fellowship</span>
     </h2>
     <p class="mt-2 text-center text-slate-400">
-      The brave souls riding to Baltimore. Photos to come; bios are
-      historically accurate-ish.
+      The brave souls riding to Baltimore. Portraits courtesy of the court
+      painter; bios are historically accurate-ish.
     </p>
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">S</span></div>
+        <img
+          src="{{ url_for('static', filename='img/fellowship/scott-williams.jpg') }}"
+          alt="Baron Williams in knight's armor"
+          class="fellow-photo"
+          loading="lazy"
+        />
         <div>
-          <p class="font-semibold text-white">Scott Williams <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Scott the Steadfast, first of his name to settle his patch debt. Never late to a fight, never short on coin.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
-        <div>
-          <p class="font-semibold text-white">Kaycee Galan <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Dame Kaycee of the Five Patches, who paid her tribute in full and fears no reckoning.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">O</span></div>
-        <div>
-          <p class="font-semibold text-white">Owen Slank <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Owen the Unflappable, bringer of one guest and zero drama.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start border-[#FBBF24]/60" style="border-width:2px">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">J</span></div>
-        <div>
-          <p class="font-semibold text-white">Joseph Mihalyi <span class="text-xs font-normal text-[#FBBF24]">, the Guest of Honor, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Joseph the Departing, three winters strong on the A Squad. The realm feasts in his honor before he rides to new lands. All hail, and no take-backs.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">L</span></div>
-        <div>
-          <p class="font-semibold text-white">Grigori LopezGarcia <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Grigori the Convener, Keeper of the group chat and Lord of the spreadsheet. Found the castle, charmed the crown's coin-counters, and will collect your tribute by October 31. Brown belt in the gentle art; black belt in herding night-shift cops.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
-        <div>
-          <p class="font-semibold text-white">Kay Simpson <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Kay the Decisive, who chose the Baltimore castle before it was cool. Brings his lady wife.</p>
+          <p class="font-semibold text-white">Baron Williams <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Baron Williams the Steadfast, first of his name to settle his patch debt. Never late to a fight, never short on coin.</p>
         </div>
       </div>
       <div class="fellow-card p-4 flex gap-4 items-start">
         <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">G</span></div>
         <div>
-          <p class="font-semibold text-white">Shane Gilbert <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Gilly the Scholar, sector partner by night and student by day. Questing for a degree while the rest of us quest for turkey legs.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">W</span></div>
-        <div>
-          <p class="font-semibold text-white">Wolfe <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Wolfe the Swift-Coin, whose tribute arrived fastest in all the land. Goes by Wolfe so the heralds don't mix up the Josephs.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">M</span></div>
-        <div>
-          <p class="font-semibold text-white">McCord <span class="text-xs font-normal text-slate-400">, 1 seat, rides solo</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir McCord the Latecomer, who joined the quest at the eleventh hour and rides alone. All the more turkey leg for him.</p>
-        </div>
-      </div>
-      <div class="fellow-card p-4 flex gap-4 items-start">
-        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">K</span></div>
-        <div>
-          <p class="font-semibold text-white">Kyle McCausland <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Kyle the Confirmed, whose raven finally returned bearing a yes.</p>
+          <p class="font-semibold text-white">Dame Galan <span class="text-xs font-normal text-[#FBBF24]">, called Bittersteel, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Called Bittersteel. Paid her tribute of five patches in full and fears no reckoning.</p>
         </div>
       </div>
       <div class="fellow-card p-4 flex gap-4 items-start">
         <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">S</span></div>
         <div>
-          <p class="font-semibold text-white">Strawberry <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
-          <p class="mt-1 text-sm text-slate-400">Sir Strawberry, whose name needs no explanation and shall receive none. Brings a guest and brings the energy.</p>
+          <p class="font-semibold text-white">Lord Slank <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Lord Slank the Unflappable, bringer of one guest and zero drama.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start border-[#FBBF24]/60" style="border-width:2px">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">J</span></div>
+        <div>
+          <p class="font-semibold text-white">Sir Joseph <span class="text-xs font-normal text-[#FBBF24]">, the Guest of Honor, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir Joseph the Departing, three winters strong on the A Squad. The realm feasts in his honor before he rides to new lands. All hail, and no take-backs.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <img
+          src="{{ url_for('static', filename='img/fellowship/lopezgarcia.jpg') }}"
+          alt="Duke LopezGarcia in knight's armor"
+          class="fellow-photo"
+          loading="lazy"
+        />
+        <div>
+          <p class="font-semibold text-white">Duke LopezGarcia <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Duke LopezGarcia the Convener, Keeper of the group chat and Lord of the spreadsheet. Found the castle, charmed the crown's coin-counters, and will collect your tribute by October 31. Brown belt in the gentle art; black belt in herding night-shift cops.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <img
+          src="{{ url_for('static', filename='img/fellowship/kay-simpson.jpg') }}"
+          alt="Baron Simpson in knight's armor"
+          class="fellow-photo"
+          loading="lazy"
+        />
+        <div>
+          <p class="font-semibold text-white">Baron Simpson <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Baron Simpson the Decisive, who chose the Baltimore castle before it was cool. Brings his lady wife.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">G</span></div>
+        <div>
+          <p class="font-semibold text-white">Duke Gilbert <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Duke Gilbert the Scholar, sector partner by night and student by day. Questing for a degree while the rest of us quest for turkey legs.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">W</span></div>
+        <div>
+          <p class="font-semibold text-white">Lord Wolfe <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Lord Wolfe the Swift-Coin, whose tribute arrived fastest in all the land. Goes by Wolfe so the heralds don't mix up the Josephs.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <img
+          src="{{ url_for('static', filename='img/fellowship/mccord.jpg') }}"
+          alt="Sir McCord in knight's armor"
+          class="fellow-photo"
+          loading="lazy"
+        />
+        <div>
+          <p class="font-semibold text-white">Sir McCord <span class="text-xs font-normal text-slate-400">, 1 seat, rides solo</span></p>
+          <p class="mt-1 text-sm text-slate-400">Sir McCord the Latecomer, who joined the quest at the eleventh hour and rides alone. All the more turkey leg for him.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <img
+          src="{{ url_for('static', filename='img/fellowship/kyle-mccausland.jpg') }}"
+          alt="Lord McCausland in knight's armor"
+          class="fellow-photo"
+          loading="lazy"
+        />
+        <div>
+          <p class="font-semibold text-white">Lord McCausland <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Lord McCausland the Confirmed, whose raven finally returned bearing a yes.</p>
+        </div>
+      </div>
+      <div class="fellow-card p-4 flex gap-4 items-start">
+        <div class="photo-frame"><span class="text-xl font-bold text-[#FBBF24]">S</span></div>
+        <div>
+          <p class="font-semibold text-white">Baron Strawberry <span class="text-xs font-normal text-slate-400">, 2 seats</span></p>
+          <p class="mt-1 text-sm text-slate-400">Baron Strawberry, whose name needs no explanation and shall receive none. Brings a guest and brings the energy.</p>
         </div>
       </div>
     </div>
   </section>
+
 
 
   <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="caravan-heading">
