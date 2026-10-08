@@ -141,3 +141,13 @@ This update supersedes the calculator authentication behavior documented above.
 - Retained the HTML robots meta tag, `X-Robots-Tag: noindex, nofollow, noarchive`, private no-store caching, and existing sitemap and public-link exclusions.
 - Removed calculator crawl blocks from `robots.txt` so Google can read the noindex rules. Admin crawl blocks and authentication remain unchanged.
 - Updated GET-only regression tests for anonymous calculator access with and without a configured admin password, noindex headers and markup, crawler access, and sitemap exclusions.
+
+## Calculator removal, October 8, 2026
+
+This removal supersedes all earlier calculator access behavior in this historical review.
+
+- Removed the calculator handler and all three routes: `/prices`, `/price-calculator`, and `/g3-internal/agency-price-lab`. These URLs now return the normal 404 page.
+- Deleted `templates/price_calculator.html` and the obsolete endpoint-specific response headers from the website codebase.
+- Preserved an exact standalone HTML copy at `/Users/g.lopezgarcia/Desktop/G3 Private Tools/G3 Price Calculator.html`, outside the repository and deployment inputs. Its calculation logic and styling are inline and require no Flask server.
+- Added robots.txt disallows for all three retired URLs. They remain absent from both sitemaps and public links.
+- Added GET-only regressions for removed routes and files, robots exclusions, and public pages and assets containing no old calculator references or calculation code.

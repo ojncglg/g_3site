@@ -4,9 +4,11 @@
 # Controls how search engines index and crawl your site
 
 User-agent: *
-# Keep admin paths blocked. Unlisted calculators must be crawlable so search
-# engines can read their noindex headers and meta tags.
+# Block admin paths and retired calculator URLs.
 Disallow: /admin/
+Disallow: /prices
+Disallow: /price-calculator
+Disallow: /g3-internal/agency-price-lab
 Allow: /
 
 # Explicitly allow your key public pages

@@ -1862,9 +1862,6 @@ def set_security_headers(response):
         "Permissions-Policy", "camera=(), geolocation=(), microphone=()"
     )
     response.headers.setdefault("Content-Security-Policy", DEFAULT_CSP)
-    if request.endpoint == "price_calculator":
-        response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
-        response.headers["Cache-Control"] = "no-store, private"
     return response
 
 
@@ -1956,27 +1953,6 @@ def sales():
     )
     response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
     response.headers["Cache-Control"] = "no-store, private"
-    return response
-
-
-@app.route("/price-calculator")
-@app.route("/prices")
-@app.route("/g3-internal/agency-price-lab")
-def price_calculator():
-    """Unlisted deal calculator, accessible without authentication and not indexed."""
-    response = Response(render_template("price_calculator.html"))
-    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
-    response.headers["Cache-Control"] = "no-store, private"
-    response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-        "img-src 'self' data:; "
-        "font-src 'self' https://fonts.gstatic.com; "
-        "connect-src 'self'; "
-        "base-uri 'self'; "
-        "frame-ancestors 'none'"
-    )
     return response
 
 
