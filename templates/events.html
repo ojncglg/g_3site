@@ -201,7 +201,15 @@
     </div>
   </section>
 
-      <section class="mt-10" aria-labelledby="fellowship-heading">
+      <div class="mt-10 flex flex-col items-center text-center" aria-label="Fellowship sigil">
+    <img src="{{ url_for('static', filename='img/fellowship/nccpd-sigil.jpg') }}"
+         alt="New Castle County Police badge reforged as a medieval sigil"
+         class="w-52 md:w-72 h-auto rounded-lg" loading="lazy"
+         style="filter: drop-shadow(0 0 28px rgba(251, 191, 36, 0.28));" />
+    <p class="mt-3 text-sm italic text-slate-400">The badge, reforged as a sigil.</p>
+  </div>
+
+  <section class="mt-10" aria-labelledby="fellowship-heading">
     <h2 id="fellowship-heading" class="text-2xl font-bold text-white text-center">
       The <span class="text-[#FBBF24]">Fellowship</span>
     </h2>
