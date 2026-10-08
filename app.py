@@ -1091,6 +1091,108 @@ BLOG_POSTS: List[Dict[str, Any]] = [
             "and outcomes, so seniority stops being an argument and starts being a setting."
         ),
     },
+    {
+        "slug": "court-overtime-is-a-scheduling-problem",
+        "title": "Court Overtime Is a Scheduling Problem",
+        "description": (
+            "Court overtime often comes from scheduling appearances blind. When the court liaison "
+            "can see the squad schedule, standby lands on straight time and the overtime line shrinks."
+        ),
+        "published_at": "2026-10-08",
+        "published_label": "October 8, 2026",
+        "updated_at": "2026-10-08",
+        "updated_label": "October 8, 2026",
+        "read_time": "4 min read",
+        "author_name": "Grigori LopezGarcia",
+        "author_role": "Founder, G3 Industries",
+        "tags": ["Overtime", "Court Liaison", "Scheduling", "Police Operations"],
+        "summary": (
+            "Court overtime is often a scheduling problem, not a staffing problem. Sharing schedule "
+            "visibility with the court liaison keeps appearances on straight time and officers rested."
+        ),
+        "quick_answer": (
+            "When the court liaison can see the squad schedule, court standby gets set during officers' "
+            "day-work shifts instead of generating overtime or post-night-shift appearances."
+        ),
+        "key_takeaways": [
+            "A real share of police overtime is administrative, not staffing-driven.",
+            "Court overtime often comes from scheduling appearances blind, without visibility into officer shifts.",
+            "Giving the court liaison view access to the squad schedule lets standby time land on straight time.",
+            "Simple technology that connects the right people to the right information cuts overtime month after month.",
+        ],
+        "qa": [
+            {
+                "question": "How does schedule visibility reduce court overtime?",
+                "answer": (
+                    "When the court liaison can see when officers are actually working, standby and "
+                    "appearances get scheduled during day-work shifts instead of triggering overtime or "
+                    "post-night-shift appearances."
+                ),
+            },
+            {
+                "question": "Does this require new staffing or a complex system?",
+                "answer": (
+                    "No. It uses the schedule the agency already keeps and shares it with the court liaison "
+                    "through view access. No new hires, no complicated rollout."
+                ),
+            },
+            {
+                "question": "What is the officer wellness angle?",
+                "answer": (
+                    "Fewer post-midnight-shift court appearances on little sleep means more rested officers. "
+                    "Rested officers make better witnesses and safer decisions."
+                ),
+            },
+        ],
+        "sections": [
+            {
+                "heading": "Overtime eats the operational budget",
+                "paragraphs": [
+                    "Every chief knows the line item. Overtime eats the operational budget, and there is never enough of it to go around.",
+                    "Most of the overtime conversation is about staffing: hire more, fill vacancies, stop the bleeding. That conversation matters, but it misses something simpler. A real share of overtime spending is not a staffing problem at all. It is an administrative problem, and administrative problems get fixed with simple technology.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The court overtime trap",
+                "paragraphs": [
+                    "Here is how it usually works. An officer makes an arrest on night shift. Months later the case comes up and the officer gets subpoenaed. The court liaison does their best, but they are working off phone calls, emails, and whatever schedule information they can piece together.",
+                    "So the officer gets a 9 AM court appearance after working until 3 AM. They show up exhausted, or the department pays overtime for them to come in on a day off. Sometimes both.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "Give the court liaison the schedule",
+                "paragraphs": [
+                    "The fix is almost embarrassingly simple. When an agency adopts G3 Industries as its scheduler, the schedule can be exported and sent to the court liaison officer, who gets view access to the squad schedule.",
+                    "Instead of guessing, the liaison sees exactly when each officer is working and schedules standby times around day-work shifts. The officer who made the arrest on nights does not get dragged into court on three hours of sleep. The department does not pay overtime for an appearance that could have happened on straight time.",
+                    "Nobody had to hire anyone. Nobody bought a complicated system. The schedule the agency already keeps just became visible to the person who needed to see it.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "The human side of the savings",
+                "paragraphs": [
+                    "There is a second dividend here, and it is not measured in dollars. An officer testifying on no sleep after a midnight shift is bad for the case and bad for the officer. Cutting down the times an officer has to get up after working overnight to sit in court on very little sleep is a wellness win disguised as a budget win.",
+                    "Rested officers make better witnesses and safer decisions.",
+                ],
+                "bullets": [],
+            },
+            {
+                "heading": "One example of many",
+                "paragraphs": [
+                    "This is just one of the ways G3 Industries helps departments reduce administrative costs with technology. Every manual handoff, every phone-tag scheduling decision, every blind guess by someone doing their best without the full picture is overtime waiting to happen.",
+                    "The savings show up in the overtime line, month after month.",
+                ],
+                "bullets": [],
+            },
+        ],
+        "cta_title": "Bleeding overtime on court scheduling?",
+        "cta_body": (
+            "G3 Industries gives your court liaison visibility into the squad schedule, so standby "
+            "lands on straight time. Let us show you how it works."
+        ),
+    },
 ]
 BLOG_POSTS_BY_SLUG: Dict[str, Dict[str, Any]] = {post["slug"]: post for post in BLOG_POSTS}
 BLOG_POSTS_SORTED: List[Dict[str, Any]] = sorted(
