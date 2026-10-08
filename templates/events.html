@@ -60,6 +60,16 @@
     flex-shrink: 0;
     background: rgba(15, 23, 42, 0.85);
   }
+  .fellow-photo {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+  }
+  .fellow-photo:hover {
+    transform: scale(1.4);
+    box-shadow: 0 10px 28px rgba(251, 191, 36, 0.4);
+    position: relative;
+    z-index: 10;
+  }
   .detail-label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -338,103 +348,7 @@
     </p>
   </section>
 
-  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="signup-heading">
-    <h2 id="signup-heading" class="text-2xl font-bold text-white">Claim a Seat</h2>
-    <p class="mt-2 text-slate-300">
-      Late additions and plus-ones: tell us who is coming and how many tickets
-      to hold for your group.
-    </p>
-    <form
-      id="events-signup-form"
-      action="/events/signup"
-      method="post"
-      class="mt-4 grid gap-4"
-      novalidate
-    >
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="events-name">
-          Who are you?
-        </label>
-        <input
-          id="events-name"
-          name="name"
-          type="text"
-          required
-          maxlength="120"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-          placeholder="Your name"
-        />
-      </div>
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="events-tickets">
-          How many tickets are you purchasing?
-        </label>
-        <input
-          id="events-tickets"
-          name="tickets"
-          type="number"
-          required
-          min="1"
-          max="20"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-          placeholder="1"
-        />
-      </div>
-      <div>
-        <label class="block text-sm text-slate-300 mb-1" for="events-email">
-          Email <span class="text-slate-500">(optional)</span>
-        </label>
-        <input
-          id="events-email"
-          name="email"
-          type="email"
-          maxlength="254"
-          class="form-input w-full rounded-md bg-slate-950/80 border border-white/10 focus:border-[#FBBF24] focus:outline-none px-3 py-2"
-          placeholder="you@example.com"
-        />
-      </div>
-      <div class="hidden" aria-hidden="true">
-        <label for="events-website">Website</label>
-        <input
-          id="events-website"
-          name="website"
-          type="text"
-          tabindex="-1"
-          autocomplete="off"
-        />
-      </div>
-      <button
-        type="submit"
-        class="mt-1 rounded-md bg-[#1E40AF] px-5 py-3 font-semibold text-white transition hover:bg-[#FBBF24] hover:text-slate-950"
-      >
-        Save My Spot
-      </button>
-    </form>
-  </section>
-
-  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="guestlist-heading">
-    <h2 id="guestlist-heading" class="text-2xl font-bold text-white">
-      Who's In
-    </h2>
-    {% if guests %}
-    <p class="mt-2 text-slate-300">
-      {{ total_tickets }} ticket{{ "s" if total_tickets != 1 else "" }} claimed
-      so far. Grab yours before they're gone.
-    </p>
-    <ul class="mt-4 grid gap-2 sm:grid-cols-2">
-      {% for guest in guests %}
-      <li class="flex items-center justify-between rounded-md bg-slate-950/60 border border-white/10 px-4 py-2">
-        <span class="font-medium text-white">{{ guest.name }}</span>
-        <span class="text-sm text-[#FBBF24]">{{ guest.tickets }} ticket{{ "s" if guest.tickets != 1 else "" }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p class="mt-2 text-slate-400">
-      Nobody has signed up yet. Be the first.
-    </p>
-    {% endif %}
-  </section>
+  
 
   <p class="mt-8 text-center text-sm text-slate-500">
     Questions? Reach out to Grigori directly.
