@@ -227,12 +227,7 @@
       <p class="text-sm text-slate-300">{{ post.author_role }}</p>
       {% endif %}
       <a href="/about" class="inline-flex mt-2 text-sm nav-link">Read full bio</a>
-      <h2 class="mt-4 text-xl font-semibold">{{ post.cta_title }}</h2>
-      <p class="mt-2 text-slate-300">{{ post.cta_body }}</p>
-      <div class="mt-4 flex flex-col sm:flex-row gap-3">
-        <a href="/#demo" class="btn btn-primary w-full sm:w-auto justify-center">Request a demo</a>
-        <a href="/products" class="btn btn-outline w-full sm:w-auto justify-center">Explore products</a>
-      </div>
+      {% include "_blog_contextual_cta.html" %}
     </aside>
   </div>
 </article>

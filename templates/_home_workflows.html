@@ -1,0 +1,85 @@
+<!-- Streams B through E. Product language and images come from the existing catalog and guide. -->
+<section id="operational-challenges" class="defer py-10 md:py-12 border-y border-white/5 bg-slate-900/35 section-decor reveal" aria-labelledby="challenges-title">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <h2 id="challenges-title" class="text-2xl md:text-3xl font-bold">Scheduling shouldn't consume your command staff's time.</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">Many agencies still coordinate staffing, leave, approvals, and administrative workflows through spreadsheets, email, paper forms, calendars, and disconnected systems.</p>
+    {% set challenges = [
+      ('Manual scheduling', 'Updating separate rosters can mean repeated checks when shifts and availability change.'),
+      ('Leave approval bottlenecks', 'Requests spread across email and paper can make pending decisions harder to track.'),
+      ('Limited staffing visibility', 'Disconnected calendars can make it harder to see who is available and where coverage needs attention.'),
+      ('Duplicate administrative work', 'Entering the same change in several systems can create extra work and inconsistent records.'),
+      ('Fragmented records', 'Separate request, approval, and assignment records can make decisions harder to reconstruct.'),
+      ('Time-consuming audit preparation', 'Gathering records from multiple sources can take command staff away from operational work.')
+    ] %}
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {% for title, description in challenges %}
+      <article class="rounded-lg border border-white/10 card-border bg-slate-950/60 p-5">
+        <h3 class="text-lg font-semibold">{{ title }}</h3>
+        <p class="mt-2 text-sm text-slate-300">{{ description }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="products" class="defer py-12 md:py-16 section-decor reveal" aria-labelledby="workflows-title">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <p class="text-sm font-semibold text-[color:var(--g3-gold)]">Vacation Book, our flagship suite</p>
+    <h2 id="workflows-title" class="mt-2 text-2xl md:text-3xl font-bold">One connected operational workflow</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">Move from building the schedule to reviewing requests and documenting decisions, with staffing information available along the way.</p>
+    {% set workflows = [
+      ('Schedule', 'Manage units, squads, shifts, and coverage through Scheduling & Calendar and Roster Management.', 'how-scheduling'),
+      ('Request', 'Submit vacation, sick, and comp leave through Scheduling & Calendar, with structured requests and policy guardrails.', 'how-scheduling'),
+      ('Approve', 'Review leave requests against policy and staffing coverage before approved leave goes onto the calendar.', 'how-scheduling'),
+      ('Staff', 'Roster Management shows availability and assignments. Staffing Predictor (AI) flags low-staff windows for review.', 'how-ai'),
+      ('Document', 'Keep scheduling and approval activity in the audit history, with exports for records review.', 'how-scheduling')
+    ] %}
+    <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {% for title, description, anchor in workflows %}
+      <li class="min-w-0 rounded-lg border border-white/10 card-border bg-slate-900/40 p-5">
+        <p class="text-sm font-semibold text-[color:var(--g3-gold)]" aria-hidden="true">{{ loop.index }}</p>
+        <h3 class="mt-2 text-lg font-semibold">{{ title }}</h3>
+        <p class="mt-3 text-sm text-slate-300">{{ description }}</p>
+        <a href="{{ url_for('products', _anchor=anchor) }}" class="nav-link mt-3 text-sm" data-track-event="cta_click" data-track-label="workflow_{{ title|lower }}" data-track-location="home_workflows">Explore {{ title|lower }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+    <p class="mt-5 text-sm text-slate-300">Explore the full suite for Vacation Bidding, Extra Duty, Anonymous Tips, and Tow Logs.</p>
+    <a href="{{ url_for('products') }}" class="btn btn-outline mt-3" data-track-event="cta_click" data-track-label="explore_products" data-track-location="home_workflows">Explore Vacation Book</a>
+  </div>
+</section>
+
+<section id="experiences" class="defer py-12 md:py-16 section-decor reveal" aria-labelledby="experiences-title">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <h2 id="experiences-title" class="text-2xl md:text-3xl font-bold">Clear workflows for every level of the agency</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">Personnel, supervisors, and command staff work from the same scheduling and leave activity through the tools relevant to their responsibilities.</p>
+    {% set experiences = [
+      ('Officer Experience', 'View schedules, submit leave requests, and check request status without chasing separate email threads.', 'guide/requests.png', 'Vacation Book personal time-off requests with pending, approved, and cancelled statuses.', 'My Requests view', '1484', '864'),
+      ('Supervisor Experience', 'Review pending leave, check staffing coverage, and keep approval decisions in a structured workflow.', 'guide/time_off_approval.png', 'Vacation Book time-off approval inbox with filters, request statuses, and approval actions.', 'Time Off Approvals view', '2020', '1294'),
+      ('Command Experience', 'Review availability, shift summaries, and assignments through the daily roster to support staffing decisions.', 'guide/dayview.png', 'Vacation Book daily roster showing availability counts, a shift summary, and assignments by unit.', 'Daily roster view', '566', '1398')
+    ] %}
+    <div class="mt-6 grid gap-5 lg:grid-cols-3">
+      {% for title, description, asset, alt, caption, width, height in experiences %}
+      <article class="min-w-0 rounded-lg border border-white/10 bg-slate-900/40 p-5 flex flex-col">
+        <h3 class="text-xl font-semibold">{{ title }}</h3>
+        <p class="mt-3 text-sm text-slate-300">{{ description }}</p>
+        <figure class="mt-5">
+          <div class="home-experience-screen rounded-lg border border-white/10" tabindex="0" role="region" aria-label="{{ caption }} screenshot, scroll to view">
+            <img src="{{ url_for('static', filename='img/' ~ asset) }}" alt="{{ alt }}" width="{{ width }}" height="{{ height }}" class="w-full h-auto block" loading="lazy" decoding="async" />
+          </div>
+          <figcaption class="mt-2 text-sm text-slate-400">{{ caption }} in Vacation Book.</figcaption>
+        </figure>
+        <a href="{{ url_for('static', filename='img/' ~ asset) }}" class="nav-link mt-auto pt-3 text-sm" target="_blank" rel="noopener" data-track-event="cta_click" data-track-label="view_{{ loop.index }}_screenshot" data-track-location="home_experiences">View full screenshot<span class="sr-only"> for {{ title }}, opens in a new tab</span></a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="founder-credibility" class="py-8 md:py-10 border-y border-white/5 bg-slate-900/35 reveal" aria-labelledby="founder-credibility-title">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <h2 id="founder-credibility-title" class="text-xl md:text-2xl font-bold">Built by Law Enforcement. Designed for Law Enforcement.</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">Founder Grigori LopezGarcia brings 14 years in Delaware law enforcement and a Digital Media background from Harvard Extension School.</p>
+    <a href="{{ url_for('about') }}" class="nav-link mt-2 text-sm" data-track-event="cta_click" data-track-label="founder_story" data-track-location="home_credibility">Read the founder's story</a>
+  </div>
+</section>

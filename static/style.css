@@ -554,3 +554,14 @@ body.menu-open {
   .hover-animate:hover,
   .hover-animate-soft:hover { transform: none; box-shadow: none; filter: none; }
 }
+
+/* Scoped homepage additions. Existing shared cards, palette, and buttons are reused. */
+.home-experience-screen {
+  max-height: 20rem;
+  overflow: auto;
+  background: #020617;
+}
+.time-estimate-value {
+  display: block;
+  overflow-wrap: anywhere;
+}

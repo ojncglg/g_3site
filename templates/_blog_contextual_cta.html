@@ -1,0 +1,20 @@
+{# Stream H lives outside BLOG_POSTS so article content and the data model stay intact. #}
+{% set contextual_ctas = {
+  'how-g3-modules-work-together-to-solve-agency-scheduling': ('Explore connected scheduling workflows', 'See how Vacation Book connects scheduling, leave review, and staffing visibility across the suite.', url_for('products', _anchor='overview'), 'Explore Vacation Book', 'vacation_book'),
+  'why-change-is-so-hard-in-policing': ('Start with a focused workflow', 'Review the pilot program as a way to introduce one operational workflow and gather feedback from the people using it.', url_for('home', _anchor='pilot'), 'Explore the pilot program', 'pilot_program'),
+  '5-signs-your-police-scheduling-process-is-breaking-at-scale': ('Review a more structured scheduling workflow', 'Explore how Vacation Book brings requests, calendar activity, and staffing coverage into the same workflow.', url_for('products', _anchor='how-scheduling'), 'Explore Scheduling & Calendar', 'scheduling'),
+  'why-vacation-approval-delays-hurt-staffing-readiness': ('Make the approval path easier to follow', 'See how supervisors can review leave against policy and staffing coverage before placing approved time on the calendar.', url_for('products', _anchor='how-scheduling'), 'Explore leave approvals', 'leave_approvals'),
+  'fixing-extra-duty-assignment-friction-before-it-becomes-overtime': ('Follow the extra-duty assignment workflow', 'Review the Extra Duty module for intake, supervisor review, assignments, and structured records.', url_for('products', _anchor='how-payjobs'), 'Explore Extra Duty', 'extra_duty'),
+  'tow-logs-and-audit-risk-what-command-staff-should-standardize-first': ('Review structured tow records', 'Explore how Tow Logs supports searchable records, custody history, and exports for accountability review.', url_for('products', _anchor='how-tow'), 'Explore Tow Logs', 'tow_logs'),
+  'anonymous-tips-intake-how-to-improve-follow-through-without-slowing-investigations': ('Follow the tip intake workflow', 'See how Anonymous Tips supports intake, supervisor triage, and follow-through within a structured process.', url_for('products', _anchor='how-tips'), 'Explore Anonymous Tips', 'anonymous_tips'),
+  'policy-guardrails-vs-workarounds-where-agencies-lose-visibility': ('Connect policy to daily scheduling work', 'Review the request, approval, calendar, and audit workflow in Vacation Book.', url_for('products', _anchor='how-scheduling'), 'Explore policy-aligned scheduling', 'policy_scheduling'),
+  'how-much-time-are-administrative-tasks-worth': ('Estimate administrative capacity', 'Use your own scheduling workload to estimate hours that could return to operational work. The estimate measures time and makes no payroll savings claim.', url_for('home', _anchor='time-recovery'), 'Estimate time recovery', 'time_recovery'),
+  'seniority-date-of-hire-vs-date-of-rank': ('Explore the bidding workflow', 'Review how Vacation Bidding uses defined windows and policy rules to structure selections.', url_for('products', _anchor='how-bidding'), 'Explore Vacation Bidding', 'vacation_bidding'),
+  'court-overtime-is-a-scheduling-problem': ('Start with your scheduling workload', 'Estimate administrative hours using your own assumptions before discussing how scheduling visibility could support your agency.', url_for('home', _anchor='time-recovery'), 'Estimate time recovery', 'time_recovery')
+} %}
+{% set cta = contextual_ctas.get(post.slug, ('Explore your scheduling workflow', 'Review the Vacation Book scheduling and leave workflows.', url_for('products'), 'Explore Vacation Book', 'vacation_book')) %}
+<div data-contextual-cta="{{ post.slug }}">
+  <h2 class="mt-4 text-xl font-semibold">{{ cta[0] }}</h2>
+  <p class="mt-2 text-slate-300">{{ cta[1] }}</p>
+  <a href="{{ cta[2] }}" class="btn btn-outline mt-4 w-full sm:w-auto justify-center" data-track-event="cta_click" data-track-label="{{ cta[4] }}" data-track-location="blog_{{ post.slug }}">{{ cta[3] }}</a>
+</div>
