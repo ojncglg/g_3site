@@ -13,6 +13,20 @@ Implemented on `feature/operational-workflows-time-recovery` from main commit `a
 - G: Added only the compact vendor subsection to About. Address and Delaware license were verified against the state dataset. Unconfirmed identifiers stay in Jinja TODO comments and render as Pending owner verification.
 - H: Replaced the two generic article-end action buttons with exactly one contextual resource CTA per article. Scheduling/module topics go to the appropriate product section; administrative-capacity topics go to the time estimator; the implementation/change article goes to the existing pilot section. `BLOG_POSTS`, article prose, SEO metadata, and structured-data source are unchanged.
 
+## Files changed
+
+- `templates/index.html`
+- `templates/_home_workflows.html`
+- `templates/_time_recovery_estimator.html`
+- `templates/about.html`
+- `templates/_vendor_information.html`
+- `templates/blog_post.html`
+- `templates/_blog_contextual_cta.html`
+- `static/style.css`
+- `static/js/time-recovery.js`
+- `tests/test_workstreams.py`
+- `docs/workstreams-review.md`
+
 ## Estimator assumptions
 
 Annual scheduling hours = agency-wide supervisor/admin weekly scheduling hours × 52.
