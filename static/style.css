@@ -561,7 +561,3 @@ body.menu-open {
   overflow: auto;
   background: #020617;
 }
-.time-estimate-value {
-  display: block;
-  overflow-wrap: anywhere;
-}

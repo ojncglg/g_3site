@@ -19,7 +19,7 @@ class WorkstreamTests(unittest.TestCase):
         self.client = site.app.test_client()
     def get(self, path):
         return self.client.get(path, base_url='https://www.g3industries.io')
-    def test_home_media_ctas_and_estimator_semantics(self):
+    def test_home_media_ctas_and_estimator_removal(self):
         response = self.get('/')
         self.assertEqual(response.status_code, 200)
         html = response.get_data(as_text=True)
@@ -37,22 +37,15 @@ class WorkstreamTests(unittest.TestCase):
         self.assertNotIn('32 hrs/mo', html)
         ids = [attrs['id'] for tag, attrs in tags if 'id' in attrs]
         self.assertEqual(len(ids), len(set(ids)))
-        labels = {attrs['for'] for tag, attrs in tags if tag == 'label' and 'for' in attrs}
-        for field in ('sworn-personnel', 'scheduling-hours', 'reducible-time'):
-            self.assertIn(field, labels)
-            input_attrs = next(attrs for tag, attrs in tags if tag == 'input' and attrs.get('id') == field)
-            self.assertIn('required', input_attrs)
-            self.assertNotIn('value', input_attrs)
-        estimator = re.search(r'<section id="time-recovery".*?</section>', html, re.S).group()
-        self.assertNotRegex(estimator, r'\$|USD|salary|hourly rate')
-        self.assertIn('not reduced payroll expenditure', estimator)
-        self.assertIn('not guaranteed savings', estimator)
+        self.assertNotIn('id="time-recovery"', html)
+        self.assertNotIn('Estimate time returned to the mission', html)
+        self.assertNotIn('/static/js/time-recovery.js', html)
     def test_every_blog_has_one_contextual_cta_with_resolving_destination(self):
         self.assertEqual(len(site.BLOG_POSTS), 11)
         expected_special = {
             'why-change-is-so-hard-in-policing': '/#pilot',
-            'how-much-time-are-administrative-tasks-worth': '/#time-recovery',
-            'court-overtime-is-a-scheduling-problem': '/#time-recovery',
+            'how-much-time-are-administrative-tasks-worth': '/products#how-scheduling',
+            'court-overtime-is-a-scheduling-problem': '/products#how-scheduling',
         }
         for post in site.BLOG_POSTS:
             with self.subTest(slug=post['slug']):
@@ -76,21 +69,12 @@ class WorkstreamTests(unittest.TestCase):
                 self.assertEqual(target.status_code, 200)
                 if destination.fragment:
                     self.assertIn('id="' + destination.fragment + '"', target.get_data(as_text=True))
-    def test_owner_confirmed_vendor_details_are_published(self):
+    def test_vendor_information_is_removed(self):
         html = self.get('/about').get_data(as_text=True)
-        self.assertIn('id="vendor-information"', html)
-        for label, value in (
-            ('Legal name', 'G3 Industries LLC'),
-            ('EIN', '39-4519448'),
-            ('Delaware business license', '#2026709491'),
-            ('New Castle County vendor', '#112316'),
-            ('Address', '8 Gurnsey Dr, Newark, DE 19713'),
-        ):
-            self.assertIn('<dt class="font-semibold">' + label + '</dt>', html)
-            self.assertIn('<dd class="mt-1 text-slate-400">' + value + '</dd>', html)
-        self.assertNotIn('Pending owner verification', html)
-        self.assertNotIn('pending verification', html)
-        self.assertNotIn('issued to Grigori LopezGarcia', html)
+        self.assertNotIn('id="vendor-information"', html)
+        self.assertNotIn('Vendor information', html)
+        for identifier in ('39-4519448', '#2026709491', '#112316'):
+            self.assertNotIn(identifier, html)
     def test_demo_handler_accepts_local_submission_with_mocked_side_effects(self):
         with patch.object(site, 'append_lead') as store, patch.object(site, 'send_demo_email', return_value=(True, '')) as email, patch.object(site, 'check_and_record_rate_limit', return_value=(True, '')), patch.object(site, 'verify_turnstile_token', return_value=(True, '')):
             response = self.client.post('/demo', base_url='https://www.g3industries.io', headers={'Accept':'application/json'}, data={'name':'Local QA', 'agency':'Example Agency', 'email':'qa@example.invalid', 'agency_size':site.AGENCY_SIZE_OPTIONS[1], 'interest':site.INTEREST_OPTIONS[0], 'form_start':str(site.utc_now_ms() - 5000)})
