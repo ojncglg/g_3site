@@ -124,6 +124,56 @@
     </p>
   </div>
 
+  <div class="mt-8 flex justify-center" aria-label="Countdown to the feast">
+    <div class="event-card px-6 py-5 md:px-10 md:py-6">
+      <p class="detail-label text-center">The feast begins in</p>
+      <div class="mt-3 flex gap-4 md:gap-8 text-center" id="countdown" role="timer" aria-live="off">
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-[#FBBF24]" id="cd-days">--</p>
+          <p class="detail-label mt-1">Days</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-[#FBBF24]" id="cd-hours">--</p>
+          <p class="detail-label mt-1">Hours</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-[#FBBF24]" id="cd-mins">--</p>
+          <p class="detail-label mt-1">Minutes</p>
+        </div>
+        <div>
+          <p class="text-3xl md:text-4xl font-bold text-[#FBBF24]" id="cd-secs">--</p>
+          <p class="detail-label mt-1">Seconds</p>
+        </div>
+      </div>
+      <p class="hidden mt-3 text-center text-lg font-semibold text-[#FBBF24]" id="cd-done">The feast is upon us!</p>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var target = new Date("2026-12-18T19:00:00-05:00").getTime();
+      var daysEl = document.getElementById("cd-days");
+      var hoursEl = document.getElementById("cd-hours");
+      var minsEl = document.getElementById("cd-mins");
+      var secsEl = document.getElementById("cd-secs");
+      if (!daysEl) return;
+      function pad(n) { return (n < 10 ? "0" : "") + n; }
+      function tick() {
+        var diff = target - Date.now();
+        if (diff <= 0) {
+          document.getElementById("countdown").classList.add("hidden");
+          document.getElementById("cd-done").classList.remove("hidden");
+          return;
+        }
+        daysEl.textContent = Math.floor(diff / 86400000);
+        hoursEl.textContent = pad(Math.floor(diff % 86400000 / 3600000));
+        minsEl.textContent = pad(Math.floor(diff % 3600000 / 60000));
+        secsEl.textContent = pad(Math.floor(diff % 60000 / 1000));
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+
   <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="event-heading">
     <h2 id="event-heading" class="text-2xl font-bold text-white">
       Sir Joseph's Going-Away Night
@@ -202,7 +252,66 @@
     </div>
   </section>
 
-      <section class="mt-10" aria-labelledby="fellowship-heading">
+        <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="treasury-tracker-heading">
+    <h2 id="treasury-tracker-heading" class="text-2xl font-bold text-white">
+      The <span class="text-[#FBBF24]">Treasury</span>
+    </h2>
+    <p class="mt-2 text-slate-300">
+      $91.14 per person, coin due October 31. Send your coin to Grigori.
+    </p>
+    <!-- Paid status: flip "Coin due" to "Paid" as coin arrives. -->
+    <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Baron Williams <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Lady Galan <span class="text-[#FBBF24]">\"The Bitter Steel\"</span> <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Lord Slank <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Sir Joseph <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Duke LopezGarcia <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Baron Simpson <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Duke Gilbert <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Lord Wolfe <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Sir McCord <span class="text-slate-500">· 1 seat</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$91.14</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Lord McCausland <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+      <li class="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">
+        <span class="text-sm text-slate-200">Baron Strawberry <span class="text-slate-500">· 2 seats</span></span>
+        <span class="whitespace-nowrap text-xs"><span class="text-slate-400">$182.28</span> <span class="ml-2 rounded-full border border-[#FBBF24]/40 px-2 py-0.5 font-semibold text-[#FBBF24]">Coin due</span></span>
+      </li>
+    </ul>
+    <p class="mt-4 text-sm text-slate-400">
+      Group total: $1,822.80 for 20 adults, all-inclusive.
+    </p>
+  </section>
+
+<section class="mt-10" aria-labelledby="fellowship-heading">
     <h2 id="fellowship-heading" class="text-2xl font-bold text-white text-center">
       The <span class="text-[#FBBF24]">Fellowship</span>
     </h2>
@@ -322,7 +431,51 @@
 
   
 
-  <p class="mt-8 text-center text-sm text-slate-500">
+    <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="tributes-heading">
+    <h2 id="tributes-heading" class="text-2xl font-bold text-white">
+      Tributes for <span class="text-[#FBBF24]">Sir Joseph</span>
+    </h2>
+    <p class="mt-2 text-slate-300">
+      Sir Joseph rides into the sunset. Leave your words for the guest of honor:
+      send them to Grigori and they will be inscribed upon this wall.
+    </p>
+  </section>
+
+  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="feast-heading">
+    <h2 id="feast-heading" class="text-2xl font-bold text-white">
+      The <span class="text-[#FBBF24]">Feast</span>
+    </h2>
+    <p class="mt-2 text-slate-300">
+      The castle's four-course banquet, served with no utensils, as tradition demands.
+    </p>
+    <ul class="mt-4 grid gap-2 sm:grid-cols-2 text-sm text-slate-200">
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Garlic bread</li>
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Tomato bisque soup</li>
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Oven-roasted chicken</li>
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Sweet buttered corn</li>
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Herb-basted potatoes</li>
+      <li class="rounded-lg border border-white/10 bg-slate-900/40 px-4 py-2.5">Dessert of the Castle</li>
+    </ul>
+    <p class="mt-4 text-sm text-slate-400">
+      Coffee and two rounds of select beverages included. Full bar available for those of age.
+      Vegetarian meals available upon request.
+    </p>
+  </section>
+
+  <section class="event-card mt-10 p-6 md:p-8" aria-labelledby="know-heading">
+    <h2 id="know-heading" class="text-2xl font-bold text-white">
+      Know <span class="text-[#FBBF24]">Before You Go</span>
+    </h2>
+    <ul class="mt-4 space-y-3 text-sm text-slate-300">
+      <li><span class="font-semibold text-white">Doors:</span> 6:00 PM, one hour before showtime. Arrive early for the best seats.</li>
+      <li><span class="font-semibold text-white">Show:</span> 7:00 PM, about two hours.</li>
+      <li><span class="font-semibold text-white">The castle:</span> Medieval Times, 7000 Arundel Mills Circle, Hanover, MD 21076, inside the Arundel Mills mall. Parking is free.</li>
+      <li><span class="font-semibold text-white">Check in:</span> under Grigori\u2019s name.</li>
+      <li><span class="font-semibold text-white">Dress:</span> casual. Eat with your hands, like it is the 11th century.</li>
+    </ul>
+  </section>
+
+<p class="mt-8 text-center text-sm text-slate-500">
     Questions? Reach out to Grigori directly.
   </p>
 </main>
