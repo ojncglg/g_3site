@@ -1,5 +1,7 @@
 # Homepage and buying-decision work streams
 
+Historical review notes for PR #17. Owner follow-up on October 9, 2026 removes the homepage time-recovery estimator and About vendor information, along with their templates, estimator script, and unused estimator styles. The two affected blog CTAs now link to Scheduling & Calendar on the products page. A further follow-up removes the flagship label, connected-workflow heading, and introductory paragraph above the five homepage workflow cards. The cards, product links, remaining sections, and navigation are unchanged.
+
 Implemented on `feature/operational-workflows-time-recovery` from main commit `ae75ac7`, for a pull request against main. No production deployment is part of this task.
 
 ## Changes
