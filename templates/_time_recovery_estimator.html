@@ -1,0 +1,46 @@
+<section id="time-recovery" class="defer py-12 md:py-16 section-decor reveal" aria-labelledby="time-recovery-title">
+  <div class="max-w-6xl mx-auto px-2 sm:px-3 md:px-4">
+    <h2 id="time-recovery-title" class="text-2xl md:text-3xl font-bold">Estimate time returned to the mission</h2>
+    <p class="mt-3 max-w-3xl text-slate-300">Use your agency's scheduling workload and your own reduction assumption to estimate administrative capacity over a 52-week planning year.</p>
+    <div class="mt-6 grid gap-6 md:grid-cols-2 rounded-lg border border-white/10 bg-slate-900/40 p-5 sm:p-6">
+      <div>
+        <fieldset class="space-y-4" aria-describedby="time-recovery-input-help time-recovery-disclaimer">
+          <legend class="text-lg font-semibold">Your agency's inputs</legend>
+          <p id="time-recovery-input-help" class="text-sm text-slate-300">Enter the combined weekly scheduling hours for the whole agency.</p>
+          <div>
+            <label for="sworn-personnel" class="block mb-2 text-sm font-semibold">Number of sworn personnel</label>
+            <input id="sworn-personnel" name="sworn_personnel" type="number" min="1" step="1" required inputmode="numeric" class="form-input w-full min-w-0 rounded-md bg-slate-950/80 border border-white/10 px-3 py-2" aria-describedby="time-estimate-error" />
+          </div>
+          <div>
+            <label for="scheduling-hours" class="block mb-2 text-sm font-semibold">Supervisor and admin scheduling hours per week</label>
+            <input id="scheduling-hours" name="scheduling_hours" type="number" min="0" step="any" required inputmode="decimal" class="form-input w-full min-w-0 rounded-md bg-slate-950/80 border border-white/10 px-3 py-2" aria-describedby="time-recovery-input-help time-estimate-error" />
+          </div>
+          <div>
+            <label for="reducible-time" class="block mb-2 text-sm font-semibold">Estimated percentage of that time reducible</label>
+            <input id="reducible-time" name="reducible_time" type="number" min="0" max="100" step="any" required inputmode="decimal" class="form-input w-full min-w-0 rounded-md bg-slate-950/80 border border-white/10 px-3 py-2" aria-describedby="reducible-time-help time-estimate-error" />
+            <p id="reducible-time-help" class="mt-2 text-sm text-slate-400">Use your own planning assumption, from 0 to 100 percent.</p>
+          </div>
+        </fieldset>
+        <button id="estimate-time" type="button" class="btn btn-primary mt-5 w-full sm:w-auto" data-track-event="cta_click" data-track-label="estimate_time_recovery" data-track-location="home_time_recovery">Estimate annual hours</button>
+        <p id="time-estimate-error" class="field-error hidden" role="alert"></p>
+        <noscript><p class="mt-3 text-sm text-slate-300">Multiply weekly scheduling hours by 52 for annual hours. Multiply annual hours by your reducible percentage divided by 100 for recoverable hours.</p></noscript>
+      </div>
+      <div class="min-w-0 rounded-lg border border-white/10 bg-slate-950/60 p-5" role="status" aria-live="polite" aria-atomic="true">
+        <h3 class="text-lg font-semibold">Planning estimate</h3>
+        <p id="time-estimate-context" class="mt-3 text-sm text-slate-300">Enter your inputs to calculate agency-wide annual hours.</p>
+        <dl class="mt-5 space-y-5">
+          <div>
+            <dt class="text-sm text-slate-300">Estimated annual administrative hours spent on scheduling</dt>
+            <dd class="mt-2"><output id="annual-scheduling-hours" for="sworn-personnel scheduling-hours" class="time-estimate-value text-2xl font-bold">Not calculated</output></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-slate-300">Estimated hours recoverable per year</dt>
+            <dd class="mt-2"><output id="annual-recoverable-hours" for="sworn-personnel scheduling-hours reducible-time" class="time-estimate-value text-2xl font-bold text-[color:var(--g3-gold)]">Not calculated</output></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <p id="time-recovery-disclaimer" class="mt-4 max-w-4xl text-sm text-slate-300">Estimates for planning only, not guaranteed savings. Recovered time represents capacity returned to the mission, not reduced payroll expenditure.</p>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='js/time-recovery.js') }}" defer></script>
