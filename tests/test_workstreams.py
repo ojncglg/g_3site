@@ -76,14 +76,21 @@ class WorkstreamTests(unittest.TestCase):
                 self.assertEqual(target.status_code, 200)
                 if destination.fragment:
                     self.assertIn('id="' + destination.fragment + '"', target.get_data(as_text=True))
-    def test_unverified_vendor_identifiers_are_not_published(self):
+    def test_owner_confirmed_vendor_details_are_published(self):
         html = self.get('/about').get_data(as_text=True)
         self.assertIn('id="vendor-information"', html)
-        self.assertIn('2026709491, issued to Grigori LopezGarcia', html)
-        self.assertIn('8 Gurnsey Dr, Newark, DE 19713', html)
-        for unverified in ('G3 Industries LLC', '39-4519448', '112316'):
-            self.assertNotIn(unverified, html)
-        self.assertEqual(html.count('Pending owner verification'), 3)
+        for label, value in (
+            ('Legal name', 'G3 Industries LLC'),
+            ('EIN', '39-4519448'),
+            ('Delaware business license', '#2026709491'),
+            ('New Castle County vendor', '#112316'),
+            ('Address', '8 Gurnsey Dr, Newark, DE 19713'),
+        ):
+            self.assertIn('<dt class="font-semibold">' + label + '</dt>', html)
+            self.assertIn('<dd class="mt-1 text-slate-400">' + value + '</dd>', html)
+        self.assertNotIn('Pending owner verification', html)
+        self.assertNotIn('pending verification', html)
+        self.assertNotIn('issued to Grigori LopezGarcia', html)
     def test_demo_handler_accepts_local_submission_with_mocked_side_effects(self):
         with patch.object(site, 'append_lead') as store, patch.object(site, 'send_demo_email', return_value=(True, '')) as email, patch.object(site, 'check_and_record_rate_limit', return_value=(True, '')), patch.object(site, 'verify_turnstile_token', return_value=(True, '')):
             response = self.client.post('/demo', base_url='https://www.g3industries.io', headers={'Accept':'application/json'}, data={'name':'Local QA', 'agency':'Example Agency', 'email':'qa@example.invalid', 'agency_size':site.AGENCY_SIZE_OPTIONS[1], 'interest':site.INTEREST_OPTIONS[0], 'form_start':str(site.utc_now_ms() - 5000)})
