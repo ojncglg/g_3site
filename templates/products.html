@@ -19,7 +19,7 @@
 {% block meta %}
 <meta
   name="description"
-  content="Police software modules for scheduling, vacation bidding, extra duty, tips, tow logs, and staffing forecasting. Built for command visibility and audits."
+  content="Police software modules for scheduling, vacation bidding, extra duty, tips, and tow logs. Built for command visibility and audits."
 />
 <script type="application/ld+json">
   {
@@ -397,22 +397,6 @@
       stroke-width="1.6"
     />
   </symbol>
-  <symbol id="i-spark" viewBox="0 0 20 20">
-    <path
-      d="M10 2.5l1.7 3.8 3.8 1.7-3.8 1.7-1.7 3.8-1.7-3.8-3.8-1.7 3.8-1.7L10 2.5z"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M15.5 13.5l.8 1.8 1.8.8-1.8.8-.8 1.8-.8-1.8-1.8-.8 1.8-.8.8-1.8z"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linejoin="round"
-    />
-  </symbol>
   <symbol id="i-trophy" viewBox="0 0 20 20">
     <path
       d="M6 4h8v2a4 4 0 0 1-8 0V4z"
@@ -477,9 +461,6 @@
       <a href="#how-bidding" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Vacation Bidding works</a
       >
-      <a href="#how-ai" class="block px-3 py-2 rounded hover:bg-white/5"
-        >How Staffing Predictor works</a
-      >
       <a href="#how-payjobs" class="block px-3 py-2 rounded hover:bg-white/5"
         >How Extra Duty works</a
       >
@@ -508,7 +489,7 @@
           Deploy
           <strong>one module</strong> to solve an immediate need, or roll out the
           <strong>full suite</strong> for a seamless workflow across scheduling,
-          extra duty, towing, bidding, and forecasting.
+          extra duty, towing, and bidding.
         </p>
 
         <div class="mt-5 grid md:grid-cols-2 gap-4 text-sm text-slate-300">
@@ -541,11 +522,6 @@
                 <svg class="li-icon text-[color:var(--g3-gold)]">
                   <use href="#i-check-circle" /></svg
                 >Roster Management (units/squads/shifts, least‑privilege access)
-              </li>
-              <li class="flex gap-2">
-                <svg class="li-icon text-[color:var(--g3-gold)]">
-                  <use href="#i-check-circle" /></svg
-                >Staffing Predictor (AI) to flag low‑staff windows early
               </li>
             </ul>
           </div>
@@ -629,8 +605,7 @@
             </p>
             <p class="mt-2 text-sm text-slate-300">
               The walkthrough highlights one shared roster and one policy engine
-              across scheduling, vacation bidding, extra duty, tow logs, and
-              staffing forecasting.
+              across scheduling, vacation bidding, extra duty, and tow logs.
             </p>
             <p class="mt-2 text-sm text-slate-300">
               Every action is tracked in a unified audit trail so command staff
@@ -937,46 +912,6 @@
             </ul>
           </article>
 
-          <!-- Staffing Predictor (AI) -->
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-950 p-5"
-          >
-            <h3 class="module-title font-semibold">
-              <svg class="module-icon" aria-hidden="true">
-                <use href="#i-spark" />
-              </svg>
-              <span>Staffing Predictor (AI)</span>
-            </h3>
-            <ul class="mt-2 text-sm text-slate-300 space-y-2">
-              <li class="flex items-start gap-2">
-                <svg
-                  class="li-icon text-[color:var(--g3-gold)]"
-                  aria-hidden="true"
-                >
-                  <use href="#i-check-circle" />
-                </svg>
-                <span>Forecast low‑staff risk by unit, squad, and shift</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <svg
-                  class="li-icon text-[color:var(--g3-gold)]"
-                  aria-hidden="true"
-                >
-                  <use href="#i-clock" />
-                </svg>
-                <span>What‑if adjustments for OT, training, and events</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <svg
-                  class="li-icon text-[color:var(--g3-gold)]"
-                  aria-hidden="true"
-                >
-                  <use href="#i-calendar" />
-                </svg>
-                <span>Suggested coverage with calendar integration</span>
-              </li>
-            </ul>
-          </article>
         </div>
       </div>
     </section>
@@ -1065,7 +1000,7 @@
       </div>
     </section>
 
-    <!-- Section divider: separates Scheduling from Bidding/AI -->
+    <!-- Section divider: separates Scheduling from Bidding -->
     <div class="max-w-6xl mx-auto px-4">
       <div
         class="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -1130,64 +1065,7 @@
       </div>
     </section>
 
-    <!-- === How it works: Staffing Predictor (AI) === -->
-    <section id="how-ai" class="py-16 md:py-20">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="how-title">
-          <img
-            src="{{ url_for('static', filename='img/module-icons/Ai Color-01.png') }}"
-            alt=""
-            class="how-title-icon"
-            aria-hidden="true"
-          />
-          <h2 class="text-2xl md:text-3xl font-bold">
-            How Staffing Predictor works
-          </h2>
-        </div>
-        <p class="mt-2 text-slate-300">
-          Generative AI highlights upcoming low‑staff windows so command can act
-          early, powered by historical leave, weekday/time patterns, weather,
-          and local events.
-        </p>
-
-        <div class="mt-8">
-          <article
-            class="rounded-lg border border-white/10 card-border bg-slate-900/50 p-5 md:p-6"
-          >
-            <div
-              class="flex flex-wrap items-center gap-2 text-[13px] md:text-sm font-semibold"
-            >
-              <span
-                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
-                >1 · Inputs</span
-              >
-              <span class="text-slate-400">→</span>
-              <span
-                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
-                >2 · Forecast</span
-              >
-              <span class="text-slate-400">→</span>
-              <span
-                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
-                >3 · Review</span
-              >
-              <span class="text-slate-400">→</span>
-              <span
-                class="px-3 py-1 rounded-full border border-[color:var(--g3-gold)]/60 text-[color:var(--g3-gold)]"
-                >4 · Action</span
-              >
-            </div>
-            <p class="mt-4 text-sm text-slate-300 max-w-3xl">
-              Agency-specific signals feed the model, low-staff risks are
-              forecasted, command runs what-if scenarios, and proactive actions
-              are sent back into scheduling.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section divider: separates Bidding/AI from Extra Duty -->
+    <!-- Section divider: separates Bidding from Extra Duty -->
     <div class="max-w-6xl mx-auto px-4">
       <div
         class="my-8 md:my-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"

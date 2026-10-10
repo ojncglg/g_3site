@@ -139,7 +139,7 @@ PHONE_RE = re.compile(r"^[0-9+().\-\s]{7,40}$")
 # Optional demo preferences use the same choices as the public form.
 AGENCY_SIZE_OPTIONS = ("1–25 sworn", "26–100 sworn", "101–500 sworn", "500+ sworn")
 INTEREST_OPTIONS = (
-    "Scheduling", "Vacation bidding", "Extra duty", "AI staffing forecasting", "Everything"
+    "Scheduling", "Vacation bidding", "Extra duty", "Everything"
 )
 
 # Salt used to hash identity keys inside the local rate-limit store.
@@ -241,7 +241,6 @@ BLOG_POSTS: List[Dict[str, Any]] = [
                     "Vacation Book: request, approval, and calendar workflows with policy guardrails.",
                     "Vacation Bidding: structured bidding cycles with transparent rules and outcomes.",
                     "Extra Duty: intake, assignment, conflict checks, and supervisor visibility.",
-                    "Staffing Predictor: forward-looking staffing risk insights for command planning.",
                     "Tow Logs and Anonymous Tips: operational workflows that expand accountability and visibility across the platform.",
                 ],
             },
